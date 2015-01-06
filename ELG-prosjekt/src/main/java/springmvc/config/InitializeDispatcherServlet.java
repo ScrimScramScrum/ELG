@@ -12,7 +12,7 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-public class InitialiserDispatcherServlet implements WebApplicationInitializer {
+public class InitializeDispatcherServlet implements WebApplicationInitializer {
 
     @Override
     public void onStartup(final ServletContext servletContext) throws ServletException {
@@ -21,7 +21,7 @@ public class InitialiserDispatcherServlet implements WebApplicationInitializer {
 
     private void registerDispatcherServlet(final ServletContext servletContext) {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.register(Konfigurasjon.class);
+        context.register(Configuration.class);
 
         DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
 

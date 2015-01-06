@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Jorgen
  */
 @Controller
-public class Hovedkontroller {
+public class MainController {
     @RequestMapping(value = "/*")
     public String showIndex(Model model){
         //model.addAttribute("melding", "melding");
