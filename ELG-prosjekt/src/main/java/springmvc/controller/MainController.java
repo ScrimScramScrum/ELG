@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class MainController {
-    @RequestMapping(value = "/*")
+    @RequestMapping(value = "*")
     public String showIndex(Model model){
         //model.addAttribute("melding", "melding");
         return "index"; 
