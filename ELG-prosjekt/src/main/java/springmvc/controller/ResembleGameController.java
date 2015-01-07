@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import springmvc.domain.ResembleGame;
 import springmvc.domain.ResembleTask;
@@ -17,6 +18,7 @@ import springmvc.service.ResembleGameService;
 import springmvc.service.ResembleTaskService;
 
 @Controller
+@SessionAttributes("resembleGame")
 public class ResembleGameController {
     
     @Autowired
@@ -38,6 +40,7 @@ public class ResembleGameController {
     public ModelAndView resembleGameNext(ModelAndView mav, @ModelAttribute(value = "resembleGame") ResembleGame resembleGame) {
         resembleGame.setCurrentTask(resembleGame.getNextTask());
         mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask())); 
+        mav.setViewName("resembleGame"); 
         return mav;
     }
     

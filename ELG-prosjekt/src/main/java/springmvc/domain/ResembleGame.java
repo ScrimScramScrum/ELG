@@ -1,11 +1,11 @@
-
 package springmvc.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import springmvc.service.ResembleGameService;
 
-public class ResembleGame {
+public class ResembleGame implements Serializable{
     private int gameId; 
     private ArrayList<Integer> taskNumbers; 
     private int currentTask; 
