@@ -86,6 +86,9 @@
     </head>
         
     <body>
+
+        ${resembleTask.startingHTML}
+
     <section id="content">
         <section class="block">        
             <p>Oppgave</p>
