@@ -32,4 +32,15 @@
         <put-attribute name="body"   value="/WEB-INF/jsp/result.jsp"/>
               
     </definition>
+    
+    <definition name="newPerson" extends="baseLayout">
+        <put-attribute name="title"  value="newPersonValue"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/newPerson.jsp"/> 
+    </definition>
+    
+     <definition name="login" extends="baseLayout">
+        <put-attribute name="title"  value="loginNoeANnet"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/login.jsp"/> 
+    </definition>
+    
 </tiles-definitions>

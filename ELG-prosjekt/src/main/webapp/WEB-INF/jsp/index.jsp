@@ -13,5 +13,20 @@
     <body>
         <h1>Hello World!</h1>@
         <spring:message code="melding" />
+        
+        
+             
+        <form action="<c:url value="/login"/>">
+        <input type="submit" value="Log inn">
+        </form>
+        
+        <form action="<c:url value="/newPerson"/>">
+        <input type="submit" value="Ny person">
+        </form>
+        
+        
+        <h2>${registeredOK}</h2>
+
+        
     </body>
 </html>

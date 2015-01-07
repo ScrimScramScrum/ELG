@@ -25,6 +25,8 @@ import springmvc.repository.ResembleTaskRepoMock;
 import springmvc.service.GameListService;
 import springmvc.service.MultiChoiceService;
 import springmvc.service.ResembleTaskService;
+import springmvc.service.*;
+
 
 @Controller
 @EnableWebMvc  // mvc annotation
@@ -111,5 +113,17 @@ public class Configuration extends WebMvcConfigurationSupport {
     @Bean
     public GameListRepo gameListRepo(){
         return new GameListRepoMock(); 
+    }
+    
+    //KOPIERES
+    @Bean
+    public PersonService personService(){
+        return new PersonServiceTesting();
+    }
+    
+    //KOPIERES     
+    @Bean
+    public LoginService loginService(){
+        return new LoginService();
     }
 }
