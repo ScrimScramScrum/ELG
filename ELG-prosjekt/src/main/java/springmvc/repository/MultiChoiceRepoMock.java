@@ -10,6 +10,6 @@ package springmvc.repository;
  *
  * @author eiriksandberg
  */
-public class MultiChoiceRepoMock {
+public class MultiChoiceRepoMock implements MultiChoiceRepository {
     
 }

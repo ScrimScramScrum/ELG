@@ -3,9 +3,11 @@ package springmvc.config;
 
 import java.sql.Connection;
 import javax.sql.DataSource;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -14,10 +16,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
-import org.apache.commons.dbcp.BasicDataSource;
-import org.springframework.stereotype.Controller;
+import springmvc.repository.MultiChoiceRepoMock;
+import springmvc.repository.MultiChoiceRepository;
 import springmvc.repository.ResembleTaskRepo;
 import springmvc.repository.ResembleTaskRepoMock;
+import springmvc.service.MultiChoiceService;
 import springmvc.service.ResembleTaskService;
 
 @Controller
@@ -85,5 +88,15 @@ public class Configuration extends WebMvcConfigurationSupport {
     @Bean
     public ResembleTaskService resembleTaskService(){
         return new ResembleTaskService(); 
+    }
+    
+    @Bean
+    public MultiChoiceRepository multiChoiceRepo(){
+        return new MultiChoiceRepoMock();
+    }
+    
+    @Bean
+    public MultiChoiceService multiChoiceService(){
+        return new MultiChoiceService();
     }
 }
