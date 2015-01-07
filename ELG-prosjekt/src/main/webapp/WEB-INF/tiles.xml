@@ -27,4 +27,8 @@
         <put-attribute name="title"  value="Index"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/gamemenu.jsp"/>      
     </definition>
+    <definition name="result" extends="baseLayout">
+        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/result.jsp"/>      
+    </definition>
 </tiles-definitions>

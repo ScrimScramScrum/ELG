@@ -14,6 +14,7 @@ public class Exercise {
     private String[] alternatives = new String[4];
     private String solution;
     private String taskText;
+    private boolean answer;
     
     public Exercise(String[] alternatives, String solution, String taskText){
         this.alternatives = alternatives;
@@ -23,9 +24,10 @@ public class Exercise {
     
     public boolean checkAnswer(String chosen){
         if (chosen.equals(solution)){
-            return true;
+            answer = true;
         }
-        return false;
+        answer = false;
+        return answer;
     }
 
     public String[] getAlternatives() {
@@ -44,6 +46,9 @@ public class Exercise {
         return taskText;
     }
 
+    public boolean getAnswer(){
+        return answer;
+    }
     
     
 }

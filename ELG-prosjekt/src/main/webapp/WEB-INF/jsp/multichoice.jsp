@@ -29,16 +29,16 @@
         <table align="center">
             <tr>
                 <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "0" end = "1">
-                <td><button><c:out value="${teller}" /></button></td>
+                    <td><button onclick="window.location.href='/ELG-prosjekt/nextTask'"><c:out value="${teller}" /></button></td>
                 </c:forEach>
                 <tr>
             </tr>
             <tr>
                 <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "2" end = "3">
-                <td><button><c:out value="${teller}" /></button></td>
+                <td><button onclick="window.location.href='/ELG-prosjekt/nextTask'"><c:out value="${teller}" /></button></td>
                 </c:forEach>
                 <tr>
             </tr>
-          </table>     
+          </table>
     </body>
 </html>

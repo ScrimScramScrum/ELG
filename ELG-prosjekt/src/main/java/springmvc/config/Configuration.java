@@ -15,14 +15,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
+import springmvc.repository.GameListRepo;
+import springmvc.repository.GameListRepoMock;
 import springmvc.repository.MultiChoiceRepoMock;
 import springmvc.repository.MultiChoiceRepository;
 import springmvc.repository.ResembleGameRepo;
-import springmvc.repository.ResembleGameRepoMock;
 import springmvc.repository.ResembleTaskRepo;
 import springmvc.repository.ResembleTaskRepoMock;
+import springmvc.service.GameListService;
 import springmvc.service.MultiChoiceService;
-import springmvc.service.ResembleGameService;
 import springmvc.service.ResembleTaskService;
 
 @Controller
@@ -103,12 +104,12 @@ public class Configuration extends WebMvcConfigurationSupport {
     }
     
     @Bean
-    public ResembleGameRepo resembleGameRepo(){
-        return new ResembleGameRepoMock(); 
+    public GameListService gameListService(){
+        return new GameListService(); 
     }
     
-    @Bean 
-    public ResembleGameService resembleGameService(){
-        return new ResembleGameService(); 
+    @Bean
+    public GameListRepo gameListRepo(){
+        return new GameListRepoMock(); 
     }
 }

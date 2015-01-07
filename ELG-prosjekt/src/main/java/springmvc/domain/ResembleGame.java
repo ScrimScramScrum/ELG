@@ -3,14 +3,14 @@ package springmvc.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
-import springmvc.service.ResembleGameService;
 
 public class ResembleGame implements Serializable{
     private int gameId; 
     private ArrayList<Integer> taskNumbers; 
     private int currentTask; 
 
-    public ResembleGame(ArrayList<Integer> taskNumbers) {
+    public ResembleGame(ArrayList<Integer> taskNumbers, int gameId) {
+        this.gameId = gameId; 
         this.taskNumbers = taskNumbers;
         this.currentTask = taskNumbers.get(0);
     }
@@ -38,5 +38,16 @@ public class ResembleGame implements Serializable{
     public boolean isCurrentTaskLast(){
         return taskNumbers.indexOf(currentTask)==taskNumbers.size()-1;
     }
+
+    public int getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
+    }
+    
+    
+    
     
 }
