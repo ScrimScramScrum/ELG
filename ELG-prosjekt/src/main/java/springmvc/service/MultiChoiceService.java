@@ -24,7 +24,7 @@ public class MultiChoiceService {
     
     
     public MultiChoice getMultiChoice(MultiChoice game){
-        return repo.getMultiChoice();
+        return repo.getMultiChoice(game);
     }
   
 }
