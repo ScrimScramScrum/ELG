@@ -16,13 +16,12 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <a href="resembleGame"></a>
-        
         <c:forEach items="${resembleGames}" var="game">
             <li>
                 <form action="resemblegame" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${game.gameId}" />
-                    <input type="submit" value="game nr: <c:out value="${game.gameId}" />" />
+                    <input type="submit" value="${game.gameId}" />
+                    game nr: <c:out value='${game.gameId}' />
                 </form>
             </li>
         </c:forEach>
