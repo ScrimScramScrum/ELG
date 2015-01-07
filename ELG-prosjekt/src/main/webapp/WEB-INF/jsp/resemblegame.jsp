@@ -4,6 +4,8 @@
     Author     : borgarlie
 --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -12,8 +14,8 @@
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="resemble.js"></script>
-        <script src="html2canvas.js"></script>
+        <script src="<c:url value='/resources/resemble.js' />"></script>
+        <script src="<c:url value='/resources/html2canvas.js' />"></script>
 
         <style>
             .block {
@@ -24,18 +26,18 @@
             }
             
             .renderedFrame, .codeBox {
-                width: 100px; height: 80px
+                <c:out value="width: ${resembleTask.width}px; height: ${resembleTask.height}px" />
             }
         </style>
         
         <script>
             $(document).ready(function() {
                 
-                var solutionHtml = "<!DOCTYPE html><html><body>Hei!<br><table border='1'><tr><td>hei</td><td>hei</td></tr></table></body></html>";
-                var solutionCss = "body {background-color: #b0c4de;} table {background-color: red}";
+                var solutionHtml = "${resembleTask.solutionHTML}";
+                var solutionCss = "${resembleTask.solutionCSS}";
                 
-                var startingHtml = "<!DOCTYPE html><html><body>Hei!</body></html>";
-                var startingCss = "";
+                var startingHtml = "${resembleTask.startingHTML}";
+                var startingCss = "${resembleTask.startingCSS}";
                 
                 setRenderedResult($("#solutionFrame"), solutionHtml, solutionCss);
 
@@ -87,15 +89,10 @@
         
     <body>
 
-        ${resembleTask.startingHTML}
-        <br>
-        ${resembleTask.solutionHTML}
-        <br>hehehe
-
     <section id="content">
         <section class="block">        
             <p>Oppgave</p>
-            <p>Du skal sette bakgrunnsfargen på siden til fargen #b0c4de.</p>
+            <p>${resembleTask.taskText}</p>
             <input type="button" value="Se resultat" id="viewResult">
             <input type="button" value="Sammenlign" id="compare">
             <input type="button" value="Hent løsning" id="getSolution">

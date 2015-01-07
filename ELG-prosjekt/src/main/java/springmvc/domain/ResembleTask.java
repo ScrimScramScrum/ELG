@@ -10,7 +10,8 @@ package springmvc.domain;
  * @author Jorgen
  */
 public class ResembleTask {
-    private int taskNumber; 
+    private int taskNumber;
+    private String taskText;
     private String solutionHTML; 
     private String solutionCSS; 
     private String startingHTML; 
@@ -22,8 +23,9 @@ public class ResembleTask {
         
     }
     
-    public ResembleTask(int taskNumber, String solutionHTML, String solutionCSS, String startingHTML, String startingCSS,  int width, int height) {
+    public ResembleTask(int taskNumber, String taskText, String solutionHTML, String solutionCSS, String startingHTML, String startingCSS,  int width, int height) {
         this.taskNumber = taskNumber;
+        this.taskText = taskText;
         this.solutionHTML = solutionHTML;
         this.solutionCSS = solutionCSS;
         this.startingHTML = startingHTML;
@@ -72,7 +74,28 @@ public class ResembleTask {
     public void setStartingCSS(String startingCSS) {
         this.startingCSS = startingCSS;
     }
+
+    public int getWidth() {
+        return this.width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
     
+    public void setHeight(int height) {
+        this.height = height;
+    }
     
-    
+    public String getTaskText() {
+        return taskText;
+    }
+
+    public void setTaskText(String taskText) {
+        this.taskText = taskText;
+    }
 }
