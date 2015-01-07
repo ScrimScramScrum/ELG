@@ -16,6 +16,8 @@ import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.stereotype.Controller;
+import springmvc.repository.ResembleTaskRepo;
+import springmvc.repository.ResembleTaskRepoMock;
 
 @Controller
 @EnableWebMvc  // mvc annotation
@@ -72,5 +74,10 @@ public class Configuration extends WebMvcConfigurationSupport {
         bds.setPassword(password);
         bds.setInitialSize(100);
         return bds; 
+    }
+    
+    @Bean 
+    public ResembleTaskRepo resembleTaskRepo(){
+        return new ResembleTaskRepoMock(); 
     }
 }

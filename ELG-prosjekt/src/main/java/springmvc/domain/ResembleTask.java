@@ -15,18 +15,20 @@ public class ResembleTask {
     private String solutionCSS; 
     private String startingHTML; 
     private String startingCSS; 
+    private int width; 
+    private int height; 
 
-    public ResembleTask(int taskNumber, String solutionHTML, String solutionCSS, String startingHTML, String startingCSS) {
+    public ResembleTask(int taskNumber, String solutionHTML, String solutionCSS, String startingHTML, String startingCSS,  int width, int height) {
         this.taskNumber = taskNumber;
         this.solutionHTML = solutionHTML;
         this.solutionCSS = solutionCSS;
         this.startingHTML = startingHTML;
         this.startingCSS = startingCSS; 
+        this.width = width; 
+        this.height = height; 
+        
     }
-
-    
-
-    
+ 
     public int getTaskNumber() {
         return taskNumber;
     }
