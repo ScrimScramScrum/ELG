@@ -14,7 +14,7 @@ public class Exercise {
     private String[] alternatives = new String[4];
     private String solution;
     private String taskText;
-    private boolean answer;
+    private boolean answer = false;
     
     public Exercise(String[] alternatives, String solution, String taskText){
         this.alternatives = alternatives;

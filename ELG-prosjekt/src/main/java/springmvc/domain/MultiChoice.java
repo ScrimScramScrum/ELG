@@ -18,6 +18,7 @@ public class MultiChoice implements Serializable {
     private String name;
     private int numberOfExercises = 0;
     private int counter = 0;
+    private boolean[] result;
     
     public MultiChoice(){};
     
@@ -25,7 +26,7 @@ public class MultiChoice implements Serializable {
         this.exercises = exercises;
         this.name = name;
         this.numberOfExercises=exercises.size();
-
+        this.result = new boolean[exercises.size()];
     }
     
     public boolean addExercise(Exercise opg){
@@ -77,7 +78,7 @@ public class MultiChoice implements Serializable {
                 right++;
             }
         }
-        double ans = (right/(double)exercises.size());
+        double ans = right;
         return ans;
     }
 

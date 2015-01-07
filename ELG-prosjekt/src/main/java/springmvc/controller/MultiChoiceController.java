@@ -7,6 +7,7 @@
 package springmvc.controller;
 
 import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +39,7 @@ public class MultiChoiceController {
     }
     
     @RequestMapping(value = "nextTask")
-    public String nextTask(Model model, @ModelAttribute("spillet") MultiChoice mc){
+    public String nextTask(Model model, @ModelAttribute("spillet") MultiChoice mc, String value, HttpServletRequest request){
         mc.getNextExercise();
         if(mc.lastExercise()==true){
             model.addAttribute("result", mc.finnResultat());
