@@ -14,6 +14,9 @@
                 <td width="590" height="600" valign="top">
                     <tiles:insertAttribute name="body" />
                 </td>
+               <td width="180" valign="top">
+                     <tiles:insertAttribute name="menu" />
+                </td>
             </tr>
      
             </tr>

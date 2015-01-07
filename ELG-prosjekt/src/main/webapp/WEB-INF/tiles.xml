@@ -9,6 +9,7 @@
     <definition name="baseLayout" template="/WEB-INF/tiles/baseLayout.jsp">
         <put-attribute name="title"  value="BaseLayout"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/index.jsp"/>
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
     </definition>
     <definition name="index" extends="baseLayout">
         <put-attribute name="title"  value="Index"/>

@@ -2,9 +2,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
-<a href="<c:url value="/index"/>" >           <spring:message code="menyvalg1" />  </a><br>
-<a href="<c:url value="/manipulerPersoner"/>" >   <spring:message code="menyvalg2" />  </a><br>
-<a href="<c:url value="/nyperson"/>">         <spring:message code="menyvalg3" />  </a><br>
+<a href="<c:url value="/index"/>" >           <spring:message code="menuoption1" />  </a><br>
+<a href="<c:url value="/resemblegame"/>" >   <spring:message code="menuoption2" />  </a><br>
 
 
 
