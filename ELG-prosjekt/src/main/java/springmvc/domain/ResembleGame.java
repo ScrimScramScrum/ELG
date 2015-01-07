@@ -36,7 +36,7 @@ public class ResembleGame implements Serializable{
     }
    
     public boolean isCurrentTaskLast(){
-        return taskNumbers.indexOf(currentTask)==taskNumbers.size();
+        return taskNumbers.indexOf(currentTask)==taskNumbers.size()-1;
     }
     
 }

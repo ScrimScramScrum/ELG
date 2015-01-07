@@ -122,4 +122,14 @@
             </div>
         </section>
     </section>
+
+
+    <c:choose>
+        <c:when test="${resembleGame.isCurrentTaskLast()}">
+            <button onclick="window.location.href='/ELG-prosjekt/finishgame'">Finish</button>
+        </c:when>
+        <c:otherwise>
+            <button onclick="window.location.href='/ELG-prosjekt/nextresembletask'">Next Task</button>
+        </c:otherwise>
+    </c:choose>
 </html>
