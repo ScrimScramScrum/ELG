@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import springmvc.domain.ResembleTask;
 import springmvc.service.ResembleTaskService;
 
@@ -20,8 +21,9 @@ public class ResembleTaskController {
     private ResembleTaskService resembleTaskService; 
     
     @RequestMapping(value = "resembleGame")
-    public String resembleGame(@ModelAttribute(value = "resembleTask") ResembleTask resembleTask){
-        resembleTask.setStartingHTML("TESAASDASD");
-        return "resembleGame"; 
+    public ModelAndView resembleGame(ModelAndView mav){
+        mav.addObject("resembleGame", resembleTaskService.getResembleTask(3)); 
+        mav.setViewName("resembleGame");
+        return mav; 
     }
 }
