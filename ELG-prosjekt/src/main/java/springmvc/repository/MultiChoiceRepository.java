@@ -6,10 +6,13 @@
 
 package springmvc.repository;
 
+import springmvc.domain.MultiChoice;
+
 /**
  *
  * @author eiriksandberg
  */
-public class MultiChoiceRepository {
-    
+public interface MultiChoiceRepository {
+ 
+    public MultiChoice getMultiChoice(MultiChoice game);
 }
