@@ -18,6 +18,7 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.stereotype.Controller;
 import springmvc.repository.ResembleTaskRepo;
 import springmvc.repository.ResembleTaskRepoMock;
+import springmvc.service.ResembleTaskService;
 
 @Controller
 @EnableWebMvc  // mvc annotation
@@ -79,5 +80,10 @@ public class Configuration extends WebMvcConfigurationSupport {
     @Bean 
     public ResembleTaskRepo resembleTaskRepo(){
         return new ResembleTaskRepoMock(); 
+    }
+    
+    @Bean
+    public ResembleTaskService resembleTaskService(){
+        return new ResembleTaskService(); 
     }
 }
