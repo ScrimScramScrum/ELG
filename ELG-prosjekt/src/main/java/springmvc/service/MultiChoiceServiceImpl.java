@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package springmvc.domain;
+package springmvc.service;
 
 /**
  *
  * @author eiriksandberg
  */
-public class MCSpill {
+public class MultiChoiceServiceImpl {
     
 }
