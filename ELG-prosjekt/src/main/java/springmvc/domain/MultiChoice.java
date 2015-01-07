@@ -14,14 +14,22 @@ import java.util.ArrayList;
  */
 public class MultiChoice {
     private ArrayList<Exercise> oppgaver = new ArrayList<>();
+    String name;
     
-    public MultiChoice(ArrayList<Exercise> oppgaver){
+    public MultiChoice(){};
+    
+    public MultiChoice(ArrayList<Exercise> oppgaver, String name){
         this.oppgaver = oppgaver;
+        this.name = name;
     }
     
     public boolean leggTilOppgave(Exercise opg){
         oppgaver.add(opg);
         return true;
+    }
+    
+    public String getName(){
+        return name;
     }
     
 }

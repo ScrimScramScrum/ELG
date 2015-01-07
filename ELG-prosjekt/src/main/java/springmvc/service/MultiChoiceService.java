@@ -23,8 +23,11 @@ public class MultiChoiceService {
     }
     
     
-    public MultiChoice getMultiChoice(MultiChoice game){
-        return repo.getMultiChoice(game);
+    public MultiChoice getMultiChoice(String name){
+        if (repo == null){
+            System.out.println("***** hei ********");
+        }
+        return repo.getMultiChoice(name);
     }
   
 }

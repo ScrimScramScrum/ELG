@@ -4,15 +4,13 @@
  * and open the template in the editor.
  */
 
-package springmvc.repository;
+package springmvc.test;
 
-import springmvc.domain.MultiChoice;
+import springmvc.service.MultiChoiceService;
 
 /**
  *
  * @author eiriksandberg
  */
-public interface MultiChoiceRepository {
- 
-    public MultiChoice getMultiChoice(String name);
+public class MultiChoiceTest {
 }

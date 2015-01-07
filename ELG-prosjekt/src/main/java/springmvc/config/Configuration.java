@@ -91,7 +91,7 @@ public class Configuration extends WebMvcConfigurationSupport {
     }
     
     @Bean
-    public MultiChoiceRepository multiChoiceRepo(){
+    public MultiChoiceRepository multiChoiceRepository(){
         return new MultiChoiceRepoMock();
     }
     
