@@ -7,7 +7,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title><tiles:insertAttribute name="title" ignore="true" /></title>
     </head>
-    <body bgcolor="red" >
+    <body bgcolor="gray" >
         <table border="1" cellpadding="2" cellspacing="2" width="800" align="center">
             <tr>
                 
