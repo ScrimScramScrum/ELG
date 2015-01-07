@@ -14,4 +14,8 @@
         <put-attribute name="title"  value="Index"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/index.jsp"/>      
     </definition>
+    <definition name="resembleGame" extends="baseLayout">
+        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/resemblegame.jsp"/>      
+    </definition>
 </tiles-definitions>

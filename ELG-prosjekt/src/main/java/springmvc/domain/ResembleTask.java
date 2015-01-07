@@ -17,7 +17,11 @@ public class ResembleTask {
     private String startingCSS; 
     private int width; 
     private int height; 
-
+    
+    public ResembleTask() {
+        
+    }
+    
     public ResembleTask(int taskNumber, String solutionHTML, String solutionCSS, String startingHTML, String startingCSS,  int width, int height) {
         this.taskNumber = taskNumber;
         this.solutionHTML = solutionHTML;
