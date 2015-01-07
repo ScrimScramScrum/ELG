@@ -42,6 +42,7 @@ public class ResembleGameController {
         mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask())); 
         mav.setViewName("resembleGame"); 
         return mav;
+        // TODO: ADD IF ELSE (lastelement in list -> setviewname index???? 
     }
     
     @RequestMapping(value ="finishgame")
