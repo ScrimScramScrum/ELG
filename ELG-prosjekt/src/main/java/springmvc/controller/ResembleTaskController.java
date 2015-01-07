@@ -22,7 +22,7 @@ public class ResembleTaskController {
     
     @RequestMapping(value = "resembleGame")
     public ModelAndView resembleGame(ModelAndView mav){
-        mav.addObject("resembleGame", resembleTaskService.getResembleTask(3)); 
+        mav.addObject("resembleTask", resembleTaskService.getResembleTask(3)); 
         mav.setViewName("resembleGame");
         return mav; 
     }

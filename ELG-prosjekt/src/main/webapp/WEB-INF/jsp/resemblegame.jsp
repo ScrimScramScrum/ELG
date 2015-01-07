@@ -88,6 +88,9 @@
     <body>
 
         ${resembleTask.startingHTML}
+        <br>
+        ${resembleTask.solutionHTML}
+        <br>hehehe
 
     <section id="content">
         <section class="block">        
