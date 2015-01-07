@@ -31,6 +31,10 @@ public class Exercise {
     public String[] getAlternatives() {
         return alternatives;
     }
+    
+    public String getAlternativeIndex(int index) {
+        return this.alternatives[index];
+    }
 
     public String getSolution() {
         return solution;

@@ -6,11 +6,13 @@
 
 package springmvc.controller;
 
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import springmvc.domain.Exercise;
 import springmvc.domain.MultiChoice;
 import springmvc.service.MultiChoiceService;
 import springmvc.test.MultiChoiceTest;
@@ -21,12 +23,12 @@ import springmvc.test.MultiChoiceTest;
  */
 @Controller
 public class MultiChoiceController {
+    
     @Autowired
-    private MultiChoiceService hei;
+    private MultiChoiceService s;
     @RequestMapping(value = "multi")
-    public String showMultiChoice(Model model, @ModelAttribute("spill") MultiChoice mc, @ModelAttribute("spillnavn") String name){
-        model.addAttribute("spillet", hei.getMultiChoice("Spill 1"));
-        model.addAttribute("navn", hei.getMultiChoice("Spill 1").getName());
+    public String showMultiChoice(Model model, @ModelAttribute("spill") MultiChoice mc){
+        model.addAttribute("spillet", s.getMultiChoice("Spill 1"));
         return "multichoice"; 
     }
 }
