@@ -5,9 +5,16 @@
  */
 package springmvc.controller;
 
+import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import springmvc.domain.MultiChoice;
+import springmvc.domain.ResembleGame;
+import springmvc.service.GameListService;
 
 /**
  *
@@ -15,11 +22,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class MainController {
+    
+    @Autowired
+    private GameListService gameListService;  
+    
     @RequestMapping(value = "*")
     public String showIndex(Model model){
         //model.addAttribute("melding", "melding");
         return "index"; 
     }
     
-    
+    @RequestMapping(value = "choosegame")
+    public ModelAndView chooseGame(ModelAndView mav){
+        ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames(); 
+        ArrayList<MultiChoice> multiChoiceGames = gameListService.getAllMultiChoiceGames(); 
+        mav.addObject("resembleGames", resembleGames);
+        mav.addObject("multiChoiceGames", multiChoiceGames); 
+        mav.setViewName("chooseGame");
+        return mav; 
+    }   
 }
