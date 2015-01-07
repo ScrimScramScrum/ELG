@@ -6,13 +6,14 @@
 
 package springmvc.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author eiriksandberg
  */
-public class MultiChoice {
+public class MultiChoice implements Serializable {
     private ArrayList<Exercise> exercises = new ArrayList<>();
     private String name;
     private int numberOfExercises = 0;
@@ -64,5 +65,21 @@ public class MultiChoice {
     public String getName(){
         return name;
     }
+    
+    public void resetCurrent(){
+        counter = 0;
+    }
+    
+    public double finnResultat(){
+        double right = 0;
+        for (int i = 0; i<exercises.size();i++){
+            if(exercises.get(i).getAnswer()){
+                right++;
+            }
+        }
+        double ans = (right/(double)exercises.size());
+        return ans;
+    }
+
     
 }
