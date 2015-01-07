@@ -24,23 +24,21 @@
         
        -->
        
-       <c:out value="${spillet.getNextExercise()}"></c:out>
-       <c:forEach items="${spillet.getNextExercise().getAlternatives()}" var="current">
+       <c:out value="${spillet.getCurrent().getTaskText()}"></c:out>       
         
-          <c:out value="${current}" />
-        
-      </c:forEach>
-        
-        <center>${exerciseText}</center>
         <table align="center">
             <tr>
-                <td><button>${alt1}</button></td>
-              <td><button>${alt2}</button></td>
+                <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "0" end = "1">
+                <td><button><c:out value="${teller}" /></button></td>
+                </c:forEach>
+                <tr>
             </tr>
             <tr>
-              <td><button>${alt3}</button></td>
-              <td><button>${alt4}</button></td>
+                <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "2" end = "3">
+                <td><button><c:out value="${teller}" /></button></td>
+                </c:forEach>
+                <tr>
             </tr>
-          </table>
+          </table>     
     </body>
 </html>

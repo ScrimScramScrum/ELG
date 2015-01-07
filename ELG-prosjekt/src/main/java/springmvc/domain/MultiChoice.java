@@ -37,6 +37,10 @@ public class MultiChoice {
         return counter;
     }
     
+    public Exercise getCurrent(){
+        return exercises.get(counter);
+    }
+    
     public Exercise getNextExercise(){
         if (!lastExercise()){
             Exercise e = exercises.get(counter);
@@ -47,7 +51,7 @@ public class MultiChoice {
     }
     
     public boolean lastExercise(){
-        if(current() != exercises.size()-1){
+        if(current() != exercises.size()){
             return false;
         }
         return true;
