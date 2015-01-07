@@ -4,7 +4,9 @@
 
 <a href="<c:url value="/index"/>" >           <spring:message code="menuoption1" />  </a><br>
 <a href="<c:url value="/choosegame"/>" >   <spring:message code="menuoption2" />  </a><br>
+<a href="<c:url value="/multi"/>" >   <spring:message code="menuoption3" />  </a><br>
 <!-- <a href="<c:url value="/resemblegame"/>" >   <spring:message code="menuoption2" />  </a><br> -->
+
 
 
 
