@@ -9,12 +9,18 @@ public class ResembleGame implements Serializable{
     private ArrayList<Integer> taskNumbers; 
     private int currentTask; 
     private double[] taskScores; 
+    private String learningGoal; 
+    private String info; 
+    private int difficulty; 
 
-    public ResembleGame(ArrayList<Integer> taskNumbers, int gameId) {
+    public ResembleGame(ArrayList<Integer> taskNumbers, int gameId, String learningGoal, String info, int difficulty) {
         this.gameId = gameId; 
         this.taskNumbers = taskNumbers;
         this.currentTask = taskNumbers.get(0);
         this.taskScores = new double[taskNumbers.size()];
+        this.learningGoal = learningGoal; 
+        this.info = info; 
+        this.difficulty = difficulty; 
     }
     
     public ArrayList<Integer> getTaskNumbers() {
@@ -72,6 +78,31 @@ public class ResembleGame implements Serializable{
     public void setTaskScores(double[] taskScores) {
         this.taskScores = taskScores;
     }
+
+    public String getLearningGoal() {
+        return learningGoal;
+    }
+
+    public void setLearningGoal(String learningGoal) {
+        this.learningGoal = learningGoal;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+    
     
     
 }

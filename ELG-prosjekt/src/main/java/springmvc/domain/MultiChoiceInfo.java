@@ -11,11 +11,15 @@ package springmvc.domain;
  */
 public class MultiChoiceInfo {
     private String name;
+    private String learningGoal; 
     private String info;
+    private int difficulty; 
 
-    public MultiChoiceInfo(String name, String info) {
+    public MultiChoiceInfo(String name, String learningGoal, String info, int difficulty) {
         this.name = name;
+        this.learningGoal = learningGoal; 
         this.info = info;
+        this.difficulty = difficulty; 
     }
     
     public MultiChoiceInfo() {
