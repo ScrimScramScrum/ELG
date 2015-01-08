@@ -8,7 +8,7 @@
             <title><tiles:insertAttribute name="title" ignore="true" /></title>
     </head>
     <body bgcolor="gray" >
-        <table border="0" cellpadding="2" cellspacing="2" width="800" align="center">
+        <table border="0" cellpadding="2" cellspacing="2" width="800" align="center" valign="top" position="abosolute">
             <tr>
                 <td colspan = "2" height="80">
                     <tiles:insertAttribute name="menu" />
@@ -16,10 +16,10 @@
                 </td>
             </tr>
             <tr>
-               <td width="200">
+               <td width="200" height="500" valign="top">
                      <tiles:insertAttribute name="body" />
                 </td>
-                <td width="600" style="background-color: red">
+                <td width="600" height="500" valign="top">
                     <tiles:insertAttribute name="gamedisplay" />
                 </td>
             </tr>
