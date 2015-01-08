@@ -8,11 +8,13 @@ public class ResembleGame implements Serializable{
     private int gameId; 
     private ArrayList<Integer> taskNumbers; 
     private int currentTask; 
+    private double[] taskScores; 
 
     public ResembleGame(ArrayList<Integer> taskNumbers, int gameId) {
         this.gameId = gameId; 
         this.taskNumbers = taskNumbers;
         this.currentTask = taskNumbers.get(0);
+        this.taskScores = new double[taskNumbers.size()];
     }
     
     public ArrayList<Integer> getTaskNumbers() {
@@ -47,7 +49,19 @@ public class ResembleGame implements Serializable{
         this.gameId = gameId;
     }
     
+    public boolean setTaskNumberScore(int taskNumber, double score){
+        if(this.taskNumbers.contains(taskNumber)){
+            this.taskScores[this.taskNumbers.indexOf(taskNumber)] = score; 
+            return true; 
+        }
+        return false; 
+    }
     
-    
-    
+    public double getTotalScore(){
+        int sum = 0; 
+        for(Double d : this.taskScores){
+            sum+=d; 
+        }
+        return sum; 
+    }
 }

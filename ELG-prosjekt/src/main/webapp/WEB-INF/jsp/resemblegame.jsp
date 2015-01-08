@@ -31,6 +31,7 @@
         </style>
         
         <script>
+            var score = 0; 
             $(document).ready(function() {
                 
                 var solutionHtml = "${resembleTask.solutionHTML}";
@@ -59,28 +60,29 @@
                     html2canvas($("#resultFrame").contents().find("body"), {
                         onrendered: function (canvas) {
                             resultUrl = canvas.toDataURL('image/png'); 
-                            resembleIfBothLoaded(resultUrl, solutionUrl);
+                            resembleIfBothLoaded(resultUrl, solutionUrl, score);
                         }
                     });
                     html2canvas($("#solutionFrame").contents().find("body"), {
                         onrendered: function (canvas) {
                             solutionUrl = canvas.toDataURL('image/png'); 
-                            resembleIfBothLoaded(resultUrl, solutionUrl);
+                            resembleIfBothLoaded(resultUrl, solutionUrl, score);
                         }
                     });
                 });            
             });
-            
             function setRenderedResult(frame, html, css) {
                 frame.contents().find("html").html(html);
                 var $head = frame.contents().find("head");                
                 $head.append("<style>" + css + "</style>") 
             }
 
-            function resembleIfBothLoaded(resultUrl, solutionUrl) { 
+            function resembleIfBothLoaded(resultUrl, solutionUrl, score) { 
                 if(resultUrl && solutionUrl) {
                     resemble(resultUrl).compareTo(solutionUrl).onComplete(function(data){
                         alert("Likhet: " + (100 - data.misMatchPercentage) + "%");
+                        score = 100-data.misMatchPercentage; 
+                        document.getElementById("score").value = score;
                     });            
                 }
             }
@@ -126,10 +128,20 @@
 
     <c:choose>
         <c:when test="${resembleGame.isCurrentTaskLast()}">
-            <button onclick="window.location.href='/ELG-prosjekt/finishgame'">Finish</button>
+            <!-- <button onclick="window.location.href='/ELG-prosjekt/finishgame'">Finish</button> -->
+            <form action = "finishgame" id="scorePost" method="post">
+                <input type = "hidden" value = "" id = "score" name = "score"/>
+                <input type = "submit" value = "Finish" />
+            </form>
+            
         </c:when>
         <c:otherwise>
-            <button onclick="window.location.href='/ELG-prosjekt/nextresembletask'">Next Task</button>
+            <!-- <button onclick="window.location.href='/ELG-prosjekt/nextresembletask'">Next Task</button> -->
+             <form action = "nextresembletask" id="scorePost" method="post">
+                <input type = "hidden" value = "" id = "score" name = "score"/>
+                <input type = "submit" value = "next" />
+            </form>
+            
         </c:otherwise>
     </c:choose>
 </html>

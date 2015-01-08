@@ -49,8 +49,10 @@ public class ResembleGameController {
         return mav; 
     }
     
-    @RequestMapping(value ="nextresembletask")
-    public ModelAndView resembleGameNext(ModelAndView mav, @ModelAttribute(value = "resembleGame") ResembleGame resembleGame) {
+    @RequestMapping(value ="nextresembletask", method = RequestMethod.POST)
+    public ModelAndView resembleGameNext(ModelAndView mav, @ModelAttribute(value = "resembleGame") ResembleGame resembleGame, HttpServletRequest req) {
+        resembleGame.setTaskNumberScore(resembleGame.getCurrentTask(), Double.parseDouble(req.getParameter("score")));
+        System.out.println("NESTE SCORE: " + Double.parseDouble(req.getParameter("score")));
         resembleGame.setCurrentTask(resembleGame.getNextTask());
         mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask())); 
         mav.setViewName("resembleGame"); 
@@ -59,8 +61,10 @@ public class ResembleGameController {
     }
     
     @RequestMapping(value ="finishgame")
-    public String resembleGameFinish(ModelAndView mav, @ModelAttribute(value = "resembleGame") ResembleGame resembleGame) {
+    public String resembleGameFinish(ModelAndView mav, @ModelAttribute(value = "resembleGame") ResembleGame resembleGame, HttpServletRequest req) {
+        resembleGame.setTaskNumberScore(resembleGame.getCurrentTask(), Double.parseDouble(req.getParameter("score")));
+        System.out.println("TOTAL SCORE: " + resembleGame.getTotalScore());
         // resembleGameService.updatePoints(Person person);
-        return "index";//finishgame
+        return "finishgame";//finishgame
     }
 }
