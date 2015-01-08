@@ -39,5 +39,22 @@
                 <tr>
             </tr>
           </table>
+        
+        <form:form action="nextTask" modelAttribute="spillet" method="POST">
+                <table align="center">
+            <tr>
+                <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "0" end = "1">
+                    <td><button type="submit" value="${teller}" name ="button" ><c:out value="${teller}" /></button></td>
+                </c:forEach>
+                <tr>
+            </tr>
+            <tr>
+                <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "2" end = "3">
+                <td><button type="submit" value="${teller}" name ="button"><c:out value="${teller}" /></button></td>
+                </c:forEach>
+                <tr>
+            </tr>
+          </table>
+        </form>
     </body>
 </html>

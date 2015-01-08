@@ -43,8 +43,8 @@ public class MultiChoiceController {
     @RequestMapping(value = "nextTask")
     public String nextTask(Model model, @ModelAttribute("spillet") MultiChoice mc, String value, HttpServletRequest request){
         if (request.getParameter("button") != null){
-            String knapp = request.getParameter("button");
-            mc.getCurrent().checkAnswer(knapp);
+            String button = request.getParameter("button");
+            mc.setResult(mc.current(), mc.getCurrent().checkAnswer(button));
             }
         mc.getNextExercise();
         if(mc.lastExercise()==true){

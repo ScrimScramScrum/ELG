@@ -24,10 +24,9 @@ public class Exercise {
     
     public boolean checkAnswer(String chosen){
         if (chosen.equals(solution)){
-            answer = true;
+            return true;
         }
-        answer = false;
-        return answer;
+        return false;
     }
 
     public String[] getAlternatives() {
