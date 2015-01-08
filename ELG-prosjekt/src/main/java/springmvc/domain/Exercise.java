@@ -15,6 +15,8 @@ public class Exercise {
     private String solution;
     private String taskText;
     
+    public Exercise(){};
+    
     public Exercise(String[] alternatives, String solution, String taskText){
         this.alternatives = alternatives;
         this.solution = solution;
@@ -43,6 +45,19 @@ public class Exercise {
     public String getTaskText() {
         return taskText;
     }
+
+    public void setAlternatives(String[] alternatives) {
+        this.alternatives = alternatives;
+    }
+
+    public void setSolution(String solution) {
+        this.solution = solution;
+    }
+
+    public void setTaskText(String taskText) {
+        this.taskText = taskText;
+    }
+    
     
     
 }
