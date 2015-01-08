@@ -18,17 +18,21 @@ public class MultiChoice implements Serializable {
     private String name;
     private int counter = 0;
     private boolean[] result;
+    int size;
     
     public MultiChoice(){};
     
     public MultiChoice(ArrayList<Exercise> exercises, String name){
         this.exercises = exercises;
-        this.name = name;;
-        this.result = new boolean[exercises.size()];
+        this.name = name;
     }
     
     public int current(){
         return counter;
+    }
+    
+    public void initMC(){
+        this.result=new boolean[exercises.size()];
     }
     
     public Exercise getCurrent(){

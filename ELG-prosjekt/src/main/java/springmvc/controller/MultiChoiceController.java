@@ -36,12 +36,13 @@ public class MultiChoiceController {
     @RequestMapping(value = "multi", method = RequestMethod.POST)
     public String showMultiChoice(Model model, @RequestParam("gamename") String name){
         MultiChoice mc = s.getMultiChoice(name); 
+        mc.initMC();
         model.addAttribute("spillet", mc); 
         return "multichoice"; 
     }
     
     @RequestMapping(value = "nextTask")
-    public String nextTask(Model model, @ModelAttribute("spillet") MultiChoice mc, String value, HttpServletRequest request){
+    public String nextTask(Model model, @ModelAttribute(value = "spillet") MultiChoice mc, String value, HttpServletRequest request){
         if (request.getParameter("button") != null){
             String button = request.getParameter("button");
             mc.setResult(mc.current(), mc.getCurrent().checkAnswer(button));
