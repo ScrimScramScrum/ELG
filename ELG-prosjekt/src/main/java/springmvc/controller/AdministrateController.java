@@ -39,7 +39,7 @@ public class AdministrateController {
     
     
     @RequestMapping(value = "changePassword" , method=RequestMethod.POST)
-    public String changePass(@Valid @ModelAttribute NewPassword newPassword, BindingResult error, Model modell) {
+    public String changePass(@Valid @ModelAttribute NewPassword newPassword, BindingResult error, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute) {
         System.out.println("POST kjorer");
 
         Person inLoggedPerson = new Person("TEST@GMAIL.COM","NAVN","ETTERNAVN");
