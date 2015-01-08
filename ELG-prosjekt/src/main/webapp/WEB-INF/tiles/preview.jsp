@@ -46,7 +46,11 @@
             <br>
             <br>
             hai..
-            ${tasks.get(1).getSolutionHTML}
+            <c:forEach items="${tasks}" var="task">
+                <br>
+                ${task.solutionHTML}
+                <br>
+            </c:forEach>
         </div>
         </div>
 </c:when>
