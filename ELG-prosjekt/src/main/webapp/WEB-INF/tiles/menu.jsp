@@ -3,19 +3,21 @@
 
 <html>
 <head>
-    <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/style.css'/>">
+    <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css/style.css'/>">
         
 </head>
 <body>
+    ELG
 <div id="topmenu">
     <ul style="list-style-type:none;">
         <li><a href="<c:url value="/index" />" >Index</a></li>
         <li><a href="<c:url value="/choosegame" />" >Games</a></li>
         <li><a href='#'>High Score</a></li>
         <li><a href='#'>About</a></li>
-        <img src="resources/amoosing.jpg" height="60px" align="right" hspace="32px">
+        <li>&nbsp;</li>
+        <img src="resources/images/amoosing.jpg" height="60px" align="right" style="margin-right: 22px"; />
     </ul>
-</div>
+</div> <!-- end topmenu div -->
 </body>
 </html>
 
