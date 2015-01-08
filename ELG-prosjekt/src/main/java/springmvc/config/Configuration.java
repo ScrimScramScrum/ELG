@@ -74,9 +74,9 @@ public class Configuration extends WebMvcConfigurationSupport {
   
     @Bean
     public DataSource dataSource(){
-        String url = "jdbc:derby://localhost:1527/su1_test";
-        String username = "t";
-        String password = "t";
+        String url = "jdbc:derby://localhost:1527/ELGDB";
+        String username = "ELGUSER";
+        String password = "ELGERBEST";
         BasicDataSource bds = new BasicDataSource(); 
         bds.setUrl(url);
         bds.setUsername(username);
