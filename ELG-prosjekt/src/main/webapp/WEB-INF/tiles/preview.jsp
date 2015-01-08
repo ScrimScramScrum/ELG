@@ -19,7 +19,7 @@
     <br>${multiChoiceInfo.info}
     <br><br>
     :::Learning Goals:::
-    <br>${multiChoiceInfo.learningGoals}
+    <br>${multiChoiceInfo.learningGoal}
     <br><br>
     <form action="multi" method="post">
         <input type="hidden" name="gamename" id="gamename" value="${gamenr}" />

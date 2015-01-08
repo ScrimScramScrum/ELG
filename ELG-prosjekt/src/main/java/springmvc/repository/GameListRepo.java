@@ -9,5 +9,5 @@ public interface GameListRepo {
     public ArrayList<ResembleGame> getAllResembleGames(); 
     public ArrayList<MultiChoiceInfo> getAllMultiChoiceGames(); 
     public ResembleGame getResembleGame(int gameId); 
-    //public MultiChoiceInfo getMultiChoiceGame(int gameId); 
+    public MultiChoiceInfo getMultiChoiceGame(String gameId); 
 }

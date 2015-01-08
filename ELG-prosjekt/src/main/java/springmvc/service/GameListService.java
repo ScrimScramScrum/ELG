@@ -33,4 +33,8 @@ public class GameListService {
     public ResembleGame getResembleGame(int gameId){
         return repo.getResembleGame(gameId); 
     }
+    
+    public MultiChoiceInfo getMultiChoiceGame(String id){
+        return repo.getMultiChoiceGame(id); 
+    }
 }
