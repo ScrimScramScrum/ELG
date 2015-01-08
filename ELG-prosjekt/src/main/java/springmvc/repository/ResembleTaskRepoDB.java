@@ -6,15 +6,17 @@ import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import springmvc.domain.ResembleTask;
 
-public class ResembleTaskRepoDB {
+public class ResembleTaskRepoDB implements ResembleTaskRepo{
     private Connection forbindelse;
-    private final String sqlDeletePerson = "Delete from person where personnr = ?";
-    private final String sqlSelectPerson = "Select * from person where personnr = ? ";
-    private final String sqlSelectAllePersoner = "Select * from person";
+    private final String sqlDeleteTask = "Delete from resembletask where idTask = ?";
+    private final String sqlSelectTask = "Select * from resembletask where idTask = ? ";
+    private final String sqlSelectAllTasks = "Select * from resembletask";
     
-    private final String sqlInsertPerson = "insert into person values(?,?,?)";
-    private final String sqlUpdatePerson = "update person set fornavn=?, etternavn = ? where personnr = ?";
+    private final String sqlInsertTask = "insert into task values(?, ?, ?, ?, ?, ?, ?, ?)";
+   // private final String sqlUpdateTask = "update person set fornavn=?, etternavn = ? where personnr = ?";
 
     
     private DataSource dataSource;
@@ -27,37 +29,12 @@ public class ResembleTaskRepoDB {
         this.dataSource = dataSource;
         this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }
-//    
-//    public Person getPerson(String personnr ){
-//        return (Person)jdbcTemplateObject.queryForObject(sqlSelectPerson, new Object[]{personnr}, new PersonMapper());
-//    }
-//    
-//    public List<Person> getAllePersoner(){
-//        return jdbcTemplateObject.query(sqlSelectAllePersoner, new PersonMapper());
-//    }
-//
-//    public boolean slettPerson(Person person) {
-//        jdbcTemplateObject.update(sqlDeletePerson, person.getPersonnr() );
-//        return true;
-//    }
-//    
-//    public boolean oppdaterPerson(Person person){
-//        jdbcTemplateObject.update(sqlUpdatePerson, new Object[]{
-//            person.getFornavn(),
-//            person.getEtternavn(),
-//            person.getPersonnr()
-//        });
-//        return true;
-//    }
-//    
-//    public boolean registrerPerson(Person person){
-//        jdbcTemplateObject.update(sqlInsertPerson, 
-//            new Object[]{
-//                person.getPersonnr(), 
-//                person.getFornavn(), 
-//                person.getEtternavn()
-//        });
-//        return true;
-//    }
-//
+    
+    public ResembleTask getResembleTask(int idTask){
+        return (ResembleTask)jdbcTemplateObject.queryForObject(sqlSelectTask, new Object[]{idTask}, (RowMapper<ResembleTask>)new ResembleTaskMapper());
+    }
+    
+    public void deleteResembleTask(int idTask){
+        jdbcTemplateObject.update(sqlDeleteTask, idTask);
+    }
 }
