@@ -20,7 +20,7 @@
         Resemblegames:
         <c:forEach items="${resembleGames}" var="game">
             <li>
-                <form action="resemblegame" method="post">
+                <form action="choosegame" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${game.gameId}" />
                     <input type="submit" value="${game.gameId}" />
                     game nr: <c:out value='${game.gameId}' />
@@ -30,8 +30,8 @@
         <br><br>
          <c:forEach items="${multiChoiceGames}" var="game">
             <li>
-                <form action="multi" method="post">
-                    <input type="hidden" name="gamename" id="gamename" value="${game.name}" />
+                <form action="choosegame" method="post">
+                    <input type="hidden" name="gameid" id="gameid" value="${game.name}" />
                     <input type="submit" value="${game.name}" />
                     game name: <c:out value='${game.name}' />
                 </form>

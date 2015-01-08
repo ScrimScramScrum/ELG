@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.MultiChoiceInfo;
@@ -36,10 +37,33 @@ public class MainController {
     @RequestMapping(value = "choosegame")
     public ModelAndView chooseGame(ModelAndView mav){
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames(); 
-        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceGames(); 
+        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceGames();
+        int resemble = 0;
+        mav.addObject("gametype", resemble);
         mav.addObject("resembleGames", resembleGames);
         mav.addObject("multiChoiceGames", multiChoiceGames); 
         mav.setViewName("chooseGame");
         return mav; 
-    }   
+    }
+    
+    @RequestMapping(value = "choosegame", method = RequestMethod.POST)
+    public ModelAndView chooseGame(ModelAndView mav, @RequestParam("gameid") String id){
+        int resemble = 0;
+        try {
+            int a = Integer.parseInt(id);
+            resemble = 1;
+        } catch(Exception e) {
+            resemble = 2;
+            System.out.println("MultiChoice");
+        }
+        mav.addObject("gametype", resemble);
+        // use session instead of getting all games every time a game get clicked?
+        ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames(); 
+        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceGames();
+        mav.addObject("gamenr", id);
+        mav.addObject("resembleGames", resembleGames);
+        mav.addObject("multiChoiceGames", multiChoiceGames);
+        mav.setViewName("chooseGame");
+        return mav; 
+    } 
 }
