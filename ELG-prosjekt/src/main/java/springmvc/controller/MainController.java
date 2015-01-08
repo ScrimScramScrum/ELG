@@ -49,11 +49,14 @@ public class MainController {
     @RequestMapping(value = "choosegame", method = RequestMethod.POST)
     public ModelAndView chooseGame(ModelAndView mav, @RequestParam("gameid") String id){
         int resemble = 0;
+        String info = "test...";
         try {
             int a = Integer.parseInt(id);
             resemble = 1;
+            // add info here
         } catch(Exception e) {
             resemble = 2;
+            // or info here
             System.out.println("MultiChoice");
         }
         mav.addObject("gametype", resemble);
@@ -61,6 +64,7 @@ public class MainController {
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames(); 
         ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceGames();
         mav.addObject("gamenr", id);
+        mav.addObject("info", info);
         mav.addObject("resembleGames", resembleGames);
         mav.addObject("multiChoiceGames", multiChoiceGames);
         mav.setViewName("chooseGame");
