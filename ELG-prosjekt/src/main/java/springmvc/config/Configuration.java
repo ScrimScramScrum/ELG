@@ -126,8 +126,7 @@ public class Configuration extends WebMvcConfigurationSupport {
     @Bean
     public LoginService loginService(){
         return new LoginService();
-    }
-    
+    }    
        
     @Bean
     public PersonRepoDB personRepo(){

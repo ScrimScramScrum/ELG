@@ -32,5 +32,6 @@ public interface PersonService{
     public boolean changePassword(Person p, String oldPw, String newPw, String confirm); 
 
 
+    public boolean setClassId(Person s, String addClass);
     
 }

@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springmvc.domain.Login;
-import springmvc.service.*;
 import springmvc.domain.Person;
+import springmvc.service.*;
 import springmvc.ui.NewPassword; 
+import springmvc.ui.AddNewClassId;
+
 
 
 
@@ -30,7 +32,7 @@ public class AdministrateController {
          
     
     @RequestMapping(value = "administrateAccount" , method=RequestMethod.GET)
-    public String adminAccount(@ModelAttribute NewPassword newPassword) {
+    public String adminAccount(@ModelAttribute NewPassword newPassword, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute){
         System.out.println("GET kjorer");
         return "administrateAccount";
     }
@@ -85,6 +87,33 @@ public class AdministrateController {
         return "administrateAccount";
     }
     
+    
+    
+    
+    @RequestMapping(value = "addClassId" , method=RequestMethod.POST)
+    public String addNewClassId(@Valid @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, BindingResult error, Model modell, @ModelAttribute NewPassword newPassword) {
+        System.out.println("Post ADd Class kjorer");
+
+        Person inLoggedPerson = new Person("TEST@GMAIL.COM","NAVN","ETTERNAVN");
+ 
+        
+        if(personService.setClassId(inLoggedPerson, addNewClassIdAttribute.getClassId())){
+            modell.addAttribute("NewClassMessage", "Du er nå registrert i klasse: "+addNewClassIdAttribute.getClassId()); 
+        } else {
+            modell.addAttribute("NewClassMessage", "Feil, noe er galt. "); 
+            
+        }
+        
+        
+        if(error.hasErrors()){
+            System.out.println(" error with Add Class ID");
+            modell.addAttribute("NewClassMessage", "Feil, for få tegn"); 
+            return "administrateAccount";
+        }
+        
+        
+        return "administrateAccount";
+    }
     
     
 }
