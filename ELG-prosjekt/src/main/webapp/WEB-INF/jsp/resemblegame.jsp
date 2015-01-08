@@ -5,7 +5,6 @@
 --%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -16,25 +15,46 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="<c:url value='/resources/resemble.js' />"></script>
         <script src="<c:url value='/resources/html2canvas.js' />"></script>
-
         <style>
-            .block {
-                float: left;
-                margin: 5px;
-                padding: 5px;
-                background-color: #dddddd;
-            }
-            
             .renderedFrame, .codeBox {
                 <c:out value="width: ${resembleTask.width}px; height: ${resembleTask.height}px" />
+            }
+
+            #tasktext {
+
+            }
+
+            #tasktext input {
+                width: 32%;
+            }
+
+            #left_1, #left_2 {
+                float: left;
+                width: 45%;
+                background-color: #ddd;
+                margin: 5px;
+                padding: 5px;
+            }
+
+            #right_1, #right_2 {
+                float: right;
+                width: 45%;
+                background-color: #ddd;
+                margin: 5px;
+                padding: 5px;
+            }
+
+            #scorePost input {
+                width: 100%;
             }
         </style>
         
         <script>
             var score = 0; 
             var resembleIsPressed = false; 
+
             $(document).ready(function() {
-                
+
                 var solutionHtml = "${resembleTask.solutionHTML}";
                 var solutionCss = "${resembleTask.solutionCSS}";
                 
@@ -45,7 +65,7 @@
 
                 $("#htmlView").val(startingHtml); 
                 $("#cssView").val(startingCss); 
-                               
+
                 $("#viewResult").click(function() {
                     setRenderedResult($("#resultFrame"), $("#htmlView").val(), $("#cssView").val());
                 });
@@ -77,7 +97,6 @@
                 var $head = frame.contents().find("head");                
                 $head.append("<style>" + css + "</style>") 
             }
-
             function resembleIfBothLoaded(resultUrl, solutionUrl, score) { 
                 if(resultUrl && solutionUrl) {
                     resemble(resultUrl).compareTo(solutionUrl).onComplete(function(data){
@@ -88,7 +107,6 @@
                     });            
                 }
             }
-
             function validateForm() {
                 var x = document.forms["scorePost"]["score"].value;
                 if (x == 0 || x == ""||x==null) {
@@ -98,58 +116,57 @@
             }
         </script>
     </head>
-        
     <body>
-
-    <section id="content">
-        <section class="block">        
+    <div id="wrapper">  
+        <div id="tasktext">    
             <p>Oppgave</p>
             <p>${resembleTask.taskText}</p>
-            <input type="button" value="Se resultat" id="viewResult">
-            <input type="button" value="Sammenlign" id="compare">
-            <input type="button" value="Hent løsning" id="getSolution">
-        </section>
-
-        <section class="block">        
+            <center>
+                <input type="button" value="Se resultat" id="viewResult">
+                <input type="button" value="Sammenlign" id="compare">
+                <input type="button" value="Hent løsning" id="getSolution">
+            </center>
+        </div>
+        <div id="left_1"> 
+            <div>      
+                <p>CSS</p>
+                <textarea class="codeBox" id="cssView"></textarea>
+            </div>
+            <div>
+                <p>HTML</p>
+                <textarea class="codeBox" id="htmlView"></textarea>
+            </div>
+        </div>
+        <div id="right_1">      
             <p>Fasit</p>
-            <div id="solutionDiv">
-                <iframe class="renderedFrame" id="solutionFrame" src="about:blank"></iframe>
+            <div>
+                <div id="solutionDiv">
+                    <iframe class="renderedFrame" id="solutionFrame" src="about:blank"></iframe>
+                </div>
             </div>
-        </section>
-
-        <section class="block">        
-            <p>CSS</p>
-            <textarea class="codeBox" id="cssView"></textarea>
-        </section>
-
-        <section class="block">        
-            <p>HTML</p>
-            <textarea class="codeBox" id="htmlView"></textarea>
-        </section>
-
-        <section class="block">        
-            <p>Ditt resultat</p>
-            <div id="resultDiv">
-                <iframe class="renderedFrame" id="resultFrame" src="about:blank"></iframe>
+            <div>
+                <p>Ditt resultat</p>
+                <div id="resultDiv">
+                    <iframe class="renderedFrame" id="resultFrame" src="about:blank"></iframe>
+                </div>
             </div>
-        </section>
-    </section>
-
-
-    <c:choose>
-        <c:when test="${resembleGame.isCurrentTaskLast()}">
-            <form action = "finishgame" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post" >
-                <input type = "hidden" value = "" id = "score" name = "score"/>
-                <input type = "submit" value = "Finish" />
-            </form>
-            
-        </c:when>
-        <c:otherwise>
-             <form action = "nextresembletask" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post">
-                <input type = "hidden" value = "" id = "score" name = "score"/>
-                <input type = "submit" value = "next" />
-            </form>
-            
-        </c:otherwise>
-    </c:choose>
+        </div>
+        <div id="button">
+            <c:choose>
+                <c:when test="${resembleGame.isCurrentTaskLast()}">
+                    <form action = "finishgame" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post" >
+                        <input type = "hidden" value = "" id = "score" name = "score"/>
+                        <input type = "submit" value = "Finish" />
+                    </form>
+                </c:when>
+                <c:otherwise>
+                    <form action = "nextresembletask" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post">
+                        <input type = "hidden" value = "" id = "score" name = "score"/>
+                        <input type = "submit" value = "next" />
+                    </form>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
+    </body>
 </html>
