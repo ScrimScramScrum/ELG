@@ -34,7 +34,7 @@ public class MultiChoiceRepoMock implements MultiChoiceRepository {
     private String[] alternatives = {"hei", "Hva skjer?", "Fett!", "Yeah"};
     private Exercise exer1 = new Exercise(alternatives, "Hva skjer?", "Hvem er riktig?");
     private String[] alternatives2 = {"Hola", "Que pasa?", "Cerveza!", "Ay Caramba!"};
-    private Exercise exer2 = new Exercise(alt2, "Cerveza!", "Mitt spanske favoritt ord er?");
+    private Exercise exer2 = new Exercise(alternatives2, "Cerveza!", "Mitt spanske favoritt ord er?");
     private ArrayList<Exercise> exercise2 = new ArrayList<>();
     private MultiChoice game2 = new MultiChoice(exercise2, "Spill 2");
     
@@ -43,6 +43,9 @@ public class MultiChoiceRepoMock implements MultiChoiceRepository {
         e.add(e2);
         e.add(e3);
         e.add(e4);
+        exercise2.add(exer1);
+        exercise2.add(exer2);
+        
         games.add(game);
         games.add(game2);
     }
