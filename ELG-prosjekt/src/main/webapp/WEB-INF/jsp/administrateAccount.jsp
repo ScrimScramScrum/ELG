@@ -41,23 +41,40 @@
     </table>
 </form:form>
 
+<br> <br>
 
 
-
-
-
-
+<h2>Generer et nytt passord: </h2>
 <button onclick="return confirmComplete()">Gjenopprett passord</button>
-
-
-    
-   
-
-<h2>${changedPassword}</h2>
-
-
 
 <br>
 
-
+<h2>${changedPassword}</h2>
+<br>
 <h2>${regeneratedPassword}</h2>
+
+
+
+
+
+
+<br><br><br><br>
+
+<h2> Legg til klasse: </h2>
+
+
+<form:form action="addClassId" method="post" modelAttribute="addNewClassIdAttribute">
+    <table>        
+        <tr>  
+            <td> Add new class: </td>
+            <td> <form:input path="classId"  />
+                 <form:errors path="classId" />
+            </td> 
+        </tr>
+
+        <tr><td colspan="2"><input type="submit" value="ChangeClassId"</td></tr>
+    </table>
+</form:form>
+
+
+<h3>${NewClassMessage}</h3>

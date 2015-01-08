@@ -74,6 +74,7 @@ public class PersonServiceTesting implements PersonService {
         String newHashedPassword = hash(newPassword);
         
         p.setHashedPassword(newHashedPassword);
+        
         return updatePerson(p);
         
     }
@@ -133,4 +134,22 @@ public class PersonServiceTesting implements PersonService {
         }
         return generatedPass1;
     }
+    
+    
+    @Override
+    public boolean setClassId(Person p, String classId){
+        
+        p.setClassId(classId);
+        
+        if(updatePerson(p)){
+            System.out.println("Set Class ID OK");
+            return true;
+        } else {
+            System.out.println("Set Class ID failed. ");
+            return false; 
+        }
+        
+        
+    }
+    
 }
