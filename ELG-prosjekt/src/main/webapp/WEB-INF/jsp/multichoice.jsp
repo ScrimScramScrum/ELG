@@ -28,7 +28,7 @@
         <table align="center">
             <tr>
                 <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "0" end = "1">
-                    <td><button onclick="window.location.href='/ELG-prosjekt/nextTask'" name ="button" ><c:out value="${teller}" /></button></td>
+                    <td><button onclick="window.location.href='/ELG-prosjekt/nextTask'" value="${teller}" name ="button" ><c:out value="${teller}" /></button></td>
                 </c:forEach>
                 <tr>
             </tr>

@@ -16,6 +16,8 @@ import springmvc.domain.MultiChoice;
  * @author eiriksandberg
  */
 public class MultiChoiceRepoMock implements MultiChoiceRepository {
+    
+    //Spill 1
     private String[] alt = {"Alt 1", "Alt 2", "Alt 3", "Alt 4"};
     private Exercise e1 = new Exercise(alt, "Alt 2", "Hvem er riktig?");
     private String[] alt2 = {"Alt 11", "Alt 22", "Alt 33", "Alt 44"};
@@ -28,12 +30,21 @@ public class MultiChoiceRepoMock implements MultiChoiceRepository {
     private MultiChoice game = new MultiChoice(e, "Spill 1");
     private ArrayList<MultiChoice> games = new ArrayList<>();
     
+    //Spill 2
+    private String[] alternatives = {"hei", "Hva skjer?", "Fett!", "Yeah"};
+    private Exercise exer1 = new Exercise(alternatives, "Hva skjer?", "Hvem er riktig?");
+    private String[] alternatives2 = {"Hola", "Que pasa?", "Cerveza!", "Ay Caramba!"};
+    private Exercise exer2 = new Exercise(alt2, "Cerveza!", "Mitt spanske favoritt ord er?");
+    private ArrayList<Exercise> exercise2 = new ArrayList<>();
+    private MultiChoice game2 = new MultiChoice(exercise2, "Spill 2");
+    
     public MultiChoiceRepoMock(){
         e.add(e1);
         e.add(e2);
         e.add(e3);
         e.add(e4);
         games.add(game);
+        games.add(game2);
     }
     
     
@@ -45,5 +56,9 @@ public class MultiChoiceRepoMock implements MultiChoiceRepository {
         }
         return null;
     
+    }
+    
+    public ArrayList<MultiChoice> getGames(){
+        return games;
     }
 }
