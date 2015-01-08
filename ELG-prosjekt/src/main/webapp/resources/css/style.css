@@ -7,14 +7,23 @@ and open the template in the editor.
     Created on : Jan 8, 2015, 12:03:23 PM
     Author     : Matias
 */
-#topmenu{background:black; border-bottom:2px solid #000; border-top-right-radius:15px; border-top-left-radius:15px; height:60px; width:100%;}
 
-#bar{}
+/*The black background for the top menu*/
+#topmenu{background:black; border-top-right-radius:15px; border-top-left-radius:15px; height:60px; width:100%;}
 
+/*Allows the "selected tab" to change colour*/
+#bar ul li a#selected{background:dimgray;}
+
+/*This gives a shadow effect to the selected tab on hover-over*/
+#bar ul li a#selected:hover{background:dimgray; text-shadow:3px 3px 3px #000;}
+
+/*The color change effect on mouse hover-over*/
 #topmenu ul li a:hover{background:dimgray; text-shadow:3px 3px 3px #000;}
 
+/*Aligns the item in the menu to the left*/
 #topmenu li{float:left;}
 
+/*Settings for the text in the menu, as well as the lines separating the different tabs*/
 #topmenu ul a {list-style-type:none; color:white; padding-left:32px; padding-right:32px;
       text-decoration:none; line-height:60px; font-size:20px;
       background-image:url(../images/line.png); background-repeat:no-repeat; display:block;

@@ -35,6 +35,18 @@ public class MainController {
         return "index"; 
     }
     
+    @RequestMapping(value = "about")
+    public String showAbout(Model model){
+        //model.addAttribute("melding", "melding");
+        return "about"; 
+    }
+    
+    @RequestMapping(value = "highscore")
+    public String showHighscore(Model model){
+        //model.addAttribute("melding", "melding");
+        return "highscore"; 
+    }
+    
     @RequestMapping(value = "choosegame")
     public ModelAndView chooseGame(ModelAndView mav){
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames(); 

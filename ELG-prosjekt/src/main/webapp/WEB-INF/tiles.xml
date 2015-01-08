@@ -59,4 +59,15 @@
         <put-attribute name="title"  value="FinishPage"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/error.jsp"/>      
     </definition>
+    
+    <definition name="about" extends="baseLayout">
+        <put-attribute name="title"  value="AboutELG"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/about.jsp"/>      
+    </definition>
+    
+    <definition name="highscore" extends="baseLayout">
+        <put-attribute name="title"  value="High Score"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/highscore.jsp"/>      
+    </definition>
+    
 </tiles-definitions>
