@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class MultiChoice implements Serializable {
     private ArrayList<Exercise> exercises = new ArrayList<>();
     private String name;
-    private int numberOfExercises = 0;
     private int counter = 0;
     private boolean[] result;
     
@@ -24,15 +23,8 @@ public class MultiChoice implements Serializable {
     
     public MultiChoice(ArrayList<Exercise> exercises, String name){
         this.exercises = exercises;
-        this.name = name;
-        this.numberOfExercises=exercises.size();
+        this.name = name;;
         this.result = new boolean[exercises.size()];
-    }
-    
-    public boolean addExercise(Exercise opg){
-        exercises.add(opg);
-        numberOfExercises++;
-        return true;
     }
     
     public int current(){
@@ -71,14 +63,14 @@ public class MultiChoice implements Serializable {
         counter = 0;
     }
     
-    public double finnResultat(){
+    public double getResult(){
         double right = 0;
-        for (int i = 0; i<exercises.size();i++){
-            if(exercises.get(i).getAnswer()){
+        for (int i = 0; i<result.length;i++){
+            if(result[i] == true){
                 right++;
             }
         }
-        double ans = right;
+        double ans = right/result.length;
         return ans;
     }
     

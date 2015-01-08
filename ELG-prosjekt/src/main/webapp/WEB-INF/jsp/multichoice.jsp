@@ -55,6 +55,6 @@
                 <tr>
             </tr>
           </table>
-        </form>
+        </form:form>
     </body>
 </html>

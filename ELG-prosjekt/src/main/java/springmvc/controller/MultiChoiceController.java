@@ -48,7 +48,7 @@ public class MultiChoiceController {
             }
         mc.getNextExercise();
         if(mc.lastExercise()==true){
-            model.addAttribute("result", mc.finnResultat());
+            model.addAttribute("result", mc.getResult());
             mc.resetCurrent();
             return "result";
             
