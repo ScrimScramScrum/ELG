@@ -1,18 +1,19 @@
-package springmvc.repository;
+package springmvc.service;
 
 import java.util.ArrayList;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.MultiChoiceInfo;
 import springmvc.domain.ResembleGame;
 import springmvc.domain.ResembleTask;
+import springmvc.repository.ResembleTaskRepoMock;
 
-public class GameListRepoMock implements GameListRepo{
+public class GameListServiceMock implements GameListService{
     //the following lists are purely mock lists - will be replaced by methods returnings lists containing objects from the database: 
     private ArrayList<ResembleGame> resembleGames; 
     private ArrayList<MultiChoiceInfo> multiChoiceGames; 
     private ResembleTaskRepoMock resembleTaskRepoMock; 
     
-    public GameListRepoMock(){
+    public GameListServiceMock(){
         resembleTaskRepoMock = new ResembleTaskRepoMock(); 
         resembleGames = new ArrayList<>(); 
         multiChoiceGames = new ArrayList<>(); 
@@ -45,14 +46,17 @@ public class GameListRepoMock implements GameListRepo{
         multiChoiceGames.add(new MultiChoiceInfo("Spill 2", "enda flere kule mål", "v de tre gjerningsmennene som snakket om hva de har gjort, og hvordan de kom seg unna. Det virker for meg som om dette er en to episoders hendelse som vi nå er vitne til ", 3));
     }
 
+    @Override
     public ArrayList<ResembleGame> getAllResembleGames(){
        return resembleGames; 
     }
     
-    public ArrayList<MultiChoiceInfo> getAllMultiChoiceGames(){
+    @Override
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfo(){
         return multiChoiceGames; 
     }
     
+    @Override
      public ResembleGame getResembleGame(int gameId){
          for(int i = 0; i<resembleGames.size(); i++){
              if(resembleGames.get(i).getGameId()==gameId){
@@ -62,7 +66,8 @@ public class GameListRepoMock implements GameListRepo{
          return null; 
     }     
      
-    public MultiChoiceInfo getMultiChoiceGame(String name){
+    @Override
+    public MultiChoiceInfo getMultiChoiceInfo(String name){
         for(int i = 0; i < multiChoiceGames.size(); i++){
             if (multiChoiceGames.get(i).getName().equals(name)){
                 return multiChoiceGames.get(i);
@@ -71,6 +76,7 @@ public class GameListRepoMock implements GameListRepo{
         return null;
     }
     
+    @Override
     public ArrayList<ResembleTask> getResembleTasks(ArrayList<Integer> taskNumbers){
         ArrayList<ResembleTask> result = new ArrayList<>(); 
         for(Integer i : taskNumbers){
@@ -79,5 +85,15 @@ public class GameListRepoMock implements GameListRepo{
             }
         }
         return result; 
+    }
+
+    @Override
+    public ArrayList<MultiChoice> getAllMultiChoiceGames() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public MultiChoice getMultiChoiceGame(String gameId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

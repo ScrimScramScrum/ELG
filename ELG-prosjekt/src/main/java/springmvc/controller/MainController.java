@@ -18,6 +18,7 @@ import springmvc.domain.MultiChoiceInfo;
 import springmvc.domain.ResembleGame;
 import springmvc.domain.ResembleTask;
 import springmvc.service.GameListService;
+import springmvc.service.GameListServiceImpl;
 
 /**
  *
@@ -50,7 +51,7 @@ public class MainController {
     @RequestMapping(value = "choosegame")
     public ModelAndView chooseGame(ModelAndView mav){
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames(); 
-        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceGames();
+        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();
         int resemble = 0;
         mav.addObject("gametype", resemble);
         mav.addObject("resembleGames", resembleGames);
@@ -76,7 +77,7 @@ public class MainController {
             // add info here
         } catch(Exception e) {
             resemble = 2;
-            multiTemp = gameListService.getMultiChoiceGame(id);
+            multiTemp = gameListService.getMultiChoiceInfo(id);
             mav.addObject("multiChoiceInfo", multiTemp);
             // or info here
             System.out.println("MultiChoice");
@@ -84,7 +85,7 @@ public class MainController {
         mav.addObject("gametype", resemble);
         // use session instead of getting all games every time a game get clicked?
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames(); 
-        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceGames();
+        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();
         mav.addObject("gamenr", id);
         //mav.addObject("info", info);
         mav.addObject("resembleGames", resembleGames);

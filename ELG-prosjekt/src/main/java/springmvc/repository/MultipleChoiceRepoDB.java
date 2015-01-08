@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import springmvc.domain.Exercise;
 import springmvc.domain.MultiChoice;
+import springmvc.domain.MultiChoiceInfo;
 import springmvc.repository.mappers.MultiChoiceExerciseMapper;
+import springmvc.repository.mappers.MultiChoiceInfoMapper;
 import springmvc.repository.mappers.MultiChoiceMapper;
 /**
  *
@@ -27,6 +29,7 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
     //SQL setninger:
     private final String sqlGetGame = "select * from multichoicegame where gamename = ?";
     private final String sqlGetExercises = "select * from multiexercise where idGame = ?";
+    private final String sqlGetAllMultiChoiceGames = "select * from multichoicegame"; 
     
     public MultipleChoiceRepoDB() {}
     
@@ -44,9 +47,24 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
         return game;
     }
     
+    public ArrayList<MultiChoice> getAllMultiChoiceGames(){
+        ArrayList<MultiChoice> allGames = (ArrayList<MultiChoice>) jdbcTemplateObject.query(sqlGetAllMultiChoiceGames, new MultiChoiceMapper()); 
+        
+        for(MultiChoice m : allGames){
+            m.setExercises(getExercises(m.getGameid()));
+        }
+        return allGames; 
+    }
+    
     public ArrayList<Exercise> getExercises(int gameid){
         return (ArrayList<Exercise>) jdbcTemplateObject.query(sqlGetExercises, new Object[]{gameid}, new MultiChoiceExerciseMapper());
     }
     
+    public MultiChoiceInfo getMultiChoiceInfo(String gameName){
+        return jdbcTemplateObject.queryForObject(sqlGetGame, new MultiChoiceInfoMapper()); 
+    }
     
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfo(){
+        return (ArrayList<MultiChoiceInfo>)jdbcTemplateObject.query(sqlGetAllMultiChoiceGames, new MultiChoiceInfoMapper()); 
+    }
 }

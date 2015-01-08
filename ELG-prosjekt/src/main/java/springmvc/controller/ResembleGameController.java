@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import springmvc.domain.ResembleGame;
 import springmvc.domain.ResembleTask;
 import springmvc.service.GameListService;
+import springmvc.service.GameListServiceImpl;
 import springmvc.service.ResembleTaskService;
 
 @Controller
