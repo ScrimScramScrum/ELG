@@ -16,7 +16,10 @@
 </c:when>
 <c:when test="${gametype == 2}">
     :::Info::: 
-    <br>${info}
+    <br>${multiChoiceInfo.info}
+    <br><br>
+    :::Learning Goals:::
+    <br>${multiChoiceInfo.learningGoals}
     <br><br>
     <form action="multi" method="post">
         <input type="hidden" name="gamename" id="gamename" value="${gamenr}" />

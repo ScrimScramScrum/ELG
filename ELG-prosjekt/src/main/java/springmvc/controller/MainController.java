@@ -50,12 +50,15 @@ public class MainController {
     public ModelAndView chooseGame(ModelAndView mav, @RequestParam("gameid") String id){
         int resemble = 0;
         String info = "test...";
+        MultiChoiceInfo multiTemp = null;
         try {
             int a = Integer.parseInt(id);
             resemble = 1;
             // add info here
         } catch(Exception e) {
             resemble = 2;
+            multiTemp = gameListService.getMultiChoiceGame(id);
+            mav.addObject("multiChoiceInfo", multiTemp);
             // or info here
             System.out.println("MultiChoice");
         }
@@ -64,7 +67,7 @@ public class MainController {
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames(); 
         ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceGames();
         mav.addObject("gamenr", id);
-        mav.addObject("info", info);
+        //mav.addObject("info", info);
         mav.addObject("resembleGames", resembleGames);
         mav.addObject("multiChoiceGames", multiChoiceGames);
         mav.setViewName("chooseGame");
