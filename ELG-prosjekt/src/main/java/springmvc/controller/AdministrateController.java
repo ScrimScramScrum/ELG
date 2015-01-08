@@ -67,7 +67,8 @@ public class AdministrateController {
     }
     
     
-    
+    /*
+    Dette er flyttet til Login Controller. 
     @RequestMapping(value = "newPassword")
     public String newPassword(@ModelAttribute NewPassword newPassword, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute) {
         System.out.println("NEWPASSWORD ON THE WASY");
@@ -83,11 +84,11 @@ public class AdministrateController {
             modell.addAttribute("Error, something went wrong with the resend of the Password"); 
 
         }
-        
-        return "administrateAccount";
+        //Endret til Index fra 
+        return "index";
     }
     
-    
+    */
     
     
     @RequestMapping(value = "addClassId" , method=RequestMethod.POST)

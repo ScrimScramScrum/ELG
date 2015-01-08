@@ -1,4 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 
 <h2>Login</h2>
 
@@ -25,6 +27,26 @@
 
 
 
+<%--Added to test--%>
+
+<script>
+    function confirmComplete() {
+        if (confirm('Sikker på at du ønsker å resette passordet? OK=ja')) {
+            window.location.href='<c:url value="/newPassword"/>';
+        } else {
+            
+        }
+}
+</script>
+
+<h2>Generer et nytt passord: </h2>
+<button onclick="return confirmComplete()">Gjenopprett passord</button>
+
+<br>
+
+<h2>${changedPassword}</h2>
+<br>
+<h2>${regeneratedPassword}</h2>
 
 
 

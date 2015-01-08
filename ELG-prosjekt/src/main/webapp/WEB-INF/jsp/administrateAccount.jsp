@@ -5,6 +5,7 @@
 
 <h1>Konto Administrasjon</h1>
 
+<%--
 <script>
     function confirmComplete() {
         if (confirm('Sikker på at du ønsker å resette passordet? OK=ja')) {
@@ -15,7 +16,7 @@
 }
 </script>
 
-
+--%>
 <form:form action="changePassword" method="post" modelAttribute="newPassword">
     <table>        
         <tr>  
@@ -44,21 +45,32 @@
 <br> <br>
 
 
+<%--
+<script>
+    function confirmComplete() {
+        if (confirm('Sikker på at du ønsker å resette passordet? OK=ja')) {
+            window.location.href='<c:url value="/newPassword"/>';
+        } else {
+            
+        }
+}
+</script>
+
 <h2>Generer et nytt passord: </h2>
 <button onclick="return confirmComplete()">Gjenopprett passord</button>
 
 <br>
 
-<h2>${changedPassword}</h2>
-<br>
 <h2>${regeneratedPassword}</h2>
 
 
+--%>
 
 
+<h2>${changedPassword}</h2>
+<br>
 
-
-<br><br><br><br>
+<br>
 
 <h2> Legg til klasse: </h2>
 
