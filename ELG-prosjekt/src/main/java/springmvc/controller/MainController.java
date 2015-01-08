@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import springmvc.domain.MultiChoice;
+import springmvc.domain.MultiChoiceInfo;
 import springmvc.domain.ResembleGame;
 import springmvc.service.GameListService;
 
@@ -35,7 +36,7 @@ public class MainController {
     @RequestMapping(value = "choosegame")
     public ModelAndView chooseGame(ModelAndView mav){
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames(); 
-        ArrayList<MultiChoice> multiChoiceGames = gameListService.getAllMultiChoiceGames(); 
+        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceGames(); 
         mav.addObject("resembleGames", resembleGames);
         mav.addObject("multiChoiceGames", multiChoiceGames); 
         mav.setViewName("chooseGame");

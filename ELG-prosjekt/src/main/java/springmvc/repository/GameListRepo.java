@@ -1,14 +1,13 @@
 package springmvc.repository;
 
 import java.util.ArrayList;
-import springmvc.domain.MultiChoice;
+import springmvc.domain.MultiChoiceInfo;
 import springmvc.domain.ResembleGame;
 
 public interface GameListRepo {
     
     public ArrayList<ResembleGame> getAllResembleGames(); 
-    public ArrayList<MultiChoice> getAllMultiChoiceGames(); 
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceGames(); 
     public ResembleGame getResembleGame(int gameId); 
-    public MultiChoice getMultiChoiceGame(int gameId); 
-    
+    //public MultiChoiceInfo getMultiChoiceGame(int gameId); 
 }

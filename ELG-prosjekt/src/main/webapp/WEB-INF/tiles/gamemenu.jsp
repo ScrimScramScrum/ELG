@@ -16,12 +16,24 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+        <br><br>
+        Resemblegames:
         <c:forEach items="${resembleGames}" var="game">
             <li>
                 <form action="resemblegame" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${game.gameId}" />
                     <input type="submit" value="${game.gameId}" />
                     game nr: <c:out value='${game.gameId}' />
+                </form>
+            </li>
+        </c:forEach>
+        <br><br>
+         <c:forEach items="${multiChoiceGames}" var="game">
+            <li>
+                <form action="multi" method="post">
+                    <input type="hidden" name="gamename" id="gamename" value="${game.gameId}" />
+                    <input type="submit" value="${game.name}" />
+                    game name: <c:out value='${game.gamename}' />
                 </form>
             </li>
         </c:forEach>

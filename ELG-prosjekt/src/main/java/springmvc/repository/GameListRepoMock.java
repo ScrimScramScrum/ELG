@@ -2,12 +2,13 @@ package springmvc.repository;
 
 import java.util.ArrayList;
 import springmvc.domain.MultiChoice;
+import springmvc.domain.MultiChoiceInfo;
 import springmvc.domain.ResembleGame;
 
 public class GameListRepoMock implements GameListRepo{
     //the following lists are purely mock lists - will be replaced by methods returnings lists containing objects from the database: 
     private ArrayList<ResembleGame> resembleGames; 
-    private ArrayList<MultiChoice> multiChoiceGames; 
+    private ArrayList<MultiChoiceInfo> multiChoiceGames; 
     
     public GameListRepoMock(){
         resembleGames = new ArrayList<>(); 
@@ -30,23 +31,21 @@ public class GameListRepoMock implements GameListRepo{
         liste.add(1);
         resembleGames.add(new ResembleGame(liste, 3));     
         
-        //add mock mutlichoicegames in the list multiChoiceGames here! 
+        //add mock mutlichoicegames in the list multiChoiceGames here!
+        multiChoiceGames.add(new MultiChoiceInfo("Spill 1", "Test info her"));
+        multiChoiceGames.add(new MultiChoiceInfo("Spill 2", "Test info her :D :D :D"));
     }
 
     public ArrayList<ResembleGame> getAllResembleGames(){
        return resembleGames; 
     }
     
-    public ArrayList<MultiChoice> getAllMultiChoiceGames(){
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceGames(){
         return multiChoiceGames; 
     }
     
      public ResembleGame getResembleGame(int gameId){
          ResembleGame res = new ResembleGame(resembleGames.get(gameId).getTaskNumbers(),gameId); 
          return res;
-    }
-     
-     public MultiChoice getMultiChoiceGame(int gameId){
-         return multiChoiceGames.get(gameId); 
-     }
+    }     
 }

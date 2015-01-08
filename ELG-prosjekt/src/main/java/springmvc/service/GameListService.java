@@ -7,7 +7,7 @@ package springmvc.service;
 
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
-import springmvc.domain.MultiChoice;
+import springmvc.domain.MultiChoiceInfo;
 import springmvc.domain.ResembleGame;
 import springmvc.repository.GameListRepo;
 
@@ -26,7 +26,7 @@ public class GameListService {
     public ArrayList<ResembleGame> getAllResembleGames(){
         return repo.getAllResembleGames(); 
     } 
-    public ArrayList<MultiChoice> getAllMultiChoiceGames(){
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceGames(){
         return repo.getAllMultiChoiceGames();
     }
     
