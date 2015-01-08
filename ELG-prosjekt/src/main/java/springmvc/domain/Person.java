@@ -7,10 +7,6 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 
-/**
- *
- * @author Hoxmark
- */
 public class Person {
     
     @NotEmpty  
@@ -27,6 +23,7 @@ public class Person {
     
     private String hashedPassword; 
     
+    private String classId;
     
 
     public Person(String email, String fname, String lname) {
@@ -67,8 +64,16 @@ public class Person {
     }
 
     public void setLname(String newVaule) {
-        lname = newVaule;
+        lname = newVaule;       
     }
+
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
+    }    
 
     @Override
     public String toString() {

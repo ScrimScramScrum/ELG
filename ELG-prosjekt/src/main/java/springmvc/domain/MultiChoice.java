@@ -18,7 +18,7 @@ public class MultiChoice implements Serializable {
     private String name;
     private int counter = 0;
     private boolean[] result;
-    int size;
+    int gameid;
     
     public MultiChoice(){};
     
@@ -58,7 +58,11 @@ public class MultiChoice implements Serializable {
     public ArrayList getExercises(){
         return exercises;
     }
-    
+
+    public void setExercises(ArrayList<Exercise> exercises) {
+        this.exercises = exercises;
+    }
+
     public String getName(){
         return name;
     }
@@ -81,6 +85,20 @@ public class MultiChoice implements Serializable {
     public void setResult(int index, boolean r){
         result[index] = r; 
     }
+    
+    public void setName(String newname){
+        this.name=newname;
+    }
+
+    public int getGameid() {
+        return gameid;
+    }
+
+    public void setGameid(int gameid) {
+        this.gameid = gameid;
+    }
+    
+    
 
     
 }
