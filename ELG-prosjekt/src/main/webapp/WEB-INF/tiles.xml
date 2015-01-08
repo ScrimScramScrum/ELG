@@ -11,6 +11,12 @@
         <put-attribute name="body"   value="/WEB-INF/jsp/index.jsp"/>
         <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
     </definition>
+    <definition name="baseGameMenuLayout" template="/WEB-INF/tiles/baseGameMenuLayout.jsp">
+        <put-attribute name="title"  value="BaseLayout"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/gamemenu.jsp"/>
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
+        <put-attribute name="gamedisplay" value="/WEB-INF/tiles/preview.jsp"/>
+    </definition>
     <definition name="index" extends="baseLayout">
         <put-attribute name="title"  value="Index"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/index.jsp"/>      
@@ -23,9 +29,10 @@
         <put-attribute name="title"  value="Index"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/multichoice.jsp"/>      
     </definition>
-    <definition name="chooseGame" extends="baseLayout">
+    <definition name="chooseGame" extends="baseGameMenuLayout">
         <put-attribute name="title"  value="Index"/>
-        <put-attribute name="body"   value="/WEB-INF/tiles/gamemenu.jsp"/> 
+        <put-attribute name="body"   value="/WEB-INF/tiles/gamemenu.jsp"/>
+        <put-attribute name="gamedisplay" value="/WEB-INF/tiles/preview.jsp"/> 
     </definition>
     <definition name="result" extends="baseLayout">
         <put-attribute name="title"  value="Index"/>
