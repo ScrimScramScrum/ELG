@@ -5,36 +5,40 @@
  */
 
 package springmvc.service;
+import org.springframework.beans.factory.annotation.Autowired;
 import springmvc.domain.Person;
 import springmvc.service.*;
 import springmvc.domain.Login;
+import springmvc.repository.PersonRepoDB;
 /**
  *
  * @author Hoxmark
  */
 public class LoginService {
     
+    @Autowired
+    private PersonService personService;  
+    
+    
     
     public boolean compareInformation(Login login){
-        PersonService personService = new PersonServiceTesting(); // TODO: Endre til database.. 
-        Person person = getPersonFromDB(login.getEmail());
+        //PersonService personService = new PersonServiceTesting(); // TODO: Endre til database..         
+        Person person = personService.getPerson(login.getEmail());
         String hashPw = personService.hash(login.getPassword()); 
+        
+        System.out.println(hashPw);
         
         if (person == null){
             System.out.println("Login failed. login-data = null. ");
             return false; // Brukernavn finnes ikke.  
         } else if (person.getHashedPassword().equals(hashPw)){ // 
             System.out.println("Login ok. ");
-            return true; // Personen finnes. 
+            return true; // Personen finnes.             
         } else {
             return false;
         }
         
     }
     
-    private Person getPersonFromDB(String email){  
-        PersonService personService = new PersonServiceTesting();
-        
-        return personService.getPerson(email);
-    }
+  
 }

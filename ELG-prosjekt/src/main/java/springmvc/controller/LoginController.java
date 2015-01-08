@@ -28,9 +28,6 @@ public class LoginController {
     private LoginService loginService;
     
     
-    
-    
-    //TODO: Trenger vi denne?
     @RequestMapping(value = "login" , method=RequestMethod.GET)
     public String person(@ModelAttribute Login login) {
         return "login";

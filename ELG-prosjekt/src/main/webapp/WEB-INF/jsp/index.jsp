@@ -24,6 +24,10 @@
         <input type="submit" value="Ny person">
         </form>
         
+        <form action="<c:url value="/administrateAccount"/>" >
+           <input type="submit" value="administrere">
+        </form>
+           
         
         <h2>${registeredOK}</h2>
 

@@ -26,6 +26,11 @@ public interface PersonService{
     
     public String hash(String password);
     
+    public boolean generateNewPassword(Person p);
+
+    
+    public boolean changePassword(Person p, String oldPw, String newPw, String confirm); 
+
 
     
 }
