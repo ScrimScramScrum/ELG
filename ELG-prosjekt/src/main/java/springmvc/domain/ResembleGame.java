@@ -64,4 +64,14 @@ public class ResembleGame implements Serializable{
         }
         return sum; 
     }
+
+    public double[] getTaskScores() {
+        return taskScores;
+    }
+
+    public void setTaskScores(double[] taskScores) {
+        this.taskScores = taskScores;
+    }
+    
+    
 }
