@@ -12,31 +12,43 @@
              width: 60%;
         }
         #rightcolumn {
-             width: 40%;
+            margin-left: 5%;
+            width: 35%;
+        }
+        #leftcolumn input {
+            width: 100px;
+        }
+        #leftcolumn h4 {
+            padding: 0px;
+            margin-right: 0px;
+            margin-left: 0px;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+        #leftcolumn input{
+             width: 99%;
         }
     </style>
 </head>
 
-<h2>This is info about the game :))))</h2>
 <c:choose>
 <c:when test="${gametype == 1}">
 
     <div id="wrapper">
         <div id="leftcolumn">
-            Left..
-            :::Difficulty:::
-            <br>Vanskelighetsgrad: ${resembleInfo.difficulty}
-            <br><br>
-            :::Info::: 
-            <br>${resembleInfo.info}
-            <br><br>
-            :::Learning Goals:::
-            <br>${resembleInfo.learningGoal}
+            <h2>Resemble ${gamenr}</h2>
+            <h4>Difficulty</h4>
+            Vanskelighetsgrad: ${resembleInfo.difficulty}
+            <br>
+            <h4>Info</h4>
+            ${resembleInfo.info}
+            <br>
+            <h4>Learning Goals</h4>
+            ${resembleInfo.learningGoal}
             <br><br>
             <form action="resemblegame" method="post">
                 <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
                 <input type="submit" value="Play" />
-                game nr: <c:out value='${gamenr}' />
             </form>
         </div>  
         <div id="rightcolumn">

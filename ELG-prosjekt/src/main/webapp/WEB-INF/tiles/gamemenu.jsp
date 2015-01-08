@@ -13,29 +13,34 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="text/css">
+            #gamebutton {
+                width: 150px;
+                height: 60px;
+            }
+        </style>
     </head>
     <body>
+        <center>
         <h1>Select a game</h1>
-        <br><br>
-        Resemblegames:
+        <h4>Resemble Games</h4>
         <c:forEach items="${resembleGames}" var="game">
-            <li>
+            <!-- <li> -->
                 <form action="choosegame" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${game.gameId}" />
-                    <input type="submit" value="${game.gameId}" />
-                    game nr: <c:out value='${game.gameId}' />
+                    <input type="submit" id="gamebutton" value="Resemble ${game.gameId}" />
                 </form>
-            </li>
+            <!-- </li> -->
         </c:forEach>
-        <br><br>
-         <c:forEach items="${multiChoiceGames}" var="game">
-            <li>
+        <h4>MultiChoice Games</h4>
+        <c:forEach items="${multiChoiceGames}" var="game">
+            <!-- <li> -->
                 <form action="choosegame" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${game.name}" />
-                    <input type="submit" value="${game.name}" />
-                    game name: <c:out value='${game.name}' />
+                    <input type="submit" id="gamebutton" value="Multi ${game.name}" />
                 </form>
-            </li>
+            <!-- </li> -->
         </c:forEach>
+        </center>
     </body>
 </html>

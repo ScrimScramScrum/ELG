@@ -1,8 +1,5 @@
-<%-- 
-    Document   : result
-    Created on : 07.jan.2015, 16:47:40
-    Author     : eiriksandberg
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,6 +9,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        ${result};
+    <spring:message code="resultMC"/>
+       ${result}
     </body>
 </html>
