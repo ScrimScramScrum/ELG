@@ -31,9 +31,9 @@
          <c:forEach items="${multiChoiceGames}" var="game">
             <li>
                 <form action="multi" method="post">
-                    <input type="hidden" name="gamename" id="gamename" value="${game.gameId}" />
+                    <input type="hidden" name="gamename" id="gamename" value="${game.name}" />
                     <input type="submit" value="${game.name}" />
-                    game name: <c:out value='${game.gamename}' />
+                    game name: <c:out value='${game.name}' />
                 </form>
             </li>
         </c:forEach>
