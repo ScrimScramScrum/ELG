@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.MultiChoiceInfo;
 import springmvc.domain.ResembleGame;
+import springmvc.domain.ResembleTask;
 import springmvc.service.GameListService;
 
 /**
@@ -51,9 +52,15 @@ public class MainController {
         int resemble = 0;
         String info = "test...";
         MultiChoiceInfo multiTemp = null;
+        ResembleGame resembleTemp = null;
         try {
             int a = Integer.parseInt(id);
             resemble = 1;
+            resembleTemp = gameListService.getResembleGame(a);
+            ArrayList<Integer> task_numbers = resembleTemp.getTaskNumbers();
+            ArrayList<ResembleTask> temp_tasks = gameListService.getResembleTasks(task_numbers);
+            mav.addObject("tasks", temp_tasks);
+            mav.addObject("resembleInfo", resembleTemp);
             // add info here
         } catch(Exception e) {
             resemble = 2;
