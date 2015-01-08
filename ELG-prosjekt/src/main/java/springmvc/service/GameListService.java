@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import springmvc.domain.MultiChoiceInfo;
 import springmvc.domain.ResembleGame;
+import springmvc.domain.ResembleTask;
 import springmvc.repository.GameListRepo;
 
 /**
@@ -36,5 +37,9 @@ public class GameListService {
     
     public MultiChoiceInfo getMultiChoiceGame(String id){
         return repo.getMultiChoiceGame(id); 
+    }
+    
+    public ArrayList<ResembleTask> getResembleTasks(ArrayList<Integer> taskNumbers){
+        return repo.getResembleTasks(taskNumbers); 
     }
 }

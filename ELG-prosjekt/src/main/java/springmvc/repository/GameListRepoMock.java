@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.MultiChoiceInfo;
 import springmvc.domain.ResembleGame;
+import springmvc.domain.ResembleTask;
 
 public class GameListRepoMock implements GameListRepo{
     //the following lists are purely mock lists - will be replaced by methods returnings lists containing objects from the database: 
     private ArrayList<ResembleGame> resembleGames; 
     private ArrayList<MultiChoiceInfo> multiChoiceGames; 
+    private ResembleTaskRepoMock resembleTaskRepoMock; 
     
     public GameListRepoMock(){
+        resembleTaskRepoMock = new ResembleTaskRepoMock(); 
         resembleGames = new ArrayList<>(); 
         multiChoiceGames = new ArrayList<>(); 
         ArrayList<Integer> liste = new ArrayList<>(); 
@@ -66,5 +69,15 @@ public class GameListRepoMock implements GameListRepo{
             }
         }
         return null;
+    }
+    
+    public ArrayList<ResembleTask> getResembleTasks(ArrayList<Integer> taskNumbers){
+        ArrayList<ResembleTask> result = new ArrayList<>(); 
+        for(Integer i : taskNumbers){
+            if(resembleTaskRepoMock.getResembleTask(i)!=null){
+                result.add(resembleTaskRepoMock.getResembleTask(i));
+            }
+        }
+        return result; 
     }
 }

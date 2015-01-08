@@ -23,6 +23,9 @@ public class ResembleGame implements Serializable{
         this.difficulty = difficulty; 
     }
     
+    public ResembleGame(){
+    }
+    
     public ArrayList<Integer> getTaskNumbers() {
         return taskNumbers;
     }
