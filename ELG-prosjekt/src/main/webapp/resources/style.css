@@ -7,7 +7,7 @@ and open the template in the editor.
     Created on : Jan 8, 2015, 12:03:23 PM
     Author     : Matias
 */
-#topmenu{background:black; height:60px; width:100%; margin:5; padding:5;}
+#topmenu{background:black; border-radius:15px; height:60px; width:100%; margin:5; padding:5;}
 
 
 

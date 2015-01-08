@@ -13,7 +13,7 @@
         <li><a href="<c:url value="/choosegame" />" >Games</a></li>
         <li><a href='#'>High Score</a></li>
         <li><a href='#'>About</a></li>
-        <img src="resources/amoosing.jpg" height="60px" align="right">
+        <img src="resources/amoosing.jpg" height="60px" align="right" hspace="32px">
     </ul>
 </div>
 </body>
