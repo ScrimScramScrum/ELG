@@ -32,6 +32,7 @@
         
         <script>
             var score = 0; 
+            var resembleIsPressed = false; 
             $(document).ready(function() {
                 
                 var solutionHtml = "${resembleTask.solutionHTML}";
@@ -83,7 +84,16 @@
                         alert("Likhet: " + (100 - data.misMatchPercentage) + "%");
                         score = 100-data.misMatchPercentage; 
                         document.getElementById("score").value = score;
+                        resembleIsPressed = true;
                     });            
+                }
+            }
+
+            function validateForm() {
+                var x = document.forms["scorePost"]["score"].value;
+                if (x == 0 || x == ""||x==null) {
+                    alert("Du må trykke på sammenlign");
+                    return false;
                 }
             }
         </script>
@@ -128,16 +138,14 @@
 
     <c:choose>
         <c:when test="${resembleGame.isCurrentTaskLast()}">
-            <!-- <button onclick="window.location.href='/ELG-prosjekt/finishgame'">Finish</button> -->
-            <form action = "finishgame" id="scorePost" method="post">
+            <form action = "finishgame" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post" >
                 <input type = "hidden" value = "" id = "score" name = "score"/>
                 <input type = "submit" value = "Finish" />
             </form>
             
         </c:when>
         <c:otherwise>
-            <!-- <button onclick="window.location.href='/ELG-prosjekt/nextresembletask'">Next Task</button> -->
-             <form action = "nextresembletask" id="scorePost" method="post">
+             <form action = "nextresembletask" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post">
                 <input type = "hidden" value = "" id = "score" name = "score"/>
                 <input type = "submit" value = "next" />
             </form>
