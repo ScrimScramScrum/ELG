@@ -10,8 +10,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
+
+
 <html>
     <head>
+        <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css/styleGamemenu.css'/>">
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style type="text/css">
             #gamebutton {
@@ -21,6 +25,7 @@
         </style>
     </head>
     <body>
+        <div id="sidebar">
         <center>
         <h1>Select a game</h1>
         <h4>Resemble Games</h4>
@@ -42,5 +47,6 @@
             <!-- </li> -->
         </c:forEach>
         </center>
+        </div>
     </body>
 </html>
