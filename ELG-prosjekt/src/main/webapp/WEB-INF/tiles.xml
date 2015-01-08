@@ -34,10 +34,10 @@
         <put-attribute name="body"   value="/WEB-INF/tiles/gamemenu.jsp"/>
         <put-attribute name="gamedisplay" value="/WEB-INF/tiles/preview.jsp"/> 
     </definition>
+    
     <definition name="result" extends="baseLayout">
         <put-attribute name="title"  value="Index"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/result.jsp"/>
-              
+        <put-attribute name="body"   value="/WEB-INF/jsp/result.jsp"/>       
     </definition>
     
     <definition name="newPerson" extends="baseLayout">
@@ -68,6 +68,7 @@
     <definition name="highscore" extends="baseLayout">
         <put-attribute name="title"  value="High Score"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/highscore.jsp"/>      
+    </definition>
 
     <definition name="administrateAccount" extends="baseLayout">
         <put-attribute name="title"  value="administrateAccountSomethingElse"/>
