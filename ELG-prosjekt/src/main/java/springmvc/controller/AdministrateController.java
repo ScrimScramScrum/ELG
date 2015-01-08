@@ -69,7 +69,7 @@ public class AdministrateController {
     
     
     @RequestMapping(value = "newPassword")
-    public String newPassword(@ModelAttribute NewPassword newPassword, Model modell) {
+    public String newPassword(@ModelAttribute NewPassword newPassword, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute) {
         System.out.println("NEWPASSWORD ON THE WASY");
         
         Person inLoggedPerson = new Person("TEST@GMAIL.COM","TESTFORNAME","TESTETTERNAVN");
