@@ -34,4 +34,5 @@ public interface PersonService{
 
     public boolean setClassId(Person s, String addClass);
     
+    public boolean makeAdmin(Person p, String password); 
 }

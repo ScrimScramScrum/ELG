@@ -89,4 +89,19 @@
 </form:form>
 
 
-<h3>${NewClassMessage}</h3>
+<form:form action="makeNewAdmin" method="post" modelAttribute="makeAdminAttribute">
+    <table>        
+        <tr>  
+            <td> Type admin-password: </td>
+            <td> <form:input path="makeAdminPw" type="password" /> 
+                 <form:errors path="makeAdminPw" />
+            </td> 
+        </tr>
+
+        <tr><td colspan="2"><input type="submit" value="changeAdminRights"</td></tr>
+    </table>
+</form:form> 
+
+
+<h3>${NewClassMessage}</h3> 
+<h3>${makeAdminMessage}</h3>

@@ -162,4 +162,17 @@ public class PersonServiceTesting implements PersonService {
         
     }
     
+    @Override
+    public boolean makeAdmin(Person p, String pw){
+        String password = "123"; // MAYBE change where to save the password?  
+        if (password.equals(pw)){
+            p.setTeacher(1);
+            System.out.println("Person set as admin");
+            return updatePerson(p); 
+        } else {
+            System.out.println("Set Class ID failed. ");
+            return false; 
+        }
+    } 
+    
 }

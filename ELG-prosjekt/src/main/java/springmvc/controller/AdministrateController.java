@@ -19,6 +19,7 @@ import springmvc.domain.Person;
 import springmvc.service.*;
 import springmvc.ui.NewPassword; 
 import springmvc.ui.AddNewClassId;
+import springmvc.ui.MakeAdmin;
 
 
 
@@ -32,14 +33,14 @@ public class AdministrateController {
          
     
     @RequestMapping(value = "administrateAccount" , method=RequestMethod.GET)
-    public String adminAccount(@ModelAttribute NewPassword newPassword, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute){
+    public String adminAccount(@ModelAttribute NewPassword newPassword, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute){
         System.out.println("GET kjorer");
         return "administrateAccount";
     }
     
     
     @RequestMapping(value = "changePassword" , method=RequestMethod.POST)
-    public String changePass(@Valid @ModelAttribute NewPassword newPassword, BindingResult error, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute) {
+    public String changePass(@Valid @ModelAttribute NewPassword newPassword, BindingResult error, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute) {
         System.out.println("POST kjorer");
 
         Person inLoggedPerson = new Person("TEST@GMAIL.COM","NAVN","ETTERNAVN");
@@ -92,13 +93,11 @@ public class AdministrateController {
     
     
     @RequestMapping(value = "addClassId" , method=RequestMethod.POST)
-    public String addNewClassId(@Valid @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, BindingResult error, Model modell, @ModelAttribute NewPassword newPassword) {
+    public String addNewClassId(@Valid @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, BindingResult error, Model modell, @ModelAttribute NewPassword newPassword, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute) {
         System.out.println("Post ADd Class kjorer");
 
         Person inLoggedPerson = new Person("TEST@GMAIL.COM","NAVN","ETTERNAVN");
  
-        
-        
         if (addNewClassIdAttribute.getClassId().equals("admin")){
             
             System.out.println("Person set as admin");
@@ -122,6 +121,31 @@ public class AdministrateController {
             return "administrateAccount";
         }
         
+        return "administrateAccount";
+    }
+    
+    
+    
+    @RequestMapping(value = "makeNewAdmin" , method=RequestMethod.POST)
+    public String makeNewAdmin(@Valid @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute, BindingResult error, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute NewPassword newPassword) {
+        System.out.println("makeAdmin kjorer");
+        
+        if(error.hasErrors()){
+            System.out.println("ERROR with making user Admin/Teacher. ");
+            // modell.addAttribute("NewClassMessage", "Feil, for få tegn"); 
+            return "administrateAccount";
+        }
+
+        Person inLoggedPerson = new Person("TEST@GMAIL.COM","NAVN","ETTERNAVN");
+
+        if (personService.makeAdmin(inLoggedPerson, makeAdminAttribute.getMakeAdminPw())){ // Registreres som admin. 
+            System.out.println("Person set as admin");
+            modell.addAttribute("makeAdminMessage", "Du har nå admin-rettigheter: "); 
+            
+        } else { // Feiler med å registrere seg som admin.  
+            modell.addAttribute("makeAdminMessage", "Feil, noe gikk galt med å registrere deg som admin. "); 
+            
+        }
         
         return "administrateAccount";
     }
