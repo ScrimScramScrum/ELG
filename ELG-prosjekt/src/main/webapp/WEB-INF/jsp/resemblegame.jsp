@@ -78,12 +78,8 @@
                 $("#viewResult").click(function() {
                     var editor = $('.CodeMirror')[0].CodeMirror;
                     var cssText = editor.getValue(); 
-                    
                     var editor = $('.CodeMirror')[1].CodeMirror;
                     var htmlText = editor.getValue(); 
-                //    alert(test); 
-//                    alert("GETCODE" + editor.getCode()); 
-//                    alert("VALUE" + editor.value; 
                     setRenderedResult($("#resultFrame"), htmlText, cssText);
                 });
                 
@@ -139,30 +135,19 @@
     </head>
     <body>
         <script>
-            var editableCodemirror; 
-            var editableCodemirror2; 
-            function hei(){
-                editableCodeMirror = CodeMirror.fromTextArea(document.getElementById('cssView'), {
+            window.onload = function(){
+                    var editableCodeMirror = CodeMirror.fromTextArea(document.getElementById('cssView'), {
+                    lineWrapping: true,
                     mode: "css",
                     theme: "default",
                     lineNumbers: true
                 });
-                $('#cssSyntax').data('CodeMirrorInstance', editableCodeMirror);
-            }
-            
-            function hei2(){
-                editableCodeMirror2 = CodeMirror.fromTextArea(document.getElementById('htmlView'), {
+                var editableCodeMirror2 = CodeMirror.fromTextArea(document.getElementById('htmlView'), {
+                    lineWrapping: true,        
                     mode: "xml",
                     theme: "default",
                     lineNumbers: true
                 });
-                $('#htmlSyntax').data('CodeMirrorInstance', editableCodeMirror2);
-
-            }      
-            
-            window.onload = function(){
-                 hei();
-                 hei2(); 
              };
         </script>
         <div id="wrapper">  
