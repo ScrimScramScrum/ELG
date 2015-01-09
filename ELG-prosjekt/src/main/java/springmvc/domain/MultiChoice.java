@@ -81,7 +81,7 @@ public class MultiChoice implements Serializable {
         double ans = right/result.length;
         return ans;
     }
-    
+     
     public void setResult(int index, boolean r){
         result[index] = r; 
     }

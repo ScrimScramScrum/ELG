@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import springmvc.domain.Exercise;
 import springmvc.domain.MultiChoice;
+import springmvc.domain.User;
 import springmvc.service.MultiChoiceService;
+import springmvc.service.PersonService;
 import springmvc.test.MultiChoiceTest;
 
 /**
@@ -32,6 +34,11 @@ public class MultiChoiceController {
     
     @Autowired
     private MultiChoiceService s;
+    
+    @Autowired
+    private PersonService personService;
+    
+   
     
     @RequestMapping(value = "multi", method = RequestMethod.POST)
     public String showMultiChoice(Model model, @RequestParam("gamename") String name){
@@ -50,6 +57,11 @@ public class MultiChoiceController {
         mc.getNextExercise();
         if(mc.lastExercise()==true){
             model.addAttribute("result", mc.getResult());
+            //******DETTE HER HER FOR Å REGISTRERE RESULTAT I DATABASEN!!!*****
+            
+            User user = session.getAttribute("user");
+            personService.getPerson(user.getEmail());
+            //sendtodatabase(user.getMail(), mc.getResult());
             mc.resetCurrent();
             return "result";
             
