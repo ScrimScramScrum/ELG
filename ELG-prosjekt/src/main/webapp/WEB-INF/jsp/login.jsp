@@ -39,9 +39,19 @@
 }
 </script>
 
+<br>
+<form:form action="sendNewPassword" method="post" modelAttribute="sendNewPassword" >
+    <table>        
+        <tr>  
+            <td> email/brukernavn: </td>
+            <td> <form:input path="email" value="test@gmail.com" />
+                 <form:errors path="email" />
+            </td> 
+        </tr>
+    </table>
+</form:form>
 <h2>Generer et nytt passord: </h2>
 <button onclick="return confirmComplete()">Gjenopprett passord</button>
-
 <br>
 
 <h2>${changedPassword}</h2>

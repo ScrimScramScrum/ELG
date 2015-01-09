@@ -24,6 +24,7 @@ import springmvc.service.LoginService;
 import springmvc.service.PersonService;
 import springmvc.ui.AddNewClassId;
 import springmvc.ui.NewPassword;
+import springmvc.ui.SendNewPassword;
 
 @Controller
 public class LoginController {
@@ -35,7 +36,7 @@ public class LoginController {
     private PersonService personService;
     
     @RequestMapping(value = "login" , method=RequestMethod.GET)
-    public String person(@ModelAttribute Login login) {
+    public String person(@ModelAttribute Login login, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
         return "login";
     }
     
@@ -89,31 +90,36 @@ public class LoginController {
         return mav; 
     }
     
-    */
-    
-    
-    /*
-    
    Dette ligger i AdministrateController. */
     @RequestMapping(value = "newPassword")
-    public String newPassword(@ModelAttribute NewPassword newPassword, Model modell, @ModelAttribute Login login) {
-        System.out.println("NEWPASSWORD ON THE WASY");
+    public String newPassword(@ModelAttribute NewPassword newPassword, Model modell, @ModelAttribute Login login, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
         
         Person inLoggedPerson = new Person("TEST@GMAIL.COM","TESTFORNAME","TESTETTERNAVN");
         //Person has to be pulled from session?
         if(personService.generateNewPassword(inLoggedPerson)){
-            System.out.println("New Password is sent");
             modell.addAttribute("regeneratedPassword", "Passordet er nå sent på mailen din:"); 
 
         } else {
             System.out.println("Error, something went wrong with the resend of the Password");
             modell.addAttribute("Error, something went wrong with the resend of the Password"); 
-
         }
-        
         return "login";
     }
-   
     
-    
+     @RequestMapping(value = "sendNewPassword")
+    public String sendNewPassword(@ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword, Model modell, @ModelAttribute Login login, @ModelAttribute NewPassword newPassword) {
+        System.out.println("NEWPASSWORD ON THE WASY");
+        
+        Person person = personService.getPerson(sendNewPassword.getEmail());
+        //Person has to be pulled from session?
+        if(personService.generateNewPassword(person)){
+            System.out.println("New Password is sent");
+            modell.addAttribute("regeneratedPassword", "Passordet er nå sent på mailen din:"); 
+        } else {
+            System.out.println("Error, something went wrong with the resend of the Password");
+            modell.addAttribute("Error, something went wrong with the resend of the Password"); 
+
+        }
+        return "login";
+    } 
 }
