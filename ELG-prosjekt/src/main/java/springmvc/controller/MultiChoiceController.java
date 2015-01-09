@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import springmvc.domain.Exercise;
+import springmvc.domain.HighscoreDisplay;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.User;
 import springmvc.service.MultiChoiceService;
@@ -59,11 +60,22 @@ public class MultiChoiceController {
         if(mc.lastExercise()==true){
             model.addAttribute("result", mc.getResult());
             //******DETTE HER HER FOR Å REGISTRERE RESULTAT I DATABASEN!!!*****
-            Double score = mc.getResult();
+            Double score = mc.getResult();            
             User user = (User)session.getAttribute("user");
             String k = user.getEmail();
-            r.regMultiChoiceRes(k, score, mc);
-            //sendtodatabase(user.getMail(), mc.getResult());
+            int d = r.getMultiChoiceRes(k, mc);
+            if(d == 0){
+                r.regMultiChoiceRes(k, score, mc);
+            } else if(score > d){
+                r.updateMultiResult(k, score, mc);
+            }
+            ArrayList<HighscoreDisplay> hs = r.highscoreMC(mc);
+            System.out.println(hs.size());
+            String melding = "";
+            for (int i = 0; i<hs.size(); i++){
+                melding += hs.get(i).getFname() + " " + hs.get(i).getLname() + " " + hs.get(i).getScore() +"\n";
+            }
+            model.addAttribute("highscorelist", melding);
             mc.resetCurrent();
             return "result";
             

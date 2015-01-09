@@ -6,6 +6,8 @@
 
 package springmvc.repository;
 
+import java.util.ArrayList;
+import springmvc.domain.HighscoreDisplay;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.Person;
 
@@ -13,7 +15,13 @@ import springmvc.domain.Person;
  *
  * @author eiriksandberg
  */
-public interface ResultRepo {
+public interface ResultRepo{
     
         public boolean regMultiChoiceRes(String email, Double score, MultiChoice game);
+        
+        public int getMultiChoiceRes(String email, MultiChoice game);
+        
+        public boolean updateMultiResult(String email, double score, MultiChoice game);
+        
+        public ArrayList<HighscoreDisplay> highscoreMC(MultiChoice game);
 }

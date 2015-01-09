@@ -78,7 +78,7 @@ public class MultiChoice implements Serializable {
                 right++;
             }
         }
-        double ans = right/result.length;
+        double ans = (right/result.length)*100;
         return ans;
     }
      

@@ -6,7 +6,9 @@
 
 package springmvc.service;
 
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
+import springmvc.domain.HighscoreDisplay;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.Person;
 import springmvc.repository.ResultRepo;
@@ -26,6 +28,17 @@ public class ResultService {
     }
     
     public boolean regMultiChoiceRes(String email, Double score, MultiChoice game){
-    return repo.regMultiChoiceRes(email, score, game);
+         return repo.regMultiChoiceRes(email, score, game);
+    }
+    
+    public int getMultiChoiceRes(String email, MultiChoice game){
+        return repo.getMultiChoiceRes(email, game);
+    }
+    public boolean updateMultiResult(String email, double score, MultiChoice game){
+        return repo.updateMultiResult(email, score, game);
+    }
+    
+    public ArrayList<HighscoreDisplay> highscoreMC(MultiChoice game){
+        return repo.highscoreMC(game);
     }
 }

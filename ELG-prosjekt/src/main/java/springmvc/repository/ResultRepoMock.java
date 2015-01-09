@@ -6,6 +6,8 @@
 
 package springmvc.repository;
 
+import java.util.ArrayList;
+import springmvc.domain.HighscoreDisplay;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.Person;
 
@@ -19,5 +21,23 @@ public class ResultRepoMock implements ResultRepo {
     public boolean regMultiChoiceRes(String email, Double score, MultiChoice game) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public int getMultiChoiceRes(String email, MultiChoice game) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean updateMultiResult(String email, double score, MultiChoice game) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<HighscoreDisplay> highscoreMC(MultiChoice game) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     
 }
+ 
