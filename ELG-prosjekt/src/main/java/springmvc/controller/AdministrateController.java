@@ -131,7 +131,7 @@ public class AdministrateController {
     
     
     @RequestMapping(value = "makeNewAdmin" , method=RequestMethod.POST)
-    public String makeNewAdmin(@Valid @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute, BindingResult error, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute NewPassword newPassword) {
+    public String makeNewAdmin(@Valid @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute, BindingResult error, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute NewPassword newPassword,HttpSession session) {
         System.out.println("makeAdmin kjorer");
         
         if(error.hasErrors()){
@@ -140,7 +140,10 @@ public class AdministrateController {
             return "administrateAccount";
         }
 
-        Person inLoggedPerson = new Person("TEST@GMAIL.COM","NAVN","ETTERNAVN");
+        //Person inLoggedPerson = new Person("TEST@GMAIL.COM","NAVN","ETTERNAVN");
+        
+        User user = (User)session.getAttribute("user");
+        Person inLoggedPerson = personService.getPerson(user.getEmail());
 
         if (personService.makeAdmin(inLoggedPerson, makeAdminAttribute.getMakeAdminPw())){ // Registreres som admin. 
             System.out.println("Person set as admin");
