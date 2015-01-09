@@ -6,6 +6,7 @@
 
 package springmvc.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springmvc.domain.Login;
 import springmvc.domain.Person;
+import springmvc.domain.User;
 import springmvc.service.*;
-import springmvc.ui.NewPassword; 
 import springmvc.ui.AddNewClassId;
 import springmvc.ui.MakeAdmin;
+import springmvc.ui.NewPassword;
 
 
 
@@ -40,10 +42,12 @@ public class AdministrateController {
     
     
     @RequestMapping(value = "changePassword" , method=RequestMethod.POST)
-    public String changePass(@Valid @ModelAttribute NewPassword newPassword, BindingResult error, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute) {
-        System.out.println("POST kjorer");
-
-        Person inLoggedPerson = new Person("TEST@GMAIL.COM","NAVN","ETTERNAVN");
+    public String changePass(@Valid @ModelAttribute NewPassword newPassword, BindingResult error, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute,HttpSession session) {
+        //Person inLoggedPerson = new Person("TEST@GMAIL.COM","NAVN","ETTERNAVN");
+        User user = (User)session.getAttribute("user");
+        Person inLoggedPerson = personService.getPerson(user.getEmail());
+        
+        
 
         if (personService.changePassword(
                 inLoggedPerson, 
