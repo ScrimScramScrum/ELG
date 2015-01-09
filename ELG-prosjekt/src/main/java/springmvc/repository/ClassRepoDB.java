@@ -12,7 +12,8 @@ public class ClassRepoDB {
     private Connection forbindelse;
     private final String sqlSelectClassId = "Select * from classes where classname = ?";    
     private final String sqlInsertClassId = "insert into classes values(?)";
-    
+    private final String sqlInsertStudentIntoClass = "insert into personclass values(?, ?)";
+
     
     private DataSource dataSource;
     JdbcTemplate jdbcTemplateObject;
@@ -46,5 +47,29 @@ public class ClassRepoDB {
                 
         return true;
     }
+    
+    public boolean registerStudentIntoAClass(String emailStudent, String classId){  
+        System.out.println("email: "+emailStudent+" , classId: "+classId);
+        
+        try{jdbcTemplateObject.update(sqlInsertStudentIntoClass, 
+            new Object[]{
+                emailStudent,
+                classId
+        });
+        
+        return true;
+            
+        } catch (Exception e) {
+            System.out.println("@@Exception "+ e);
+            System.out.println("Denne klassen finnes kanskje ikke?");
+            return false;
+        }
+        
+        
+                
+        
+    }
+    
+    
     
 }

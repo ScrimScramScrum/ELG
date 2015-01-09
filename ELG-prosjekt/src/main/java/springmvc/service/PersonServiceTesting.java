@@ -20,6 +20,9 @@ public class PersonServiceTesting implements PersonService {
     @Autowired
     private PersonRepoDB personRepo;  //endre denne til DB etter hvert
     
+    @Autowired
+    private ClassService classService;
+    
     
     
     @Override
@@ -138,28 +141,12 @@ public class PersonServiceTesting implements PersonService {
     
     
     @Override
-    public boolean setClassId(Person p, String classId){
-        
-        if (classId.equals("admin")){
+    public boolean setClassId(Person p, String classId){       
+        if (classService.getClassId(classId)==null){
             
-            System.out.println("person set as admin");
-            //sett p som lærer. 
-            
-            
-        }
-        
-        //TODO FJERNET 
-        //p.setClassId(classId);
-        
-        if(updatePerson(p)){
-            System.out.println("Set Class ID OK");
-            return true;
-        } else {
-            System.out.println("Set Class ID failed. ");
             return false; 
-        }
-        
-        
+        }         
+        return true;         
     }
     
     @Override
@@ -174,5 +161,7 @@ public class PersonServiceTesting implements PersonService {
             return false; 
         }
     } 
+    
+    
     
 }

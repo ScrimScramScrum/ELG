@@ -156,4 +156,9 @@ public class Configuration extends WebMvcConfigurationSupport {
     public ClassRepoDB classRepoDb(){
         return new ClassRepoDB();
     } 
+    
+    @Bean
+    public ClassService classService(){
+        return new ClassService();
+    }
 }

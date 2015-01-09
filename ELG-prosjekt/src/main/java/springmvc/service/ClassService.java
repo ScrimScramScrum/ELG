@@ -17,14 +17,26 @@ public class ClassService {
     public boolean registrateNewClassId(AddNewClassId addNewClassId){
                 
         if(classRepoDB.registerNewClassId(addNewClassId)){
-            System.out.println("Registered new Class in DB OK");            
             return true;
         } else {
-            System.out.println("Error in register class in DB");
             return false;
         }
            
     }
+    
+    public boolean setStudentToAClass(String emailStudent, String theClass ){        
+        if (classRepoDB.registerStudentIntoAClass(emailStudent, theClass)){
+            System.out.println("setStudentToAClass OK ");
+            return true;
+        } else {
+            System.out.println("setStudentToAClass IKKE OK ");
+
+            return false; 
+        }
+    }
+    
+    
+    
     
     
     

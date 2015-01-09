@@ -32,6 +32,9 @@ public class AdministrateController {
     @Autowired
     private PersonService personService;
     
+    @Autowired 
+    private ClassService classSerivce;
+    
          
     
     @RequestMapping(value = "administrateAccount" , method=RequestMethod.GET)
@@ -97,25 +100,15 @@ public class AdministrateController {
     
     
     @RequestMapping(value = "addClassId" , method=RequestMethod.POST)
-    public String addNewClassId(@Valid @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, BindingResult error, Model modell, @ModelAttribute NewPassword newPassword, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute) {
-        System.out.println("Post ADd Class kjorer");
-
-        Person inLoggedPerson = new Person("TEST@GMAIL.COM","NAVN","ETTERNAVN");
- 
-        if (addNewClassIdAttribute.getClassId().equals("admin")){
-            
-            System.out.println("Person set as admin");
-             
-            modell.addAttribute("NewClassMessage", "Du har ny registret en NY klasse: " + addNewClassIdAttribute.getClassId());
-            
-            // Ma lage en ny klasse HER. Ny metode.
-           
-            
-        }else if (personService.setClassId(inLoggedPerson, addNewClassIdAttribute.getClassId())){
+    public String addNewClassId(@Valid @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, BindingResult error, Model modell, @ModelAttribute NewPassword newPassword, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute,HttpSession session) {
+        
+        User user = (User)session.getAttribute("user");
+        Person inLoggedPerson = personService.getPerson(user.getEmail());
+        
+        if(classSerivce.setStudentToAClass(inLoggedPerson.getEmail(), addNewClassIdAttribute.getClassId())){
             modell.addAttribute("NewClassMessage", "Du er nå registrert i klasse: " + addNewClassIdAttribute.getClassId()); 
         } else {
-            modell.addAttribute("NewClassMessage", "Feil, noe er galt. "); 
-            
+            modell.addAttribute("NewClassMessage", "Denne klassen finnes ikke fra før " + addNewClassIdAttribute.getClassId()); 
         }
         
         

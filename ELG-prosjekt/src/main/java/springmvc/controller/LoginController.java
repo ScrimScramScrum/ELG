@@ -50,23 +50,12 @@ public class LoginController {
             return mav;
         }
         
-        if (loginService.compareInformation(login)) {
-            System.out.println("Du er nå logget inn. ");
-            
+        if (loginService.compareInformation(login)) {            
             Person inloggedPerson = personService.getPerson(login.getEmail());
-            
-            System.out.println("Har hentet ut person.");
             User user = new User(inloggedPerson.getEmail(),inloggedPerson.getFname(), inloggedPerson.getLname());
-            System.out.println("lagd user");
             user.setInLogged(true);            
-            //mav.addObject("user", user);
-            session.setAttribute("user", user);
-            
-            mav.setViewName("index");
-            System.out.println("Alt med MAV er OK.");
-            
-
-            
+            session.setAttribute("user", user);            
+            mav.setViewName("index");                        
             return mav;
             
         } else {
