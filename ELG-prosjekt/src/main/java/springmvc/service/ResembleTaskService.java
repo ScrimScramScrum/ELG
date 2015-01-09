@@ -19,6 +19,8 @@ public class ResembleTaskService {
     }
     
     public ResembleTask getResembleTask(int taskNumber){
-        return repo.getResembleTask(taskNumber);
+        ResembleTask task =  repo.getResembleTask(taskNumber);
+        task.setSolutionHTML(task.getSolutionHTML().replace("\"", "\'"));
+        return task; 
     }
 }

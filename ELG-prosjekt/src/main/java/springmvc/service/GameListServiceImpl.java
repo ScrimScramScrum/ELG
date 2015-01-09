@@ -64,7 +64,12 @@ public class GameListServiceImpl implements GameListService{
     }
     @Override
     public ArrayList<ResembleTask> getResembleTasks(ArrayList<Integer> taskNumbers){
-        return resembleTaskRepoDB.getResembleTasks(taskNumbers);
+        ArrayList<ResembleTask> list = resembleTaskRepoDB.getResembleTasks(taskNumbers);
+        for(ResembleTask rt : list){
+            rt.setSolutionHTML(rt.getSolutionHTML().replace("\"", "\'"));
+            System.out.println(rt.getSolutionHTML());
+        }
+        return list; 
     }
     
     @Override
