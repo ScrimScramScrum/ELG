@@ -15,6 +15,9 @@ public class ResembleGameRepoDB implements ResembleGameRepo{
 
     private DataSource dataSource;
     JdbcTemplate jdbcTemplateObject;
+    
+    public ResembleGameRepoDB(){
+    }
         
     @Autowired
     public void setDataSource(DataSource dataSource){
@@ -28,6 +31,7 @@ public class ResembleGameRepoDB implements ResembleGameRepo{
     }
     
     public ArrayList<ResembleGame> getAllResembleGames(){
-        return (ArrayList<ResembleGame>) jdbcTemplateObject.query(sqlSelectAllResembleGames, new ResembleGameMapper());
+        ArrayList<ResembleGame> hei =  (ArrayList<ResembleGame>) jdbcTemplateObject.query(sqlSelectAllResembleGames, new ResembleGameMapper());
+        return hei; 
     }
 }

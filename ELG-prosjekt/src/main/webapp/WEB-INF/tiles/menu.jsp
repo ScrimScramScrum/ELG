@@ -3,7 +3,8 @@
 
 <html>
 <head>
-    <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css/styleTopmenu.css'/>">
+    <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css2/styleTopmenu.css'/>">
+    
     
     <script>
         function changeId(var link){
@@ -28,7 +29,7 @@
                     heiheihei
                     </li></ul>
             </li></div>
-        <!--<img src="resources/images/amoosing.jpg" height="60px" align="right" style="margin-right:15px"; />-->
+        <img src="resources/images/amoosing.jpg" height="60px" align="right" style="margin-right:26px"; />
     </ul>
 </div> <!-- end bar div -->
 </div> <!-- end topmenu div -->

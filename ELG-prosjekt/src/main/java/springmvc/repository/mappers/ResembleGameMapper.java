@@ -19,7 +19,7 @@ public class ResembleGameMapper implements RowMapper<ResembleGame>{
     @Override
     public ResembleGame mapRow(ResultSet rs, int i) throws SQLException{
         ResembleGame resembleGame = new ResembleGame(); 
-        resembleGame.setGameId(rs.getInt("idResembleGame"));
+        resembleGame.setGameId(rs.getInt("idGame"));
         resembleGame.setLearningGoal(rs.getString("learning_goals"));
         resembleGame.setInfo(rs.getString("info"));
         resembleGame.setDifficulty(rs.getInt("difficulty"));

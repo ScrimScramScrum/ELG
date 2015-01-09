@@ -9,9 +9,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="../../resources/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        
         <title>JSP Page</title>
     </head>
     <body>
         <h1>Her skal vi skrive mye fint om systemet vårt</h1>
+        <button>Knapp</button>
+        <form>
+            Her skriver jeg mye tekst for å se hvordan bootstrap påvirker diverse
+            tekstlige fenomener, bl.a. punktum, komma
+            linjeskifte, <button>knapper</button> og lignende.
+        </form>
     </body>
 </html>
