@@ -3,6 +3,7 @@ package springmvc.config;
 
 import javax.sql.DataSource;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 import springmvc.domain.User;
+import springmvc.repository.ClassRepoDB;
 import springmvc.repository.MultiChoiceRepoMock;
 import springmvc.repository.MultiChoiceRepository;
 import springmvc.repository.MultipleChoiceRepoDB;
@@ -149,4 +151,9 @@ public class Configuration extends WebMvcConfigurationSupport {
     public ResultRepo resultRepo(){
         return new ResultRepoMock();
     }
+    
+    @Bean
+    public ClassRepoDB classRepoDb(){
+        return new ClassRepoDB();
+    } 
 }
