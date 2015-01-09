@@ -14,15 +14,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import springmvc.domain.Person;
 
 
-
-
 public class PersonRepoDB implements PersonRepo{
     
     private Connection forbindelse;
-    //private final String sqlDeletePerson = "Delete from person where personnr = ?";
-    private final String sqlSelectPerson = "Select * from person where email = ?";
-    //private final String sqlSelectAllePersoner = "Select * from person";
-    
+    private final String sqlSelectPerson = "Select * from person where email = ?";    
     private final String sqlInsertPerson = "insert into person values(?,?,?,?,?)";
     private final String sqlUpdatePerson = "update person set fname=?, lname = ?, hashPassword = ?, administrator = ? where email = ?";
     
@@ -50,18 +45,6 @@ public class PersonRepoDB implements PersonRepo{
         return foundPerson;
     }
     
-    /*
-    public List<Person> getAllePersoner(){
-        return jdbcTemplateObject.query(sqlSelectAllePersoner, new PersonMapper());
-    }*/
-
-    /*
-    public boolean slettPerson(Person person) {
-        jdbcTemplateObject.update(sqlDeletePerson, person.getPersonnr() );
-        return true;
-    }
-    */
-    
     public boolean updatePerson(Person person){
         jdbcTemplateObject.update(sqlUpdatePerson, 
             new Object[]{                 
@@ -76,7 +59,6 @@ public class PersonRepoDB implements PersonRepo{
     }
     
     public boolean registerPerson(Person person){  
-        System.out.println("registerer person: "+person);
         jdbcTemplateObject.update(sqlInsertPerson, 
             new Object[]{
                 person.getEmail(), 
