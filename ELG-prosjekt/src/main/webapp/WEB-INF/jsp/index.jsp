@@ -30,6 +30,10 @@
            
         
         <h2>${registeredOK}</h2>
+        
+        
+        <h2> <c:out value="${sessionScope.user}"/>
+
 
         
     </body>

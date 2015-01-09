@@ -8,7 +8,7 @@
     <table>        
         <tr>  
             <td> email/brukernavn: </td>
-            <td> <form:input path="email" />
+            <td> <form:input path="email" value="test@gmail.com" />
                  <form:errors path="email" />
             </td> 
         </tr>

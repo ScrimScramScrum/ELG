@@ -14,19 +14,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import springmvc.domain.Login;
 import springmvc.domain.Person;
+import springmvc.domain.User;
 import springmvc.service.LoginService;
 import springmvc.service.PersonService;
 import springmvc.ui.AddNewClassId;
 import springmvc.ui.NewPassword;
 
-/**
- *
- * @author Hoxmark
- */
-
-//@SessionAttributes("user")
+@SessionAttributes("user")
 @Controller
 public class LoginController {
     
@@ -36,6 +34,8 @@ public class LoginController {
     @Autowired
     private PersonService personService;
     
+    
+    
     @RequestMapping(value = "login" , method=RequestMethod.GET)
     public String person(@ModelAttribute Login login) {
         return "login";
@@ -43,25 +43,37 @@ public class LoginController {
     
     
     @RequestMapping(value = "login" , method=RequestMethod.POST)
-    public String CreateNewPerson(@Valid @ModelAttribute("login") Login login, BindingResult error, Model modell) {
+    public ModelAndView CreateNewPerson(ModelAndView mav, @Valid @ModelAttribute("login") Login login, BindingResult error, Model modell) {
         if(error.hasErrors()){
             System.out.println(" Passord tomt, eller ikke gyldig Email-adresse.  ");
             //modell.addAttribute("melding", "Personnr ikke fylt ut riktig"); 
-            return "login";
+            mav.setViewName("login");
+            return mav;
         }
         
         if (loginService.compareInformation(login)) {
             System.out.println("Du er nå logget inn. ");
-            //User user = new User();
-            //user.setLoggedIn();
+            
+            Person inloggedPerson = personService.getPerson(login.getEmail());
+            
+            System.out.println("Har hentet ut person.");
+            User user = new User(inloggedPerson.getEmail(),inloggedPerson.getFname(), inloggedPerson.getLname());
+            System.out.println("lagd user");
+            user.setInLogged(true);            
             //mav.addObject("user", user);
-            return "index";
+            mav.setViewName("index");
+            System.out.println("Alt med MAV er OK.");
+            
+
+            
+            return mav;
             
         } else {
             System.out.println("Innlogging feilet.  "); 
             modell.addAttribute("wrongPassword","Feil brukernavn/passord. Prøv på nytt");
-
-            return "login"; 
+            
+            mav.setViewName("login");
+            return mav; 
         }
                 
                 
