@@ -59,8 +59,8 @@ public class MultiChoiceController {
             model.addAttribute("result", mc.getResult());
             //******DETTE HER HER FOR Å REGISTRERE RESULTAT I DATABASEN!!!*****
             
-            User user = session.getAttribute("user");
-            personService.getPerson(user.getEmail());
+            //er user = session.getAttribute("user");
+            //personService.getPerson(user.getEmail());
             //sendtodatabase(user.getMail(), mc.getResult());
             mc.resetCurrent();
             return "result";

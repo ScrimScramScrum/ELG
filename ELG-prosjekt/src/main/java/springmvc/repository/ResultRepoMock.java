@@ -6,10 +6,18 @@
 
 package springmvc.repository;
 
+import springmvc.domain.MultiChoice;
+import springmvc.domain.Person;
+
 /**
  *
  * @author eiriksandberg
  */
-public class ResultRepoMock {
+public class ResultRepoMock implements ResultRepo {
+
+    @Override
+    public boolean regMultiChoiceRes(Person p, Double score, MultiChoice game) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

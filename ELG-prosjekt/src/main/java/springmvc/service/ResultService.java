@@ -15,9 +15,9 @@ import springmvc.repository.ResultRepo;
  *
  * @author eiriksandberg
  */
-public interface ResultService {
+public class ResultService {
     
-    private ResultRepo = repo;
+    private ResultRepo repo;
     
     @Autowired
         public void setRepository(ResultRepo repo){
@@ -25,5 +25,7 @@ public interface ResultService {
         this.repo=repo;
     }
     
-    public boolean regMultiChoiceRes(Person p, Double score, MultiChoice game);
+    public boolean regMultiChoiceRes(Person p, Double score, MultiChoice game){
+    return repo.regMultiChoiceRes(p, score, game);
+    }
 }

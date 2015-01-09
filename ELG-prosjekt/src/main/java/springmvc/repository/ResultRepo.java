@@ -6,10 +6,14 @@
 
 package springmvc.repository;
 
+import springmvc.domain.MultiChoice;
+import springmvc.domain.Person;
+
 /**
  *
  * @author eiriksandberg
  */
 public interface ResultRepo {
     
+        public boolean regMultiChoiceRes(Person p, Double score, MultiChoice game);
 }
