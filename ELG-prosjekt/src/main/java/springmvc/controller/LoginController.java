@@ -25,6 +25,8 @@ import springmvc.ui.NewPassword;
  *
  * @author Hoxmark
  */
+
+//@SessionAttributes("user")
 @Controller
 public class LoginController {
     
@@ -50,7 +52,9 @@ public class LoginController {
         
         if (loginService.compareInformation(login)) {
             System.out.println("Du er nå logget inn. ");
-            
+            //User user = new User();
+            //user.setLoggedIn();
+            //mav.addObject("user", user);
             return "index";
             
         } else {
@@ -62,6 +66,19 @@ public class LoginController {
                 
                 
     }
+    /*
+    @RequestMapping(value = "resemblegame", method = RequestMethod.POST)
+    public ModelAndView resembleGame(ModelAndView mav, @RequestParam("gameid") String id){
+        int gameid = Integer.parseInt(id);
+        ResembleGame resembleGame = gameListService.getResembleGame(gameid);
+        mav.addObject("resembleGame", resembleGame);
+        mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask())); 
+        mav.setViewName("resembleGame");
+        return mav; 
+    }
+    
+    */
+    
     
     /*
     
