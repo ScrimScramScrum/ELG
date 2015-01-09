@@ -13,6 +13,15 @@
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        
+        <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css">
+        <script src="http://codemirror.net/lib/codemirror.js"></script>
+        <script src="http://codemirror.net/addon/edit/matchbrackets.js"></script>
+        <script src="http://codemirror.net/addon/edit/continuecomment.js"></script>
+        
+        <script src="http://codemirror.net/mode/css/css.js"></script>
+        <script src="http://codemirror.net/mode/xml/xml.js"></script>
+        
         <script src="<c:url value='/resources/resemble.js' />"></script>
         <script src="<c:url value='/resources/html2canvas.js' />"></script>
         <style>
@@ -67,12 +76,24 @@
                 $("#cssView").val(startingCss); 
 
                 $("#viewResult").click(function() {
-                    setRenderedResult($("#resultFrame"), $("#htmlView").val(), $("#cssView").val());
+                    var editor = $('.CodeMirror')[0].CodeMirror;
+                    var cssText = editor.getValue(); 
+                    
+                    var editor = $('.CodeMirror')[1].CodeMirror;
+                    var htmlText = editor.getValue(); 
+                //    alert(test); 
+//                    alert("GETCODE" + editor.getCode()); 
+//                    alert("VALUE" + editor.value; 
+                    setRenderedResult($("#resultFrame"), htmlText, cssText);
                 });
                 
                 $("#getSolution").click(function() {
                     $("#htmlView").val(solutionHtml); 
-                    $("#cssView").val(solutionCss); 
+                    $("#cssView").val(solutionCss);
+                    var editor = $('.CodeMirror')[0].CodeMirror;
+                    editor.setValue(solutionCss); 
+                    var editor2 = $('.CodeMirror')[1].CodeMirror;
+                    editor2.setValue(solutionHtml); 
                 });
                 
                 $("#compare").click(function() { 
@@ -117,56 +138,83 @@
         </script>
     </head>
     <body>
-    <div id="wrapper">  
-        <div id="tasktext">    
-            <p>Oppgave</p>
-            <p>${resembleTask.taskText}</p>
-            <center>
-                <input type="button" value="Se resultat" id="viewResult">
-                <input type="button" value="Sammenlign" id="compare">
-                <input type="button" value="Hent løsning" id="getSolution">
-            </center>
-        </div>
-        <div id="left_1"> 
-            <div>      
-                <p>CSS</p>
-                <textarea class="codeBox" id="cssView"></textarea>
+        <script>
+            var editableCodemirror; 
+            var editableCodemirror2; 
+            function hei(){
+                editableCodeMirror = CodeMirror.fromTextArea(document.getElementById('cssView'), {
+                    mode: "css",
+                    theme: "default",
+                    lineNumbers: true
+                });
+                $('#cssSyntax').data('CodeMirrorInstance', editableCodeMirror);
+            }
+            
+            function hei2(){
+                editableCodeMirror2 = CodeMirror.fromTextArea(document.getElementById('htmlView'), {
+                    mode: "xml",
+                    theme: "default",
+                    lineNumbers: true
+                });
+                $('#htmlSyntax').data('CodeMirrorInstance', editableCodeMirror2);
+
+            }      
+            
+            window.onload = function(){
+                 hei();
+                 hei2(); 
+             };
+        </script>
+        <div id="wrapper">  
+            <div id="tasktext">    
+                <p>Oppgave</p>
+                <p>${resembleTask.taskText}</p>
+                <center>
+                    <input type="button" value="Se resultat" id="viewResult">
+                    <input type="button" value="Sammenlign" id="compare">
+                    <input type="button" value="Hent løsning" id="getSolution">
+                </center>
             </div>
-            <div>
-                <p>HTML</p>
-                <textarea class="codeBox" id="htmlView"></textarea>
-            </div>
-        </div>
-        <div id="right_1">      
-            <p>Fasit</p>
-            <div>
-                <div id="solutionDiv">
-                    <iframe class="renderedFrame" id="solutionFrame" src="about:blank"></iframe>
+            <div id="left_1"> 
+                <div>      
+                    <p>CSS</p>
+                    <textarea class="cssView" id="cssView" name ="cssView"></textarea>
+                </div>
+                <div>
+                    <p>HTML</p>
+                    <textarea class="cssView" id="htmlView"></textarea>
                 </div>
             </div>
-            <div>
-                <p>Ditt resultat</p>
-                <div id="resultDiv">
-                    <iframe class="renderedFrame" id="resultFrame" src="about:blank"></iframe>
+            <div id="right_1">      
+                <p>Fasit</p>
+                <div>
+                    <div id="solutionDiv">
+                        <iframe class="renderedFrame" id="solutionFrame" src="about:blank"></iframe>
+                    </div>
+                </div>
+                <div>
+                    <p>Ditt resultat</p>
+                    <div id="resultDiv">
+                        <iframe class="renderedFrame" id="resultFrame" src="about:blank"></iframe>
+                    </div>
                 </div>
             </div>
+            <div id="button">
+                <c:choose>
+                    <c:when test="${resembleGame.isCurrentTaskLast()}">
+                        <form action = "finishgame" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post" >
+                            <input type = "hidden" value = "" id = "score" name = "score"/>
+                            <input type = "submit" value = "Finish" />
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <form action = "nextresembletask" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post">
+                            <input type = "hidden" value = "" id = "score" name = "score"/>
+                            <input type = "submit" value = "next" />
+                        </form>
+                    </c:otherwise>
+                </c:choose>
+            </div>
         </div>
-        <div id="button">
-            <c:choose>
-                <c:when test="${resembleGame.isCurrentTaskLast()}">
-                    <form action = "finishgame" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post" >
-                        <input type = "hidden" value = "" id = "score" name = "score"/>
-                        <input type = "submit" value = "Finish" />
-                    </form>
-                </c:when>
-                <c:otherwise>
-                    <form action = "nextresembletask" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post">
-                        <input type = "hidden" value = "" id = "score" name = "score"/>
-                        <input type = "submit" value = "next" />
-                    </form>
-                </c:otherwise>
-            </c:choose>
-        </div>
-    </div>
     </body>
 </html>
