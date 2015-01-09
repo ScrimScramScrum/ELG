@@ -13,6 +13,7 @@ public class ClassRepoDB {
     private final String sqlSelectClassId = "Select * from classes where classname = ?";    
     private final String sqlInsertClassId = "insert into classes values(?)";
     private final String sqlInsertStudentIntoClass = "insert into personclass values(?, ?)";
+    private final String sqlUpdateStudentInClass = "update personclass set classname= ? where email = ?";
 
     
     private DataSource dataSource;
@@ -69,6 +70,24 @@ public class ClassRepoDB {
                 
         
     }
+    
+    public boolean updateStudentInClass(String emailStudent, String classId){
+        try{jdbcTemplateObject.update(sqlUpdateStudentInClass, 
+            new Object[]{
+                classId,                 
+                emailStudent
+                
+        });
+        
+        return true;
+            
+        } catch (Exception e) {
+            System.out.println("@@Exception "+ e);
+            return false;
+        }
+    }
+    
+    
     
     
     

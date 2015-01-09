@@ -36,6 +36,18 @@ public class ClassService {
     }
     
     
+    public boolean updateStudentToAClass(String emailStudent, String theClass ){        
+        if (classRepoDB.updateStudentInClass(emailStudent, theClass)){
+            System.out.println("setStudentToAClass OK ");
+            return true;
+        } else {
+            System.out.println("setStudentToAClass IKKE OK ");
+
+            return false; 
+        }
+    }
+    
+    
     
     
     

@@ -55,7 +55,7 @@ public class PersonServiceTesting implements PersonService {
         allToUpperCase(p);
         if(personRepo.registerPerson(p)){
             System.out.println("Registered person in DB");
-            
+            classService.setStudentToAClass(p.getEmail(), "");
             return true;
         } else {
             System.out.println("Error in register person in DB");

@@ -105,7 +105,7 @@ public class AdministrateController {
         User user = (User)session.getAttribute("user");
         Person inLoggedPerson = personService.getPerson(user.getEmail());
         
-        if(classSerivce.setStudentToAClass(inLoggedPerson.getEmail(), addNewClassIdAttribute.getClassId())){
+        if(classSerivce.updateStudentToAClass(inLoggedPerson.getEmail(), addNewClassIdAttribute.getClassId())){
             modell.addAttribute("NewClassMessage", "Du er nå registrert i klasse: " + addNewClassIdAttribute.getClassId()); 
         } else {
             modell.addAttribute("NewClassMessage", "Denne klassen finnes ikke fra før " + addNewClassIdAttribute.getClassId()); 
