@@ -8,6 +8,7 @@ package springmvc.controller;
 
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import springmvc.domain.MultiChoice;
 import springmvc.domain.User;
 import springmvc.service.MultiChoiceService;
 import springmvc.service.PersonService;
+import springmvc.service.ResultService;
 import springmvc.test.MultiChoiceTest;
 
 /**
@@ -36,9 +38,8 @@ public class MultiChoiceController {
     private MultiChoiceService s;
     
     @Autowired
-    private PersonService personService;
-    
-   
+    private ResultService r;
+
     
     @RequestMapping(value = "multi", method = RequestMethod.POST)
     public String showMultiChoice(Model model, @RequestParam("gamename") String name){
@@ -49,7 +50,7 @@ public class MultiChoiceController {
     }
     
     @RequestMapping(value = "nextTask")
-    public String nextTask(Model model, @ModelAttribute(value = "spillet") MultiChoice mc, String value, HttpServletRequest request){
+    public String nextTask(HttpSession session, Model model, @ModelAttribute(value = "spillet") MultiChoice mc, String value, HttpServletRequest request){
         if (request.getParameter("button") != null){
             String button = request.getParameter("button");
             mc.setResult(mc.current(), mc.getCurrent().checkAnswer(button));
@@ -58,9 +59,10 @@ public class MultiChoiceController {
         if(mc.lastExercise()==true){
             model.addAttribute("result", mc.getResult());
             //******DETTE HER HER FOR Å REGISTRERE RESULTAT I DATABASEN!!!*****
-            
-            //er user = session.getAttribute("user");
-            //personService.getPerson(user.getEmail());
+            Double score = mc.getResult();
+            User user = (User)session.getAttribute("user");
+            String k = user.getEmail();
+            r.regMultiChoiceRes(k, score, mc);
             //sendtodatabase(user.getMail(), mc.getResult());
             mc.resetCurrent();
             return "result";

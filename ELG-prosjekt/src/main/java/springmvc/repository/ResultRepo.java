@@ -15,5 +15,5 @@ import springmvc.domain.Person;
  */
 public interface ResultRepo {
     
-        public boolean regMultiChoiceRes(Person p, Double score, MultiChoice game);
+        public boolean regMultiChoiceRes(String email, Double score, MultiChoice game);
 }

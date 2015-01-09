@@ -25,7 +25,7 @@ public class ResultService {
         this.repo=repo;
     }
     
-    public boolean regMultiChoiceRes(Person p, Double score, MultiChoice game){
-    return repo.regMultiChoiceRes(p, score, game);
+    public boolean regMultiChoiceRes(String email, Double score, MultiChoice game){
+    return repo.regMultiChoiceRes(email, score, game);
     }
 }

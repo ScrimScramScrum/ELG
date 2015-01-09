@@ -16,7 +16,7 @@ import springmvc.domain.Person;
 public class ResultRepoMock implements ResultRepo {
 
     @Override
-    public boolean regMultiChoiceRes(Person p, Double score, MultiChoice game) {
+    public boolean regMultiChoiceRes(String email, Double score, MultiChoice game) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
