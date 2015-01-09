@@ -25,7 +25,6 @@ public class PersonRepoDB implements PersonRepo{
     
     private final String sqlInsertPerson = "insert into person values(?,?,?,?,?)";
     private final String sqlUpdatePerson = "update person set fname=?, lname = ?, hashPassword = ?, classId = ? where email = ?";
-
     
     private DataSource dataSource;
     JdbcTemplate jdbcTemplateObject;

@@ -98,8 +98,18 @@ public class AdministrateController {
         Person inLoggedPerson = new Person("TEST@GMAIL.COM","NAVN","ETTERNAVN");
  
         
-        if(personService.setClassId(inLoggedPerson, addNewClassIdAttribute.getClassId())){
-            modell.addAttribute("NewClassMessage", "Du er nå registrert i klasse: "+addNewClassIdAttribute.getClassId()); 
+        
+        if (addNewClassIdAttribute.getClassId().equals("admin")){
+            
+            System.out.println("Person set as admin");
+             
+            modell.addAttribute("NewClassMessage", "Du har ny registret en NY klasse: " + addNewClassIdAttribute.getClassId());
+            
+            // Ma lage en ny klasse HER. Ny metode.
+           
+            
+        }else if (personService.setClassId(inLoggedPerson, addNewClassIdAttribute.getClassId())){
+            modell.addAttribute("NewClassMessage", "Du er nå registrert i klasse: " + addNewClassIdAttribute.getClassId()); 
         } else {
             modell.addAttribute("NewClassMessage", "Feil, noe er galt. "); 
             

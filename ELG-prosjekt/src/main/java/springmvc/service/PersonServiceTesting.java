@@ -21,6 +21,7 @@ public class PersonServiceTesting implements PersonService {
     private PersonRepoDB personRepo;  //endre denne til DB etter hvert
     
     
+    
     @Override
     public Person getPerson(String email){ 
         //hent fra repo
@@ -138,6 +139,15 @@ public class PersonServiceTesting implements PersonService {
     
     @Override
     public boolean setClassId(Person p, String classId){
+        
+        if (classId.equals("admin")){
+            
+            System.out.println("person set as admin");
+            //sett p som lærer. 
+            
+            
+        }
+        
         
         p.setClassId(classId);
         
