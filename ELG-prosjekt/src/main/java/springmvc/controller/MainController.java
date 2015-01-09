@@ -6,6 +6,7 @@
 package springmvc.controller;
 
 import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import springmvc.domain.MultiChoice;
 import springmvc.domain.MultiChoiceInfo;
 import springmvc.domain.ResembleGame;
 import springmvc.domain.ResembleTask;
+import springmvc.domain.User;
 import springmvc.service.GameListService;
 import springmvc.service.GameListServiceImpl;
 
@@ -43,9 +45,15 @@ public class MainController {
     }
     
     @RequestMapping(value = "highscore")
-    public String showHighscore(Model model){
+    public String showHighscore(Model model, HttpSession session){
         //model.addAttribute("melding", "melding");
-        return "highscore"; 
+        User user = (User)session.getAttribute("user");
+        if(user == null) {
+            System.out.println("user = null");
+        }
+        return ((User)session.getAttribute("user")) == null ? "index" : ((User)session.getAttribute("user")).isInLogged() ? "highscore" : "index"; 
+        // return ((User)session.getAttribute("user")).isInLogged() ? "highscore" : "index"; 
+        // return "highscore"; 
     }
     
     @RequestMapping(value = "choosegame")
@@ -75,7 +83,7 @@ public class MainController {
             mav.addObject("tasks", temp_tasks);
             mav.addObject("resembleInfo", resembleTemp);
             // add info here
-        } catch(Exception e) {
+        } catch(NumberFormatException e) {
             resemble = 2;
             multiTemp = gameListService.getMultiChoiceInfo(id);
             mav.addObject("multiChoiceInfo", multiTemp);

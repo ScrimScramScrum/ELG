@@ -6,6 +6,7 @@
 
 package springmvc.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,6 @@ import springmvc.service.PersonService;
 import springmvc.ui.AddNewClassId;
 import springmvc.ui.NewPassword;
 
-@SessionAttributes("user")
 @Controller
 public class LoginController {
     
@@ -34,8 +34,6 @@ public class LoginController {
     @Autowired
     private PersonService personService;
     
-    
-    
     @RequestMapping(value = "login" , method=RequestMethod.GET)
     public String person(@ModelAttribute Login login) {
         return "login";
@@ -43,7 +41,7 @@ public class LoginController {
     
     
     @RequestMapping(value = "login" , method=RequestMethod.POST)
-    public ModelAndView CreateNewPerson(ModelAndView mav, @Valid @ModelAttribute("login") Login login, BindingResult error, Model modell) {
+    public ModelAndView CreateNewPerson(ModelAndView mav, HttpSession session, @Valid @ModelAttribute("login") Login login, BindingResult error, Model modell) {
         if(error.hasErrors()){
             System.out.println(" Passord tomt, eller ikke gyldig Email-adresse.  ");
             //modell.addAttribute("melding", "Personnr ikke fylt ut riktig"); 
@@ -61,6 +59,8 @@ public class LoginController {
             System.out.println("lagd user");
             user.setInLogged(true);            
             //mav.addObject("user", user);
+            session.setAttribute("user", user);
+            
             mav.setViewName("index");
             System.out.println("Alt med MAV er OK.");
             
@@ -114,7 +114,6 @@ public class LoginController {
         return "login";
     }
    
-    
     
     
 }
