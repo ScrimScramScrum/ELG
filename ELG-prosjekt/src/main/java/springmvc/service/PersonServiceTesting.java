@@ -148,8 +148,8 @@ public class PersonServiceTesting implements PersonService {
             
         }
         
-        
-        p.setClassId(classId);
+        //TODO FJERNET 
+        //p.setClassId(classId);
         
         if(updatePerson(p)){
             System.out.println("Set Class ID OK");

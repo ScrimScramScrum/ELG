@@ -14,7 +14,7 @@ public class PersonMapper implements RowMapper<Person> {
         person.setFname(rs.getString("fname"));
         person.setLname(rs.getString("lname"));  
         person.setHashedPassword(rs.getString("hashPassword"));
-        person.setClassId(rs.getString("classId"));        
+        person.setTeacher(rs.getInt("administrator"));
         return person;
     }
 }

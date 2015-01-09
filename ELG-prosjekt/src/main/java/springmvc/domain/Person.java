@@ -23,7 +23,7 @@ public class Person {
     
     private String hashedPassword; 
     
-    private String classId;
+    private int teacher = 0;
     
 
     public Person(String email, String fname, String lname) {
@@ -67,14 +67,22 @@ public class Person {
         lname = newVaule;       
     }
 
-    public String getClassId() {
-        return classId;
+    public int getTeacher() {
+        return teacher;
     }
 
-    public void setClassId(String classId) {
-        this.classId = classId;
-    }    
+    public void setTeacher(int teacher) {
+        this.teacher = teacher;
+    }
 
+    public boolean isTeacher(){
+        if (teacher==1){
+            return true;
+        } else{
+            return false;
+        }
+    }
+    
     @Override
     public String toString() {
         return email + " " + fname + " " + lname;

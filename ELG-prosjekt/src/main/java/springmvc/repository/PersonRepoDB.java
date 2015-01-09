@@ -24,7 +24,7 @@ public class PersonRepoDB implements PersonRepo{
     //private final String sqlSelectAllePersoner = "Select * from person";
     
     private final String sqlInsertPerson = "insert into person values(?,?,?,?,?)";
-    private final String sqlUpdatePerson = "update person set fname=?, lname = ?, hashPassword = ?, classId = ? where email = ?";
+    private final String sqlUpdatePerson = "update person set fname=?, lname = ?, hashPassword = ?, administrator = ? where email = ?";
     
     private DataSource dataSource;
     JdbcTemplate jdbcTemplateObject;
@@ -68,21 +68,22 @@ public class PersonRepoDB implements PersonRepo{
                 person.getFname(), 
                 person.getLname(),
                 person.getHashedPassword(),
-                person.getClassId(),
+                person.getTeacher(),
                 person.getEmail()
         });
                 
         return true;
     }
     
-    public boolean registerPerson(Person person){        
+    public boolean registerPerson(Person person){  
+        System.out.println("registerer person: "+person);
         jdbcTemplateObject.update(sqlInsertPerson, 
             new Object[]{
                 person.getEmail(), 
                 person.getFname(), 
                 person.getLname(),
                 person.getHashedPassword(),
-                person.getClassId()
+                person.getTeacher()
         });
                 
         return true;
