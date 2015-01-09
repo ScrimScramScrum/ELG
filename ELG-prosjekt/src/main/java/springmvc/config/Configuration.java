@@ -19,9 +19,13 @@ import springmvc.service.GameListService;
 import springmvc.service.GameListServiceMock;
 import springmvc.repository.MultiChoiceRepoMock;
 import springmvc.repository.MultiChoiceRepository;
+import springmvc.repository.MultipleChoiceRepoDB;
 import springmvc.repository.PersonRepoDB;
 import springmvc.repository.ResembleGameRepo;
+import springmvc.repository.ResembleGameRepoDB;
+import springmvc.repository.ResembleGameRepoMock;
 import springmvc.repository.ResembleTaskRepo;
+import springmvc.repository.ResembleTaskRepoDB;
 import springmvc.repository.ResembleTaskRepoMock;
 import springmvc.service.*;
 import springmvc.service.GameListServiceImpl;
@@ -126,5 +130,10 @@ public class Configuration extends WebMvcConfigurationSupport {
     @Bean
     public PersonRepoDB personRepo(){
         return new PersonRepoDB();
-    }     
+    }
+    
+    @Bean 
+     public ResembleGameRepo resembleGameRepo(){
+         return new ResembleGameRepoMock(); 
+     }
 }

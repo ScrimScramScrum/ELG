@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import springmvc.domain.Exercise;
 import springmvc.domain.MultiChoice;
+import springmvc.domain.MultiChoiceInfo;
 
 /**
  *
@@ -60,5 +61,20 @@ public class MultiChoiceRepoMock implements MultiChoiceRepository {
     
     public ArrayList<MultiChoice> getGames(){
         return games;
+    }
+
+    @Override
+    public ArrayList<MultiChoice> getAllMultiChoiceGames() {
+        return games; 
+    }
+
+    @Override
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfo() {
+        return null;  
+    }
+
+    @Override
+    public MultiChoiceInfo getMultiChoiceInfo(String gameId) {
+        return null; 
     }
 }

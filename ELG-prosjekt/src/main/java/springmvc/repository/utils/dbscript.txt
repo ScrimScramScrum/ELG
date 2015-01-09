@@ -1,19 +1,110 @@
+DROP TABLE resembletask;
+DROP TABLE resembleresult;
+DROP TABLE resemblegame;
+DROP TABLE multiexercise;
+DROP TABLE multiresult;
+DROP TABLE multichoicegame;
 DROP TABLE person;
 
-
 CREATE TABLE person(
-	email VARCHAR(40) not null primary key,
+	email VARCHAR(50) NOT NULL,
 	fname VARCHAR(40) NOT NULL,
 	lname VARCHAR(40) NOT NULL,
         hashPassword VARCHAR(300),
-        classId VARCHAR(30));
+        classId VARCHAR(30),
+        CONSTRAINT person_pk PRIMARY KEY (email));
 
-INSERT INTO person VALUES('JORGEN.W@GMAIL.COM', 'JORGEN', 'WIL','3fc7d21958618ef7f272a86056e016ca7f3daa0c65f4f914914314d33573524a1f0b1d73c402941e8563a6aca86f1d837116b2f0339ee1d8acb819facb5ad868','');
-INSERT INTO person VALUES('BORGAR.L@GMAIL.COM', 'BORGAR','LIE','','');
-INSERT INTO person VALUES('EIRIK.S@GMAIL.COM', 'EIRIK','SA','','');
-INSERT INTO person VALUES('MATIAS.M@GMAIL.COM', 'MATIAS','M','','');
-INSERT INTO person VALUES('LARS.G@GMAIL.COM', 'LARS','GARBERG','','');
-INSERT INTO person VALUES('BJORN.H@GMAIL.COM', 'BJORN','HOX','','');
+CREATE TABLE multiresult(
+        idResult INTEGER GENERATED ALWAYS AS IDENTITY,
+        score INTEGER,
+        email VARCHAR(50),
+        idGame INTEGER,
+        CONSTRAINT multiResult_pk PRIMARY KEY (idResult));
+
+CREATE TABLE multichoicegame(
+        idGame INTEGER GENERATED ALWAYS AS IDENTITY,
+        gamename VARCHAR(40),
+        info VARCHAR(600),
+        learning_goals VARCHAR(600),
+        difficulty INTEGER,
+        CONSTRAINT multigame_pk PRIMARY KEY (idGame));
+
+CREATE TABLE multiexercise(
+        idExercise INTEGER GENERATED ALWAYS AS IDENTITY,
+        alternative_1 VARCHAR(400) NOT NULL,
+        alternative_2 VARCHAR(400) NOT NULL,
+        alternative_3 VARCHAR(400) NOT NULL,
+        alternative_4 VARCHAR(400) NOT NULL,
+        solution VARCHAR(400) NOT NULL,
+        task_text VARCHAR(400) NOT NULL,
+        idGame INTEGER,
+        CONSTRAINT multiexercise_pk PRIMARY KEY(idExercise));
+
+CREATE TABLE resembleresult(
+        idResembleResult INTEGER GENERATED ALWAYS AS IDENTITY,
+        score INTEGER,
+        email VARCHAR(50),
+        idGame INTEGER,
+        CONSTRAINT resembleResult_pk PRIMARY KEY (idResembleResult));
+
+CREATE TABLE resemblegame(
+        idGame INTEGER GENERATED ALWAYS AS IDENTITY,
+        gamename VARCHAR(40),
+        info VARCHAR(600),
+        learning_goals VARCHAR(600),
+        difficulty INTEGER,
+        CONSTRAINT resemblegame_pk PRIMARY KEY (idGame));
+
+CREATE TABLE resembletask(
+        idTask INTEGER GENERATED ALWAYS AS IDENTITY,
+        taskText VARCHAR(400) NOT NULL,
+        solutionHTML VARCHAR(10000) NOT NULL,
+        solutionCSS VARCHAR(10000) NOT NULL,
+        startingHTML VARCHAR(10000) NOT NULL,
+        startingCSS VARCHAR(10000) NOT NULL,
+        width INTEGER,
+        height INTEGER,
+        idGame INTEGER,
+        CONSTRAINT resembletask_pk PRIMARY KEY (idTask));
+
+-- Fremmednøkler
+
+ALTER TABLE multiresult
+ADD CONSTRAINT person_fk FOREIGN KEY(email) REFERENCES person(email);
+
+ALTER TABLE multiresult
+ADD CONSTRAINT multichoicegame_fk FOREIGN KEY(idGame) REFERENCES multichoicegame(idGame);
+
+ALTER TABLE multiexercise
+ADD CONSTRAINT multichoicegame2_fk FOREIGN KEY(idGame) REFERENCES multichoicegame(idGame);
+
+ALTER TABLE resembleresult
+ADD CONSTRAINT person_fk2 FOREIGN KEY(email) REFERENCES person(email);
+
+ALTER TABLE resembleresult
+ADD CONSTRAINT resemblegame_fk FOREIGN KEY(idGame) REFERENCES resemblegame(idGame);
+
+ALTER TABLE resembletask
+ADD CONSTRAINT resemblegame2_fk FOREIGN KEY(idGame) REFERENCES resemblegame(idGame);
 
 
- 
+INSERT INTO resemblegame VALUES(DEFAULT, '1', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but a', 'a goal', 1);
+INSERT INTO resemblegame VALUES(DEFAULT, '2', 'Den yngste av de etterlyste mennene, 18 år gamle Hamyd Mourad, meldte seg ved en politistasjon sent onsdag i Charleville-Mézières i nærheten av grensen til Belgia.','the best goal of them all', 3);
+INSERT INTO resemblegame VALUES(DEFAULT, '3', 'G har ikke ansvar for innhold på eksterne nettsider som det lenkes til. Kopiering av materiale fra VG for bruk annet sted er ikke tillatt uten avtale.', 'The best goal of them all', 2);
+
+INSERT INTO resembletask VALUES(DEFAULT, 'Du skal sette bakgrunnsfargen på siden til fargen #b0c4de<br>Du skal også lage en tabell med rød farge og to kolonner der det står "hei" (border="1"', 
+'<!DOCTYPE html><html><body>Hei!<br><table border="1"><tr><td>hei</td><td>hei</td></tr></table></body></html>', 'body {background-color: #b0c4de;} table {background-color: red}', '<!DOCTYPE html><html><body>Hei!</body></html>', 'body {}', 100, 80, 1); 
+INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 1', '<html><body>supsup</body></html>', '<html></html>', '', '', 200, 150, 1); 
+INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 2', '<html><body>TEST NR 1<br>TEST NR 2<br>TEST NR 3</body></html>', '', '', '', 150, 120, 1); 
+
+
+INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 1', '<html><body>supsup</body></html>', '<html></html>', '', '', 200, 150, 2); 
+INSERT INTO resembletask VALUES(DEFAULT, 'Du skal sette bakgrunnsfargen på siden til fargen #b0c4de<br>Du skal også lage en tabell med rød farge og to kolonner der det står "hei" (border="1"', 
+'<!DOCTYPE html><html><body>Hei!<br><table border="1"><tr><td>hei</td><td>hei</td></tr></table></body></html>', 'body {background-color: #b0c4de;} table {background-color: red}', '<!DOCTYPE html><html><body>Hei!</body></html>', 'body {}', 100, 80, 2); 
+INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 2', '<html><body>TEST NR 1<br>TEST NR 2<br>TEST NR 3</body></html>', '', '', '', 150, 120, 2); 
+
+INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 2', '<html><body>TEST NR 1<br>TEST NR 2<br>TEST NR 3</body></html>', '', '', '', 150, 120, 3); 
+INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 1', '<html><body>supsup</body></html>', '<html></html>', '','',  200, 150, 3); 
+INSERT INTO resembletask VALUES(DEFAULT, 'Du skal sette bakgrunnsfargen på siden til fargen #b0c4de<br>Du skal også lage en tabell med rød farge og to kolonner der det står "hei" (border="1"', 
+'<!DOCTYPE html><html><body>Hei!<br><table border="1"><tr><td>hei</td><td>hei</td></tr></table></body></html>', 'body {background-color: #b0c4de;} table {background-color: red}', '<!DOCTYPE html><html><body>Hei!</body></html>', 'body {}', 100, 80, 3); 
+

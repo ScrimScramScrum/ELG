@@ -1,5 +1,6 @@
 package springmvc.repository;
 
+import java.util.ArrayList;
 import springmvc.domain.ResembleTask;
 
 public class ResembleTaskRepoMock implements ResembleTaskRepo{
@@ -45,5 +46,21 @@ public class ResembleTaskRepoMock implements ResembleTaskRepo{
         if(taskNumber == 1) return new ResembleTask( taskNumber,  mockTaskText[0], mockSolutionHTML[0], mockSolutionCSS[0], mockStartingHTML[0], mockStartingCSS[0], mockWidth[0], mockHeight[0]); 
         else if(taskNumber == 2) return new ResembleTask( taskNumber,  mockTaskText[1], mockSolutionHTML[1], mockSolutionCSS[1], mockStartingHTML[1], mockStartingCSS[1], mockWidth[1], mockHeight[1]);
         else return new ResembleTask( taskNumber,  mockTaskText[2], mockSolutionHTML[2], mockSolutionCSS[2], mockStartingHTML[2], mockStartingCSS[2], mockWidth[2], mockHeight[2]);
+    }
+
+    @Override
+    public ArrayList<ResembleTask> getResembleTasks(ArrayList<Integer> taskNumbers) {
+        ArrayList<ResembleTask> list = new ArrayList<>(); 
+        list.add(new ResembleTask( 1,  mockTaskText[0], mockSolutionHTML[0], mockSolutionCSS[0], mockStartingHTML[0], mockStartingCSS[0], mockWidth[0], mockHeight[0]));
+        list.add(new ResembleTask( 2,  mockTaskText[1], mockSolutionHTML[1], mockSolutionCSS[1], mockStartingHTML[1], mockStartingCSS[1], mockWidth[1], mockHeight[1]));
+        list.add(new ResembleTask( 3,  mockTaskText[2], mockSolutionHTML[2], mockSolutionCSS[2], mockStartingHTML[2], mockStartingCSS[2], mockWidth[2], mockHeight[2]));
+        
+        ArrayList<ResembleTask> list2 = new ArrayList<>(); 
+        for(Integer i : taskNumbers){
+            if(list.get(i).equals(i)){
+                list2.add(list.get(i)); 
+            }
+        }
+        return list2; 
     }
 }

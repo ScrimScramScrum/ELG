@@ -9,21 +9,31 @@ import springmvc.domain.MultiChoice;
 import springmvc.domain.MultiChoiceInfo;
 import springmvc.domain.ResembleGame;
 import springmvc.domain.ResembleTask;
+import springmvc.repository.MultiChoiceRepository;
 import springmvc.repository.MultipleChoiceRepoDB;
+import springmvc.repository.ResembleGameRepo;
 import springmvc.repository.ResembleGameRepoDB;
+import springmvc.repository.ResembleTaskRepo;
 import springmvc.repository.ResembleTaskRepoDB;
 import springmvc.repository.mappers.ResembleGameMapper;
 
 public class GameListServiceImpl implements GameListService{
-    private ResembleGameRepoDB resembleGameRepoDB; 
-    private MultipleChoiceRepoDB multipleChoiceRepoDB; 
-    private ResembleTaskRepoDB resembleTaskRepoDB; 
+    @Autowired
+    private ResembleGameRepo resembleGameRepoDB; 
+    @Autowired
+    private MultiChoiceRepository multipleChoiceRepoDB; 
+    @Autowired
+    private ResembleTaskRepo resembleTaskRepoDB; 
     
+//    @Autowired
+//    public void setRepoDB(ResembleTaskRepoDB resembleTaskRepoDB, ResembleGameRepoDB resembleGameRepoDB, MultipleChoiceRepoDB multipleChoiceRepoDB){
+//        this.resembleTaskRepoDB = resembleTaskRepoDB;
+//        this.resembleGameRepoDB = resembleGameRepoDB;
+//        this.multipleChoiceRepoDB = multipleChoiceRepoDB;
+//    }
+//    
     
     public GameListServiceImpl(){
-        this.resembleTaskRepoDB = new ResembleTaskRepoDB(); 
-        this.resembleGameRepoDB = new ResembleGameRepoDB(); 
-        this.multipleChoiceRepoDB = new MultipleChoiceRepoDB(); 
     }
     
     
