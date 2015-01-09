@@ -61,7 +61,7 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
     }
     
     public MultiChoiceInfo getMultiChoiceInfo(String gameName){
-        return jdbcTemplateObject.queryForObject(sqlGetGame, new MultiChoiceInfoMapper()); 
+        return jdbcTemplateObject.queryForObject(sqlGetGame, new Object[]{gameName}, new MultiChoiceInfoMapper()); 
     }
     
     public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfo(){

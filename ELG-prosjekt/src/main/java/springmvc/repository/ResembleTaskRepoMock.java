@@ -63,4 +63,13 @@ public class ResembleTaskRepoMock implements ResembleTaskRepo{
         }
         return list2; 
     }
+
+    @Override
+    public ArrayList<ResembleTask> getResembleTasksByGameId(int gameId) {
+    ArrayList<ResembleTask> list = new ArrayList<>(); 
+        list.add(new ResembleTask( 1,  mockTaskText[0], mockSolutionHTML[0], mockSolutionCSS[0], mockStartingHTML[0], mockStartingCSS[0], mockWidth[0], mockHeight[0]));
+        list.add(new ResembleTask( 2,  mockTaskText[1], mockSolutionHTML[1], mockSolutionCSS[1], mockStartingHTML[1], mockStartingCSS[1], mockWidth[1], mockHeight[1]));
+        list.add(new ResembleTask( 3,  mockTaskText[2], mockSolutionHTML[2], mockSolutionCSS[2], mockStartingHTML[2], mockStartingCSS[2], mockWidth[2], mockHeight[2]));
+        return list; 
+    }
 }

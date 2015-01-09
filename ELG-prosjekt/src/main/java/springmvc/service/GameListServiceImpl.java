@@ -48,7 +48,14 @@ public class GameListServiceImpl implements GameListService{
     }
     @Override
     public ResembleGame getResembleGame(int gameId){
-        return resembleGameRepoDB.getResembleGame(gameId); 
+        ResembleGame game = resembleGameRepoDB.getResembleGame(gameId); 
+        ArrayList<ResembleTask> tasks = resembleTaskRepoDB.getResembleTasksByGameId(gameId);
+        ArrayList<Integer> taskNumbers = new ArrayList<>(); 
+        for(ResembleTask rt : tasks){
+            taskNumbers.add(rt.getTaskNumber());
+        }
+        game.setTaskNumbers(taskNumbers);
+        return game; 
     }
     
     @Override
@@ -68,6 +75,5 @@ public class GameListServiceImpl implements GameListService{
     @Override
     public MultiChoiceInfo getMultiChoiceInfo(String gameId){
         return multipleChoiceRepoDB.getMultiChoiceInfo(gameId); 
-    }
-    
+    }    
 }

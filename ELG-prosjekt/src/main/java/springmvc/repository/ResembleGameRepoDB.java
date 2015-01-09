@@ -12,9 +12,10 @@ public class ResembleGameRepoDB implements ResembleGameRepo{
     private Connection forbindelse;
     private final String sqlSelectGame = "Select * from resemblegame where idGame = ?"; 
     private final String sqlSelectAllResembleGames = "Select * from resemblegame"; 
-
+    
     private DataSource dataSource;
     JdbcTemplate jdbcTemplateObject;
+    
     
     public ResembleGameRepoDB(){
     }
@@ -27,7 +28,9 @@ public class ResembleGameRepoDB implements ResembleGameRepo{
     }
     
     public ResembleGame getResembleGame(int idGame){
-        return (ResembleGame)jdbcTemplateObject.queryForObject(sqlSelectGame, new Object[]{idGame}, new ResembleGameMapper());
+        ResembleGame game = (ResembleGame)jdbcTemplateObject.queryForObject(sqlSelectGame, new Object[]{idGame}, new ResembleGameMapper());
+        //return (ResembleGame)jdbcTemplateObject.queryForObject(sqlSelectGame, new Object[]{idGame}, new ResembleGameMapper());
+        return game; 
     }
     
     public ArrayList<ResembleGame> getAllResembleGames(){

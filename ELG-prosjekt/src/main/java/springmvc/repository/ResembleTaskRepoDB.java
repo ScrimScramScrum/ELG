@@ -16,6 +16,7 @@ public class ResembleTaskRepoDB implements ResembleTaskRepo{
     private final String sqlDeleteTask = "Delete from resembletask where idTask = ?";
     private final String sqlSelectTask = "Select * from resembletask where idTask = ? ";
     private final String sqlSelectAllTasks = "Select * from resembletask";
+    private final String sqlSelectTasksByGameId = "Select * from resembletask where idGame = ?";
     
     private final String sqlInsertTask = "insert into task values(?, ?, ?, ?, ?, ?, ?, ?)";
    // private final String sqlUpdateTask = "update person set fornavn=?, etternavn = ? where personnr = ?";
@@ -33,6 +34,7 @@ public class ResembleTaskRepoDB implements ResembleTaskRepo{
     }
     
     public ResembleTask getResembleTask(int idTask){
+        System.out.println("SEARCHING FOR IDTASK: " + idTask);
         return (ResembleTask)jdbcTemplateObject.queryForObject(sqlSelectTask, new Object[]{idTask}, (RowMapper<ResembleTask>)new ResembleTaskMapper());
     }
     
@@ -41,6 +43,19 @@ public class ResembleTaskRepoDB implements ResembleTaskRepo{
     }
     
     public ArrayList<ResembleTask> getResembleTasks(ArrayList<Integer> taskNumbers){
-        return (ArrayList<ResembleTask>)jdbcTemplateObject.query(sqlSelectTask, new ResembleTaskMapper());
+        ArrayList<ResembleTask> tasks = new ArrayList<>(); 
+        ResembleTask task = null; 
+        for(Integer i : taskNumbers){
+            task = getResembleTask(i); 
+            if(task !=null){
+                tasks.add(task); 
+            }
+        }
+        return tasks;
+        //return (ArrayList<ResembleTask>)jdbcTemplateObject.query(sqlSelectTask, new Object[]{taskNumbers}, new ResembleTaskMapper());
+    }
+    
+    public ArrayList<ResembleTask> getResembleTasksByGameId(int gameId){
+        return (ArrayList<ResembleTask>) jdbcTemplateObject.query(sqlSelectTasksByGameId, new Object[]{gameId}, new ResembleTaskMapper()); 
     }
 }

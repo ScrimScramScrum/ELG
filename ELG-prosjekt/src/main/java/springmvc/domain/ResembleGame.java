@@ -32,6 +32,8 @@ public class ResembleGame implements Serializable{
 
     public void setTaskNumbers(ArrayList<Integer> taskNumbers) {
         this.taskNumbers = taskNumbers;
+        this.currentTask=taskNumbers.get(0);
+        this.taskScores = new double[taskNumbers.size()];
     }
 
     public int getCurrentTask() {

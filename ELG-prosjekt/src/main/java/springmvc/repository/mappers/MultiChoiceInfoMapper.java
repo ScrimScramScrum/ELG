@@ -11,7 +11,7 @@ public class MultiChoiceInfoMapper implements RowMapper<MultiChoiceInfo>{
     public MultiChoiceInfo mapRow(ResultSet rs, int i) throws SQLException{
         MultiChoiceInfo mci = new MultiChoiceInfo(); 
         mci.setName(rs.getString("gamename"));
-        mci.setLearningGoal(rs.getString("learing_goals"));
+        mci.setLearningGoal(rs.getString("learning_goals"));
         mci.setInfo(rs.getString("info"));
         mci.setDifficulty(rs.getInt("difficulty"));
         return mci; 
