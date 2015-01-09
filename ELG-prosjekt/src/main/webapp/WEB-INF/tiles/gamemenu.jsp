@@ -14,7 +14,7 @@
 
 <html>
     <head>
-        <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css/styleGamemenu.css'/>">
+        <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css2/styleGamemenu.css'/>">
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style type="text/css">
