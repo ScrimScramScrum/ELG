@@ -19,11 +19,11 @@ public class ResembleTaskRepoMock implements ResembleTaskRepo{
 
         mockSolutionHTML[0] = "<!DOCTYPE html><html><body>Hei!<br><table border='1'><tr><td>hei</td><td>hei</td></tr></table></body></html>";
         mockSolutionHTML[1] = "<html><body>supsup</body></html>";
-        mockSolutionHTML[2] = "<html><body><div id='top'>This is a menu<hr></div><div id='mid'><div id='left'><a href='#test'>test</a><br><a href='#test'>test2</a><br>Test input: <input /><div id='bottom_left'>L<br>E<br>F<br>T</div></div><div id='right'><ul><li>Test 1</li><li>Test 2</li><li>Test 3</li></ul><img src='http://intuitiontosucceed.academy/wp-content/uploads/2014/06/K2_Mount_Godwin_Austen_Chogori_Savage_Mountain1-1080x675.jpg' alt='Mountain View' style='width:304px;height:228px'></div></div></body></html>";
+        mockSolutionHTML[2] = "<html><body><div id='top'>This is a menu<hr></div><div id='mid'><div id='left'><a href='#test'>test</a><br><a href='#test'>test2</a><br>Test input: <br><input /><div id='bottom_left'>L<br>E<br>F<br>T</div></div><div id='right'><ul><li>Test 1</li><li>Test 2</li><li>Test 3</li></ul><img src='http://intuitiontosucceed.academy/wp-content/uploads/2014/06/K2_Mount_Godwin_Austen_Chogori_Savage_Mountain1-1080x675.jpg' alt='Mountain View'></div></div></body></html>";
         
         mockSolutionCSS[0] = "body {background-color: #b0c4de;} table {background-color: red}";
         mockSolutionCSS[1] = "";
-        mockSolutionCSS[2] = "body {color: white;background-color: red;font-size: 10px;}#top {background-color: gray;height: 10%;font-size: 20px;text-align: center;}#left {float: left;background-color: yellow;width: 20%;height: 50%;text-align: center;color: black;position: relative;}#right {float: left;color: yellow;background-color: blue;width: 80%;height: 50%;font-size: 15px;}#bottom_left {position: absolute;text-align: center;bottom: 0;left: 45%;font-size: 15px;}hr {width: 50%;}";
+        mockSolutionCSS[2] = "body {color: white;background-color: red;font-size: 10px;}#top {background-color: gray;height: 10%;font-size: 20px;text-align: center;}#left {float: left;background-color: yellow;width: 20%;height: 50%;text-align: center;color: black;position: relative;}#right {float: left;color: yellow;background-color: blue;width: 80%;height: 50%;}#bottom_left {position: absolute;text-align: center;bottom: 0;left: 45%;}hr {width: 50%;} input {width: 50px;} img { width: 100px; height: 70px;}";
         
         mockStartingHTML[0] = "<!DOCTYPE html><html><body>Hei!</body></html>";
         mockStartingHTML[1] = "<html></html>";
