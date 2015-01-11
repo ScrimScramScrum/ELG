@@ -42,7 +42,7 @@ public class LoginController {
     
     
     @RequestMapping(value = "login" , method=RequestMethod.POST)
-    public ModelAndView CreateNewPerson(ModelAndView mav, HttpSession session, @Valid @ModelAttribute("login") Login login, BindingResult error, Model modell) {
+    public ModelAndView CreateNewPerson(ModelAndView mav, HttpSession session, @Valid @ModelAttribute("login") Login login, BindingResult error, Model modell, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
         if(error.hasErrors()){
             System.out.println(" Passord tomt, eller ikke gyldig Email-adresse.  ");
             //modell.addAttribute("melding", "Personnr ikke fylt ut riktig"); 
@@ -80,9 +80,14 @@ public class LoginController {
     }
     
    Dette ligger i AdministrateController. */
+    
+    
+    /*
+    Vil slette dette, men venter litt! 
+    
     @RequestMapping(value = "newPassword")
     public String newPassword(@ModelAttribute NewPassword newPassword, Model modell, @ModelAttribute Login login, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
-        
+        System.out.println("NewPassword blir nå kjort. ");
         Person inLoggedPerson = new Person("TEST@GMAIL.COM","TESTFORNAME","TESTETTERNAVN");
         //Person has to be pulled from session?
         if(personService.generateNewPassword(inLoggedPerson)){
@@ -95,9 +100,11 @@ public class LoginController {
         return "login";
     }
     
-     @RequestMapping(value = "sendNewPassword")
+    */
+    
+    @RequestMapping(value = "sendNewPassword")
     public String sendNewPassword(@ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword, Model modell, @ModelAttribute Login login, @ModelAttribute NewPassword newPassword) {
-        System.out.println("NEWPASSWORD ON THE WASY");
+        System.out.println("NEWPASSWORD ON THE WAY TO: "+sendNewPassword.getEmail());
         
         Person person = personService.getPerson(sendNewPassword.getEmail());
         //Person has to be pulled from session?
