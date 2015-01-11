@@ -3,7 +3,29 @@
 
 
 
+
+<script>
+function checkPasswordMatch() { 
+    var password = document.getElementById("txtNewPassword").value;
+    var passwordLength = password.length;
+    var confirmPassword = document.getElementById("txtConfirmPassword").value;
+    var confirmPasswordLength = confirmPassword.length;
+    
+    console.log(passwordLength);
+    
+    if (password===confirmPassword)
+        document.getElementById("confirmBox").innerHTML = ""; 
+    
+    else if (passwordLength>confirmPasswordLength+2){
+        document.getElementById("confirmBox").innerHTML = ""; 
+        }
+    else 
+        document.getElementById("confirmBox").innerHTML = "De to er vel ikke helt like? er de det?";  
+}
+</script>
+
 <h1>Konto Administrasjon</h1>
+
 
 <form:form action="changePassword" method="post" modelAttribute="newPassword">
     <table>        
@@ -15,20 +37,26 @@
         </tr>
         <tr>
             <td> Nytt Passord: </td>
-            <td> <form:input path="newPw" type="password"/>
+            <td> <form:input path="newPw" type="password" id="txtNewPassword"/>
                  <form:errors path="newPw" />
             </td>
         </tr>
         <tr>
             <td> Bekreft Passord: </td>
-            <td> <form:input path="confirmPw" type="password"/>
-                 <form:errors path="confirmPw" />
+            <td> <form:input path="confirmPw" type="password" id="txtConfirmPassword" onkeyup="checkPasswordMatch()" />
+                 <form:errors path="confirmPw"/> 
+                  
+                 
             </td>
+        
+            
         </tr>
 
         <tr><td colspan="2"><input type="submit" value="Endre passord"</td></tr>
     </table>
 </form:form>
+
+<p id="confirmBox"></p>
 
 <br> <br>
 
@@ -73,3 +101,7 @@
 
 <h3>${NewClassMessage}</h3> 
 <h3>${makeAdminMessage}</h3>
+
+
+
+
