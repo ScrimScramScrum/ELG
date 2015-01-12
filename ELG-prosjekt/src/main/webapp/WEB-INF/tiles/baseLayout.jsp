@@ -7,16 +7,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body bgcolor="gray" >
-        <table border="0" cellpadding="2" cellspacing="2" width="800" align="center">
+        <table border="0" cellpadding="2" cellspacing="2" width="100%" align="center">
             <tr>
                 
-                <td width="800" height="80" valign="top">
+                <td width="100%" height="100" valign="top">
                     <tiles:insertAttribute name="menu" />
-                    <hr>
+                    <!--<hr>-->
                 </td>
             </tr>
             <tr>
-               <td width="800" valign="top">
+               <td width="100%" valign="top">
                      <tiles:insertAttribute name="body" />
                 </td>
             </tr>
