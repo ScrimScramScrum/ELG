@@ -15,11 +15,15 @@
     }
     
     function sendToRegisterNewUser(){
-        window.location.href='<c:url value="/newPerson"/>';
+        window.location.href='<c:url value="/newPersonFromLogin"/>';
     }
     
     function sendToForgotPassword(){
-        window.location.href='<c:url value="/firstLogin"/>';
+        window.location.href='<c:url value="/forgotPasswordFromLogin"/>';
+    }
+    
+    function guestUserLogin(){
+        window.location.href='<c:url value="/loginAsGuest"/>';
     }
     
     
@@ -38,13 +42,17 @@
             <form:input path="password" type="password" placeholder="Password" data-icon="x" />
             <form:errors path="password" />
             
+            <a href="javascript:submitFormWithValue()" name="submitCommand"class="enviar">Submit</a> 
+            
             <div class="olvido">
                     <div class="col"><a href="javascript:sendToRegisterNewUser()" title="Ver Carásteres">Register</a></div>
                     <div class="col"><a href="javascript:sendToForgotPassword()" title="Recuperar Password">Forgot Password?</a></div>
+                    <div class="col"><a href="javascript:guestUserLogin()" title="Guest user">Guest user</a></div>
+
             </div>
             
             
-            <a href="javascript:submitFormWithValue()" name="submitCommand"class="enviar">Submit</a> 
+            
         </form:form>
                             
     </section>
@@ -53,37 +61,7 @@
         
 </div>
 
-    
-<div>
-    <h1>Logg på som gjestebruker</h1><br>
-    <button onclick="window.location.href='<c:url value="/loginAsGuest"/>';"  >Guest-User</button><br>
-    <p> Om du logger på som gjestebruker vil du ikke bli registrert for øvinger eller komme på highscoore</p>
-</div>
-
-
-<br>
-
-<h2>Generer et nytt passord: </h2>
-
-<form:form action="sendNewPassword" method="post" modelAttribute="sendNewPassword" onsubmit="return confirmComplete()">
-    <table>        
-        <tr>  
-            <td> email/brukernavn: </td>
-            <td> <form:input path="email" value="test@gmail.com" />
-                 <form:errors path="email" />
-            </td> 
-        </tr>
-        
-        <tr><td colspan="2"><input type="submit" value="Send Nytt Passord"</td></tr>
-        
-        
-    </table>
-                 
-                 
-</form:form>
-
-<br>
-
+  
 <h2>${changedPassword}</h2>
 <br>
 <h2>${regeneratedPassword}</h2>
@@ -105,7 +83,7 @@ body {
 
 .login {
     width: 300px;
-    height: 285px;
+    height: 300px;
     overflow: hidden;
     background: #1e1e1e;
     border-radius: 6px;
@@ -197,9 +175,11 @@ body {
 }
 
 .login .olvido .col {
-    width: 50%;
+    width: 100%;
     height: auto;
-    float: left;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: center;
 }
 
 .login .olvido .col a {

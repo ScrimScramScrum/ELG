@@ -84,7 +84,15 @@
     
     <definition name="firstLogin" extends="loginBaseLayout">
         <put-attribute name="body"   value="/WEB-INF/jsp/login.jsp"/> 
-    </definition>    
+    </definition>  
+    
+    <definition name="newPersonFromLogin" extends="loginBaseLayout">
+        <put-attribute name="body"   value="/WEB-INF/jsp/newPerson.jsp"/> 
+    </definition>
+    
+    <definition name="forgotPasswordFromLogin" extends="loginBaseLayout">
+        <put-attribute name="body"   value="/WEB-INF/jsp/ForgotPassword.jsp"/> 
+    </definition>  
     
     <definition name="chooseGameHighscore" extends="baseGameMenuLayout">
         <put-attribute name="title"  value="Highscore"/>

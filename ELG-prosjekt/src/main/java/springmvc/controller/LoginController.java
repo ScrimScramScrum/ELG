@@ -108,6 +108,14 @@ public class LoginController {
     
     */
     
+    
+    @RequestMapping(value = " forgotPasswordFromLogin" , method=RequestMethod.GET)
+    public String sendToForgotPassword(@ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
+        return "forgotPasswordFromLogin";
+    }
+    
+    
+    
     @RequestMapping(value = "sendNewPassword")
     public String sendNewPassword(@ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword, Model modell, @ModelAttribute Login login, @ModelAttribute NewPassword newPassword) {
         System.out.println("NEWPASSWORD ON THE WAY TO: "+sendNewPassword.getEmail());
@@ -122,7 +130,7 @@ public class LoginController {
             modell.addAttribute("Error, something went wrong with the resend of the Password"); 
 
         }
-        return "login";
+        return "firstLogin";
     } 
     
     

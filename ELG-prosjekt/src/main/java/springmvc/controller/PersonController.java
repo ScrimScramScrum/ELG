@@ -8,8 +8,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import springmvc.domain.Login;
 import springmvc.domain.Person;
 import springmvc.service.*;
+import springmvc.ui.SendNewPassword;
 
 
 /**
@@ -22,30 +24,30 @@ public class PersonController {
     @Autowired
     private PersonService personService;
     
-    @RequestMapping(value = "newPerson" , method=RequestMethod.GET)
-    public String person(@ModelAttribute Person person) {
-        return "newPerson";
+    @RequestMapping(value = "newPersonFromLogin" , method=RequestMethod.GET)
+    public String person(@ModelAttribute Person person, BindingResult error, Model modell) {
+        return "newPersonFromLogin";
     }
     
-    @RequestMapping(value = "newPerson" , method=RequestMethod.POST)
-    public String CreateNewPerson(@Valid @ModelAttribute("person") Person person, BindingResult error, Model modell) {
+    @RequestMapping(value = "newPersonFromLogin" , method=RequestMethod.POST)
+    public String CreateNewPerson(@Valid @ModelAttribute("person") Person person, BindingResult error, Model modell,@ModelAttribute Login login, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
         
         if(error.hasErrors()){
             System.out.println(" Validering feilet **** ");
             //modell.addAttribute("melding", "Personnr ikke fylt ut riktig"); 
-            return "newPerson";
+            return "newPersonFromLogin";
         }
         
         if (personService.registrerPerson(person)) {
-            modell.addAttribute("registeredOK", person.getEmail() + " er registrert. Sjekk E-mailen din for passord. ");
+           // modell.addAttribute("registeredOK", person.getEmail() + " er registrert. Sjekk E-mailen din for passord. ");
             System.out.println("Person service er OK og registrert");
             
-            return "index";
+            return "firstLogin";  // her er feilen
             
         } else {
             System.out.println("kan ikke registrere person");
             modell.addAttribute("melding","Denne eposten er allerede tatt");
-            return "newPerson";
+            return "newPersonFromLogin";
         }        
     }
 }

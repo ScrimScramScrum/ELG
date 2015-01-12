@@ -15,7 +15,7 @@
     }
     
     function sendToLogin(){
-        window.location.href='<c:url value="/login"/>';
+        window.location.href='<c:url value="/firstLogin"/>';
     }
     
 </script>

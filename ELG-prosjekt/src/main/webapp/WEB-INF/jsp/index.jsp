@@ -14,7 +14,7 @@
         <h1>Hello World!</h1>@
         <spring:message code="melding" />
         
-        
+        <%--
              
         <form action="<c:url value="/login"/>">
         <input type="submit" value="Log inn">
@@ -22,7 +22,7 @@
         
         <form action="<c:url value="/newPerson"/>">
         <input type="submit" value="Ny person">
-        </form>
+        </form> --%>
         
         <form action="<c:url value="/administrateAccount"/>" >
            <input type="submit" value="administrere">

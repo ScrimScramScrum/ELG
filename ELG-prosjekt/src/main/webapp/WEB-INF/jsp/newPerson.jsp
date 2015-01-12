@@ -23,7 +23,7 @@
     
     
     function sendToLogin(){
-        window.location.href='<c:url value="/login"/>';
+        window.location.href='<c:url value="/firstLogin"/>';
     }
     
 </script>
@@ -34,7 +34,7 @@
 
     <section class="login">
         <div class="titulo">Education Learning Game</div>
-         <form:form action="newPerson" method="post" modelAttribute="person" enctype="application/x-www-form-urlencoded" >
+         <form:form action="newPersonFromLogin" method="post" modelAttribute="person" enctype="application/x-www-form-urlencoded" >
             <form:input path="email" value="test@gmail.com" type="text"  placeholder="Username" data-icon="U" />
             <form:errors path="email" />
             <form:input path="fname" value="forname" type="text"  placeholder="Username" data-icon="U" />
