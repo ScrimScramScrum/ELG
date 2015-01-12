@@ -1,11 +1,5 @@
-<%-- 
-    Document   : newPerson
-    Created on : Jan 7, 2015, 9:35:31 AM
-    Author     : Hoxmark
---%>
-
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <script>
     function confirmComplete() {
@@ -17,10 +11,8 @@
     }
     
     function submitFormWithValue(){
-        console.log("Kjører");
-        document.forms["person"].submit();
+        document.forms["sendNewPassword"].submit();
     }
-    
     
     function sendToLogin(){
         window.location.href='<c:url value="/login"/>';
@@ -34,19 +26,17 @@
 
     <section class="login">
         <div class="titulo">Education Learning Game</div>
-         <form:form action="newPerson" method="post" modelAttribute="person" enctype="application/x-www-form-urlencoded" >
+         <form:form action="sendNewPassword" method="post" modelAttribute="sendNewPassword" enctype="application/x-www-form-urlencoded" >
             <form:input path="email" value="test@gmail.com" type="text"  placeholder="Username" data-icon="U" />
             <form:errors path="email" />
-            <form:input path="fname" value="forname" type="text"  placeholder="Username" data-icon="U" />
-            <form:errors path="fname" />
-            <form:input path="lname" value="lastname" type="text"  placeholder="Username" data-icon="U" />
-            <form:errors path="lname" />
             
             
                <div class="olvido">
+                    <div class="col"></div>
+                    <div class="col"></div>
             </div>
             
-            <a href="javascript:submitFormWithValue()" name="submitCommand"class="enviar">Registrer</a> 
+            <a href="javascript:submitFormWithValue()" name="submitCommand"class="enviar">OK Send epost</a> 
             
             <div class="olvido">
                     <div class="col"><a href="javascript:sendToLogin()" title="Ver Carásteres">back</a></div>
@@ -75,7 +65,7 @@ body {
 
 .login {
     width: 300px;
-    height: 320px;
+    height: 285px;
     overflow: hidden;
     background: #1e1e1e;
     border-radius: 6px;
@@ -158,10 +148,10 @@ body {
 
 .login .olvido {
     width: 240px;
-    height: 5px;
+    height: auto;
     overflow: hidden;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 25px;
+    padding-bottom: 25px;
     font-size: 10px;
     text-align: center;
 }
@@ -214,8 +204,3 @@ table {
     
     
 </style>
-
-
-
-
-
