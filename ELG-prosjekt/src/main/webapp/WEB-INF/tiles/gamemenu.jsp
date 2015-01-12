@@ -23,30 +23,45 @@
                 height: 60px;
             }
         </style>
+        
+        <script type="text/javascript">
+            //<![CDATA[
+            function get_form( element )
+            {
+                while( element )
+                {
+                    element = element.parentNode
+                    if( element.tagName.toLowerCase() == "form" )
+                    {
+                        //alert( element ) //debug/test
+                        return element
+                    }
+                }
+                return 0; //error: no form found in ancestors
+            }
+            //]]>
+        </script>
     </head>
     <body>
         <div id="sidebar">
-        <center>
-        <h2>Select a game</h2>
-        <h4>Resemble Games</h4>
-        <c:forEach items="${resembleGames}" var="game">
-            <!-- <li> -->
-                <form action="choosegame" method="post">
-                    <input type="hidden" name="gameid" id="gameid" value="${game.gameId}" />
-                    <input type="submit" id="gamebutton" value="Resemble ${game.gameId}" />
-                </form>
-            <!-- </li> -->
-        </c:forEach>
-        <h4>MultiChoice Games</h4>
-        <c:forEach items="${multiChoiceGames}" var="game">
-            <!-- <li> -->
-                <form action="choosegame" method="post">
-                    <input type="hidden" name="gameid" id="gameid" value="${game.name}" />
-                    <input type="submit" id="gamebutton" value="Multi ${game.name}" />
-                </form>
-            <!-- </li> -->
-        </c:forEach>
-        </center>
+            <center>
+            <h2>Select a game</h2>
+            <h4>Resemble Games</h4>
+
+                <c:forEach items="${resembleGames}" var="game">
+                        <form action="choosegame" method="post">
+                            <input type="hidden" name="gameid" id="gameid" value="${game.gameId}" />
+                            <div class = "gamelink"><a href ="choosegame" id="gameLinkA" onclick =" get_form(this).submit(); return false">Resemble <c:out value = "Resemble ${game.gameId}"/></a></div>
+                        </form>
+                </c:forEach>
+            <h4>MultiChoice Games</h4>
+            <c:forEach items="${multiChoiceGames}" var="game">
+                    <form action="choosegame" method="post">
+                        <input type="hidden" name="gameid" id="gameid" value="${game.name}" />
+                        <div class = "gamelink"><a href ="choosegame" id="gameLinkA" onclick =" get_form(this).submit(); return false">Resemble <c:out value = "Multi ${game.name}"/></a></div>
+                    </form>
+            </c:forEach>
+            </center>
         </div>
     </body>
 </html>
