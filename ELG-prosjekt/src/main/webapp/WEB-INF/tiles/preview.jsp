@@ -57,7 +57,7 @@
 <c:choose>
 <c:when test="${gametype == 1}">
 
-    <div id="wrapper">
+    <div id="wrapperGameInfo">
         <div id="leftcolumn">
             <h2>Resemble ${gamenr}</h2>
             <h4>Difficulty</h4>
