@@ -71,6 +71,7 @@ public class PersonServiceTesting implements PersonService {
                
     }
     
+    @Override
     public boolean generateNewPassword(Person p){
         
         String newPassword = generate();
@@ -143,9 +144,9 @@ public class PersonServiceTesting implements PersonService {
     @Override
     public boolean setClassId(Person p, String classId){       
         if (classService.getClassId(classId)==null){
-            
             return false; 
-        }         
+        }     
+        classService.setStudentToAClass(p.getEmail(), classId); 
         return true;         
     }
     
@@ -161,7 +162,4 @@ public class PersonServiceTesting implements PersonService {
             return false; 
         }
     } 
-    
-    
-    
 }

@@ -101,21 +101,20 @@ public class AdministrateController {
     
     
     @RequestMapping(value = "addClassId" , method=RequestMethod.POST)
-    public String addNewClassId(@Valid @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, BindingResult error, Model modell, @ModelAttribute NewPassword newPassword, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute) {
+    public String addNewClassId(@Valid @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, BindingResult error, Model modell, @ModelAttribute NewPassword newPassword, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute, HttpSession session) {
         System.out.println("Post ADd Class kjorer");
 
-        Person inLoggedPerson = new Person("TEST@GMAIL.COM","NAVN","ETTERNAVN");
- 
-        if (addNewClassIdAttribute.getClassId().equals("admin")){
+        User user = (User)session.getAttribute("user");
+        Person inLoggedPerson = personService.getPerson(user.getEmail());
+        
+        
+        if(error.hasErrors()){
+            System.out.println(" error with Add Class ID");
+            modell.addAttribute("NewClassMessage", "Feil, for få tegn"); 
+            return "administrateAccount";
             
-            System.out.println("Person set as admin");
-             
-            modell.addAttribute("NewClassMessage", "Du har ny registret en NY klasse: " + addNewClassIdAttribute.getClassId());
-            
-            // Ma lage en ny klasse HER. Ny metode.
-           
-            
-        }else if (personService.setClassId(inLoggedPerson, addNewClassIdAttribute.getClassId())){
+        } else if (personService.setClassId(inLoggedPerson, addNewClassIdAttribute.getClassId())){
+            System.out.println("Legger til i ny klasse ");
             modell.addAttribute("NewClassMessage", "Du er nå registrert i klasse: " + addNewClassIdAttribute.getClassId()); 
         } else {
             modell.addAttribute("NewClassMessage", "Feil, noe er galt. "); 
@@ -123,11 +122,7 @@ public class AdministrateController {
         }
         
         
-        if(error.hasErrors()){
-            System.out.println(" error with Add Class ID");
-            modell.addAttribute("NewClassMessage", "Feil, for få tegn"); 
-            return "administrateAccount";
-        }
+        
         
         return "administrateAccount";
     }
@@ -150,6 +145,7 @@ public class AdministrateController {
         Person inLoggedPerson = personService.getPerson(user.getEmail());
 
         if (personService.makeAdmin(inLoggedPerson, makeAdminAttribute.getMakeAdminPw())){ // Registreres som admin. 
+            user.setAdmin(true);
             System.out.println("Person set as admin");
             modell.addAttribute("makeAdminMessage", "Du har nå admin-rettigheter: "); 
             
@@ -186,4 +182,6 @@ public class AdministrateController {
         return "administrateAccount";
     }   
 }
+
+
 

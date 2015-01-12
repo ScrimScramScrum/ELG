@@ -22,6 +22,8 @@ public class User implements Serializable{
     private String lname;
     
     private boolean inLogged = false; 
+    
+    private boolean admin = false; 
 
     public User(String email, String fname, String lname) {
         this.email = email;
@@ -65,10 +67,16 @@ public class User implements Serializable{
         this.inLogged = inLogged;
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
     @Override
     public String toString() {
         return "User{" + "email=" + email + ", fname=" + fname + ", lname=" + lname + ", inLogged=" + inLogged + '}';
-    }
-    
-    
+    } 
 }

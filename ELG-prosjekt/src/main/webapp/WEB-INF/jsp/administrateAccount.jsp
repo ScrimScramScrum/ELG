@@ -25,6 +25,9 @@ function checkPasswordMatch() {
 </script>
 
 <h1>Konto Administrasjon</h1>
+<br>
+<h2> Endre passord: </h2> 
+
 
 
 <form:form action="changePassword" method="post" modelAttribute="newPassword">
@@ -58,9 +61,6 @@ function checkPasswordMatch() {
 
 <p id="confirmBox"></p>
 
-<br> <br>
-
-
 
 
 <h2>${changedPassword}</h2>
@@ -82,7 +82,11 @@ function checkPasswordMatch() {
     </table>
 </form:form>
 
-<br><br>
+<h3>${NewClassMessage}</h3> 
+<br>
+
+<h2> Registrer deg som administrator-bruker: </h2>
+
 
 <form:form action="makeNewAdmin" method="post" modelAttribute="makeAdminAttribute">
     <table>        
@@ -98,18 +102,19 @@ function checkPasswordMatch() {
 </form:form> 
 
 
-<h3>${NewClassMessage}</h3> 
+
 <h3>${makeAdminMessage}</h3>
+<br>
 
 <c:choose>
-    <c:when test="${user.isInLogged()}">
+    <c:when test="${user.isAdmin()}">
         <h2> Registrer en ny klasse: </h2> 
         
         <form:form action="makeClass" method="post" modelAttribute="makeNewClassAttribute" >
             <table>        
                 <tr>  
                     <td> Ny klasse </td>
-                    <td> <form:input path="classId" value="test@gmail.com" />
+                    <td> <form:input path="classId" />
                          <form:errors path="classId" />
                     </td> 
                 </tr>
