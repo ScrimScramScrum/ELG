@@ -118,4 +118,16 @@ public class LoginController {
         }
         return "login";
     } 
+    
+    
+    
+    
+            
+    @RequestMapping(value = "loginAsGuest")
+    public String loginAsGuestFunction() {
+        System.out.println("Logger inn som guest");
+        
+                    //Person has to be pulled from session?
+        return "";
+    } 
 }
