@@ -24,25 +24,30 @@
     
     <definition name="index" extends="baseLayout">
         <put-attribute name="title"  value="Index"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/index.jsp"/>      
+        <put-attribute name="body"   value="/WEB-INF/jsp/index.jsp"/>   
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_index.jsp"/>   
     </definition>
     <definition name="resembleGame" extends="baseLayout">
         <put-attribute name="title"  value="Index"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/resemblegame.jsp"/>      
+        <put-attribute name="body"   value="/WEB-INF/jsp/resemblegame.jsp"/>   
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_games.jsp"/>      
     </definition>
     <definition name="multichoice" extends="baseLayout">
         <put-attribute name="title"  value="Index"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/multichoice.jsp"/>      
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_games.jsp"/>   
     </definition>
     <definition name="chooseGame" extends="baseGameMenuLayout">
         <put-attribute name="title"  value="Index"/>
         <put-attribute name="body"   value="/WEB-INF/tiles/gamemenu.jsp"/>
         <put-attribute name="gamedisplay" value="/WEB-INF/tiles/preview.jsp"/> 
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_games.jsp"/>   
     </definition>
     
     <definition name="result" extends="baseLayout">
         <put-attribute name="title"  value="Index"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/result.jsp"/>       
+        <put-attribute name="body"   value="/WEB-INF/jsp/result.jsp"/>   
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_games.jsp"/>       
     </definition>
     
     <definition name="newPerson" extends="baseLayout">
@@ -57,7 +62,8 @@
     
     <definition name="finishgame" extends="baseLayout">
         <put-attribute name="title"  value="FinishPage"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/finishgame.jsp"/>      
+        <put-attribute name="body"   value="/WEB-INF/jsp/finishgame.jsp"/>  
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_games.jsp"/>       
     </definition>
     
     <definition name="error" extends="baseLayout">
@@ -67,7 +73,8 @@
     
     <definition name="about" extends="baseLayout">
         <put-attribute name="title"  value="AboutELG"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/about.jsp"/>      
+        <put-attribute name="body"   value="/WEB-INF/jsp/about.jsp"/>    
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_about.jsp"/>     
     </definition>
 
     <definition name="administrateAccount" extends="baseLayout">
@@ -83,5 +90,6 @@
         <put-attribute name="title"  value="Highscore"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/highscore.jsp"/>
         <put-attribute name="gamedisplay" value="/WEB-INF/jsp/highscorelist.jsp"/> 
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_highscore.jsp"/>   
     </definition>
 </tiles-definitions>
