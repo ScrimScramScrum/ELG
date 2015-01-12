@@ -4,7 +4,9 @@
 <script>
     function confirmComplete() {
         if (confirm('Sikker på at du ønsker å resette passordet? OK=ja')) {
-            window.location.href='<c:url value="/sendNewPassword"/>';
+            
+            submitFormWithValue();
+            //window.location.href='<c:url value="/sendNewPassword"/>';
         } else {
             
         }
@@ -36,7 +38,7 @@
                     <div class="col"></div>
             </div>
             
-            <a href="javascript:submitFormWithValue()" name="submitCommand"class="enviar">OK Send epost</a> 
+            <a href="javascript:confirmComplete()" name="submitCommand"class="enviar">OK Send epost</a> 
             
             <div class="olvido">
                     <div class="col"><a href="javascript:sendToLogin()" title="Ver Carásteres">back</a></div>

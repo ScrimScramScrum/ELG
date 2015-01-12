@@ -52,7 +52,7 @@ public class LoginController {
         if(error.hasErrors()){
             System.out.println(" Passord tomt, eller ikke gyldig Email-adresse.  ");
             //modell.addAttribute("melding", "Personnr ikke fylt ut riktig"); 
-            mav.setViewName("login");
+            mav.setViewName("firstLogin");
             return mav;
         }
         
@@ -68,7 +68,7 @@ public class LoginController {
             System.out.println("Innlogging feilet.  "); 
             modell.addAttribute("wrongPassword","Feil brukernavn/passord. Prøv på nytt");
             
-            mav.setViewName("login");
+            mav.setViewName("firstLogin");
             return mav; 
         }
                 

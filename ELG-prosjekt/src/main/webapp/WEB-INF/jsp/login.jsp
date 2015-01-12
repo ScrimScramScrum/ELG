@@ -2,14 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <script>
-    function confirmComplete() {
-        if (confirm('Sikker på at du ønsker å resette passordet? OK=ja')) {
-            window.location.href='<c:url value="/sendNewPassword"/>';
-        } else {
-            
-        }
-    }
-    
+
     function submitFormWithValue(){
         document.forms["login"].submit();
     }
@@ -26,6 +19,7 @@
         window.location.href='<c:url value="/loginAsGuest"/>';
     }
     
+
     
     
 </script>
@@ -38,11 +32,9 @@
         <div class="titulo">Education Learning Game</div>
          <form:form action="login" method="post" modelAttribute="login" enctype="application/x-www-form-urlencoded" >
             <form:input path="email" value="test@gmail.com" type="text"  placeholder="Username" data-icon="U" />
-            <form:errors path="email" />
-            <form:input path="password" type="password" placeholder="Password" data-icon="x" />
-            <form:errors path="password" />
+            <form:input path="password" id = "pw" type="password" placeholder="Password" data-icon="x" />
             
-            <a href="javascript:submitFormWithValue()" name="submitCommand"class="enviar">Submit</a> 
+            <a href="javascript:submitFormWithValue()" onchange ="test()" name="submitCommand"class="enviar">Submit</a> 
             
             <div class="olvido">
                     <div class="col"><a href="javascript:sendToRegisterNewUser()" title="Ver Carásteres">Register</a></div>
@@ -51,10 +43,15 @@
 
             </div>
             
+
+            <div id ="errorMessage">
+                <form:errors path="password" /><br>
+                <form:errors path="email" />                
+            </div>
+
             
             
         </form:form>
-                            
     </section>
 
     <h2> ${wrongPassword} </h2>
@@ -75,15 +72,16 @@
 body {
     background-size: 1000px 1000px, 410px 410px, 610px 610px, 530px 530px, 730px 730px, 1000px 1000px;
     background-color: #58B86F;
-    background: #58B86F;
+    background: #DCDCD7;
 
 
     
 }
 
+
 .login {
     width: 300px;
-    height: 300px;
+    height: auto;
     overflow: hidden;
     background: #1e1e1e;
     border-radius: 6px;
