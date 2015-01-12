@@ -37,6 +37,10 @@
                 width: 32%;
             }
 
+            #scoreText{
+
+            }
+
             #left_1, #left_2 {
                 float: left;
                 width: 45%;
@@ -63,7 +67,6 @@
             var resembleIsPressed = false; 
 
             $(document).ready(function() {
-
                 var solutionHtml = "${resembleTask.solutionHTML}";
                 var solutionCss = "${resembleTask.solutionCSS}";
                 
@@ -75,14 +78,6 @@
                 $("#htmlView").val(startingHtml); 
                 $("#cssView").val(startingCss); 
 
-                $("#viewResult").click(function() {
-                    var editor = $('.CodeMirror')[0].CodeMirror;
-                    var cssText = editor.getValue(); 
-                    var editor = $('.CodeMirror')[1].CodeMirror;
-                    var htmlText = editor.getValue(); 
-                    setRenderedResult($("#resultFrame"), htmlText, cssText);
-                });
-                
                 $("#getSolution").click(function() {
                     $("#htmlView").val(solutionHtml); 
                     $("#cssView").val(solutionCss);
@@ -91,23 +86,6 @@
                     var editor2 = $('.CodeMirror')[1].CodeMirror;
                     editor2.setValue(solutionHtml); 
                 });
-                
-                $("#compare").click(function() { 
-                    var resultUrl = null;
-                    var solutionUrl = null;
-                    html2canvas($("#resultFrame").contents().find("body"), {
-                        onrendered: function (canvas) {
-                            resultUrl = canvas.toDataURL('image/png'); 
-                            resembleIfBothLoaded(resultUrl, solutionUrl, score);
-                        }
-                    });
-                    html2canvas($("#solutionFrame").contents().find("body"), {
-                        onrendered: function (canvas) {
-                            solutionUrl = canvas.toDataURL('image/png'); 
-                            resembleIfBothLoaded(resultUrl, solutionUrl, score);
-                        }
-                    });
-                });            
             });
             function setRenderedResult(frame, html, css) {
                 frame.contents().find("html").html(html);
@@ -115,13 +93,15 @@
                 $head.append("<style>" + css + "</style>") 
             }
             function resembleIfBothLoaded(resultUrl, solutionUrl, score) { 
+                var points; 
                 if(resultUrl && solutionUrl) {
                     resemble(resultUrl).compareTo(solutionUrl).onComplete(function(data){
-                        alert("Likhet: " + (100 - data.misMatchPercentage) + "%");
                         score = 100-data.misMatchPercentage; 
-                        document.getElementById("score").value = score;
+                        points = 100-data.misMatchPercentage; 
+                        test = score; 
                         resembleIsPressed = true;
                     });            
+                    return points; 
                 }
             }
             function validateForm() {
@@ -148,15 +128,57 @@
                     theme: "default",
                     lineNumbers: true
                 });
+
+                editableCodeMirror.on("changes", function(cm, change){
+                    testFunc();
+                    testFunc();
+                });
+
+                editableCodeMirror2.on("changes", function(cm, change){
+                    testFunc();
+                    testFunc();
+
+                });
              };
+
+             function testFunc(){
+                var editor = $('.CodeMirror')[0].CodeMirror;
+                var cssText = editor.getValue(); 
+                var editor = $('.CodeMirror')[1].CodeMirror;
+                var htmlText = editor.getValue(); 
+                setRenderedResult($("#resultFrame"), htmlText, cssText);
+                var resultUrl = null;
+                var solutionUrl = null;
+                var test; 
+                html2canvas($("#resultFrame").contents().find("body"), {
+                    onrendered: function (canvas) {
+                        resultUrl = canvas.toDataURL('image/png'); 
+                        test = resembleIfBothLoaded(resultUrl, solutionUrl, score);
+                        if(test!=null){
+                            document.getElementById('scoreText').innerHTML = test; 
+                            document.getElementById("score").value = test;
+                        }
+                    }
+                });
+
+                html2canvas($("#solutionFrame").contents().find("body"), {
+                    onrendered: function (canvas) {
+                        solutionUrl = canvas.toDataURL('image/png'); 
+                        test = resembleIfBothLoaded(resultUrl, solutionUrl, score);
+                        if(test!=null){
+                            document.getElementById('scoreText').innerHTML = test; 
+                            document.getElementById("score").value = test;
+                        }
+                    }
+                });
+             }
+
         </script>
         <div id="wrapper">  
             <div id="tasktext">    
                 <p>Oppgave</p>
                 <p>${resembleTask.taskText}</p>
                 <center>
-                    <input type="button" value="Se resultat" id="viewResult">
-                    <input type="button" value="Sammenlign" id="compare">
                     <input type="button" value="Hent løsning" id="getSolution">
                 </center>
             </div>
@@ -182,6 +204,9 @@
                     <div id="resultDiv">
                         <iframe class="renderedFrame" id="resultFrame" src="about:blank"></iframe>
                     </div>
+                </div>
+                <div>
+                    <div id = "scoreText"></div>
                 </div>
             </div>
             <div id="button">
