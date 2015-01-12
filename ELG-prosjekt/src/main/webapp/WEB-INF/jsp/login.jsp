@@ -8,32 +8,49 @@
         } else {
             
         }
-}
+    }
+
+
+    
+    
 </script>
 
+<div>
+    <h2>Login</h2>
 
-<h2>Login</h2>
+    <form:form action="login" method="post" modelAttribute="login" >
+        <table>        
+            <tr>  
+                <td> email/brukernavn: </td>
+                <td> <form:input path="email" value="test@gmail.com" />
+                     <form:errors path="email" />
+                </td> 
+            </tr>
+            <tr>
+                <td> Passord: </td>
+                <td> <form:input path="password" type="password"/>
+                     <form:errors path="password" />
+                </td>
+            </tr>
 
-<form:form action="login" method="post" modelAttribute="login" >
-    <table>        
-        <tr>  
-            <td> email/brukernavn: </td>
-            <td> <form:input path="email" value="test@gmail.com" />
-                 <form:errors path="email" />
-            </td> 
-        </tr>
-        <tr>
-            <td> Passord: </td>
-            <td> <form:input path="password" type="password"/>
-                 <form:errors path="password" />
-            </td>
-        </tr>
+            <tr><td colspan="2"><input type="submit" value="LoginForm"</td></tr>
+        </table>
+    </form:form>
 
-        <tr><td colspan="2"><input type="submit" value="LoginForm"</td></tr>
-    </table>
-</form:form>
+    <h2> ${wrongPassword} </h2>
+        
+</div>
 
-<h2> ${wrongPassword} </h2>
+    
+<div>
+    <h1>Logg på som gjestebruker</h1><br>
+    <button onclick="<c:url value='/loginAsGuest'/>"  >Guest-User</button><br>
+    <p> Om du logger på som gjestebruker vil du ikke bli registrert for øvinger eller komme på highscoore</p>
+</div>
+
+    
+
+
 
 <br>
 
