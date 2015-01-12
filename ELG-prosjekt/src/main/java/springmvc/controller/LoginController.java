@@ -40,6 +40,12 @@ public class LoginController {
         return "login";
     }
     
+    @RequestMapping(value = "firstLogin" , method=RequestMethod.GET)
+    public String newLogin(@ModelAttribute Login login, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
+        return "firstLogin";
+    }
+    
+    
     
     @RequestMapping(value = "login" , method=RequestMethod.POST)
     public ModelAndView CreateNewPerson(ModelAndView mav, HttpSession session, @Valid @ModelAttribute("login") Login login, BindingResult error, Model modell, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
@@ -130,9 +136,6 @@ public class LoginController {
         User user = new User("GUEST","GUEST", "");
         user.setInLogged(true);            
         session.setAttribute("user", user);            
-            
-        
-        
         return "index";
     } 
 }

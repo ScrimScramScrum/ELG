@@ -5,7 +5,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <title><tiles:insertAttribute name="title" ignore="true" /></title>
     </head>
     <body bgcolor="gray" >
         <table border="0" cellpadding="2" cellspacing="2" width="800" align="center">
