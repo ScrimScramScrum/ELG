@@ -8,7 +8,7 @@
             <title><tiles:insertAttribute name="title" ignore="true" /></title>
     </head>
     <body bgcolor="gray" >
-        <table border="0" cellpadding="2" cellspacing="2" width="100%" align="center" valign="top" position="abosolute">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
             <tr>
                 <td colspan = "2" height="80">
                     <tiles:insertAttribute name="menu" />

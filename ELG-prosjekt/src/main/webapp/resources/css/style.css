@@ -720,7 +720,7 @@ a:hover
 
 	#header-wrapper
 	{
-		background: url(../images/banner.jpg) no-repeat center top;
+		background: url(../images/seethis.psd) no-repeat center top; // Free image from http://designchomp.com/blurrry/
 		background-size: cover;
 		position: relative;
 	}
@@ -733,7 +733,7 @@ a:hover
 		top: 0;
 		width: 100%;
 		height: 100%;
-		background: rgba(60,50,70,0.5);
+		background: rgba(40,60,60,0.5);
 	}
 	
 	#header {
@@ -745,6 +745,7 @@ a:hover
 	{
 		margin-bottom: 3em;
 		position: relative;
+                
 	}
 
 	header h2
@@ -752,6 +753,7 @@ a:hover
 		display: block;
 		margin: 0;
 		padding: 0;
+                
 	}
 
 	header .byline
@@ -762,6 +764,10 @@ a:hover
 		font-weight: 200;
 		color: rgba(255,255,255,.8);
 	}
+        
+        #logo{
+            margin-left: 5.5%;
+        }
 
 /* Banner */
 

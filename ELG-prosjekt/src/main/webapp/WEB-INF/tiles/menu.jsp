@@ -28,10 +28,10 @@
                 <div id="logo"><h1><a href="#">ELG</a></h1></div>
                 <nav id="nav">
                     <ul>
-<li class="current_page_item"><a href="<c:url value="/index" />" name ="index" id="index" onClick ="changeId(this) ">Index</a></li>
-            <li><a href="<c:url value="/choosegame" />" name = 'choosegame' id="games" onClick ="changeId(this)">Games</a></li>
-            <li><a href="<c:url value="/highscore" />" name = 'highscore' id="highscore" onClick ="changeId(this)">High Score</a></li>
-            <li><a href="<c:url value="/about" />" id="about" name =' about' onClick ="changeId(this)">About</a></li>
+                        <li class="current_page_item"><a href="<c:url value="/index" />" name ="index" id="index" onClick ="changeId(this)">Index</a></li>
+                        <li><a href="<c:url value="/choosegame" />" name = 'choosegame' id="games" onClick ="changeId(this)">Games</a></li>
+                        <li><a href="<c:url value="/highscore" />" name = 'highscore' id="highscore" onClick ="changeId(this)">High Score</a></li>
+                        <li><a href="<c:url value="/about" />" id="about" name =' about' onClick ="changeId(this)">About</a></li>
                     </ul>
                 </nav>
 
