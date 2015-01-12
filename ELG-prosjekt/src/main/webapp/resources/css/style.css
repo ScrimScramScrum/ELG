@@ -720,11 +720,11 @@ a:hover
 
 	#header-wrapper
 	{
-		background: url(../images/seethis.jpg) no-repeat center top; // Free image from http://designchomp.com/blurrry/
-		background-size: cover;
+		background: url(../images/header.jpg) no-repeat center top; // Free image from http://designchomp.com/blurrry/	
                 -webkit-background-size: cover; /* For WebKit*/
-                -moz-background-size: cover;    /* Mozilla*/
+                -moz-background-size: cover;
                 -o-background-size: cover;      /* Opera*/
+                background-size: cover;
 		position: relative;
 	}
 	
