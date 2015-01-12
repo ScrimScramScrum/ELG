@@ -66,8 +66,6 @@ function checkPasswordMatch() {
 <h2>${changedPassword}</h2>
 <br>
 
-<br>
-
 <h2> Legg til klasse: </h2>
 
 
@@ -84,6 +82,7 @@ function checkPasswordMatch() {
     </table>
 </form:form>
 
+<br><br>
 
 <form:form action="makeNewAdmin" method="post" modelAttribute="makeAdminAttribute">
     <table>        
@@ -101,6 +100,24 @@ function checkPasswordMatch() {
 
 <h3>${NewClassMessage}</h3> 
 <h3>${makeAdminMessage}</h3>
+
+<c:choose>
+    <c:when test="${user.isInLogged()}">
+        <h2> Registrer en ny klasse: </h2> 
+        
+        <form:form action="makeClass" method="post" modelAttribute="makeNewClassAttribute" >
+            <table>        
+                <tr>  
+                    <td> Ny klasse </td>
+                    <td> <form:input path="classId" value="test@gmail.com" />
+                         <form:errors path="classId" />
+                    </td> 
+                </tr>
+                <tr><td colspan="2"><input type="submit" value="make Class"</td></tr>
+            </table>
+        </form:form>
+    </c:when>
+</c:choose>
 
 
 

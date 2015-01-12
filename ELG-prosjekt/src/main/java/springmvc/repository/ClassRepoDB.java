@@ -39,15 +39,12 @@ public class ClassRepoDB {
         return foundAddNewClassId;
     }
     
-    public boolean registerNewClassId(AddNewClassId addNewClassId){  
-        jdbcTemplateObject.update(sqlInsertClassId, 
-            new Object[]{
-                addNewClassId.getClassId()
-
-        });
-                
-        return true;
+    public boolean registerNewClassId(String addNewClassId){  
+        jdbcTemplateObject.update(sqlInsertClassId, new Object[]{addNewClassId});
+         return true;
     }
+    
+    
     
     public boolean registerStudentIntoAClass(String emailStudent, String classId){  
         System.out.println("email: "+emailStudent+" , classId: "+classId);
