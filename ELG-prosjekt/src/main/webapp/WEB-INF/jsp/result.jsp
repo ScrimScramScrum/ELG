@@ -11,6 +11,5 @@
     <body>
     <spring:message code="resultMC"/>
        ${result}
-        ${highscorelist}
     </body>
 </html>

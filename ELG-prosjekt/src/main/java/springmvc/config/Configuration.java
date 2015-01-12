@@ -29,6 +29,7 @@ import springmvc.repository.ResembleTaskRepo;
 import springmvc.repository.ResembleTaskRepoDB;
 import springmvc.repository.ResembleTaskRepoMock;
 import springmvc.repository.ResultRepo;
+import springmvc.repository.ResultRepoDB;
 import springmvc.repository.ResultRepoMock;
 import springmvc.service.*;
 import springmvc.service.GameListService;
@@ -98,7 +99,7 @@ public class Configuration extends WebMvcConfigurationSupport {
     
     @Bean 
     public ResembleTaskRepo resembleTaskRepo(){
-        return new ResembleTaskRepoMock(); 
+        return new ResembleTaskRepoDB(); 
     }
     
     @Bean
@@ -108,7 +109,7 @@ public class Configuration extends WebMvcConfigurationSupport {
     
     @Bean
     public MultiChoiceRepository multiChoiceRepository(){
-        return new MultiChoiceRepoMock();
+        return new MultipleChoiceRepoDB();
     }
     
     @Bean
@@ -118,7 +119,7 @@ public class Configuration extends WebMvcConfigurationSupport {
     
     @Bean
     public GameListService gameListService(){
-        return new GameListServiceMock(); 
+        return new GameListServiceImpl(); 
     }
     
     //KOPIERES
@@ -139,7 +140,7 @@ public class Configuration extends WebMvcConfigurationSupport {
     }
     @Bean 
      public ResembleGameRepo resembleGameRepo(){
-         return new ResembleGameRepoMock(); 
+         return new ResembleGameRepoDB(); 
      }
      
     @Bean
@@ -149,7 +150,7 @@ public class Configuration extends WebMvcConfigurationSupport {
     
     @Bean
     public ResultRepo resultRepo(){
-        return new ResultRepoMock();
+        return new ResultRepoDB();
     }
     
     @Bean

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import springmvc.domain.HighscoreDisplay;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.Person;
+import springmvc.domain.ResembleGame;
 import springmvc.repository.ResultRepo;
 
 /**
@@ -40,5 +41,21 @@ public class ResultService {
     
     public ArrayList<HighscoreDisplay> highscoreMC(MultiChoice game){
         return repo.highscoreMC(game);
+    }
+    
+    public boolean regResembleGameRes(String email, Double score, ResembleGame game){
+       return repo.regResembleGameRes(email, score, game);
+    }
+    
+    public int getResembleGameRes(String email, ResembleGame game){
+        return repo.getResembleGameRes(email, game);
+    }
+    
+    public boolean updateResembleResult(String email, double score, ResembleGame game){
+        return repo.updateResembleResult(email, score, game);
+    }
+    
+    public ArrayList<HighscoreDisplay> highscoreRG(ResembleGame game){
+        return repo.highscoreRG(game);
     }
 }

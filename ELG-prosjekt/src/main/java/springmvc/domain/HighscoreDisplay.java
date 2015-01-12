@@ -47,5 +47,9 @@ public class HighscoreDisplay {
         this.score = score;
     }
     
+    public String toString(){
+        return fname + " " + lname + " Score: " + score;
+    }
+    
     
 }

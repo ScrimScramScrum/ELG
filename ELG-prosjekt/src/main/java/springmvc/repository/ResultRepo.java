@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import springmvc.domain.HighscoreDisplay;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.Person;
+import springmvc.domain.ResembleGame;
 
 /**
  *
@@ -24,4 +25,12 @@ public interface ResultRepo{
         public boolean updateMultiResult(String email, double score, MultiChoice game);
         
         public ArrayList<HighscoreDisplay> highscoreMC(MultiChoice game);
+        
+        public boolean regResembleGameRes(String email, Double score, ResembleGame game);
+        
+        public int getResembleGameRes(String email, ResembleGame game);
+        
+        public boolean updateResembleResult(String email, double score, ResembleGame game);
+        
+        public ArrayList<HighscoreDisplay> highscoreRG(ResembleGame game);
 }

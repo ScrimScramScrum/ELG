@@ -5,7 +5,9 @@
  */
 package springmvc.controller;
 
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import springmvc.domain.HighscoreDisplay;
 import springmvc.domain.ResembleGame;
 import springmvc.domain.ResembleTask;
+import springmvc.domain.User;
 import springmvc.service.GameListService;
 import springmvc.service.GameListServiceImpl;
 import springmvc.service.ResembleTaskService;
+import springmvc.service.ResultService;
 
 @Controller
 @SessionAttributes("resembleGame")
@@ -30,6 +35,9 @@ public class ResembleGameController {
     
     @Autowired 
     private GameListService gameListService; 
+    
+    @Autowired
+    private ResultService r;
   /*  
     @RequestMapping(value = "resemblegame")
     public ModelAndView resembleGame(ModelAndView mav){
@@ -62,9 +70,25 @@ public class ResembleGameController {
     }
     
     @RequestMapping(value ="finishgame")
-    public String resembleGameFinish(ModelAndView mav, @ModelAttribute(value = "resembleGame") ResembleGame resembleGame, HttpServletRequest req) {
+    public String resembleGameFinish(HttpSession session, ModelAndView mav, @ModelAttribute(value = "resembleGame") ResembleGame resembleGame, HttpServletRequest req) {
         resembleGame.setTaskNumberScore(resembleGame.getCurrentTask(), Double.parseDouble(req.getParameter("score")));
         System.out.println("TOTAL SCORE: " + resembleGame.getTotalScore());
+        Double score = resembleGame.getTotalScore();            
+            User user = (User)session.getAttribute("user");
+            String k = user.getEmail();
+            int d = r.getResembleGameRes(k, resembleGame);
+            if(d == 0){
+                r.regResembleGameRes(k, score, resembleGame);
+            } else if(score > d){
+                r.updateResembleResult(k, score, resembleGame);
+            }
+            ArrayList<HighscoreDisplay> hs = r.highscoreRG(resembleGame);
+            System.out.println(hs.size());
+            String melding = "";
+            for (int i = 0; i<hs.size(); i++){
+                melding += hs.get(i).getFname() + " " + hs.get(i).getLname() + " " + hs.get(i).getScore() +"\n";
+            }
+            mav.addObject("highscorelist", melding);
         // resembleGameService.updatePoints(Person person);
         return "finishgame";//finishgame
     }
