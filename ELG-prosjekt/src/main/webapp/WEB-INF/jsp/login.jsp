@@ -44,7 +44,7 @@
     
 <div>
     <h1>Logg på som gjestebruker</h1><br>
-    <button onclick="<c:url value='/loginAsGuest'/>"  >Guest-User</button><br>
+    <button onclick="window.location.href='<c:url value="/loginAsGuest"/>';"  >Guest-User</button><br>
     <p> Om du logger på som gjestebruker vil du ikke bli registrert for øvinger eller komme på highscoore</p>
 </div>
 

@@ -123,11 +123,16 @@ public class LoginController {
     
     
             
-    @RequestMapping(value = "loginAsGuest")
-    public String loginAsGuestFunction() {
+    @RequestMapping(value = "loginAsGuest") 
+    public String loginAsGuestFunction(HttpSession session) {
         System.out.println("Logger inn som guest");
         
-                    //Person has to be pulled from session?
-        return "";
+        User user = new User("GUEST","GUEST", "");
+        user.setInLogged(true);            
+        session.setAttribute("user", user);            
+            
+        
+        
+        return "index";
     } 
 }
