@@ -722,6 +722,9 @@ a:hover
 	{
 		background: url(../images/seethis.psd) no-repeat center top; // Free image from http://designchomp.com/blurrry/
 		background-size: cover;
+                -webkit-background-size: cover; /* For WebKit*/
+                -moz-background-size: cover;    /* Mozilla*/
+                -o-background-size: cover;      /* Opera*/
 		position: relative;
 	}
 	
