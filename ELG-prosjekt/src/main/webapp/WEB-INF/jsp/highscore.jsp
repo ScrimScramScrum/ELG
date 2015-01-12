@@ -16,29 +16,28 @@
         </style>
     </head>
     <body>
-        <h1>Her skal vi liste hverandres seksuelle high scores</h1>
-                <div id="sidebar">
-        <center>
-        <h2>Select a game</h2>
-        <h4>Resemble Games</h4>
-        <c:forEach items="${resembleGames}" var="game">
-            <!-- <li> -->
-                <form action="choosegameHighscore" method="post">
-                    <input type="hidden" name="gameid" id="gameid" value="${game.gameId}" />
-                    <input type="submit" id="gamebutton" value="Resemble ${game.gameId}" />
-                </form>
-            <!-- </li> -->
-        </c:forEach>
-        <h4>MultiChoice Games</h4>
-        <c:forEach items="${multiChoiceGames}" var="game">
-            <!-- <li> -->
-                <form action="choosegameHighscore" method="post">
-                    <input type="hidden" name="gameid" id="gameid" value="${game.name}" />
-                    <input type="submit" id="gamebutton" value="Multi ${game.name}" />
-                </form>
-            <!-- </li> -->
-        </c:forEach>
-        </center>
+        <div id="sidebar">
+            <center>
+                <h2>Select a game</h2>
+                <h4>Resemble Games</h4>
+                <c:forEach items="${resembleGames}" var="game">
+                    <!-- <li> -->
+                        <form action="choosegameHighscore" method="post">
+                            <input type="hidden" name="gameid" id="gameid" value="${game.gameId}" />
+                            <input type="submit" id="gamebutton" value="Resemble ${game.gameId}" />
+                        </form>
+                    <!-- </li> -->
+                </c:forEach>
+                <h4>MultiChoice Games</h4>
+                <c:forEach items="${multiChoiceGames}" var="game">
+                    <!-- <li> -->
+                        <form action="choosegameHighscore" method="post">
+                            <input type="hidden" name="gameid" id="gameid" value="${game.name}" />
+                            <input type="submit" id="gamebutton" value="Multi ${game.name}" />
+                        </form>
+                    <!-- </li> -->
+                </c:forEach>
+            </center>
         </div>
     </body>
 </html>

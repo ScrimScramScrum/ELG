@@ -14,11 +14,12 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <center><h1>Highscore - Game nr: </h1>
                         <table align="center">
                 <c:forEach items="${highscore}" var="teller">
                     <tr><td><c:out value="${teller}" /></td></tr>
                 </c:forEach>
                         </table>
+                    </center>
     </body>
 </html>

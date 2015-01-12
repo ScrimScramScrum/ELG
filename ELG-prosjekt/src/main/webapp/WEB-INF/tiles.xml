@@ -69,11 +69,6 @@
         <put-attribute name="title"  value="AboutELG"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/about.jsp"/>      
     </definition>
-    
-    <definition name="highscore" extends="baseLayout">
-        <put-attribute name="title"  value="High Score"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/highscore.jsp"/>      
-    </definition>
 
     <definition name="administrateAccount" extends="baseLayout">
         <put-attribute name="title"  value="administrateAccountSomethingElse"/>
@@ -82,5 +77,11 @@
     
     <definition name="firstLogin" extends="loginBaseLayout">
         <put-attribute name="body"   value="/WEB-INF/jsp/login.jsp"/> 
-    </definition>        
+    </definition>    
+    
+    <definition name="chooseGameHighscore" extends="baseGameMenuLayout">
+        <put-attribute name="title"  value="Highscore"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/highscore.jsp"/>
+        <put-attribute name="gamedisplay" value="/WEB-INF/jsp/highscorelist.jsp"/> 
+    </definition>
 </tiles-definitions>

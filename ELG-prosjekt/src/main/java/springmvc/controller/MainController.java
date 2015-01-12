@@ -49,6 +49,7 @@ public class MainController {
         return "about";
     }
 
+    /*
     @RequestMapping(value = "highscore")
     public String showHighscore(Model model, HttpSession session) {
         //model.addAttribute("melding", "melding");
@@ -59,7 +60,7 @@ public class MainController {
         return ((User) session.getAttribute("user")) == null ? "index" : ((User) session.getAttribute("user")).isInLogged() ? "highscore" : "index";
         // return ((User)session.getAttribute("user")).isInLogged() ? "highscore" : "index"; 
         // return "highscore"; 
-    }
+    }*/
 
     @RequestMapping(value = "choosegame")
     public ModelAndView chooseGame(ModelAndView mav) {
@@ -107,7 +108,7 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "choosegameHighscore")
+    @RequestMapping(value = "highscore")
     public ModelAndView chooseGameHighscore(ModelAndView mav) {
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames();
         ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();
@@ -115,7 +116,7 @@ public class MainController {
         mav.addObject("gametype", resemble);
         mav.addObject("resembleGames", resembleGames);
         mav.addObject("multiChoiceGames", multiChoiceGames);
-        mav.setViewName("chooseGame");
+        mav.setViewName("chooseGameHighscore");
         return mav;
     }
 
@@ -144,7 +145,7 @@ public class MainController {
         //mav.addObject("info", info);
         mav.addObject("resembleGames", resembleGames);
         mav.addObject("multiChoiceGames", multiChoiceGames);
-        mav.setViewName("chooseGame");
+        mav.setViewName("chooseGameHighscore");
         return mav;
     }
 }
