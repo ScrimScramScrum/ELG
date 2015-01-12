@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="../../resources/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="../../resources/css3/bootstrap.css" rel="stylesheet" type="text/css"/>
         
         <title>JSP Page</title>
     </head>
