@@ -16,9 +16,11 @@
             </tr>
             <tr>
                <td width="20%" height="500" valign="top">
+                    <br>
                      <tiles:insertAttribute name="body" />
                 </td>
                 <td width="80%" height="500" valign="top">
+                    <br>
                     <tiles:insertAttribute name="gamedisplay" />
                 </td>
             </tr>

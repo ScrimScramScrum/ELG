@@ -17,7 +17,8 @@
             </tr>
             <tr>
                <td width="100%" valign="top">
-                     <tiles:insertAttribute name="body" />
+                    <br>
+                    <tiles:insertAttribute name="body" />
                 </td>
             </tr>
      
