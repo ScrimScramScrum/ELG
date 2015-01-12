@@ -22,25 +22,26 @@
         }
         model.addAttribute("exerciseText", ex.getTaskText());%>
         
-       -->
-       
-       <c:out value="${spillet.getCurrent().getTaskText()}"></c:out>        
-        
-        <form:form action="nextTask" modelAttribute="spillet" method="POST">
+        -->
+        <div id="multichoice">
+            <h1><c:out value="${spillet.getCurrent().getTaskText()}"></c:out></h1>        
+
+            <form:form action="nextTask" modelAttribute="spillet" method="POST">
                 <table align="center">
-            <tr>
-                <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "0" end = "1">
-                    <td><button type="submit" value="${teller}" name ="button" ><c:out value="${teller}" /></button></td>
-                </c:forEach>
-                <tr>
-            </tr>
-            <tr>
-                <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "2" end = "3">
-                <td><button type="submit" value="${teller}" name ="button"><c:out value="${teller}" /></button></td>
-                </c:forEach>
-                <tr>
-            </tr>
-          </table>
-        </form:form>
+                    <tr>
+                        <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "0" end = "1">
+                            <td><button type="submit" value="${teller}" name ="button" ><c:out value="${teller}" /></button></td>
+                            </c:forEach>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "2" end = "3">
+                            <td><button type="submit" value="${teller}" name ="button"><c:out value="${teller}" /></button></td>
+                            </c:forEach>
+                    <tr>
+                    </tr>
+                </table>
+            </form:form>
+        </div>
     </body>
 </html>
