@@ -10,11 +10,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import springmvc.domain.HighscoreDisplay;
+import springmvc.domain.Login;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.MultiChoiceInfo;
 import springmvc.domain.ResembleGame;
@@ -23,6 +25,7 @@ import springmvc.domain.User;
 import springmvc.service.GameListService;
 import springmvc.service.GameListServiceImpl;
 import springmvc.service.ResultService;
+import springmvc.ui.SendNewPassword;
 
 /**
  *
@@ -37,11 +40,17 @@ public class MainController {
     @Autowired
     private ResultService r;
 
-    @RequestMapping(value = "*")
+    @RequestMapping(value = "index")
     public String showIndex(Model model) {
         //model.addAttribute("melding", "melding");
         return "index";
     }
+    
+    @RequestMapping(value = "*")
+    public String person(@ModelAttribute Login login, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
+        return "firstLogin";
+    }
+    
 
     @RequestMapping(value = "about")
     public String showAbout(Model model) {
