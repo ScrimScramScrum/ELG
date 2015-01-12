@@ -19,14 +19,30 @@ body
 
 body, #skel-panels-pageWrapper
 {
-	background: #101214 url(images/main-bg.png) repeat;
+	background-color: #dcdcd7;
+}
+
+
+.gamelink:hover {
+	background-color:#2B8FC4;
+	width:80%;
+}
+
+#gameLinkA {
+	display: block;
+    text-decoration: none;
+    color: #686868;
+}
+
+#gameLinkA:hover{
+	color: white;
 }
 
 h1, h2, h3 {
 	margin: 0;
 	padding: 0;
 	font-weight: 300;
-	color: #CFCFCF;
+	color: #686868;
 }
 
 h2
