@@ -10,38 +10,60 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <style type='text/css'>
+            #wrapper2 {
+                color: black;
+                text-align: center;
+                font-size: 20px;
+                height: 500px;
+                width: 60%;
+            }
+            #table1 {
+                height: 100%;
+                width: 100%;
+            }
+            #td1 {
+                text-align: center;
+                height: 40%;
+                width: 50%;
+            }
+            #button1 {
+                height: 100%;
+                width: 100%;
+            }
+        </style>
     </head>
     <body>
-        <!--
-        Exercise ex = exercises.get(0);
-        String [] alts = ex.getAlternatives();
-        for (int i = 0; i < alts.length; i++){
-            model.addAttribute("alt"+(i+1), alts[i]);
-        }
-        model.addAttribute("exerciseText", ex.getTaskText());%>
-        
-        -->
-        <div id="multichoice">
-            <h1><c:out value="${spillet.getCurrent().getTaskText()}"></c:out></h1>        
-
-            <form:form action="nextTask" modelAttribute="spillet" method="POST">
-                <table align="center">
-                    <tr>
-                        <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "0" end = "1">
-                            <td><button type="submit" value="${teller}" name ="button" ><c:out value="${teller}" /></button></td>
+        <center>
+            <div id='wrapper2'>
+                <form:form action="nextTask" modelAttribute="spillet" method="POST" style="height: 100%">
+                    <table id="table1">
+                        <tr>
+                            <td style="height: 20%" colspan="2">
+                                <c:out value="${spillet.getCurrent().getTaskText()}"></c:out>
+                            </td>
+                        </tr>
+                        <tr>
+                            <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "0" end = "1">
+                                <td id="td1">
+                                    <button id="button1" type="submit" value="${teller}" name ="button" >
+                                        <c:out value="${teller}" />
+                                    </button
+                                </td>
                             </c:forEach>
-                    <tr>
-                    </tr>
-                    <tr>
-                        <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "2" end = "3">
-                            <td><button type="submit" value="${teller}" name ="button"><c:out value="${teller}" /></button></td>
+                        </tr>
+                        <tr>
+                            <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "2" end = "3">
+                                <td id="td1">
+                                    <button id="button1" type="submit" value="${teller}" name ="button">
+                                        <c:out value="${teller}" />
+                                    </button>
+                                </td>
                             </c:forEach>
-                    <tr>
-                    </tr>
-                </table>
-            </form:form>
-        </div>
+                        </tr>
+                    </table>
+                </form:form>
+            </div>
+        </center>
     </body>
 </html>
