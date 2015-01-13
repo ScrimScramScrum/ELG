@@ -230,16 +230,18 @@ public class MainController {
         MultiChoice multiTemp = null;
         ResembleGame resembleTemp = null;
         ArrayList<HighscoreDisplay> hs = new ArrayList<HighscoreDisplay>();
-        try {/* Har ikke laget metode enda
+        try {
             int a = Integer.parseInt(id);
             resemble = 1;
             resembleTemp = gameListService.getResembleGame(a);
-            mav.addObject("completionlist", hs);*/
+            mav.addObject("completionlist", hs);
+           
         } catch (NumberFormatException e) {
             resemble = 2;
             multiTemp = gameListService.getMultiChoiceGame(id);
             hs = r.getCompletion(multiTemp);
-            mav.addObject("completionlist", hs);
+            mav.addObject("list", hs);
+            System.out.println("********** lengde = " + hs.size());
         }
         mav.addObject("gametype", resemble);
         // use session instead of getting all games every time a game get clicked?
@@ -250,7 +252,7 @@ public class MainController {
         mav.addObject("sortedScores", r.sortHighScores(hs));
         mav.addObject("resembleGames", resembleGames);
         mav.addObject("multiChoiceGames", multiChoiceGames);
-        mav.setViewName("choosegameCompletionlist");
+        mav.setViewName("completionlist");
         return mav;
     }
 }

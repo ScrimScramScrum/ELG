@@ -3,7 +3,8 @@
     Created on : 13.jan.2015, 15:38:47
     Author     : eiriksandberg
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+       <c:forEach items="${list}" var="names">
+           <c:out value="${names}"/>
+            </c:forEach>
     </body>
 </html>
