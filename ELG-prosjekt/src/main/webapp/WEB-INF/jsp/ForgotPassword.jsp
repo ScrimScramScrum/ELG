@@ -29,7 +29,7 @@
     <section class="login">
         <div class="titulo">Education Learning Game</div>
          <form:form action="sendNewPassword" method="post" modelAttribute="sendNewPassword" enctype="application/x-www-form-urlencoded" >
-            <form:input path="email" value="test@gmail.com" type="text"  placeholder="Username" data-icon="U" />
+            <form:input path="email" value="test@gmail.com" type="text"  placeholder="Email" data-icon="U" />
             <form:errors path="email" />
             
             

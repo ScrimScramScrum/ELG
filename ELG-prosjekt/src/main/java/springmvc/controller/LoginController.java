@@ -112,16 +112,20 @@ public class LoginController {
     */
     
     
-    @RequestMapping(value = " forgotPasswordFromLogin" , method=RequestMethod.GET)
+    @RequestMapping(value = "forgotPasswordFromLogin" , method=RequestMethod.GET)
     public String sendToForgotPassword(@ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
         return "forgotPasswordFromLogin";
     }
     
-    
-    
     @RequestMapping(value = "sendNewPassword")
-    public String sendNewPassword(@ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword, Model modell, @ModelAttribute Login login, @ModelAttribute NewPassword newPassword) {
+    public String sendNewPassword(@Valid @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword, BindingResult error, Model modell, @ModelAttribute Login login, @ModelAttribute NewPassword newPassword) {
         System.out.println("NEWPASSWORD ON THE WAY TO: "+sendNewPassword.getEmail());
+        
+        if(error.hasErrors()){
+            System.out.println("errors in forgotten password. ");
+           
+            return "forgotPasswordFromLogin";
+        }
         
         Person person = personService.getPerson(sendNewPassword.getEmail());
         //Person has to be pulled from session?
@@ -135,10 +139,6 @@ public class LoginController {
         }
         return "firstLogin";
     } 
-    
-    
-    
-    
             
     @RequestMapping(value = "loginAsGuest") 
     public String loginAsGuestFunction(HttpSession session) {

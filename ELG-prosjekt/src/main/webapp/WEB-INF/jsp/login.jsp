@@ -18,10 +18,6 @@
     function guestUserLogin(){
         window.location.href='<c:url value="/loginAsGuest"/>';
     }
-    
-
-    
-    
 </script>
 
 
@@ -34,11 +30,11 @@
             <form:input path="email" value="test@gmail.com" type="text"  placeholder="Username" data-icon="U" />
             <form:input path="password" type="password" placeholder="Password" data-icon="x" />
             
-            <a href="javascript:submitFormWithValue()" onchange ="test()" name="submitCommand"class="enviar">Submit</a> 
+            <a href="javascript:submitFormWithValue()" name="submitCommand"class="enviar">Submit</a> 
             
             <div class="olvido">
-                    <div class="col"><a href="javascript:sendToRegisterNewUser()" title="Ver Carásteres">Register</a></div>
-                    <div class="col"><a href="javascript:sendToForgotPassword()" title="Recuperar Password">Forgot Password?</a></div>
+                    <div class="col"><a href="javascript:sendToRegisterNewUser()" title="Register new user">Registrer ny bruker</a></div>
+                    <div class="col"><a href="javascript:sendToForgotPassword()" title="Forgotten password">Forgot Password?</a></div>
                     <div class="col"><a href="javascript:guestUserLogin()" title="Guest user">Guest user</a></div>
 
             </div>
