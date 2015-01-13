@@ -22,6 +22,120 @@ body, #skel-panels-pageWrapper
 	background-color: #dcdcd7;
 }
 
+#resemblegamewrapper{
+	width:90%;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#iframediv{
+	width:50px;
+	margin-left: auto;
+    margin-right: auto;
+    background-color:black;
+}
+
+#scoreText{
+	float:left;
+
+}
+#button{
+	width:10%;
+	float:right;
+}
+
+#resemblebutton{
+	float:right;
+	width: 100px;
+	height: 50px;
+}
+
+#resembleSubmit{
+	float:right;
+	width: 100px;
+	height: 50px;
+	position: relative;
+	cursor: pointer;
+	display: inline-block;
+	background: #2B8FC4;
+	border-radius: 4px;
+	text-decoration: none;
+	font-size: 1.2em;
+	font-weight: 100;
+	color: #FFF !important;
+	-moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+	-webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+	-o-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+	-ms-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+	transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+	text-align: center;
+}
+#resembleSubmit:hover {
+    background: #065B88;
+}
+
+#resembleBelowBottom{
+	height:100px;
+	margin-top:200px;
+	width:100%;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#solutionDivPreview{
+	width:80%;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#resembleSubmit{
+
+}
+
+
+
+#solutionDiv{
+	width:30%;
+	float:left;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#resultDiv{
+	width:30%;
+	float:right;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#resembleBottom{
+	width:100%;
+	height:340px;
+}
+
+#tasktext{
+	width:40%;
+	float:left;
+}
+
+#bottomLeft{
+	width:50%;
+	float:left;
+}
+
+#bottomRight{
+	width:50%;
+	float:right;
+}
+
+#tasktext p{
+	text-align: center;
+}
+
+#resembleTop{
+	height:150px;
+	width:100%;
+}
 
 .gamelink:hover {
 	background-color:#2B8FC4;

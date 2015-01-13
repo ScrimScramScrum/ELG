@@ -113,7 +113,7 @@
                 <c:forEach items="${tasks}" var="task">
                     <section id="content">
                         <section class="block">
-                            <div id="solutionDiv">
+                            <div id="solutionDivPreview">
                                 <%
                                     out.println("<iframe class='renderedFrame' id='solutionFrame" + teller + "' src='about:blank'></iframe>");
                                 %>

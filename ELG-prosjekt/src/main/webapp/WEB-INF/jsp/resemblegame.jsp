@@ -29,34 +29,6 @@
                 <c:out value="width: ${resembleTask.width}px; height: ${resembleTask.height}px" />
             }
 
-            #tasktext {
-
-            }
-
-            #tasktext input {
-                width: 32%;
-            }
-
-            #scoreText{
-
-            }
-
-            #left_1, #left_2 {
-                float: left;
-                width: 45%;
-                background-color: #ddd;
-                margin: 5px;
-                padding: 5px;
-            }
-
-            #right_1, #right_2 {
-                float: right;
-                width: 45%;
-                background-color: #ddd;
-                margin: 5px;
-                padding: 5px;
-            }
-
             #scorePost input {
                 width: 100%;
             }
@@ -122,12 +94,15 @@
                     theme: "default",
                     lineNumbers: true
                 });
+                    editableCodeMirror.setSize("100%", 300); 
                 var editableCodeMirror2 = CodeMirror.fromTextArea(document.getElementById('htmlView'), {
                     lineWrapping: true,        
                     mode: "xml",
                     theme: "default",
                     lineNumbers: true
                 });
+
+                editableCodeMirror2.setSize("100%", 300); 
 
                 editableCodeMirror.on("changes", function(cm, change){
                     testFunc();
@@ -155,7 +130,7 @@
                         resultUrl = canvas.toDataURL('image/png'); 
                         test = resembleIfBothLoaded(resultUrl, solutionUrl, score);
                         if(test!=null){
-                            document.getElementById('scoreText').innerHTML = test; 
+                            document.getElementById('scoreText').innerHTML = "Prosent riktig: " +test; 
                             document.getElementById("score").value = test;
                         }
                     }
@@ -166,7 +141,7 @@
                         solutionUrl = canvas.toDataURL('image/png'); 
                         test = resembleIfBothLoaded(resultUrl, solutionUrl, score);
                         if(test!=null){
-                            document.getElementById('scoreText').innerHTML = test; 
+                            document.getElementById('scoreText').innerHTML = "Prosent riktig: " + test; 
                             document.getElementById("score").value = test;
                         }
                     }
@@ -174,56 +149,69 @@
              }
 
         </script>
-        <div id="wrapper">  
-            <div id="tasktext">    
-                <p>Oppgave</p>
-                <p>${resembleTask.taskText}</p>
-                <center>
-                    <input type="button" value="Hent løsning" id="getSolution">
+        <div id="resemblegamewrapper">  
+
+            <div id = "resembleTop">
+                <div id ="tasktext">
+                    Oppgave
+                      <input type="button" value="Hent løsning" id="getSolution">
+                      <br>
+                    ${resembleTask.taskText}
+                </div>
+
+                
+                <div id="solutionDiv">
+                    <center>
+                    Fasit<br>
+                    <!-- <div id = "iframediv"> -->
+                    
+                        <iframe class="renderedFrame" id = "solutionFrame" src="about:blank"></iframe>
+                    <!-- </div> -->
                 </center>
+                </div>
+
+                
+                <div id="resultDiv">
+                    <center>
+                    Ditt resultat<br>
+                    <!-- <div id = "iframediv"> -->
+                        
+                        <iframe class="renderedFrame" id ="resultFrame" src="about:blank"></iframe>
+                    </center>
+                    <!-- </div> -->
+                </div>
             </div>
-            <div id="left_1"> 
-                <div>      
-                    <p>CSS</p>
+
+            <div id = "resembleBottom">
+                <div id ="bottomLeft">      
+                    <center>CSS</center>
                     <textarea class="cssView" id="cssView" name ="cssView"></textarea>
                 </div>
-                <div>
-                    <p>HTML</p>
+                <div id="bottomRight">
+                    <center>HTML</center>
                     <textarea class="cssView" id="htmlView"></textarea>
                 </div>
             </div>
-            <div id="right_1">      
-                <p>Fasit</p>
-                <div>
-                    <div id="solutionDiv">
-                        <iframe class="renderedFrame" id="solutionFrame" src="about:blank"></iframe>
-                    </div>
+            <div id = "resembleBeloWbottom">
+                <div id = "scoreText"></div>
+
+                <div id = "resemblebutton">
+                    <c:choose>
+                        <c:when test="${resembleGame.isCurrentTaskLast()}">
+                            <form action = "finishgame" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post" >
+                                <input type = "hidden" value = "" id = "score" name = "score"/>
+
+                                <input type = "submit" id ="resembleSubmit" value = "Finish" />
+                            </form>
+                        </c:when>
+                        <c:otherwise>
+                            <form action = "nextresembletask" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post">
+                                <input type = "hidden" value = "" id = "score" name = "score"/>
+                                <input type = "submit" value = "next" id ="resembleSubmit" />
+                            </form>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
-                <div>
-                    <p>Ditt resultat</p>
-                    <div id="resultDiv">
-                        <iframe class="renderedFrame" id="resultFrame" src="about:blank"></iframe>
-                    </div>
-                </div>
-                <div>
-                    <div id = "scoreText"></div>
-                </div>
-            </div>
-            <div id="button">
-                <c:choose>
-                    <c:when test="${resembleGame.isCurrentTaskLast()}">
-                        <form action = "finishgame" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post" >
-                            <input type = "hidden" value = "" id = "score" name = "score"/>
-                            <input type = "submit" value = "Finish" />
-                        </form>
-                    </c:when>
-                    <c:otherwise>
-                        <form action = "nextresembletask" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post">
-                            <input type = "hidden" value = "" id = "score" name = "score"/>
-                            <input type = "submit" value = "next" />
-                        </form>
-                    </c:otherwise>
-                </c:choose>
             </div>
         </div>
     </body>
