@@ -98,6 +98,9 @@ public class MultiChoice implements Serializable {
         this.gameid = gameid;
     }
     
+    public int getNumberOfQuestions(){
+        return exercises.size();
+    }
     
 
     
