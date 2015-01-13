@@ -50,7 +50,7 @@ public class LoginController {
     
     
     @RequestMapping(value = "login" , method=RequestMethod.POST)
-    public ModelAndView CreateNewPerson(ModelAndView mav, HttpSession session, @Valid @ModelAttribute("login") Login login, BindingResult error, Model modell, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
+    public ModelAndView logIn(ModelAndView mav, HttpSession session, @Valid @ModelAttribute("login") Login login, BindingResult error, Model modell, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
         System.out.println("333333333");
         if(error.hasErrors()){
             System.out.println(" Passord tomt, eller ikke gyldig Email-adresse.  ");
