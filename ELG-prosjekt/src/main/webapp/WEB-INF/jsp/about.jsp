@@ -14,12 +14,12 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Her skal vi skrive mye fint om systemet vårt</h1>
-        <button>Knapp</button>
-        <form>
-            Her skriver jeg mye tekst for å se hvordan bootstrap påvirker diverse
-            tekstlige fenomener, bl.a. punktum, komma
-            linjeskifte, <button>knapper</button> og lignende.
-        </form>
+    <center>
+        <h1>Educational Learning Game</h1>
+        <br>
+            <p>
+            Dette er et spill laget i forbindelse med et skoleprosjekt av Team 4. Hensikten med dette spillet er å
+            lære bort CSS og HTML til nybegynnere.
+        </p></center>
     </body>
 </html>

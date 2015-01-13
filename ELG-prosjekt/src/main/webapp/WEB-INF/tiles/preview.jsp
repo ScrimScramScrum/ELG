@@ -32,10 +32,13 @@
             float: left;
             margin: 5px;
             padding: 5px;
-            background-color: #dddddd;
+            background-color: #dddddd; 
         }
 
-        #playbutton input{
+        
+        #playbutton{
+                width: 100px;
+                height: 50px;
                 position: relative;
                 cursor: pointer;
 		display: inline-block;
@@ -52,7 +55,10 @@
 		transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
 		text-align: center;
         }
-
+        #welcome{
+                margin-left: 120px;
+        }
+        
         .renderedFrame {
             /*Add different size for the iframes?*/
             /*<c:out value="width: ${resembleTask.width}px; height: ${resembleTask.height}px" />*/
@@ -83,12 +89,13 @@
             <h4>Learning Goals</h4>
             ${resembleInfo.learningGoal}
             <br><br>
-            <div id="playbutton" style="float: right">
-            <form action="resemblegame" method="post" id="playbutton">
+            <form action="resemblegame" method="post" style="float: right">
                 <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
-                <input type="submit" value="<spring:message code="play"/>"/>
+                <button id="playbutton" type="submit" value="play">
+                        <spring:message code="play"/>
+            </button>
+
             </form>
-            </div>
         </div>  
         <div id="rightcolumn">
             <!-- preview frames here -->
@@ -120,7 +127,7 @@
         </div>
 </c:when>
 <c:when test="${gametype == 2}">
-    <div id="wrapper">
+    <div id="wrapperGameInfo">
         <div id="leftcolumn">
             <h2>${gamenr}</h2>
             <h4>Difficulty</h4>
@@ -132,9 +139,11 @@
             <h4>Learning Goals</h4>
             ${multiChoiceInfo.learningGoal}
             <br><br>
-            <form action="multi" method="post" id="playbutton">
+            <form action="multi" method="post" id="playbutton" style="float: right">
                 <input type="hidden" name="gamename" id="gamename" value="${gamenr}" />
-                <input type="submit" value="Play"/>
+                <button id="playbutton" type="submit" value="play">
+                        <spring:message code="play"/>
+            </button>
             </form>
         </div>
         <div id="rightcolumn">
@@ -143,6 +152,7 @@
     </div>
     </c:when>
     <c:otherwise>
-        <spring:message code="gamePage1"/>
+        <div id="welcome">
+            <h1><spring:message code="gamePage1"/></h1>
     </c:otherwise>
 </c:choose>
