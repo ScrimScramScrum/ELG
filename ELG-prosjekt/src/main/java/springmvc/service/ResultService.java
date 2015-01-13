@@ -58,4 +58,17 @@ public class ResultService {
     public ArrayList<HighscoreDisplay> highscoreRG(ResembleGame game){
         return repo.highscoreRG(game);
     }
+    
+    public int[] sortHighScores(ArrayList<HighscoreDisplay> hs) {
+        int[] sorted = new int[5];
+        for(HighscoreDisplay h : hs) {
+            int score = h.getScore();
+            if(score <= 20) sorted[0]++;
+            else if(score <= 40) sorted[1]++;
+            else if(score <= 60) sorted[2]++;
+            else if(score <= 80) sorted[3]++;
+            else sorted[4]++;
+        }
+        return sorted;
+    } 
 }

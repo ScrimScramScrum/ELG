@@ -134,16 +134,17 @@ public class MainController {
         int resemble = 0;
         MultiChoice multiTemp = null;
         ResembleGame resembleTemp = null;
+        ArrayList<HighscoreDisplay> hs = new ArrayList<HighscoreDisplay>();
         try {
             int a = Integer.parseInt(id);
             resemble = 1;
             resembleTemp = gameListService.getResembleGame(a);
-            ArrayList<HighscoreDisplay> hs = r.highscoreRG(resembleTemp);
+            hs = r.highscoreRG(resembleTemp);
             mav.addObject("highscore", hs);
         } catch (NumberFormatException e) {
             resemble = 2;
             multiTemp = gameListService.getMultiChoiceGame(id);
-            ArrayList<HighscoreDisplay> hs = r.highscoreMC(multiTemp);
+            hs = r.highscoreMC(multiTemp);
             mav.addObject("highscore", hs);
         }
         mav.addObject("gametype", resemble);
@@ -152,6 +153,7 @@ public class MainController {
         ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();
         mav.addObject("gamenr", id);
         //mav.addObject("info", info);
+        mav.addObject("sortedScores", r.sortHighScores(hs));
         mav.addObject("resembleGames", resembleGames);
         mav.addObject("multiChoiceGames", multiChoiceGames);
         mav.setViewName("chooseGameHighscore");
