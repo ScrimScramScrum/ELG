@@ -32,7 +32,7 @@
         <div class="titulo">Education Learning Game</div>
          <form:form action="login" method="post" modelAttribute="login" enctype="application/x-www-form-urlencoded" >
             <form:input path="email" value="test@gmail.com" type="text"  placeholder="Username" data-icon="U" />
-            <form:input path="password" id = "pw" type="password" placeholder="Password" data-icon="x" />
+            <form:input path="password" type="password" placeholder="Password" data-icon="x" />
             
             <a href="javascript:submitFormWithValue()" onchange ="test()" name="submitCommand"class="enviar">Submit</a> 
             
@@ -44,9 +44,15 @@
             </div>
             
 
-            <div id ="errorMessage">
-                <form:errors path="password" /><br>
-                <form:errors path="email" />                
+            <div id ="errorMessage" class="errorMessages" >
+                <form:errors path="password" />
+                <form:errors path="email" />   
+                ${regeneratedPassword} 
+                ${changedPassword}   
+                ${wrongPassword} 
+                ${registeredOK}
+
+
             </div>
 
             
@@ -54,14 +60,11 @@
         </form:form>
     </section>
 
-    <h2> ${wrongPassword} </h2>
         
 </div>
 
   
-<h2>${changedPassword}</h2>
 <br>
-<h2>${regeneratedPassword}</h2>
 
 
 
@@ -76,6 +79,13 @@ body {
 
 
     
+}
+.errorMessages {
+
+    width: 100%;
+    height: auto;
+    color: white;
+    text-align: center;
 }
 
 

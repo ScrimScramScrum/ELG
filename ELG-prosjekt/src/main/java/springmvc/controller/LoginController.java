@@ -37,11 +37,13 @@ public class LoginController {
     
     @RequestMapping(value = "login" , method=RequestMethod.GET)
     public String person(@ModelAttribute Login login, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
-        return "login";
+        System.out.println("111111111");
+        return "firstLogin";
     }
     
     @RequestMapping(value = "firstLogin" , method=RequestMethod.GET)
     public String newLogin(@ModelAttribute Login login, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
+        System.out.println("222222222");
         return "firstLogin";
     }
     
@@ -49,6 +51,7 @@ public class LoginController {
     
     @RequestMapping(value = "login" , method=RequestMethod.POST)
     public ModelAndView CreateNewPerson(ModelAndView mav, HttpSession session, @Valid @ModelAttribute("login") Login login, BindingResult error, Model modell, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
+        System.out.println("333333333");
         if(error.hasErrors()){
             System.out.println(" Passord tomt, eller ikke gyldig Email-adresse.  ");
             //modell.addAttribute("melding", "Personnr ikke fylt ut riktig"); 
@@ -124,7 +127,7 @@ public class LoginController {
         //Person has to be pulled from session?
         if(personService.generateNewPassword(person)){
             System.out.println("New Password is sent");
-            modell.addAttribute("regeneratedPassword", "Passordet er nå sent på mailen din:"); 
+            modell.addAttribute("regeneratedPassword", "Passordet er nå sent på mailen din: "+person.getEmail()+"<br><br>   "); 
         } else {
             System.out.println("Error, something went wrong with the resend of the Password");
             modell.addAttribute("Error, something went wrong with the resend of the Password"); 
