@@ -15,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import springmvc.domain.Login;
 import springmvc.domain.Person;
 import springmvc.domain.User;
@@ -39,7 +41,7 @@ public class AdministrateController {
          
     
     @RequestMapping(value = "administrateAccount" , method=RequestMethod.GET)
-    public String adminAccount(@ModelAttribute NewPassword newPassword, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute){
+    public String adminAccount(@ModelAttribute NewPassword newPassword, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute, HttpSession session){
         System.out.println("GET kjorer");
         return "administrateAccount";
     }
@@ -102,7 +104,7 @@ public class AdministrateController {
     
     @RequestMapping(value = "addClassId" , method=RequestMethod.POST)
     public String addNewClassId(@Valid @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, BindingResult error, Model modell, @ModelAttribute NewPassword newPassword, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute, HttpSession session) {
-        System.out.println("Post ADd Class kjorer");
+        System.out.println("Legg til ny klasse kjører");
 
         User user = (User)session.getAttribute("user");
         Person inLoggedPerson = personService.getPerson(user.getEmail());
@@ -118,11 +120,7 @@ public class AdministrateController {
             modell.addAttribute("NewClassMessage", "Du er nå registrert i klasse: " + addNewClassIdAttribute.getClassId()); 
         } else {
             modell.addAttribute("NewClassMessage", "Feil, noe er galt. "); 
-            
         }
-        
-        
-        
         
         return "administrateAccount";
     }
@@ -180,7 +178,19 @@ public class AdministrateController {
             modell.addAttribute("makeAdminMessage", "Feil, noe gikk galt med å registrere deg som admin. "); 
         }
         return "administrateAccount";
-    }   
+    } 
+    
+    @RequestMapping(value = "chooseAdministrateFunction", method = RequestMethod.POST)
+    public ModelAndView chooseAdministrate(ModelAndView mav, @RequestParam("chooseId") String id, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute, BindingResult error, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute NewPassword newPassword,HttpSession session) {
+        System.out.println("Kommer hit. id = " + id);
+        int a = Integer.parseInt(id); 
+        System.out.println("Og hit. ");
+        mav.addObject("chooseSite", a);
+        mav.setViewName("administrateAccount");
+        return mav; 
+        
+         
+    }
 }
 
 
