@@ -36,7 +36,21 @@
         }
 
         #playbutton input{
-            width: 99%;
+                position: relative;
+                cursor: pointer;
+		display: inline-block;
+		background: #2B8FC4;
+		border-radius: 4px;
+		text-decoration: none;
+		font-size: 1.2em;
+		font-weight: 100;
+		color: #FFF !important;
+		-moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+		-webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+		-o-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+		-ms-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+		transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+		text-align: center;
         }
 
         .renderedFrame {
@@ -59,7 +73,7 @@
 
     <div id="wrapperGameInfo">
         <div id="leftcolumn">
-            <h2>Resemble ${gamenr}</h2>
+            <h2> ${resembleInfo.gamename}</h2>
             <h4>Difficulty</h4>
             Vanskelighetsgrad: ${resembleInfo.difficulty}
             <br>
@@ -69,10 +83,12 @@
             <h4>Learning Goals</h4>
             ${resembleInfo.learningGoal}
             <br><br>
+            <div id="playbutton" style="float: right">
             <form action="resemblegame" method="post" id="playbutton">
                 <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
-                <input type="submit" value="Play" />
+                <input type="submit" value="<spring:message code="play"/>"/>
             </form>
+            </div>
         </div>  
         <div id="rightcolumn">
             <!-- preview frames here -->
@@ -106,7 +122,7 @@
 <c:when test="${gametype == 2}">
     <div id="wrapper">
         <div id="leftcolumn">
-            <h2>MultiChoiceGame ${gamenr}</h2>
+            <h2>${gamenr}</h2>
             <h4>Difficulty</h4>
             Vanskelighetsgrad: ${multiChoiceInfo.difficulty}
             <br>
@@ -118,7 +134,7 @@
             <br><br>
             <form action="multi" method="post" id="playbutton">
                 <input type="hidden" name="gamename" id="gamename" value="${gamenr}" />
-                <input type="submit" value="Play" />
+                <input type="submit" value="Play"/>
             </form>
         </div>
         <div id="rightcolumn">
@@ -127,10 +143,6 @@
     </div>
     </c:when>
     <c:otherwise>
-        On the left side you can select a game you want to play.
-        <br>
-        On this side you will get more info about the selected game
-        <br>
-        When you have decided, you may click play :)
+        <spring:message code="gamePage1"/>
     </c:otherwise>
 </c:choose>

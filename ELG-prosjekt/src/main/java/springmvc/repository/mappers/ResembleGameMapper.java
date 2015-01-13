@@ -20,6 +20,7 @@ public class ResembleGameMapper implements RowMapper<ResembleGame>{
     public ResembleGame mapRow(ResultSet rs, int i) throws SQLException{
         ResembleGame resembleGame = new ResembleGame(); 
         resembleGame.setGameId(rs.getInt("idGame"));
+        resembleGame.setGamename(rs.getString("gamename"));
         resembleGame.setLearningGoal(rs.getString("learning_goals"));
         resembleGame.setInfo(rs.getString("info"));
         resembleGame.setDifficulty(rs.getInt("difficulty"));

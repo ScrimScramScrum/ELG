@@ -11,7 +11,8 @@ public class ResembleGame implements Serializable{
     private double[] taskScores; 
     private String learningGoal; 
     private String info; 
-    private int difficulty; 
+    private int difficulty;
+    private String gamename;
 
     public ResembleGame(ArrayList<Integer> taskNumbers, int gameId, String learningGoal, String info, int difficulty) {
         this.gameId = gameId; 
@@ -107,7 +108,13 @@ public class ResembleGame implements Serializable{
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
     }
-    
-    
+
+    public String getGamename() {
+        return gamename;
+    }
+
+    public void setGamename(String gamename) {
+        this.gamename = gamename;
+    }
     
 }
