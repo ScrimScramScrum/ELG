@@ -30,6 +30,10 @@ public class ResembleGame implements Serializable{
     public ArrayList<Integer> getTaskNumbers() {
         return taskNumbers;
     }
+    
+    public int numberOfTasks(){
+        return taskNumbers.size();
+    }
 
     public void setTaskNumbers(ArrayList<Integer> taskNumbers) {
         this.taskNumbers = taskNumbers;

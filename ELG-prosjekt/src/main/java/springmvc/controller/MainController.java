@@ -234,7 +234,9 @@ public class MainController {
             int a = Integer.parseInt(id);
             resemble = 1;
             resembleTemp = gameListService.getResembleGame(a);
-            mav.addObject("completionlist", hs);
+            hs = r.getCompletionRG(resembleTemp);
+            mav.addObject("list", hs);
+            System.out.println("***** lengde= " + hs.size());
            
         } catch (NumberFormatException e) {
             resemble = 2;

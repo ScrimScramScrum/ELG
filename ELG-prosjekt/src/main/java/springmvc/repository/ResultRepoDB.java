@@ -37,7 +37,8 @@ public class ResultRepoDB implements ResultRepo {
     private final String sqlGetResultResemble = "select score from resembleresult where email = ? and idGame = ?";
     private final String sqlUpdateResemble = "update resembleresult set score = ? where email = ? and idGame = ?";
     private final String sqlGetHighscoreResemble = "select score, fname, lname from resembleresult join person on resembleresult.email = person.email where idGame = ? order by score desc fetch first 10 rows only";
-private final String sqlGetCompletion ="select fname, lname from multiresult join person on multiresult.email = person.email where idGame = ? and score > 79";
+    private final String sqlGetCompletion ="select fname, lname from multiresult join person on multiresult.email = person.email where idGame = ? and score > 79";
+    private final String sqlGetCompletionResemble ="select fname, lname from resembleresult join person on resembleresult.email = person.email where idGame = ? and score > ?";
     public ResultRepoDB() {
     }
 
@@ -144,6 +145,19 @@ private final String sqlGetCompletion ="select fname, lname from multiresult joi
                 ArrayList<HighscoreDisplay> l = new ArrayList<HighscoreDisplay>();
         try {
             l = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetCompletion, new Object[]{game.getGameid()}, new CompletionMapper());
+            //System.out.println("har laget highscoreliste" + l.get(0).getFname());
+        } catch (Exception e) {
+            System.out.println("Feilxxxxxxxxxxx: " + e);
+        }
+        return l;
+    }
+    
+    public ArrayList <HighscoreDisplay> getCompletionRG(ResembleGame game){
+        double scoret = ((100 * game.numberOfTasks())*0.8);
+        int score = (int)scoret;
+        ArrayList<HighscoreDisplay> l = new ArrayList<HighscoreDisplay>();
+        try {
+            l = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetCompletionResemble, new Object[]{game.getGameId(), score}, new CompletionMapper());
             //System.out.println("har laget highscoreliste" + l.get(0).getFname());
         } catch (Exception e) {
             System.out.println("Feilxxxxxxxxxxx: " + e);

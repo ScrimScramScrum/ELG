@@ -35,4 +35,6 @@ public interface ResultRepo{
         public ArrayList<HighscoreDisplay> highscoreRG(ResembleGame game);
         
         public ArrayList <HighscoreDisplay> getCompletion(MultiChoice game);
+        
+        public ArrayList <HighscoreDisplay> getCompletionRG(ResembleGame game);
 }

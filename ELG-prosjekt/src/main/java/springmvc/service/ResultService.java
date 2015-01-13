@@ -75,4 +75,8 @@ public class ResultService {
     public ArrayList <HighscoreDisplay> getCompletion(MultiChoice game){
         return repo.getCompletion(game);
     }
+    
+    public ArrayList <HighscoreDisplay> getCompletionRG(ResembleGame game){
+        return repo.getCompletionRG(game);
+    }
 }

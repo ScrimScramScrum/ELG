@@ -14,7 +14,7 @@
     </head>
     <body>
        <c:forEach items="${list}" var="names">
-           <c:out value="${names}"/>
+           <c:out value="${names.getFname()} ${names.getLname()}"/>
             </c:forEach>
     </body>
 </html>
