@@ -15,7 +15,6 @@ public class ClassService {
     }
     
     public boolean registrateNewClassId(String addNewClassId){
-                
         if(classRepoDB.registerNewClassId(addNewClassId)){
             System.out.println("Registered new Class in DB OK");            
             return true;
@@ -31,7 +30,6 @@ public class ClassService {
             return true;
         } else {
             System.out.println("setStudentToAClass IKKE OK ");
-
             return false; 
         }
     }

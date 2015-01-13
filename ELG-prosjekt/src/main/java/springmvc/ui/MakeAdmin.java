@@ -2,9 +2,10 @@ package springmvc.ui;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class MakeAdmin {
-    @NotNull
+    @NotEmpty
     @Size(min=2)
     String makeAdminPw;
 

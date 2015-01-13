@@ -40,8 +40,14 @@ public class ClassRepoDB {
     }
     
     public boolean registerNewClassId(String addNewClassId){  
-        jdbcTemplateObject.update(sqlInsertClassId, new Object[]{addNewClassId});
-         return true;
+        System.out.println("I classRepoDB for å registrere ny Klasse. ");
+        try{
+            jdbcTemplateObject.update(sqlInsertClassId, new Object[]{addNewClassId});
+            return true; 
+        } catch (Exception e){
+            System.out.println("Kunne ikke registrere ny klasse i ClassRepoDB");
+            return false; 
+        }
     }
     
     
@@ -62,10 +68,6 @@ public class ClassRepoDB {
             System.out.println("Denne klassen finnes kanskje ikke?");
             return false;
         }
-        
-        
-                
-        
     }
     
     public boolean updateStudentInClass(String emailStudent, String classId){

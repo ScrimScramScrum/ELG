@@ -146,8 +146,7 @@ public class PersonServiceTesting implements PersonService {
         if (classService.getClassId(classId)==null){
             return false; 
         }     
-        classService.setStudentToAClass(p.getEmail(), classId); 
-        return true;         
+        return classService.setStudentToAClass(p.getEmail(), classId);     
     }
     
     @Override

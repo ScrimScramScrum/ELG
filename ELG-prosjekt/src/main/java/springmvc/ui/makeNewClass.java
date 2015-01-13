@@ -7,13 +7,14 @@ package springmvc.ui;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
  * @author Lars
  */
 public class makeNewClass {
-    @NotNull
+    @NotEmpty
     @Size(min=5)
     String classId;
 

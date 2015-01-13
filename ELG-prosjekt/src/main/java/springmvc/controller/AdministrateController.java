@@ -41,20 +41,18 @@ public class AdministrateController {
          
     
     @RequestMapping(value = "administrateAccount" , method=RequestMethod.GET)
-    public String adminAccount(@ModelAttribute NewPassword newPassword, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute, HttpSession session){
+    public String adminAccount(@ModelAttribute NewPassword newPassword, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin, HttpSession session){
         System.out.println("GET kjorer");
         return "administrateAccount";
     }
     
     
     @RequestMapping(value = "changePassword" , method=RequestMethod.POST)
-    public String changePass(@Valid @ModelAttribute NewPassword newPassword, BindingResult error, Model modell, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute,HttpSession session) {
-        //Person inLoggedPerson = new Person("TEST@GMAIL.COM","NAVN","ETTERNAVN");
+    public String changePass(@Valid @ModelAttribute NewPassword newPassword, BindingResult error, Model modell, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin,HttpSession session) {
+       
         User user = (User)session.getAttribute("user");
         Person inLoggedPerson = personService.getPerson(user.getEmail());
         
-        
-
         if (personService.changePassword(
                 inLoggedPerson, 
                 newPassword.getOldPw(), 
@@ -72,10 +70,99 @@ public class AdministrateController {
             //modell.addAttribute("melding", "Personnr ikke fylt ut riktig"); 
             return "administrateAccount";
         }
+        return "administrateAccount";
+    }
+    
+    
+    @RequestMapping(value = "addClassId" , method=RequestMethod.POST)
+    public String addNewClassId(@ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, BindingResult error, Model modell, @ModelAttribute NewPassword newPassword, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin, HttpSession session) {
+        System.out.println("Legg til ny klasse SasaSassk jører");
+
+        User user = (User)session.getAttribute("user");
+        Person inLoggedPerson = personService.getPerson(user.getEmail());
         
+        if (personService.setClassId(inLoggedPerson, addNewClassIdAttribute.getClassId())){
+            System.out.println("Legger til i ny klasse ");
+            modell.addAttribute("NewClassMessage", "Du er nå registrert i klasse: " + addNewClassIdAttribute.getClassId()); 
+        } else {
+            modell.addAttribute("NewClassMessage", "Feil, noe er galt. "); 
+        }
+        
+        if(error.hasErrors()){
+            System.out.println(" error with Add Class ID");
+            //modell.addAttribute("NewClassMessage", "Feil, for få tegn"); 
+            return "administrateAccount";
+            
+        }
+        return "administrateAccount";
+    }
+    
+    
+    
+    @RequestMapping(value = "makeNewAdmin" , method=RequestMethod.POST)
+    public String makeNewAdmin(@ModelAttribute("makeAdmin") MakeAdmin makeAdmin, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, BindingResult error, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute NewPassword newPassword,HttpSession session) {
+        System.out.println("makeAdmin kjorer");
+        
+        
+        //Person inLoggedPerson = new Person("TEST@GMAIL.COM","NAVN","ETTERNAVN");
+        
+        User user = (User)session.getAttribute("user");
+        Person inLoggedPerson = personService.getPerson(user.getEmail());
+
+        if (personService.makeAdmin(inLoggedPerson, makeAdmin.getMakeAdminPw())){ // Registreres som admin. 
+            user.setAdmin(true);
+            System.out.println("Person set as admin");
+            modell.addAttribute("makeAdminMessage", "Du har nå admin-rettigheter: "); 
+            
+        } else { // Feiler med å registrere seg som admin.  
+            modell.addAttribute("makeAdminMessage", "Feil, noe gikk galt med å registrere deg som admin. "); 
+            
+        }
+        
+        if(error.hasErrors()){
+            System.out.println("ERROR with making user Admin/Teacher. ");
+            // modell.addAttribute("NewClassMessage", "Feil, for få tegn"); 
+            return "administrateAccount";
+        }
+
         
         return "administrateAccount";
     }
+    
+    @RequestMapping(value = "makeClass" , method=RequestMethod.POST)
+    public String makeClass(@ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin, BindingResult error, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute NewPassword newPassword,HttpSession session) {
+        System.out.println("REGISTRER NY KLASSE kjorer");
+        
+        User user = (User)session.getAttribute("user");
+        Person inLoggedPerson = personService.getPerson(user.getEmail());
+
+        if (classService.registrateNewClassId(makeNewClassAttribute.getClassId())){  
+            System.out.println("Ny klasse registrert");
+            modell.addAttribute("makeClassMessage", "Ny klasse ble registrert.  "); 
+        } else { // Feiler med å registrere ny klasse  
+            modell.addAttribute("makeClassMessage", "Feil, noe gikk galt med å registrere en ny klasse. "); 
+        }
+        
+        if(error.hasErrors()){
+            System.out.println("ERROR with making user Admin/Teacher. ");
+            // modell.addAttribute("NewClassMessage", "Feil, for få tegn"); 
+            return "administrateAccount";
+        }
+        return "administrateAccount";
+    } 
+    
+    @RequestMapping(value = "chooseAdministrateFunction", method = RequestMethod.POST)
+    public ModelAndView chooseAdministrate(ModelAndView mav, @RequestParam("chooseId") String id, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin, BindingResult error, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute NewPassword newPassword,HttpSession session) {
+        System.out.println("Kommer hit. id = " + id);
+        int a = Integer.parseInt(id); 
+        System.out.println("Og hit. ");
+        mav.addObject("chooseSite", a);
+        mav.setViewName("administrateAccount");
+        return mav;    
+    }
+}
+
+
     
     
     /*
@@ -100,98 +187,5 @@ public class AdministrateController {
     }
     
     */
-    
-    
-    @RequestMapping(value = "addClassId" , method=RequestMethod.POST)
-    public String addNewClassId(@Valid @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, BindingResult error, Model modell, @ModelAttribute NewPassword newPassword, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute, HttpSession session) {
-        System.out.println("Legg til ny klasse kjører");
-
-        User user = (User)session.getAttribute("user");
-        Person inLoggedPerson = personService.getPerson(user.getEmail());
-        
-        
-        if(error.hasErrors()){
-            System.out.println(" error with Add Class ID");
-            modell.addAttribute("NewClassMessage", "Feil, for få tegn"); 
-            return "administrateAccount";
-            
-        } else if (personService.setClassId(inLoggedPerson, addNewClassIdAttribute.getClassId())){
-            System.out.println("Legger til i ny klasse ");
-            modell.addAttribute("NewClassMessage", "Du er nå registrert i klasse: " + addNewClassIdAttribute.getClassId()); 
-        } else {
-            modell.addAttribute("NewClassMessage", "Feil, noe er galt. "); 
-        }
-        
-        return "administrateAccount";
-    }
-    
-    
-    
-    @RequestMapping(value = "makeNewAdmin" , method=RequestMethod.POST)
-    public String makeNewAdmin(@Valid @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, BindingResult error, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute NewPassword newPassword,HttpSession session) {
-        System.out.println("makeAdmin kjorer");
-        
-        if(error.hasErrors()){
-            System.out.println("ERROR with making user Admin/Teacher. ");
-            // modell.addAttribute("NewClassMessage", "Feil, for få tegn"); 
-            return "administrateAccount";
-        }
-
-        //Person inLoggedPerson = new Person("TEST@GMAIL.COM","NAVN","ETTERNAVN");
-        
-        User user = (User)session.getAttribute("user");
-        Person inLoggedPerson = personService.getPerson(user.getEmail());
-
-        if (personService.makeAdmin(inLoggedPerson, makeAdminAttribute.getMakeAdminPw())){ // Registreres som admin. 
-            user.setAdmin(true);
-            System.out.println("Person set as admin");
-            modell.addAttribute("makeAdminMessage", "Du har nå admin-rettigheter: "); 
-            
-        } else { // Feiler med å registrere seg som admin.  
-            modell.addAttribute("makeAdminMessage", "Feil, noe gikk galt med å registrere deg som admin. "); 
-            
-        }
-        
-        return "administrateAccount";
-    }
-    
-    @RequestMapping(value = "makeClass" , method=RequestMethod.POST)
-    public String makeClass(@Valid @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute, BindingResult error, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute NewPassword newPassword,HttpSession session) {
-        System.out.println("REGISTRER NY KLASSE kjorer");
-        
-        if(error.hasErrors()){
-            System.out.println("ERROR with making user Admin/Teacher. ");
-            // modell.addAttribute("NewClassMessage", "Feil, for få tegn"); 
-            return "administrateAccount";
-        }
-
-        //Person inLoggedPerson = new Person("TEST@GMAIL.COM","NAVN","ETTERNAVN");
-        
-        User user = (User)session.getAttribute("user");
-        Person inLoggedPerson = personService.getPerson(user.getEmail());
-
-        if (user.isInLogged()){ // Registrerer ny klasse.  USER MÅ LAGE ISADMIN(). Og legges her, samt i jsp siden som kun vises hvis user er admin+logget inn. 
-            System.out.println("Ny klasse registrert");
-            // modell.addAttribute("makeAdminMessage", "Du har nå admin-rettigheter: "); 
-            classService.registrateNewClassId(makeNewClassAttribute.getClassId()); 
-        } else { // Feiler med å registrere ny klasse  
-            modell.addAttribute("makeAdminMessage", "Feil, noe gikk galt med å registrere deg som admin. "); 
-        }
-        return "administrateAccount";
-    } 
-    
-    @RequestMapping(value = "chooseAdministrateFunction", method = RequestMethod.POST)
-    public ModelAndView chooseAdministrate(ModelAndView mav, @RequestParam("chooseId") String id, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("makeAdminAttribute") MakeAdmin makeAdminAttribute, BindingResult error, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute NewPassword newPassword,HttpSession session) {
-        System.out.println("Kommer hit. id = " + id);
-        int a = Integer.parseInt(id); 
-        System.out.println("Og hit. ");
-        mav.addObject("chooseSite", a);
-        mav.setViewName("administrateAccount");
-        return mav; 
-        
-         
-    }
-}
-
 
 
