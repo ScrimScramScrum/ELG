@@ -18,7 +18,7 @@ function checkPasswordMatch() {
         document.getElementById("confirmBox").innerHTML = ""; 
         }
     else 
-        document.getElementById("confirmBox").innerHTML = "De to er vel ikke helt like? er de det?";  
+        document.getElementById("confirmBox").innerHTML = "Passordene samsvarer ikke";  
 }
 </script>
 
@@ -113,9 +113,12 @@ function checkPasswordMatch() {
                                      <form:errors path="confirmPw"/> 
                                 </td>
                             </tr>
-                            <tr><td colspan="2"><center><input type="submit" value="Endre passord"</td></tr></center>
+                            <tr><td colspan="2"><center>
+                                <input type="submit" value="Endre passord"</td></tr></center>
                         </table>
                     </form:form>
+                        <div id="confirmBox"></div>
+                        ${changedPassword}
                 </c:when>
                 <c:when test="${chooseSite == 2}"> 
                     <form:form action="addClassId" method="post" modelAttribute="addNewClassIdAttribute">
@@ -131,6 +134,7 @@ function checkPasswordMatch() {
                             <tr><td colspan="2"><center><input type="submit" value="Legg til ny klasse"></td></tr></center>
                         </table>
                     </form:form>
+                    ${NewClassMessage}
                 </c:when>
                 <c:when test="${chooseSite == 3}"> 
                     <form:form action="makeNewAdmin" method="post" modelAttribute="makeAdmin">
@@ -145,7 +149,8 @@ function checkPasswordMatch() {
 
                             <tr><td colspan="2"><center><input type="submit" value="Bli administrator"</td></tr></center>
                         </table>
-                    </form:form> 
+                    </form:form>
+                    ${makeAdminMessage} 
                 </c:when>
                 <c:when test="${chooseSite == 4}"> 
                     <form:form action="makeClass" method="post" modelAttribute="makeNewClassAttribute" >
@@ -160,12 +165,13 @@ function checkPasswordMatch() {
                            <tr><td colspan="2"> <center><input type="submit" value="Lag ny klasse"</td></tr></center>
                         </table>
                     </form:form>
-                </c:when>
+                    ${makeClassMessage}
+                </c:when> 
                 <c:otherwise>
                     <h2>Velg en funksjon fra menyen til venstre. </h2>
                     <br>
                     ${changedPassword}${NewClassMessage}${makeAdminMessage}${makeClassMessage} </br>
-                </c:otherwise>
+                </c:otherwise> 
             </c:choose>
             </center>
         </div>

@@ -5,7 +5,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class MakeAdmin {
-    @NotEmpty
     @Size(min=2)
     String makeAdminPw;
 

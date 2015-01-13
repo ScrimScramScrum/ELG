@@ -6,15 +6,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class NewPassword {
     
     @Size(min=8)
-    @NotEmpty 
     private String oldPw;
     
     @Size(min=8)
-    @NotEmpty
     private String newPw; 
     
     @Size(min=8)
-    @NotEmpty
     private String confirmPw; 
 
     public String getOldPw() {

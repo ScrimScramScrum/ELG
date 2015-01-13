@@ -14,7 +14,6 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Lars
  */
 public class makeNewClass {
-    @NotEmpty
     @Size(min=5)
     String classId;
 

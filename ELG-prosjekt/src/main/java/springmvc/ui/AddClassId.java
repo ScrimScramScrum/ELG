@@ -12,7 +12,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 
 public class AddClassId {
-    @NotEmpty
     @Size(min=5)
     String classId;
 
