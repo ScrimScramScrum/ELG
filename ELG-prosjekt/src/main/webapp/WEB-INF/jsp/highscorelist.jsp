@@ -171,6 +171,10 @@
 
             ];
 
+            var chart;
+            var ctx = document.getElementById("chart-area").getContext("2d");
+            chart = new Chart(ctx).Pie(doughnutData);
+
             function setChart(chart_name) {
                 var d = new Date();
                 var exdays = 30;
@@ -181,23 +185,30 @@
             }
 
             function changeChart(chart_name) {
+                chart.destroy();
                 var canvas = document.getElementById('chart-area');
                 if (chart_name == "nr1") {
                     // pie
                     var ctx = document.getElementById("chart-area").getContext("2d");
                     ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
-                    window.myPie = new Chart(ctx).Pie(doughnutData);
+                    // window.myPie = new Chart(ctx).Pie(doughnutData);
+                    chart = new Chart(ctx).Pie(doughnutData);
+                    window.myPie = chart;
                 }
                 else if (chart_name == "nr2") {
                     var ctx = document.getElementById("chart-area").getContext("2d");
                     ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
-                    window.myPolarArea = new Chart(ctx).PolarArea(doughnutData, {responsive:true});
+                    // window.myPolarArea = new Chart(ctx).PolarArea(doughnutData, {responsive:true});
+                    chart = new Chart(ctx).PolarArea(doughnutData, {responsive:true});
+                    window.myPolarArea = chart;
                 }
                 else {
                     // doughnut
                     var ctx = document.getElementById("chart-area").getContext("2d");
                     ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
-                    window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {responsive : true});
+                    // window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {responsive : true});
+                    chart = new Chart(ctx).Doughnut(doughnutData, {responsive : true});
+                    window.myDoughnut = chart;
                 }
             }
 
