@@ -39,7 +39,7 @@ public class PersonController {
         }
         
         if (personService.registrerPerson(person)) {
-            modell.addAttribute("registeredOK", person.getEmail() + " er registrert. Sjekk E-mailen din for passord. <br><br>  ");
+            modell.addAttribute("registeredOK", "&nbsp<br>"+person.getEmail() + " er registrert. Sjekk E-mailen din for passord. <br>&nbsp  ");
             System.out.println("Person service er OK og registrert");
             
             return "firstLogin";  // her er feilen

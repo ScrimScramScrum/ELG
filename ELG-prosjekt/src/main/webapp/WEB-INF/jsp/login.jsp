@@ -45,18 +45,22 @@
             
 
             <div id ="errorMessage" class="errorMessages" >
-                <form:errors path="password" />
-                <form:errors path="email" />   
+                <form:errors path="password" htmlEscape="false" />
+                <form:errors path="email" htmlEscape="false" /> 
+                ${wrongPassword} 
+            </div>
+                
+            <div id ="info" class="infoMessages" >
                 ${regeneratedPassword} 
                 ${changedPassword}   
                 ${wrongPassword} 
                 ${registeredOK}
-
-
+                
             </div>
 
             
-            
+            <br>
+            <br>
         </form:form>
     </section>
 
@@ -64,8 +68,6 @@
 </div>
 
   
-<br>
-
 
 
 
@@ -80,12 +82,33 @@ body {
 
     
 }
-.errorMessages {
 
-    width: 100%;
+.errorMessages {
+width: auto;
     height: auto;
-    color: white;
+    font-size: 14px;
     text-align: center;
+    color: #ff6437;
+    background: #121212;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    
+}
+
+.infoMessages {
+    width: auto;
+    height: auto;
+    font-size: 14px;
+    text-align: center;
+    color: #3ECB7E;
+    background: #121212;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    
 }
 
 

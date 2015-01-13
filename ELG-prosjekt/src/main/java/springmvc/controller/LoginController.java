@@ -127,7 +127,7 @@ public class LoginController {
         //Person has to be pulled from session?
         if(personService.generateNewPassword(person)){
             System.out.println("New Password is sent");
-            modell.addAttribute("regeneratedPassword", "Passordet er nå sent på mailen din: "+person.getEmail()+"<br><br>   "); 
+            modell.addAttribute("regeneratedPassword", "<br>Passordet er nå sent på mailen din: "+person.getEmail()+"<br> &nbsp"); 
         } else {
             System.out.println("Error, something went wrong with the resend of the Password");
             modell.addAttribute("Error, something went wrong with the resend of the Password"); 
