@@ -93,25 +93,22 @@
                     <br>
                     <br>
                     <div id="canvas-holder">
-                        <canvas id="chart-area" width="500" height="500"/>
+                        <canvas id="chart-area" width="260" height="260"/>
                     </div>
 
                 </center>
             </div>
             <div id="right_hs">
-                <!-- ADS
+                <h2>Change Graph</h2>
                 <br>
-                FOR
+                <button onclick='setChart("nr1")'>Pie-chart</button>
                 <br>
-                MONEY
+                <button onclick='setChart("nr2")'>Polar-area-chart</button>
                 <br>
-                GOES
-                <br>
-                HERE -->
+                <button onclick='setChart("nr3")'>Doughnut-chart</button>
             </div>
         </div>
         <script>
-
         var doughnutData = [
                 {
                     // value: 300,
@@ -147,13 +144,56 @@
 
             ];
 
+            function setChart(chart_name) {
+                var d = new Date();
+                var exdays = 30;
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                var expires = "expires="+d.toUTCString();
+                document.cookie = "chart" + "=" + chart_name + "; " + expires;
+                changeChart(chart_name);
+            }
+
+            function changeChart(chart_name) {
+                var canvas = document.getElementById('chart-area');
+                if (chart_name == "nr1") {
+                    // pie
+                    var ctx = document.getElementById("chart-area").getContext("2d");
+                    ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
+                    window.myPie = new Chart(ctx).Pie(doughnutData);
+                }
+                else if (chart_name == "nr2") {
+                    var ctx = document.getElementById("chart-area").getContext("2d");
+                    ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
+                    window.myPolarArea = new Chart(ctx).PolarArea(doughnutData, {responsive:true});
+                }
+                else {
+                    // doughnut
+                    var ctx = document.getElementById("chart-area").getContext("2d");
+                    ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
+                    window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {responsive : true});
+                }
+            }
+
+            function getCookie(c_name)
+            {
+                var i,x,y,ARRcookies=document.cookie.split(";");
+
+                for (i=0;i<ARRcookies.length;i++)
+                {
+                    x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+                    y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+                    x=x.replace(/^\s+|\s+$/g,"");
+                    if (x==c_name)
+                    {
+                        return unescape(y);
+                    }
+                 }
+            }
+
             window.onload = function(){
-                var ctx = document.getElementById("chart-area").getContext("2d");
-                window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {responsive : true});
+                var chart_name = getCookie("chart");
+                changeChart(chart_name);
             };
-
-
-
     </script>
     </body>
 </html>
