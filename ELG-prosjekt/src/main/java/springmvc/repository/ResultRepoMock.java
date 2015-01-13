@@ -57,6 +57,11 @@ public class ResultRepoMock implements ResultRepo {
     public ArrayList<HighscoreDisplay> highscoreRG(ResembleGame game) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public ArrayList<HighscoreDisplay> getCompletion(MultiChoice game) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     

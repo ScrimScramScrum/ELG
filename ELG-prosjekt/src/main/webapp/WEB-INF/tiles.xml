@@ -100,4 +100,11 @@
         <put-attribute name="gamedisplay" value="/WEB-INF/jsp/highscorelist.jsp"/> 
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_highscore.jsp"/>   
     </definition>
+    
+        <definition name="completionlist" extends="baseGameMenuLayout">
+        <put-attribute name="title"  value="Completionlist"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/completionlist_gamelist.jsp"/>
+        <put-attribute name="gamedisplay" value="/WEB-INF/jsp/completionlist.jsp"/> 
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_highscore.jsp"/>   
+    </definition>
 </tiles-definitions>

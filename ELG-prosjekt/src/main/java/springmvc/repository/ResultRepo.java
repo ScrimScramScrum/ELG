@@ -33,4 +33,6 @@ public interface ResultRepo{
         public boolean updateResembleResult(String email, double score, ResembleGame game);
         
         public ArrayList<HighscoreDisplay> highscoreRG(ResembleGame game);
+        
+        public ArrayList <HighscoreDisplay> getCompletion(MultiChoice game);
 }

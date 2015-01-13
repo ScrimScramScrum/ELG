@@ -15,6 +15,11 @@ public class HighscoreDisplay {
     private String lname;
     private int score;
 
+    public HighscoreDisplay(String fname, String lname) {
+        this.fname = fname;
+        this.lname = lname;
+    }
+    
     public HighscoreDisplay(String fname, String lname, int score) {
         this.fname = fname;
         this.lname = lname;

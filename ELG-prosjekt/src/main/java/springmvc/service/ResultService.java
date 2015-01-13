@@ -71,4 +71,8 @@ public class ResultService {
         }
         return sorted;
     } 
+    
+    public ArrayList <HighscoreDisplay> getCompletion(MultiChoice game){
+        return repo.getCompletion(game);
+    }
 }

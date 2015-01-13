@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 import springmvc.domain.HighscoreDisplay;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.ResembleGame;
+import springmvc.repository.mappers.CompletionMapper;
 import springmvc.repository.mappers.HighscoreMapper;
 import springmvc.repository.mappers.MultiChoiceMapper;
 
@@ -36,7 +37,7 @@ public class ResultRepoDB implements ResultRepo {
     private final String sqlGetResultResemble = "select score from resembleresult where email = ? and idGame = ?";
     private final String sqlUpdateResemble = "update resembleresult set score = ? where email = ? and idGame = ?";
     private final String sqlGetHighscoreResemble = "select score, fname, lname from resembleresult join person on resembleresult.email = person.email where idGame = ? order by score desc fetch first 10 rows only";
-
+private final String sqlGetCompletion ="select fname, lname from multiresult join person on multiresult.email = person.email where idGame = ? and score > 79";
     public ResultRepoDB() {
     }
 
@@ -132,6 +133,17 @@ public class ResultRepoDB implements ResultRepo {
         ArrayList<HighscoreDisplay> l = new ArrayList<HighscoreDisplay>();
         try {
             l = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetHighscoreResemble, new Object[]{game.getGameId()}, new HighscoreMapper());
+            //System.out.println("har laget highscoreliste" + l.get(0).getFname());
+        } catch (Exception e) {
+            System.out.println("Feilxxxxxxxxxxx: " + e);
+        }
+        return l;
+    }
+    
+    public ArrayList <HighscoreDisplay> getCompletion(MultiChoice game){
+                ArrayList<HighscoreDisplay> l = new ArrayList<HighscoreDisplay>();
+        try {
+            l = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetCompletion, new Object[]{game.getGameid()}, new CompletionMapper());
             //System.out.println("har laget highscoreliste" + l.get(0).getFname());
         } catch (Exception e) {
             System.out.println("Feilxxxxxxxxxxx: " + e);
