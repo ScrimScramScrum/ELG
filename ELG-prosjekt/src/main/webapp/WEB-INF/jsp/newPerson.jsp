@@ -1,11 +1,5 @@
-<%-- 
-    Document   : newPerson
-    Created on : Jan 7, 2015, 9:35:31 AM
-    Author     : Hoxmark
---%>
-
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <script>
     function confirmComplete() {
@@ -49,7 +43,7 @@
             <a href="javascript:submitFormWithValue()" name="submitCommand"class="enviar">Registrer</a> 
             
             <div class="olvido">
-                    <div class="col"><a href="javascript:sendToLogin()" title="Ver Carásteres">back</a></div>
+                    <div class="col"><a href="javascript:sendToLogin()" title="Back">back</a></div>
             </div>
             
             
