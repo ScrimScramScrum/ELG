@@ -7,9 +7,11 @@ package springmvc.controller;
 
 import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.ui.Model;    
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,11 +21,14 @@ import springmvc.domain.HighscoreDisplay;
 import springmvc.domain.Login;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.MultiChoiceInfo;
+import springmvc.domain.Person;
 import springmvc.domain.ResembleGame;
 import springmvc.domain.ResembleTask;
 import springmvc.domain.User;
 import springmvc.service.GameListService;
 import springmvc.service.GameListServiceImpl;
+import springmvc.service.LoginService;
+import springmvc.service.PersonService;
 import springmvc.service.ResultService;
 import springmvc.ui.SendNewPassword;
 
@@ -39,6 +44,14 @@ public class MainController {
 
     @Autowired
     private ResultService r;
+    
+    @Autowired 
+    private LoginService loginService;  
+    
+    @Autowired
+    private PersonService personService;
+    
+    
 
     @RequestMapping(value = "index")
     public String showIndex(Model model) {
@@ -129,6 +142,35 @@ public class MainController {
         return mav;
     }
 
+     @RequestMapping(value = "login" , method=RequestMethod.POST)
+    public ModelAndView logIn(ModelAndView mav, HttpSession session, @Valid @ModelAttribute("login") Login login, BindingResult error, Model modell, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
+        System.out.println("333333333");
+        if(error.hasErrors()){
+            System.out.println(" Passord tomt, eller ikke gyldig Email-adresse.  ");
+            //modell.addAttribute("melding", "Personnr ikke fylt ut riktig"); 
+            mav.setViewName("firstLogin");
+            return mav;
+        }
+        
+        if (loginService.compareInformation(login)) {            
+            Person inloggedPerson = personService.getPerson(login.getEmail());
+            User user = new User(inloggedPerson.getEmail(),inloggedPerson.getFname(), inloggedPerson.getLname());
+            user.setInLogged(true);            
+            session.setAttribute("user", user);            
+            mav.setViewName("chooseGameHighscore");     
+            System.out.println("Highscore er satt **********************************");
+            return chooseGameHighscore(mav);
+            
+        } else {
+            System.out.println("Innlogging feilet.  "); 
+            modell.addAttribute("wrongPassword","Feil brukernavn/passord. Prøv på nytt");
+            
+            mav.setViewName("firstLogin");
+            return mav; 
+        }
+                
+                
+    }
     @RequestMapping(value = "choosegameHighscore", method = RequestMethod.POST)
     public ModelAndView chooseGameHighscore(ModelAndView mav, @RequestParam("gameid") String id) {
         int resemble = 0;
@@ -159,4 +201,14 @@ public class MainController {
         mav.setViewName("chooseGameHighscore");
         return mav;
     }
+    
+     @RequestMapping(value = "loginAsGuest") 
+    public ModelAndView loginAsGuestFunction(ModelAndView mav,HttpSession session) {
+        System.out.println("Logger inn som guest");
+        
+        User user = new User("GUEST","GUEST", "");
+        user.setInLogged(true);            
+        session.setAttribute("user", user);            
+        return chooseGameHighscore(mav);
+    } 
 }

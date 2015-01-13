@@ -49,34 +49,7 @@ public class LoginController {
     
     
     
-    @RequestMapping(value = "login" , method=RequestMethod.POST)
-    public ModelAndView logIn(ModelAndView mav, HttpSession session, @Valid @ModelAttribute("login") Login login, BindingResult error, Model modell, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
-        System.out.println("333333333");
-        if(error.hasErrors()){
-            System.out.println(" Passord tomt, eller ikke gyldig Email-adresse.  ");
-            //modell.addAttribute("melding", "Personnr ikke fylt ut riktig"); 
-            mav.setViewName("firstLogin");
-            return mav;
-        }
-        
-        if (loginService.compareInformation(login)) {            
-            Person inloggedPerson = personService.getPerson(login.getEmail());
-            User user = new User(inloggedPerson.getEmail(),inloggedPerson.getFname(), inloggedPerson.getLname());
-            user.setInLogged(true);            
-            session.setAttribute("user", user);            
-            mav.setViewName("index");                        
-            return mav;
-            
-        } else {
-            System.out.println("Innlogging feilet.  "); 
-            modell.addAttribute("wrongPassword","Feil brukernavn/passord. Prøv på nytt");
-            
-            mav.setViewName("firstLogin");
-            return mav; 
-        }
-                
-                
-    }
+   
     /*
     @RequestMapping(value = "resemblegame", method = RequestMethod.POST)
     public ModelAndView resembleGame(ModelAndView mav, @RequestParam("gameid") String id){
@@ -140,13 +113,5 @@ public class LoginController {
         return "firstLogin";
     } 
             
-    @RequestMapping(value = "loginAsGuest") 
-    public String loginAsGuestFunction(HttpSession session) {
-        System.out.println("Logger inn som guest");
-        
-        User user = new User("GUEST","GUEST", "");
-        user.setInLogged(true);            
-        session.setAttribute("user", user);            
-        return "index";
-    } 
+   
 }
