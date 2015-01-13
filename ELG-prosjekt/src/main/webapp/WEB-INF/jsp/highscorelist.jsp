@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css2/styleGamemenu.css'/>">
         <script src="<c:url value='/resources/Chart.js' />"></script>
         <style type="text/css">
             #mid_hs {
@@ -62,7 +63,7 @@
                     <table id="hs_table">
                         <tr>
                             <td colspan="6" id="td_hs_h1">
-                                <h1>Top 10 - </h1>
+                                <h1>Top 10 - ${gamenr}</h1>
                             </td>
                         </tr>
                         <%
@@ -100,18 +101,29 @@
             </div>
             <div id="right_hs">
                 <h2>Change Graph</h2>
-                <br>
-                <button onclick='setChart("nr1")'>Pie-chart</button>
-                <br>
-                <button onclick='setChart("nr2")'>Polar-area-chart</button>
-                <br>
-                <button onclick='setChart("nr3")'>Doughnut-chart</button>
+                <center>
+                    <br>
+                    <div class = "gamelink">
+                        <a id="gameLinkA" onclick ='setChart("nr1")'>
+                            Pie-chart
+                        </a>
+                    </div>
+                    <div class = "gamelink">
+                        <a id="gameLinkA" onclick ='setChart("nr2")'>
+                            Polar-area-chart
+                        </a>
+                    </div>
+                    <div class = "gamelink">
+                        <a id="gameLinkA" onclick ='setChart("nr3")'>
+                            Doughnut-chart
+                        </a>
+                    </div>
+                </center>
             </div>
         </div>
         <script>
         var doughnutData = [
                 {
-                    // value: 300,
                     value: ${sortedScores[0]},
                     color:"#F7464A",
                     highlight: "#FF5A5E",
