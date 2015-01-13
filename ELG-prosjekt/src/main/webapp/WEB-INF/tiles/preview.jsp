@@ -8,15 +8,14 @@
     <script src="<c:url value='/resources/html2canvas.js' />"></script>
 
     <style type="text/css">
-        #leftcolumn, #rightcolumn {
-            float: left;
-        }
         #leftcolumn {
-             width: 60%;
+             width: 75%;
+             float: left;
         }
         #rightcolumn {
-            margin-left: 5%;
-            width: 35%;
+            width: 25%;
+            float: right;
+            /*float: left;*/
         }
         #leftcolumn input {
             width: 100px;
@@ -34,35 +33,43 @@
             padding: 5px;
             background-color: #dddddd; 
         }
-
         
         #playbutton{
-                width: 100px;
-                height: 50px;
-                position: relative;
-                cursor: pointer;
-		display: inline-block;
-		background: #2B8FC4;
-		border-radius: 4px;
-		text-decoration: none;
-		font-size: 1.2em;
-		font-weight: 100;
-		color: #FFF !important;
-		-moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
-		-webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
-		-o-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
-		-ms-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
-		transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
-		text-align: center;
+            width: 100px;
+            height: 50px;
+            position: relative;
+            cursor: pointer;
+    		display: inline-block;
+    		background: #2B8FC4;
+    		border-radius: 4px;
+    		text-decoration: none;
+    		font-size: 1.2em;
+    		font-weight: 100;
+    		color: #FFF !important;
+    		-moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+    		-webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+    		-o-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+    		-ms-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+    		transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+    		text-align: center;
         }
+        #playbutton:hover {
+                background: #065B88;
+            }
         #welcome{
-                margin-left: 120px;
+            width: 75%;
+            float: left;
+            text-align: center;
+        }
+        #welcome_space {
+            float: right;
+            width: 25%;
         }
         
         .renderedFrame {
             /*Add different size for the iframes?*/
             /*<c:out value="width: ${resembleTask.width}px; height: ${resembleTask.height}px" />*/
-            width: 100%;
+            width: 80%;
         }
     </style>
     <script type="text/javascript">
@@ -77,7 +84,7 @@
 <c:choose>
 <c:when test="${gametype == 1}">
 
-    <div id="wrapperGameInfo">
+    <div id="wrapperGameInfoaaa">
         <div id="leftcolumn">
             <h2> ${resembleInfo.gamename}</h2>
             <h4>Difficulty</h4>
@@ -98,33 +105,35 @@
             </form>
         </div>  
         <div id="rightcolumn">
-            <!-- preview frames here -->
-            <%
-                int teller = 0;
-            %>
-            <c:forEach items="${tasks}" var="task">
-                <section id="content">
-                    <section class="block">
-                        <div id="solutionDiv">
-                            <%
-                                out.println("<iframe class='renderedFrame' id='solutionFrame" + teller + "' src='about:blank'></iframe>");
-                            %>
-                        </div>
-                    </section>
-                </section>
-                <br>
-                <script>
-                    var solutionHtml = "${task.solutionHTML}";
-                    var solutionCss = "${task.solutionCSS}";
-                    setRenderedResult($('#solutionFrame<%=teller%>'), solutionHtml, solutionCss);
-                </script>
+            <center>
+                <!-- preview frames here -->
                 <%
-                    teller++;
+                    int teller = 0;
                 %>
-            </c:forEach>
-            <!-- end preview frames -->
+                <c:forEach items="${tasks}" var="task">
+                    <section id="content">
+                        <section class="block">
+                            <div id="solutionDiv">
+                                <%
+                                    out.println("<iframe class='renderedFrame' id='solutionFrame" + teller + "' src='about:blank'></iframe>");
+                                %>
+                            </div>
+                        </section>
+                    </section>
+                    <br>
+                    <script>
+                        var solutionHtml = "${task.solutionHTML}";
+                        var solutionCss = "${task.solutionCSS}";
+                        setRenderedResult($('#solutionFrame<%=teller%>'), solutionHtml, solutionCss);
+                    </script>
+                    <%
+                        teller++;
+                    %>
+                </c:forEach>
+                <!-- end preview frames -->
+            </center>
         </div>
-        </div>
+    </div>
 </c:when>
 <c:when test="${gametype == 2}">
     <div id="wrapperGameInfo">
@@ -152,7 +161,12 @@
     </div>
     </c:when>
     <c:otherwise>
-        <div id="welcome">
-            <h1><spring:message code="gamePage1"/></h1>
+        <div id="welcome_wrapper">
+            <div id="welcome">
+                <h1><spring:message code="gamePage1"/></h1>
+            </div>
+            <div id="welcome_space">
+            </div>
+        </div>
     </c:otherwise>
 </c:choose>

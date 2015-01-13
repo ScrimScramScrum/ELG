@@ -60,37 +60,52 @@
         <div id="whole_hs">
             <div id="mid_hs">
                 <center>
-                    <table id="hs_table">
-                        <tr>
-                            <td colspan="6" id="td_hs_h1">
-                                <h1>Top 10 - ${gamenr}</h1>
-                            </td>
-                        </tr>
-                        <%
-                            int i = 0;
-                        %>
-                        <c:forEach items="${highscore}" var="teller">
-                            <%
-                                i++;
-                            %>
-                            <tr>
-                                <td id="td_hs_left"></td>
-                                <td id="td_hs_nr">
-                                    Nr. <%=i%>
-                                </td>
-                                <td id="td_hs_1">
-                                    <c:out value="${teller.fname}" />
-                                </td>
-                                <td id="td_hs_2">
-                                    <c:out value="${teller.lname}" />
-                                </td>
-                                <td id="td_hs_3">
-                                    <c:out value="${teller.score}" />
-                                </td>
-                                 <td id="td_hs_right"></td>
-                            </tr>
-                        </c:forEach>
-                    </table>
+                    <c:choose>
+                        <c:when test="${gametype == 0}">
+                            <h1>
+                                Highscore - top 10
+                            </h1>
+                            <br>
+                            This is a top-10 view of the game of your choice
+                            <br>
+                            You choose your game on the left
+                            <br>
+                            While on the right you can choose how you want the graph to be displayed
+                        </c:when>
+                        <c:otherwise>
+                            <table id="hs_table">
+                                <tr>
+                                    <td colspan="6" id="td_hs_h1">
+                                        <h1>Top 10 - ${gamenr}</h1>
+                                    </td>
+                                </tr>
+                                <%
+                                    int i = 0;
+                                %>
+                                <c:forEach items="${highscore}" var="teller">
+                                    <%
+                                        i++;
+                                    %>
+                                    <tr>
+                                        <td id="td_hs_left"></td>
+                                        <td id="td_hs_nr">
+                                            Nr. <%=i%>
+                                        </td>
+                                        <td id="td_hs_1">
+                                            <c:out value="${teller.fname}" />
+                                        </td>
+                                        <td id="td_hs_2">
+                                            <c:out value="${teller.lname}" />
+                                        </td>
+                                        <td id="td_hs_3">
+                                            <c:out value="${teller.score}" />
+                                        </td>
+                                         <td id="td_hs_right"></td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </c:otherwise>
+                    </c:choose>
                     <br>
                     <br>
                     <div id="canvas-holder">
