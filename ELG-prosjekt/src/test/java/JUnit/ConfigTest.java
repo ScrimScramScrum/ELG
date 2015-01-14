@@ -66,7 +66,7 @@ public class ConfigTest{
     
     @Bean 
     public ResembleTaskRepo resembleTaskRepo(){
-        return new ResembleTaskRepoDB(); 
+        return new ResembleTaskRepoMock(); 
     }
     
     @Bean
@@ -76,7 +76,7 @@ public class ConfigTest{
     
     @Bean
     public MultiChoiceRepository multiChoiceRepository(){
-        return new MultipleChoiceRepoDB();
+        return new MultiChoiceRepoMock();
     }
     
     @Bean
@@ -86,10 +86,6 @@ public class ConfigTest{
     
     @Bean
     public GameListService gameListService(){
-        return new GameListServiceImpl(); 
-    }
-    @Bean
-    public GameListServiceMock gameListServiceMock(){
         return new GameListServiceMock(); 
     }
     
@@ -111,7 +107,7 @@ public class ConfigTest{
     }
     @Bean 
      public ResembleGameRepo resembleGameRepo(){
-         return new ResembleGameRepoDB(); 
+         return new ResembleGameRepoMock(); 
      }
      
     @Bean
@@ -121,7 +117,7 @@ public class ConfigTest{
     
     @Bean
     public ResultRepo resultRepo(){
-        return new ResultRepoDB();
+        return new ResultRepoMock();
     }
     
     @Bean
