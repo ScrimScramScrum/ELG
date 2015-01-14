@@ -271,4 +271,13 @@ public class MainController {
         mav.setViewName("completionlist");
         return mav;
     }
+    
+    
+    @RequestMapping(value = "kOdesLostTags")
+    public String kOdesLostTags(ModelAndView mav, HttpSession session) {
+        System.out.println("Starter K.Odes");
+
+        
+        return "kOdesLostTags";
+    }
 }
