@@ -235,7 +235,7 @@ public class MainController {
         User user = new User("GUEST", "GUEST", "");
         user.setInLogged(true);
         session.setAttribute("user", user);
-        return chooseGameHighscore(mav);
+        return chooseGameHighscore(mav, session);
     }
 
     @RequestMapping(value = "completionlist")
