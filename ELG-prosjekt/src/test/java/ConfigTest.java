@@ -48,14 +48,7 @@ import springmvc.service.ResembleTaskService;
 
 
 @Configuration
-public class ConfigTest{
-    @Bean
-    public ReloadableResourceBundleMessageSource messageSource() {
-        ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
-        source.setBasename("/WEB-INF/messages");
-        return source;
-    }
-  
+public class ConfigTest{  
     @Bean
     public DataSource dataSource(){
         String url = "jdbc:derby://localhost:1527/ELGDB";
@@ -92,6 +85,10 @@ public class ConfigTest{
     @Bean
     public GameListService gameListService(){
         return new GameListServiceImpl(); 
+    }
+    @Bean
+    public GameListServiceMock gameListServiceMock(){
+        return new GameListServiceMock(); 
     }
     
     //KOPIERES
