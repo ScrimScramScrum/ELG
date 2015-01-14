@@ -143,7 +143,7 @@
             function validateForm() {
                 var x = document.forms["scorePost"]["score"].value;
                 if (x == 0 || x == ""||x==null) {
-                    alert("Du må trykke på sammenlign");
+                    alert("Du må gjøre en endring i koden før du kan gå videre");
                     return false;
                 }
             }
@@ -167,6 +167,8 @@
                     lineNumbers: true,
                     indentUnit: 4
                 });
+
+                testFunc();
 
                 beautify(0); 
                 beautify(1);
