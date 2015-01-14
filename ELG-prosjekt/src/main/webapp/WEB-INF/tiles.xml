@@ -107,4 +107,13 @@
         <put-attribute name="gamedisplay" value="/WEB-INF/jsp/completionlist.jsp"/> 
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_completionlist.jsp"/>   
     </definition>
+    
+        <definition name="notloggedin" extends="loginBaseLayout">
+        <put-attribute name="body"   value="/WEB-INF/jsp/errorpage_notloggedin.jsp"/> 
+    </definition>  
+    
+    <definition name="kOdesLostTags" extends="loginBaseLayout">
+        <put-attribute name="body"   value="/WEB-INF/jsp/kOdesLostTags.jsp"/> 
+    </definition>  
+
 </tiles-definitions>

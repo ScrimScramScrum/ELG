@@ -28,7 +28,11 @@
            <input type="submit" value="administrere">
         </form>
            
-        
+        <form action="<c:url value="/kOdesLostTags"/>" >
+           <input type="submit" value="K.Odes Lost Tags">
+        </form>
+           
+           
         <h2>${registeredOK}</h2>
         
         

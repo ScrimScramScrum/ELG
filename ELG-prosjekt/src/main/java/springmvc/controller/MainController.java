@@ -54,7 +54,7 @@ public class MainController {
     @RequestMapping(value = "index")
     public String showIndex(Model model) {
         //model.addAttribute("melding", "melding");
-        return "index";
+        return "firstlogin";
     }
 
     @RequestMapping(value = "*")
@@ -63,7 +63,13 @@ public class MainController {
     }
 
     @RequestMapping(value = "about")
-    public String showAbout(Model model) {
+    public String showAbout(Model model, HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        if(user == null){
+            return "notloggedin";
+        } else if(!user.isInLogged()){
+            return "notloggedin";
+        }
         //model.addAttribute("melding", "melding");
         return "about";
     }
@@ -81,7 +87,15 @@ public class MainController {
      // return "highscore"; 
      }*/
     @RequestMapping(value = "choosegame")
-    public ModelAndView chooseGame(ModelAndView mav) {
+    public ModelAndView chooseGame(ModelAndView mav, HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        if(user == null){
+            mav.setViewName("notloggedin");
+            return mav;
+        } else if(!user.isInLogged()){
+            mav.setViewName("notloggedin");
+            return mav;
+        }
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames();
         ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();
         int resemble = 0;
@@ -93,7 +107,15 @@ public class MainController {
     }
 
     @RequestMapping(value = "choosegame", method = RequestMethod.POST)
-    public ModelAndView chooseGame(ModelAndView mav, @RequestParam("gameid") String id) {
+    public ModelAndView chooseGame(ModelAndView mav, @RequestParam("gameid") String id, HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        if(user == null){
+            mav.setViewName("notloggedin");
+            return mav;
+        } else if(!user.isInLogged()){
+            mav.setViewName("notloggedin");
+            return mav;
+        }
         int resemble = 0;
         String info = "test...";
         MultiChoiceInfo multiTemp = null;
@@ -127,7 +149,15 @@ public class MainController {
     }
 
     @RequestMapping(value = "highscore")
-    public ModelAndView chooseGameHighscore(ModelAndView mav) {
+    public ModelAndView chooseGameHighscore(ModelAndView mav, HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        if(user == null){
+            mav.setViewName("notloggedin");
+            return mav;
+        } else if(!user.isInLogged()){
+            mav.setViewName("notloggedin");
+            return mav;
+        }
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames();
         ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();
         int resemble = 0;
@@ -155,7 +185,7 @@ public class MainController {
             session.setAttribute("user", user);
             mav.setViewName("chooseGameHighscore");
             System.out.println("Highscore er satt **********************************");
-            return chooseGameHighscore(mav);
+            return chooseGameHighscore(mav, session);
 
         } else {
             System.out.println("Innlogging feilet.  ");
@@ -270,5 +300,14 @@ public class MainController {
         mav.addObject("multiChoiceGames", multiChoiceGames);
         mav.setViewName("completionlist");
         return mav;
+    }
+    
+    
+    @RequestMapping(value = "kOdesLostTags")
+    public String kOdesLostTags(ModelAndView mav, HttpSession session) {
+        System.out.println("Starter K.Odes");
+
+        
+        return "kOdesLostTags";
     }
 }

@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,6 +22,17 @@
             <p>
             Dette er et spill laget i forbindelse med et skoleprosjekt av Team 4. Hensikten med dette spillet er å
             lære bort CSS og HTML til nybegynnere.
+            
+            
+            Test
+            <form action="<c:url value="/kOdesLostTags"/>" >
+                <input type="submit" value="K.Odes Lost Tags">
+            </form>
+            
+            
         </p></center>
+    
+    
+           
     </body>
 </html>
