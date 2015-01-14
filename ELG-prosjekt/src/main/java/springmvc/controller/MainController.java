@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;    
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,26 +44,23 @@ public class MainController {
 
     @Autowired
     private ResultService r;
-    
-    @Autowired 
-    private LoginService loginService;  
-    
+
+    @Autowired
+    private LoginService loginService;
+
     @Autowired
     private PersonService personService;
-    
-    
 
     @RequestMapping(value = "index")
     public String showIndex(Model model) {
         //model.addAttribute("melding", "melding");
         return "index";
     }
-    
+
     @RequestMapping(value = "*")
     public String person(@ModelAttribute Login login, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
         return "firstLogin";
     }
-    
 
     @RequestMapping(value = "about")
     public String showAbout(Model model) {
@@ -72,18 +69,17 @@ public class MainController {
     }
 
     /*
-    @RequestMapping(value = "highscore")
-    public String showHighscore(Model model, HttpSession session) {
-        //model.addAttribute("melding", "melding");
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            System.out.println("user = null");
-        }
-        return ((User) session.getAttribute("user")) == null ? "index" : ((User) session.getAttribute("user")).isInLogged() ? "highscore" : "index";
-        // return ((User)session.getAttribute("user")).isInLogged() ? "highscore" : "index"; 
-        // return "highscore"; 
-    }*/
-
+     @RequestMapping(value = "highscore")
+     public String showHighscore(Model model, HttpSession session) {
+     //model.addAttribute("melding", "melding");
+     User user = (User) session.getAttribute("user");
+     if (user == null) {
+     System.out.println("user = null");
+     }
+     return ((User) session.getAttribute("user")) == null ? "index" : ((User) session.getAttribute("user")).isInLogged() ? "highscore" : "index";
+     // return ((User)session.getAttribute("user")).isInLogged() ? "highscore" : "index"; 
+     // return "highscore"; 
+     }*/
     @RequestMapping(value = "choosegame")
     public ModelAndView chooseGame(ModelAndView mav) {
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames();
@@ -142,35 +138,35 @@ public class MainController {
         return mav;
     }
 
-     @RequestMapping(value = "login" , method=RequestMethod.POST)
+    @RequestMapping(value = "login", method = RequestMethod.POST)
     public ModelAndView logIn(ModelAndView mav, HttpSession session, @Valid @ModelAttribute("login") Login login, BindingResult error, Model modell, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
         System.out.println("333333333");
-        if(error.hasErrors()){
+        if (error.hasErrors()) {
             System.out.println(" Passord tomt, eller ikke gyldig Email-adresse.  ");
             //modell.addAttribute("melding", "Personnr ikke fylt ut riktig"); 
             mav.setViewName("firstLogin");
             return mav;
         }
-        
-        if (loginService.compareInformation(login)) {            
+
+        if (loginService.compareInformation(login)) {
             Person inloggedPerson = personService.getPerson(login.getEmail());
-            User user = new User(inloggedPerson.getEmail(),inloggedPerson.getFname(), inloggedPerson.getLname());
-            user.setInLogged(true);            
-            session.setAttribute("user", user);            
-            mav.setViewName("chooseGameHighscore");     
+            User user = new User(inloggedPerson.getEmail(), inloggedPerson.getFname(), inloggedPerson.getLname());
+            user.setInLogged(true);
+            session.setAttribute("user", user);
+            mav.setViewName("chooseGameHighscore");
             System.out.println("Highscore er satt **********************************");
             return chooseGameHighscore(mav);
-            
+
         } else {
-            System.out.println("Innlogging feilet.  "); 
-            modell.addAttribute("wrongPassword","Feil brukernavn/passord. Prøv på nytt");
-            
+            System.out.println("Innlogging feilet.  ");
+            modell.addAttribute("wrongPassword", "Feil brukernavn/passord. Prøv på nytt");
+
             mav.setViewName("firstLogin");
-            return mav; 
+            return mav;
         }
-                
-                
+
     }
+
     @RequestMapping(value = "choosegameHighscore", method = RequestMethod.POST)
     public ModelAndView chooseGameHighscore(ModelAndView mav, @RequestParam("gameid") String id) {
         int resemble = 0;
@@ -201,19 +197,24 @@ public class MainController {
         mav.setViewName("chooseGameHighscore");
         return mav;
     }
-    
-     @RequestMapping(value = "loginAsGuest") 
-    public ModelAndView loginAsGuestFunction(ModelAndView mav,HttpSession session) {
+
+    @RequestMapping(value = "loginAsGuest")
+    public ModelAndView loginAsGuestFunction(ModelAndView mav, HttpSession session) {
         System.out.println("Logger inn som guest");
-        
-        User user = new User("GUEST","GUEST", "");
-        user.setInLogged(true);            
-        session.setAttribute("user", user);            
+
+        User user = new User("GUEST", "GUEST", "");
+        user.setInLogged(true);
+        session.setAttribute("user", user);
         return chooseGameHighscore(mav);
-    } 
-    
+    }
+
     @RequestMapping(value = "completionlist")
-    public ModelAndView chooseGameCompletionlist(ModelAndView mav) {
+    public ModelAndView chooseGameCompletionlist(ModelAndView mav, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (!user.isAdmin()) {
+            mav.setViewName("about");
+            return mav;
+        }
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames();
         ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();
         int resemble = 0;
@@ -223,9 +224,14 @@ public class MainController {
         mav.setViewName("completionlist");
         return mav;
     }
-    
+
     @RequestMapping(value = "choosegameCompletionlist", method = RequestMethod.POST)
-    public ModelAndView chooseGameCompletionlist(ModelAndView mav, @RequestParam("gameid") String id) {
+    public ModelAndView chooseGameCompletionlist(ModelAndView mav, @RequestParam("gameid") String id, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (!user.isAdmin()) {
+            mav.setViewName("about");
+            return mav;
+        }
         int resemble = 0;
         MultiChoice multiTemp = null;
         ResembleGame resembleTemp = null;
@@ -235,13 +241,21 @@ public class MainController {
             resemble = 1;
             resembleTemp = gameListService.getResembleGame(a);
             hs = r.getCompletionRG(resembleTemp);
+            if (hs.size() == 0) {
+                String s = "Ingen studenter har bestått";
+                mav.addObject("nopass", s);
+            }
             mav.addObject("list", hs);
             System.out.println("***** lengde= " + hs.size());
-           
+
         } catch (NumberFormatException e) {
             resemble = 2;
             multiTemp = gameListService.getMultiChoiceGame(id);
             hs = r.getCompletion(multiTemp);
+            if (hs.size() == 0) {
+                String s = "Ingen studenter har bestått";
+                mav.addObject("nopass", s);
+            }
             mav.addObject("list", hs);
             System.out.println("********** lengde = " + hs.size());
         }

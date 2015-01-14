@@ -10,11 +10,37 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Godkjenningsliste</title>
+        <style type='text/css'>
+            ul
+            {
+                list-style-type: none;
+            }
+            
+            #wrappercompletion{
+                width: 100%;
+            }
+            
+            #completionleft{
+                width: 75%;
+                float: left;
+            }
+            #completionright{
+                width: 25%;
+                float: right;
+            }
+        </style>
     </head>
     <body>
-       <c:forEach items="${list}" var="names">
-           <c:out value="${names.getFname()} ${names.getLname()}"/>
-            </c:forEach>
-    </body>
+        <div id ="wrappercompletion">
+            <div id ="completionleft">
+    <center><h1>Godkjenningsliste</h1>
+        <br>
+        <h2><c:out value="${nopass}"/></h2>
+        <ul>
+            <c:forEach items="${list}" var="names">
+                <li><c:out value="${names.getFname()} ${names.getLname()}"/></li>
+                </c:forEach>
+        </ul>
+    </center></div><div id="completionright"></div></div></body>
 </html>
