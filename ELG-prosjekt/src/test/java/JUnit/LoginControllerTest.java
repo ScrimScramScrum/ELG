@@ -1,10 +1,5 @@
 package JUnit;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import org.springframework.context.MessageSource;
 import static org.mockito.Mockito.*;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -38,6 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import springmvc.controller.LoginController;
 import springmvc.controller.MainController;
+import springmvc.domain.Person;
 import springmvc.repository.MultiChoiceRepository;
 import springmvc.repository.ResembleGameRepo;
 import springmvc.repository.ResembleTaskRepo;
@@ -100,6 +96,13 @@ public class LoginControllerTest {
     
     @Test
     public void testSendNewPassword() throws Exception{
+        this.mockMvc.perform(get("/sendNewPassword")).andExpect(status().isOk()).andExpect(view().name("firstLogin"));
+    }
+    
+     @Test
+    public void testSendNewPasswordTrue() throws Exception{
+        when(personService.getPerson(any(String.class))).thenReturn(new Person()); 
+        when(personService.generateNewPassword(any(Person.class))).thenReturn(true); 
         this.mockMvc.perform(get("/sendNewPassword")).andExpect(status().isOk()).andExpect(view().name("firstLogin"));
     }
 }
