@@ -31,6 +31,15 @@ public class User implements Serializable{
         this.lname = lname;
     }
     
+    public User(String email, String fname, String lname, int admin) {
+        this.email = email;
+        this.fname = fname;
+        this.lname = lname;
+        if(admin == 1){
+            this.admin=true;
+        }   
+    }
+    
     public User(){
         
     }

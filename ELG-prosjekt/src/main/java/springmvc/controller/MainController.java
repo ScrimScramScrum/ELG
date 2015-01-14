@@ -150,7 +150,7 @@ public class MainController {
 
         if (loginService.compareInformation(login)) {
             Person inloggedPerson = personService.getPerson(login.getEmail());
-            User user = new User(inloggedPerson.getEmail(), inloggedPerson.getFname(), inloggedPerson.getLname());
+            User user = new User(inloggedPerson.getEmail(), inloggedPerson.getFname(), inloggedPerson.getLname(), inloggedPerson.getTeacher());
             user.setInLogged(true);
             session.setAttribute("user", user);
             mav.setViewName("chooseGameHighscore");
