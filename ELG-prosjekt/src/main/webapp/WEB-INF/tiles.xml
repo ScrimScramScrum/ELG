@@ -111,9 +111,9 @@
         <definition name="notloggedin" extends="loginBaseLayout">
         <put-attribute name="body"   value="/WEB-INF/jsp/errorpage_notloggedin.jsp"/> 
     </definition>  
+
     
     <definition name="kOdesLostTags" extends="loginBaseLayout">
         <put-attribute name="body"   value="/WEB-INF/jsp/kOdesLostTags.jsp"/> 
     </definition>  
-
 </tiles-definitions>
