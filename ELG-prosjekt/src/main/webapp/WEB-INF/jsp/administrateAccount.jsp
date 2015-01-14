@@ -18,7 +18,7 @@ function checkPasswordMatch() {
         document.getElementById("confirmBox").innerHTML = ""; 
         }
     else 
-        document.getElementById("confirmBox").innerHTML = "Passordene samsvarer ikke";  
+        document.getElementById("confirmBox").innerHTML = "Nytt- og bekreft passord samsvarer ikke";  
 }
 </script>
 

@@ -48,7 +48,7 @@ public class AdministrateController {
     
     
     @RequestMapping(value = "changePassword" , method=RequestMethod.POST)
-    public String changePass(@Valid @ModelAttribute NewPassword newPassword, BindingResult error, Model modell, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin,HttpSession session) {
+    public String changePass(@ModelAttribute NewPassword newPassword, BindingResult error, Model modell, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin,HttpSession session) {
        
         if(error.hasErrors()){
             System.out.println(" Change password error ");
@@ -67,7 +67,7 @@ public class AdministrateController {
             modell.addAttribute("changedPassword", "Passordet er endret"); 
         } else {
             modell.addAttribute("chooseSite", 1);
-            modell.addAttribute("changedPassword", "Noe gikk feil under endring av passordet");
+            modell.addAttribute("changedPassword", "Feil. Husk at passordet må være lengre enn 8 tegn.");
         }
         
         
@@ -96,17 +96,15 @@ public class AdministrateController {
             modell.addAttribute("NewClassMessage", "Du er nå registrert i klasse: " + addNewClassIdAttribute.getClassId()); 
         } else { // ENDER HER OM FELTET ER TOMT. 
             modell.addAttribute("chooseSite", 2);
-            modell.addAttribute("NewClassMessage", "Feil, noe er galt. "); 
+            modell.addAttribute("NewClassMessage", "Feil. Klasse eksisterer ikke. "); 
         }
-        
-        
         return "administrateAccount";
     }
     
     
     
     @RequestMapping(value = "makeNewAdmin" , method=RequestMethod.POST)
-    public String makeNewAdmin(@Valid @ModelAttribute("makeAdmin") MakeAdmin makeAdmin, BindingResult error, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute NewPassword newPassword, HttpSession session) {
+    public String makeNewAdmin(@ModelAttribute("makeAdmin") MakeAdmin makeAdmin, BindingResult error, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute NewPassword newPassword, HttpSession session) {
         System.out.println("makeAdmin kjorer");
         if(error.hasErrors()){
             System.out.println("ERROR with making user Admin/Teacher. ");
