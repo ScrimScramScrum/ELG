@@ -76,9 +76,13 @@ var audio80 = new Audio("<c:url value="/resources/kOdesLostTags/Sound/kode80bpm.
 var audio100 = new Audio("<c:url value="/resources/kOdesLostTags/Sound/kode100bpm.wav.m4a"/>");
 var audio120 = new Audio("<c:url value="/resources/kOdesLostTags/Sound/kode120bpm.wav.m4a"/>");
 var audiolevelup = new Audio("<c:url value="/resources/kOdesLostTags/Sound/levelup.wav.m4a"/>");
+var audioEnd = new Audio("<c:url value="/resources/kOdesLostTags/Sound/finishedgame.wav.m4a"/>");
+var audioStart = new Audio("<c:url value="/resources/kOdesLostTags/Sound/kodesnakker.wav.m4a"/>");
+
 
 var theGame = new Game();
 theGame.createARandomList();
+var first = true;
 
 // Create the canvas
 var canvas = document.createElement("canvas");
@@ -96,6 +100,17 @@ bgImage.onload = function () {
 bgImage.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/background.png"/>";
 
 //Users/Hoxmark/Documents/github/ELG/ELG-prosjekt/src/main/webapp/resources/kOdesLostTags/kOdesLostTagsImages/background.png
+
+
+
+// KODE FINISH image
+var kodeFinish = new Image();
+kodeFinish.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/kOdesLostTagsImages/professork-ode1_360.png"/>";
+
+//TusenTakk
+var tusenTakk = new Image();
+tusenTakk.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/kOdesLostTagsImages/tusenTakk.png"/>";
+
 
 // FINISH Background image
 var bgFinishReady = false;
@@ -157,7 +172,7 @@ monsterImage.src = "monster.png";
 
 // Game objects
 var hero = {
-	speed: 256, // movement in pixels per second
+	speed: 500, // movement in pixels per second
 	x: 0,
 	y: 0
 };
@@ -368,24 +383,49 @@ var render = function () {
 
 
 var renderFinishScoore = function() {
-
+    
 	if (bgReady) {
 		ctx.drawImage(bgFinishImage, 0, 0);
 	}
-	
+        
+        ctx.drawImage(kodeFinish, 250, 250);
+        
+        ctx.drawImage(tusenTakk, 130, 250);
+
 	ctx.fillStyle = "rgb(250, 250, 250)";
 	ctx.font = "24px Helvetica";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
-	ctx.fillText("GRATULERER DU ER FERDIG!", 32, 32);
+	ctx.fillText("GRATULERER!", 32, 32);
 	ctx.fillText("Du fikk " + theGame.score + " poeng", 100, 100);
-	
-
+	ctx.fillText("Nå har dr. K.Ode endelig fått tilbake tagsene sine!", 50, 600);
 
 }
 
+var renderStartGame = function () {
+        ctx.drawImage(bgFinishImage, 0, 0);
+	        
+        ctx.drawImage(kodeFinish, 250, 250);
+        
+        
+	ctx.fillStyle = "rgb(250, 250, 250)";
+	ctx.font = "24px Helvetica";
+	ctx.textAlign = "left";
+	ctx.textBaseline = "top";
+	ctx.fillText("Vi trenger din hjelp til å samle inn taggene til dr. K.Ode!", 10, 32);
+	ctx.fillText("Du får opp et en kodesnut, så skal du velge hvilken ", 10, 64);
+	ctx.fillText("kategori denne kodesnutten hører til.  ", 10, 96);
+
+        
+        //main();
+}
+
+
 // The main game loop
 var main = function () {
+       
+    
+    
 	var now = Date.now();
 	var delta = now - then;
 
@@ -395,7 +435,7 @@ var main = function () {
 	then = now;
 
 	// Request to do this again ASAP
-	if (theGame.round >= 19){
+        if (theGame.round >= 17){
 		finishedGame();
 	}
 	else {
@@ -405,14 +445,26 @@ var main = function () {
 };
 
 var finishedGame = function () {
-	//console.log("Her skal det sluttes");
-
+        audio120.pause();
+        audioEnd.play();
+        
 	var now = Date.now();
 	var delta = now - then;
 	
 	renderFinishScoore();
 	then = now;
 }
+
+var startGame = function () {
+        var now = Date.now();
+	var delta = now - then;
+	
+	renderStartGame();
+	then = now;
+        
+        //requestAnimationFrame(startGame);
+}
+
 
 
 
@@ -424,10 +476,7 @@ requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame
 var then = Date.now();
 reset();
 audio80.play();
+ 
+//startGame();
 main();
-
-
-
-
-
 </script>
