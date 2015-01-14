@@ -155,7 +155,7 @@ public class MainControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("chooseGameHighscore"));
     }
-    //Will fail for now due to n
+    //Will fail for now due to no session attributes being mocked
     @Test
     public void testCompletionListAsAdmin() throws Exception{
         User user = new User("hello@mail.com", "yes", "lastname"); 
