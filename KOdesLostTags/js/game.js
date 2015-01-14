@@ -3,14 +3,78 @@ function Questions(question, answer) {
   this.answer = answer; 
 
 }
-// class methods
-Questions.prototype.xxx = function() {
 
-	//somehting
-};
 
-var oppgave1 = new Questions("hvor skal normal tekst", "tag1");
+function Game() {
+	this.score = 0;
+	this.speed = 25;
+	this.questionOnNow = 0;
+	this.theQuestions = [oppgave1, oppgave2, oppgave3, oppgave4, oppgave5, oppgave6, oppgave7, oppgave8, oppgave9, oppgave10];
+	this.questionDone = [];
+	this.questionToBeAsked = [0,1,2,3,4,5,6,7,8,9]
+	this.round = 0;
 
+
+	this.chooseRandomNumber = function() {	
+			this.questionOnNow = this.questionToBeAsked.pop();
+
+	};
+
+	this.isItCorrect = function(tagWeAreOn) {
+		if (tagWeAreOn==this.theQuestions[this.questionOnNow].answer){
+			console.log("OK");
+			this.score++;
+		} else {
+			console.log("ikke OK");
+
+		}	
+	}
+
+	this.createARandomList = function(){
+
+		console.log("lengde:"+this.questionToBeAsked.length);
+	 	
+		var index;		
+		var ant = this.questionToBeAsked.length;
+		for (index = 0; index < ant; ++index) {
+		    var random = Math.floor((Math.random() * this.questionToBeAsked.length) );
+		 	console.log("random: "+random);
+
+		 	var x = this.questionToBeAsked[random];
+		 	this.questionToBeAsked.splice(random,1);
+			console.log("x: "+x);		 	
+			this.questionDone.push(x);
+		}
+		
+		console.log("questionDone: "+this.questionDone);
+		console.log("questionToBeAsked: "+this.questionToBeAsked);
+		this.questionToBeAsked = this.questionDone;
+		this.questionDone = [];
+		console.log("questionToBeAsked: "+this.questionToBeAsked);
+
+				
+	}
+
+}
+
+
+var oppgave1 = new Questions("1. Skal være <P>", "tag1");
+var oppgave2 = new Questions("2. skal være <Style>", "tag2");
+var oppgave3 = new Questions("3. skal være <h1>", "tag3");
+var oppgave4 = new Questions("4. skal være <body>", "tag4");
+var oppgave5 = new Questions("5. Skal være <p>", "tag1");
+var oppgave6 = new Questions("6. skal være <Style>", "tag2");
+var oppgave7 = new Questions("7. skal være <H1>", "tag3");
+var oppgave8 = new Questions("8. skal være <body>", "tag4");
+var oppgave9 = new Questions("9. Skal være <P>", "tag1");
+var oppgave10 = new Questions("10. skal være <Style>", "tag2");
+
+
+
+console.log("----------");
+
+var theGame = new Game();
+theGame.createARandomList();
 
 // Create the canvas
 var canvas = document.createElement("canvas");
@@ -27,6 +91,14 @@ bgImage.onload = function () {
 };
 bgImage.src = "images/background.png";
 
+// FINISH Background image
+var bgFinishReady = false;
+var bgFinishImage = new Image();
+bgFinishImage.onload = function () {
+	bgFinishReady = true;
+};
+bgFinishImage.src = "images/backgroundFinish.jpg";
+
 // Hero image
 var heroReady = false;
 var heroImage = new Image();
@@ -35,9 +107,6 @@ heroImage.onload = function () {
 };
 heroImage.src = "images/hero.png";
 
-
-
-
 //Tag1
 var tag1Ready = false;
 var tag1Image = new Image();
@@ -45,8 +114,6 @@ tag1Image.onload = function () {
 	tag1Ready = true;
 }
 tag1Image.src = "images/p.png";
-
-
 
 
 //Tag2
@@ -73,10 +140,6 @@ tag4Image.onload = function () {
 	tag4Ready = true;
 }
 tag4Image.src = "images/body.png";
-
-
-
-
 
 // Monster image
 var monsterReady = false;
@@ -138,14 +201,13 @@ addEventListener("keyup", function (e) {
 
 // Reset the game when the player catches a monster
 var reset = function () {
+	theGame.chooseRandomNumber()
+	theGame.speed += 45;
+	theGame.round ++;
+
+
 	hero.x = canvas.width / 2;
-	hero.y = canvas.height - ((canvas.height/4));
-
-		// Throw the monster somewhere on the screen randomly
-
-	//tag1.x = 0;
-	//	tag1.y = 0;
-
+	hero.y = canvas.height - 50;
 
 	tag1.x = 25;
 	tag1.y = (canvas.height)-(canvas.height-90);
@@ -165,18 +227,21 @@ var reset = function () {
 // Update game objects
 var update = function (modifier) {
 	monster.y += monster.speed * modifier;
-	tag1.y += tag1.speed * modifier;
-	tag2.y += tag1.speed * modifier;
-	tag3.y += tag1.speed * modifier;
-	tag4.y += tag1.speed * modifier;
+	tag1.y += theGame.speed * modifier;
+	tag2.y += theGame.speed * modifier;
+	tag3.y += theGame.speed * modifier;
+	tag4.y += theGame.speed * modifier;
 
 
 	if (37 in keysDown) { // Player holding left
 		hero.x -= hero.speed * modifier;
 	}
+
+
 	if (39 in keysDown) { // Player holding right
 		hero.x += hero.speed * modifier;
 	}
+
 
 	// Are they touching?
 	if (
@@ -186,6 +251,7 @@ var update = function (modifier) {
 		&& tag1.y <= (hero.y + 30)
 	) {
 		++monstersCaught;
+		theGame.isItCorrect("tag1");
 		reset();
 	}
 
@@ -197,6 +263,8 @@ var update = function (modifier) {
 		&& tag2.y <= (hero.y + 30)
 	) {
 		++monstersCaught;
+			theGame.isItCorrect("tag2");
+
 		reset();
 	}
 
@@ -208,6 +276,8 @@ var update = function (modifier) {
 		&& tag3.y <= (hero.y + 30)
 	) {
 		++monstersCaught;
+			theGame.isItCorrect("tag3");
+
 		reset();
 	}
 
@@ -219,19 +289,14 @@ var update = function (modifier) {
 		&& tag4.y <= (hero.y + 30)
 	) {
 		++monstersCaught;
+			theGame.isItCorrect("tag4");
+
 		reset();
 	}
 
 	if( tag4.y>=600){
 		reset();
 	}
-
-
-
-
-
-
-
 
 };
 
@@ -266,16 +331,33 @@ var render = function () {
 
 	// Score
 	ctx.fillStyle = "rgb(250, 250, 250)";
+	ctx.font = "20px Helvetica";
+	ctx.textAlign = "left";
+	ctx.textBaseline = "top";
+	ctx.fillText("Poeng: " + theGame.score, 32, 32);
+	ctx.fillText("Runde: " + theGame.round, 400, 32);
+	ctx.font = "30px Baskerville";
+	ctx.fillText("Oppgave: "+ theGame.theQuestions[theGame.questionOnNow].question ,32,80);
+	
+};
+
+
+var renderFinishScoore = function() {
+
+	if (bgReady) {
+		ctx.drawImage(bgFinishImage, 0, 0);
+	}
+	
+	ctx.fillStyle = "rgb(250, 250, 250)";
 	ctx.font = "24px Helvetica";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
-	ctx.fillText("Poeng: " + monstersCaught, 32, 32);
-	ctx.fillText("Oppgave: "+oppgave1.question ,32,60);
-	
-	
+	ctx.fillText("GRATULERER DU ER FERDIG!", 32, 32);
+	ctx.fillText("Du fikk " + theGame.score + " poeng", 100, 100);
 	
 
-};
+
+}
 
 // The main game loop
 var main = function () {
@@ -284,12 +366,35 @@ var main = function () {
 
 	update(delta / 1000);
 	render();
+	
+	
+	
 
 	then = now;
 
 	// Request to do this again ASAP
-	requestAnimationFrame(main);
+	if (theGame.round >= 10){
+		finishedGame();
+	}
+	else {
+		requestAnimationFrame(main);
+	}
+
+	
+
+
+
 };
+
+var finishedGame = function () {
+	//console.log("Her skal det sluttes");
+
+	var now = Date.now();
+	var delta = now - then;
+	
+	renderFinishScoore();
+	then = now;
+}
 
 // Cross-browser support for requestAnimationFrame
 var w = window;
@@ -299,3 +404,6 @@ requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame
 var then = Date.now();
 reset();
 main();
+
+
+
