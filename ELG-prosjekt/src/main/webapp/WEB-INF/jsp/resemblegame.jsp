@@ -24,6 +24,68 @@
         
         <script src="<c:url value='/resources/resemble.js' />"></script>
         <script src="<c:url value='/resources/html2canvas.js' />"></script>
+
+        <!-- beautifier -->
+        <script src="<c:url value='/resources/jsbeautifier/lib/beautify.js' />"></script>
+        <script src="<c:url value='/resources/jsbeautifier/lib/beautify-css.js' />"></script>
+        <script src="<c:url value='/resources/jsbeautifier/lib/beautify-html.js' />"></script>
+
+        <script>
+            var the = {
+                use_codemirror: (!window.location.href.match(/without-codemirror/)),
+                beautify_in_progress: false,
+                editor: null // codemirror editor
+            };
+
+            function beautify(nr) {
+                if (the.beautify_in_progress) return;
+
+                the.beautify_in_progress = true;
+
+                if (the.use_codemirror && typeof CodeMirror !== 'undefined') {
+                    the.editor = $('.CodeMirror')[nr].CodeMirror;
+                }
+
+                var source = the.editor ? the.editor.getValue() : $('#htmlView').val(),
+                    output,
+                    opts = {};
+
+                opts.indent_size = $('#tabsize').val();
+                opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
+                opts.max_preserve_newlines = $('#max-preserve-newlines').val();
+                opts.preserve_newlines = opts.max_preserve_newlines !== "-1";
+                opts.keep_array_indentation = $('#keep-array-indentation').prop('checked');
+                opts.break_chained_methods = $('#break-chained-methods').prop('checked');
+                opts.indent_scripts = $('#indent-scripts').val();
+                opts.brace_style = $('#brace-style').val();
+                opts.space_before_conditional = $('#space-before-conditional').prop('checked');
+                opts.unescape_strings = $('#unescape-strings').prop('checked');
+                opts.jslint_happy = $('#jslint-happy').prop('checked');
+                opts.end_with_newline = $('#end-with-newline').prop('checked');
+                opts.wrap_line_length = $('#wrap-line-length').val();
+
+                if (looks_like_html(source)) {
+                    output = html_beautify(source, opts);
+                } else {
+                    output = css_beautify(source, opts);
+                }
+                if (the.editor) {
+                    the.editor.setValue(output);
+                } else {
+                    $('#htmlView').val(output);
+                }
+
+                the.beautify_in_progress = false;
+            }
+
+            function looks_like_html(source) {
+                var trimmed = source.replace(/^[ \t\n\r]+/, '');
+                var comment_mark = '<' + '!-' + '-';
+                return (trimmed && (trimmed.substring(0, 1) === '<' && trimmed.substring(0, 4) !== comment_mark));
+            }
+        </script>
+        <!-- end beautifier -->
+        
         <style>
             .renderedFrame, .codeBox {
                 <c:out value="width: ${resembleTask.width}px; height: ${resembleTask.height}px" />
@@ -56,7 +118,9 @@
                     var editor = $('.CodeMirror')[0].CodeMirror;
                     editor.setValue(solutionCss); 
                     var editor2 = $('.CodeMirror')[1].CodeMirror;
-                    editor2.setValue(solutionHtml); 
+                    editor2.setValue(solutionHtml);
+                    beautify(0); 
+                    beautify(1);
                 });
             });
             function setRenderedResult(frame, html, css) {
@@ -92,15 +156,20 @@
                     lineWrapping: true,
                     mode: "css",
                     theme: "default",
-                    lineNumbers: true
+                    lineNumbers: true,
+                    indentUnit: 4
                 });
                     editableCodeMirror.setSize("100%", 300); 
                 var editableCodeMirror2 = CodeMirror.fromTextArea(document.getElementById('htmlView'), {
                     lineWrapping: true,        
                     mode: "xml",
                     theme: "default",
-                    lineNumbers: true
+                    lineNumbers: true,
+                    indentUnit: 4
                 });
+
+                beautify(0); 
+                beautify(1);
 
                 editableCodeMirror2.setSize("100%", 300); 
 

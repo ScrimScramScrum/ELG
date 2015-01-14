@@ -87,6 +87,7 @@
     <div id="wrapperGameInfoaaa">
         <div id="leftcolumn">
             <h2> ${resembleInfo.gamename}</h2>
+            <br>
             <h4>Difficulty</h4>
             Vanskelighetsgrad: ${resembleInfo.difficulty}
             <br>
@@ -139,6 +140,7 @@
     <div id="wrapperGameInfo">
         <div id="leftcolumn">
             <h2>${gamenr}</h2>
+            <br>
             <h4>Difficulty</h4>
             Vanskelighetsgrad: ${multiChoiceInfo.difficulty}
             <br>
