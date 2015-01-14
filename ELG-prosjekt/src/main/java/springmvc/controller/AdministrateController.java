@@ -43,6 +43,10 @@ public class AdministrateController {
     @RequestMapping(value = "administrateAccount" , method=RequestMethod.GET)
     public String adminAccount(@ModelAttribute NewPassword newPassword, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin, HttpSession session){
         System.out.println("GET kjorer");
+        User user = (User)session.getAttribute("user");
+        if (user.getEmail().equals("GUEST")){
+            return "result";
+        }
         return "administrateAccount";
     }
     
@@ -57,6 +61,7 @@ public class AdministrateController {
         }
         User user = (User)session.getAttribute("user");
         Person inLoggedPerson = personService.getPerson(user.getEmail());
+        modell.addAttribute("user", user);
         
         if (personService.changePassword(
                 inLoggedPerson, 
@@ -64,14 +69,11 @@ public class AdministrateController {
                 newPassword.getNewPw(), 
                 newPassword.getConfirmPw()
         )){
-            modell.addAttribute("changedPassword", "Passordet er endret"); 
+            modell.addAttribute("changedPassword", "Passordet er endret."); 
         } else {
             modell.addAttribute("chooseSite", 1);
             modell.addAttribute("changedPassword", "Feil. Husk at passordet må være lengre enn 8 tegn.");
         }
-        
-        
-        
         return "administrateAccount";
     }
     
@@ -90,13 +92,14 @@ public class AdministrateController {
 
         User user = (User)session.getAttribute("user");
         Person inLoggedPerson = personService.getPerson(user.getEmail());
+        modell.addAttribute("user", user);
         
         if (personService.setClassId(inLoggedPerson, addNewClassIdAttribute.getClassId())){
             System.out.println("Legger til i ny klasse ");
             modell.addAttribute("NewClassMessage", "Du er nå registrert i klasse: " + addNewClassIdAttribute.getClassId()); 
         } else { // ENDER HER OM FELTET ER TOMT. 
             modell.addAttribute("chooseSite", 2);
-            modell.addAttribute("NewClassMessage", "Feil. Klasse eksisterer ikke. "); 
+            modell.addAttribute("NewClassMessage", "Feil. Klassen eksisterer ikke. "); 
         }
         return "administrateAccount";
     }
@@ -117,19 +120,17 @@ public class AdministrateController {
         
         User user = (User)session.getAttribute("user");
         Person inLoggedPerson = personService.getPerson(user.getEmail());
+        modell.addAttribute("user", user);
 
         if (personService.makeAdmin(inLoggedPerson, makeAdmin.getMakeAdminPw())){ // Registreres som admin. 
             user.setAdmin(true);
             System.out.println("Person set as admin");
-            modell.addAttribute("makeAdminMessage", "Du har nå admin-rettigheter: "); 
+            modell.addAttribute("makeAdminMessage", "Du har nå admin-rettigheter. "); 
             
         } else { // Feiler med å registrere seg som admin.  // ENDER HER. 
             modell.addAttribute("chooseSite", 3);
             modell.addAttribute("makeAdminMessage", "Feil. Administrator-passordet var ikke riktig. ");
         }
-        
-        
-
         
         return "administrateAccount";
     }
@@ -145,13 +146,14 @@ public class AdministrateController {
         }
         User user = (User)session.getAttribute("user");
         Person inLoggedPerson = personService.getPerson(user.getEmail());
+        modell.addAttribute("user", user);
 
         if (classService.registrateNewClassId(makeNewClassAttribute.getClassId())){  
             System.out.println("Ny klasse registrert");
             modell.addAttribute("makeClassMessage", "Ny klasse ble registrert.  "); 
         } else { // Feiler med å registrere ny klasse  
             modell.addAttribute("chooseSite", 4);
-            modell.addAttribute("makeClassMessage", "Feil, noe gikk galt med å registrere en ny klasse. "); 
+            modell.addAttribute("makeClassMessage", "Feil, Klassen finnes fra før eller .  "); 
         }
         
         
@@ -160,6 +162,15 @@ public class AdministrateController {
     
     @RequestMapping(value = "chooseAdministrateFunction", method = RequestMethod.POST)
     public ModelAndView chooseAdministrate(ModelAndView mav, @RequestParam("chooseId") String id, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin, BindingResult error, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute NewPassword newPassword,HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        String email = user.getEmail(); 
+        modell.addAttribute("user", user);
+        if(email.equals("GUEST")){
+            mav.addObject("chooseSite", 5);
+            mav.setViewName("administrateAccount");
+            return mav; 
+        }
+        
         int a = Integer.parseInt(id); 
         mav.addObject("chooseSite", a);
         mav.setViewName("administrateAccount");

@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
+
 <script>
 function checkPasswordMatch() { 
     var password = document.getElementById("txtNewPassword").value;
@@ -20,10 +21,13 @@ function checkPasswordMatch() {
     else 
         document.getElementById("confirmBox").innerHTML = "Nytt- og bekreft passord samsvarer ikke";  
 }
+
+
 </script>
 
 <html>
     <head>
+        
         <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css2/styleGamemenu.css'/>">
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -118,7 +122,7 @@ function checkPasswordMatch() {
                         </table>
                     </form:form>
                         <div id="confirmBox"></div>
-                        ${changedPassword}
+                       <font color=red> ${changedPassword}</font>
                 </c:when>
                 <c:when test="${chooseSite == 2}"> 
                     <form:form action="addClassId" method="post" modelAttribute="addNewClassIdAttribute">
@@ -134,7 +138,7 @@ function checkPasswordMatch() {
                             <tr><td colspan="2"><center><input type="submit" value="Legg til ny klasse"></td></tr></center>
                         </table>
                     </form:form>
-                    ${NewClassMessage}
+                    <font color=red>${NewClassMessage}</font>
                 </c:when>
                 <c:when test="${chooseSite == 3}"> 
                     <form:form action="makeNewAdmin" method="post" modelAttribute="makeAdmin">
@@ -150,7 +154,7 @@ function checkPasswordMatch() {
                             <tr><td colspan="2"><center><input type="submit" value="Bli administrator"</td></tr></center>
                         </table>
                     </form:form>
-                    ${makeAdminMessage} 
+                    <font color=red>${makeAdminMessage} </font>
                 </c:when>
                 <c:when test="${chooseSite == 4}"> 
                     <form:form action="makeClass" method="post" modelAttribute="makeNewClassAttribute" >
@@ -165,15 +169,31 @@ function checkPasswordMatch() {
                            <tr><td colspan="2"> <center><input type="submit" value="Lag ny klasse"</td></tr></center>
                         </table>
                     </form:form>
-                    ${makeClassMessage}
+                    <font color=red> ${makeClassMessage}</font>
+                </c:when> 
+                <c:when test="${chooseSite == 5}"> 
+                    <h2 align=center><font color=red> Guest user har ikke tilgang til denne funksjonen. </font></h2>
                 </c:when> 
                 <c:otherwise>
-                    <h2>Velg en funksjon fra menyen til venstre. </h2>
-                    <br>
-                    ${changedPassword}${NewClassMessage}${makeAdminMessage}${makeClassMessage} </br>
+                    <h1>Velg fra menyen til venstre. </h2>
+                    <br> <h2>Kontaktinformasjon</h3> <br>
+                    <table>        
+                        <tr>  
+                            <tr> <td><c:out value = "Email:"/></td><td><c:out value = " ${user.getEmail()}"/></td> </tr>
+                            <tr> <td><c:out value = "Fornavn:"/></td><td><c:out value = " ${user.getFname()}"/></td> </tr>
+                            <tr> <td><c:out value = "Etternavn:"/></td><td><c:out value = " ${user.getLname()}"/></td> </tr>
+                            <tr> <td><c:out value = "Admin:"/></td><td><c:out value = " ${user.isAdmin()}"/></td> </tr>
+                            <tr> <td></tr> 
+                            <tr> <td></tr> 
+                        </tr>
+                    </table>
+                    
+                    
+                    <br><font color=green>${makeAdminMessage} ${makeClassMessage} ${NewClassMessage} ${changedPassword}</font></br>
                 </c:otherwise> 
             </c:choose>
-            </center>
+        </center>
+            
         </div>
             <div id ="rightbar">
             </div>

@@ -37,7 +37,10 @@
                         <li><a href="<c:url value="/completionlist" />" name ="completionlist" id="completion" onClick ="changeId(this) ">Completionlist</a></li>
                          <%}%>       
                         <li><a href="<c:url value="/about" />" id="about" name =' about' onClick ="changeId(this)">About</a></li>
+                        <%
+                            if(!(user.getEmail().equals("GUEST"))){%>
                         <li class="current_page_item"><a href="<c:url value="/administrateAccount" />" name ="settings" id="settings" onClick ="changeId(this)">Settings</a></li>
+                         <%}%> 
                         <li><a href="<c:url value="/logout" />" name ="logout" id="logout" onClick ="changeId(this) ">Logout</a></li>
                     </ul>
                 </nav>
