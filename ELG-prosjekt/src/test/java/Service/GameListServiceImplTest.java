@@ -26,6 +26,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.web.WebAppConfiguration;
+import springmvc.domain.MultiChoice;
+import springmvc.domain.MultiChoiceInfo;
 import springmvc.domain.ResembleGame;
 import springmvc.domain.ResembleTask;
 import springmvc.repository.MultiChoiceRepository;
@@ -65,9 +67,7 @@ public class GameListServiceImplTest {
     
     @Before
     public void setUp() {
-
         MockitoAnnotations.initMocks(this);
-        gameList = mock(GameListServiceImpl.class); 
     }
     
     @After
@@ -91,9 +91,32 @@ public class GameListServiceImplTest {
         taskNumbers.add(0); 
         taskNumbers.add(0); 
         game.setTaskNumbers(taskNumbers);
-        when(resembleGameRepoDB.getResembleGame(0)).thenReturn(gameFromService);
-        when(resembleTaskRepoDB.getResembleTasksByGameId(0)).thenReturn(resembleTasks);
-        
+        when(resembleGameRepoDB.getResembleGame(any(Integer.class))).thenReturn(gameFromService);
+        when(resembleTaskRepoDB.getResembleTasksByGameId(any(Integer.class))).thenReturn(resembleTasks);
         assertEquals(game.getTaskNumbers(), gameList.getResembleGame(0).getTaskNumbers()); 
+    }
+    
+    @Test
+    public void testGetMultiChoiceInfo (){
+        when(multipleChoiceRepoDB.getMultiChoiceInfo(any(String.class))).thenReturn(new MultiChoiceInfo()); 
+        assertNotNull(gameList.getMultiChoiceInfo("")); 
+    }
+    
+    @Test
+    public void testGetMultiChoiceGame (){
+        when(multipleChoiceRepoDB.getMultiChoice(any(String.class))).thenReturn(new MultiChoice()); 
+        assertNotNull(gameList.getMultiChoiceGame("")); 
+    }
+    
+    @Test
+    public void testGetAllMultiChoiceInfo(){
+        when(multipleChoiceRepoDB.getAllMultiChoiceInfo()).thenReturn(new ArrayList<MultiChoiceInfo>());
+        assertNotNull(gameList.getAllMultiChoiceInfo());
+    }
+    
+    @Test
+    public void testGetResembleTasks(){
+        when(resembleTaskRepoDB.getResembleTasks(any(ArrayList.class))).thenReturn(new ArrayList<ResembleTask>()); 
+        assertNotNull(gameList.getResembleTasks(new ArrayList<Integer>())); 
     }
 }
