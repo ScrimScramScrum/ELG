@@ -28,9 +28,11 @@ function Game() {
 	this.isItCorrect = function(tagWeAreOn) {
 		if (tagWeAreOn==this.theQuestions[this.questionOnNow].answer){
 			console.log("OK");
-			this.score++;
+			this.score++;     
+                        return true;
 		} else {
 			console.log("ikke OK");
+                        return false;
 
 		}	
 	};
@@ -59,16 +61,16 @@ function Game() {
 }
 
 
-var oppgave1 = new Questions("1. Skal være <P>", "tag1");
-var oppgave2 = new Questions("2. skal være <Style>", "tag2");
-var oppgave3 = new Questions("3. skal være <h1>", "tag3");
-var oppgave4 = new Questions("4. skal være <body>", "tag4");
-var oppgave5 = new Questions("5. Skal være <p>", "tag1");
-var oppgave6 = new Questions("6. skal være <Style>", "tag2");
-var oppgave7 = new Questions("7. skal være <H1>", "tag3");
-var oppgave8 = new Questions("8. skal være <body>", "tag4");
-var oppgave9 = new Questions("9. Skal være <P>", "tag1");
-var oppgave10 = new Questions("10. skal være <Style>", "tag2");
+var oppgave1 = new Questions("Et paragraf på en webside", "tag1");
+var oppgave2 = new Questions("background-color: red;", "tag2");
+var oppgave3 = new Questions("OVERSKRIFT", "tag3");
+var oppgave4 = new Questions("Ting som skal vises på siden", "tag4");
+var oppgave5 = new Questions(";PppppPPppppPppp", "tag1");
+var oppgave6 = new Questions("animation-iteration-count: infinite;", "tag2");
+var oppgave7 = new Questions("STORSKRIFT", "tag3");
+var oppgave8 = new Questions("Kropp?", "tag4");
+var oppgave9 = new Questions("avsnitt?", "tag1");
+var oppgave10 = new Questions("text-align: center;", "tag2");
 
 
 console.log("----------");
@@ -83,6 +85,9 @@ var audioStart = new Audio("<c:url value="/resources/kOdesLostTags/Sound/kodesna
 var theGame = new Game();
 theGame.createARandomList();
 var first = true;
+var startGameNow = false;
+var failsInGame = 0;
+
 
 // Create the canvas
 var canvas = document.createElement("canvas");
@@ -100,6 +105,11 @@ bgImage.onload = function () {
 bgImage.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/background.png"/>";
 
 //Users/Hoxmark/Documents/github/ELG/ELG-prosjekt/src/main/webapp/resources/kOdesLostTags/kOdesLostTagsImages/background.png
+
+
+// KODE START1 image
+var kodeStarter1 = new Image();
+kodeStarter1.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/kOdesLostTagsImages/kodeStart/kodeGif.gif"/>";
 
 
 
@@ -222,6 +232,9 @@ addEventListener("keyup", function (e) {
 
 // Reset the game when the player catches a monster
 var reset = function () {
+
+    
+    
     if (theGame.round==5){
         
         audio80.pause();
@@ -291,7 +304,9 @@ var update = function (modifier) {
 		&& tag1.y <= (hero.y + 30)
 	) {
 		++monstersCaught;
-		theGame.isItCorrect("tag1");
+                if(!theGame.isItCorrect("tag1")){
+                    failsInGame++;
+                };
 		reset();
 	}
 
@@ -303,8 +318,10 @@ var update = function (modifier) {
 		&& tag2.y <= (hero.y + 30)
 	) {
 		++monstersCaught;
-			theGame.isItCorrect("tag2");
-
+                if(!theGame.isItCorrect("tag2")){
+                    failsInGame++;
+                };
+                        
 		reset();
 	}
 
@@ -316,7 +333,9 @@ var update = function (modifier) {
 		&& tag3.y <= (hero.y + 30)
 	) {
 		++monstersCaught;
-			theGame.isItCorrect("tag3");
+                if(!theGame.isItCorrect("tag3")){
+                    failsInGame++;
+                };
 
 		reset();
 	}
@@ -329,13 +348,23 @@ var update = function (modifier) {
 		&& tag4.y <= (hero.y + 30)
 	) {
 		++monstersCaught;
-			theGame.isItCorrect("tag4");
+                if(!theGame.isItCorrect("tag4")){
+                    failsInGame++;
+                };
 
 		reset();
 	}
 
 	if( tag4.y>=600){
 		reset();
+	}
+
+};
+
+
+var updateStartKode = function (modifier) {
+	if (13 in keysDown) { // Player pressing enter  
+            startGameNow = true;            
 	}
 
 };
@@ -382,7 +411,7 @@ var render = function () {
 };
 
 
-var renderFinishScoore = function() {
+var renderFinishScoore = function(won) {
     
 	if (bgReady) {
 		ctx.drawImage(bgFinishImage, 0, 0);
@@ -396,37 +425,70 @@ var renderFinishScoore = function() {
 	ctx.font = "24px Helvetica";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
-	ctx.fillText("GRATULERER!", 32, 32);
-	ctx.fillText("Du fikk " + theGame.score + " poeng", 100, 100);
-	ctx.fillText("Nå har dr. K.Ode endelig fått tilbake tagsene sine!", 50, 600);
+        
+        if (theGame.score==19){
+            ctx.fillText("GRATULERER du har runna hele K.Odes Lost Tags!", 32, 32);
+            ctx.fillText("Du fikk " + theGame.score + " poeng", 100, 100);
+            ctx.fillText("Nå har dr. K.Ode endelig fått tilbake tagsene sine!", 50, 600);
+
+        } else if (theGame.score==0) {
+            ctx.fillText("Uff... Nå har kanskje kode mistet tagsa", 32, 32);
+            ctx.fillText("for alltid.... Du fikk bare " + theGame.score + " poeng", 100, 100);
+            ctx.fillText("Du burde absolutt jobbe videre!", 50, 600);
+
+        } else if (theGame.score<=5){
+            ctx.fillText("Dette var ikke så bra! ", 32, 32);
+            ctx.fillText("Du fikk bare " + theGame.score + " poeng, men er vel tanken som teller.", 32, 100);
+            ctx.fillText("Du burde nok jobbe litt til med dette!", 50, 600);
+
+            
+        } else if (theGame.score<=10){
+            ctx.fillText("Ikke perfekt men...", 32, 32);
+            ctx.fillText("Du fikk " + theGame.score + " poeng", 100, 100);
+            ctx.fillText("Professor K.Ode hadde fått flere enn dette...", 32, 130);
+            ctx.fillText("jobbe videre", 50, 600);
+
+            
+        } else if (theGame.score<=15){
+            ctx.fillText("Du er flink!", 32, 32);
+            ctx.fillText("Du fikk  " + theGame.score + " poeng", 100, 100);
+            ctx.fillText("Ikke lenge til du finner alle!!", 50, 600);
+
+            
+        } else if (theGame.score<=20){
+            ctx.fillText("GRATULERER Dette var kjempe bra!", 32, 32);
+            ctx.fillText(" Du fikk  " + theGame.score + " poeng", 100, 100);
+            ctx.fillText("Du er meget dyktig!", 50, 600);
+
+        }
+        
+        
 
 }
 
 var renderStartGame = function () {
         ctx.drawImage(bgFinishImage, 0, 0);
-	        
-        ctx.drawImage(kodeFinish, 250, 250);
-        
+	ctx.drawImage(kodeStarter1, 250, 250);
+
         
 	ctx.fillStyle = "rgb(250, 250, 250)";
 	ctx.font = "24px Helvetica";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
 	ctx.fillText("Vi trenger din hjelp til å samle inn taggene til dr. K.Ode!", 10, 32);
-	ctx.fillText("Du får opp et en kodesnut, så skal du velge hvilken ", 10, 64);
+        ctx.fillText("Du får opp et en kodesnut, så skal du velge hvilken ", 10, 64);
 	ctx.fillText("kategori denne kodesnutten hører til.  ", 10, 96);
 
         
-        //main();
 }
 
 
+
+
+
 // The main game loop
-var main = function () {
-       
-    
-    
-	var now = Date.now();
+var startGameFunc = function () {
+    	var now = Date.now();
 	var delta = now - then;
 
 	update(delta / 1000);
@@ -435,39 +497,56 @@ var main = function () {
 	then = now;
 
 	// Request to do this again ASAP
-        if (theGame.round >= 17){
-		finishedGame();
-	}
-	else {
-		requestAnimationFrame(main);
+        if ((theGame.round >= 15)){
+		finishedGame(true);
+	} 
+        
+        else if (failsInGame==3){
+            finishedGame(false);
+            
+        }
+	
+        else if (startGameNow) {
+		requestAnimationFrame(startGameFunc);
 	}
 
 };
 
-var finishedGame = function () {
+var finishedGame = function (won) {
         audio120.pause();
+        audio100.pause();
+        audio80.pause();
         audioEnd.play();
         
 	var now = Date.now();
 	var delta = now - then;
 	
-	renderFinishScoore();
+	renderFinishScoore(won);
 	then = now;
 }
 
 var startGame = function () {
+        
         var now = Date.now();
 	var delta = now - then;
 	
 	renderStartGame();
+        updateStartKode(delta / 1000);
 	then = now;
+        //first = false;
+        if(!startGameNow){
+            requestAnimationFrame(startGame);
+ 
+        } else {
+            audioStart.pause();
+            audio80.play();
+            window.cancelAnimationFrame(startGame)
+            startGameFunc();
+            requestAnimationFrame(startGameFunc);
+            
+        }
         
-        //requestAnimationFrame(startGame);
 }
-
-
-
-
 // Cross-browser support for requestAnimationFrame
 var w = window;
 requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
@@ -475,8 +554,7 @@ requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame
 // Let's play this game!
 var then = Date.now();
 reset();
-audio80.play();
- 
-//startGame();
-main();
+audioStart.play();
+startGame();
+
 </script>

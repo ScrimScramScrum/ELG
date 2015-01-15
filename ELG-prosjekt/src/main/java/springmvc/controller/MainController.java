@@ -89,6 +89,7 @@ public class MainController {
     @RequestMapping(value = "choosegame")
     public ModelAndView chooseGame(ModelAndView mav, HttpSession session) {
         User user = (User)session.getAttribute("user");
+        System.out.println("chooseGame");
         if(user == null){
             mav.setViewName("notloggedin");
             return mav;
