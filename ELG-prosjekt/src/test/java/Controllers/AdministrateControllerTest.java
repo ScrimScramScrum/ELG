@@ -63,6 +63,7 @@ import springmvc.service.GameListServiceMock;
 import springmvc.service.LoginService;
 import springmvc.service.PersonService;
 import springmvc.service.ResultService;
+import springmvc.ui.AddNewClassId;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -128,22 +129,179 @@ public class AdministrateControllerTest {
         this.mockMvc.perform(get("/administrateAccount").session(mockHttpSession))
                 .andExpect(view().name("administrateAccount")); 
     }
-    //DOES NOT WORK 
+
     @Test
-    public void testChangePassViewValidUser() throws Exception{
+    public void testChangePassWithValidUser() throws Exception{
         MockHttpSession mockHttpSession = new MockHttpSession(); 
         User user = new User(); 
         user.setEmail("Hei@gmail.com");
         mockHttpSession.setAttribute("user", user); 
-        when(personService.getPerson(any(String.class))).thenReturn(new Person()); 
+        Person person = new Person(); 
+        when(personService.getPerson(any(String.class))).thenReturn(person); 
         when(personService.changePassword(any(Person.class), any(String.class), any(String.class), any(String.class))).thenReturn(true); 
-        this.mockMvc.perform(post("changePassword")
-                .param("oldPw", "hei")
-                .param("newPw", "heii")
-                .param("confirmPw", "heii")
+        this.mockMvc.perform(post("/changePassword")
+                .param("oldPw", "asdasdasd")
+                .param("newPw", "asdasdasdasd")
+                .param("confirmPw", "asdasdasdasd")
                 .session(mockHttpSession))
-                .andExpect(model().attributeExists("changedPassword"))
+                .andExpect(model().attribute("changedPassword", "Passordet er endret."))
                 .andExpect(view().name("administrateAccount"));
                 
     }
+    
+    @Test
+    public void testChangePassWithWrongPass() throws Exception{
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        User user = new User();        
+        user.setEmail("Hei@gmail.com");
+        mockHttpSession.setAttribute("user", user); 
+        when(personService.getPerson(any(String.class))).thenReturn(new Person()); 
+        when(personService.changePassword(any(Person.class), any(String.class), any(String.class), any(String.class))).thenReturn(false); 
+        this.mockMvc.perform(post("/changePassword")
+                .param("oldPw", "asdasdasd")
+                .param("newPw", "asdasdasdasd")
+                .param("confirmPw", "asdasdasdasd")
+                .session(mockHttpSession))
+                .andExpect(model().attribute("changedPassword", "Feil. Husk at passordet må være lengre enn 8 tegn."))
+                .andExpect(model().attribute("chooseSite", 1))
+                .andExpect(view().name("administrateAccount"));
+    }
+    
+     @Test
+    public void testAddClassIdValidInfo() throws Exception{
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        User user = new User(); 
+        user.setEmail("Hei@gmail.com");
+        mockHttpSession.setAttribute("user", user); 
+        AddNewClassId ancid = new AddNewClassId(); 
+        ancid.setClassId("klasse 1");
+        
+        when(personService.setClassId(any(Person.class), any(String.class))).thenReturn(true); 
+        when(personService.getPerson(any(String.class))).thenReturn(new Person()); 
+        when(personService.changePassword(any(Person.class), any(String.class), any(String.class), any(String.class))).thenReturn(false); 
+        this.mockMvc.perform(post("/addClassId")
+                .param("classId", "klasse 1")
+                .session(mockHttpSession))
+                .andExpect(model().attribute("NewClassMessage", "Du er nå registrert i klasse: " + ancid.getClassId()))
+                .andExpect(view().name("administrateAccount"));
+    }
+    
+    @Test
+    public void testAddClassIdInValidInfo() throws Exception{
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        User user = new User(); 
+        user.setEmail("Hei@gmail.com");
+        mockHttpSession.setAttribute("user", user); 
+        AddNewClassId ancid = new AddNewClassId(); 
+        ancid.setClassId("klasse 1");
+        
+        when(personService.setClassId(any(Person.class), any(String.class))).thenReturn(false); 
+        when(personService.getPerson(any(String.class))).thenReturn(new Person()); 
+        this.mockMvc.perform(post("/addClassId")
+                .param("classId", "klasse 1")
+                .session(mockHttpSession))
+                .andExpect(model().attribute("chooseSite", 2))
+                .andExpect(model().attribute("NewClassMessage", "Feil. Klassen eksisterer ikke. "))
+                .andExpect(view().name("administrateAccount"));
+    }
+    
+    @Test
+    public void testMakeAdminValid() throws Exception{
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        User user = new User(); 
+        user.setEmail("Hei@gmail.com");
+        mockHttpSession.setAttribute("user", user); 
+        AddNewClassId ancid = new AddNewClassId(); 
+        ancid.setClassId("klasse 1");
+        Person person = new Person(); 
+        
+        when(personService.setClassId(any(Person.class), any(String.class))).thenReturn(false); 
+        when(personService.getPerson(any(String.class))).thenReturn(person);
+        when(personService.makeAdmin(person, "123")).thenReturn(true); 
+        this.mockMvc.perform(post("/makeNewAdmin")
+                .param("makeAdminPw", "123")
+                .session(mockHttpSession))
+                .andExpect(model().attribute("makeAdminMessage",  "Du har nå admin-rettigheter. "))
+                .andExpect(view().name("administrateAccount"));
+    }
+    
+    @Test
+    public void testMakeAdminInValid() throws Exception{
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        User user = new User(); 
+        user.setEmail("Hei@gmail.com");
+        mockHttpSession.setAttribute("user", user); 
+        AddNewClassId ancid = new AddNewClassId(); 
+        ancid.setClassId("klasse 1");
+        when(personService.makeAdmin(any(Person.class), any(String.class))).thenReturn(false); 
+        this.mockMvc.perform(post("/makeNewAdmin")
+                .session(mockHttpSession))
+                .andExpect(model().attribute("chooseSite",  3))
+                .andExpect(model().attribute("makeAdminMessage", "Feil. Administrator-passordet var ikke riktig. "))
+                .andExpect(view().name("administrateAccount"));
+    }
+    
+    @Test
+    public void testMakeClassValid() throws Exception{
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        User user = new User(); 
+        user.setEmail("Hei@gmail.com");
+        mockHttpSession.setAttribute("user", user); 
+        AddNewClassId ancid = new AddNewClassId(); 
+        ancid.setClassId("klasse 1");
+        when(personService.getPerson(any(String.class))).thenReturn(new Person());
+        when(personService.makeAdmin(any(Person.class), any(String.class))).thenReturn(false); 
+        when(classService.registrateNewClassId("klasse 1")).thenReturn(true); 
+        this.mockMvc.perform(post("/makeClass")
+                .param("classId", "klasse 1")
+                .session(mockHttpSession))
+                .andExpect(model().attribute("makeClassMessage",  "Ny klasse ble registrert.  "))
+                .andExpect(view().name("administrateAccount"));
+    }
+    
+    @Test
+    public void testMakeClassInValid() throws Exception{
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        User user = new User(); 
+        user.setEmail("Hei@gmail.com");
+        mockHttpSession.setAttribute("user", user); 
+        AddNewClassId ancid = new AddNewClassId(); 
+        ancid.setClassId("klasse 1");
+        when(personService.getPerson(any(String.class))).thenReturn(new Person());
+        when(personService.makeAdmin(any(Person.class), any(String.class))).thenReturn(false); 
+        when(classService.registrateNewClassId("klasse 1")).thenReturn(false); 
+        this.mockMvc.perform(post("/makeClass")
+                .param("classId", "klasse 1")
+                .session(mockHttpSession))
+                .andExpect(model().attribute("chooseSite",  4))
+                .andExpect(model().attribute("makeClassMessage",  "Feil, Klassen finnes fra før eller .  "))
+                .andExpect(view().name("administrateAccount"));
+    }
+    
+    @Test
+    public void testChooseAdministrateAsGuest() throws Exception{
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        User user = new User(); 
+        user.setEmail("GUEST");
+        mockHttpSession.setAttribute("user", user); 
+        this.mockMvc.perform(post("/chooseAdministrateFunction")
+                .param("chooseId", "3")
+                .session(mockHttpSession))
+                .andExpect(model().attribute("chooseSite",  5))
+                .andExpect(view().name("administrateAccount"));
+    }
+    
+    @Test
+    public void testChooseAdministrateAsRegUser() throws Exception{
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        User user = new User(); 
+        user.setEmail("somemail@gmail.com");
+        mockHttpSession.setAttribute("user", user); 
+        this.mockMvc.perform(post("/chooseAdministrateFunction")
+                .param("chooseId", "3")
+                .session(mockHttpSession))
+                .andExpect(model().attribute("chooseSite",  3))
+                .andExpect(view().name("administrateAccount"));
+    }
+    
 }
