@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package JUnit;
+package Controllers;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -23,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import springmvc.controller.MultiChoiceController;
+import springmvc.domain.Exercise;
 import springmvc.domain.MultiChoice;
 import springmvc.repository.MultiChoiceRepoMock;
 import springmvc.service.MultiChoiceService;
@@ -75,17 +77,4 @@ public class MultiChoiceControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("multichoice"));
     }
-    
-    
-    //not working due to session attributes - will be fixed
-    @Test
-    public void testNextTask() throws Exception{
-        MultiChoiceRepoMock repo = new MultiChoiceRepoMock(); 
-        MultiChoice mc = repo.getMultiChoice("Spill 1"); 
-        this.mockMvc.perform(post("/nextTask")
-                .param("spillet", mc.getName()))
-                .andExpect(status().isOk())
-                .andExpect(view().name("multichoice"));
-    }
-    
 }

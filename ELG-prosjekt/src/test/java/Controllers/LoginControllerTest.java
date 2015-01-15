@@ -1,4 +1,4 @@
-package JUnit;
+package Controllers;
 
 import org.springframework.context.MessageSource;
 import static org.mockito.Mockito.*;
@@ -20,6 +20,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -28,6 +29,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -43,6 +45,7 @@ import springmvc.service.GameListServiceMock;
 import springmvc.service.LoginService;
 import springmvc.service.PersonService;
 import springmvc.service.ResultService;
+import springmvc.ui.SendNewPassword;
 
 public class LoginControllerTest {
     private MockMvc mockMvc;
@@ -104,5 +107,17 @@ public class LoginControllerTest {
         when(personService.getPerson(any(String.class))).thenReturn(new Person()); 
         when(personService.generateNewPassword(any(Person.class))).thenReturn(true); 
         this.mockMvc.perform(get("/sendNewPassword")).andExpect(status().isOk()).andExpect(view().name("firstLogin"));
+    }
+    
+    @Test
+    public void testSendNewPwWithError() throws Exception{
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        SendNewPassword pw = new SendNewPassword(); 
+       // pw.setEmail(null);
+        //mockHttpSession.setAttribute("sendNewPassword", pw);
+        this.mockMvc.perform(post("/sendNewPassword")
+                .param("email", ""))
+                //.session(mockHttpSession))
+                .andExpect(model().attributeHasFieldErrors("sendNewPassword", "email"));
     }
 }

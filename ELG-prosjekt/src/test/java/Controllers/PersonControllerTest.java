@@ -1,4 +1,4 @@
-package JUnit;
+package Controllers;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import org.junit.After;
