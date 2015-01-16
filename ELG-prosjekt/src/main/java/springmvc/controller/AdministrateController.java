@@ -41,17 +41,20 @@ public class AdministrateController {
          
     
     @RequestMapping(value = "administrateAccount" , method=RequestMethod.GET)
-    public String adminAccount(@ModelAttribute NewPassword newPassword, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin, HttpSession session){
-        System.out.println("GET kjorer");
+    public String adminAccount(@ModelAttribute NewPassword newPassword, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin, HttpSession session, @ModelAttribute Login login){
+        System.out.println("GET kjorer NÅ");
         User user = (User)session.getAttribute("user");
+        if (user == null){
+            return "firstLogin"; 
+        }
         if (user.getEmail().equals("GUEST")){
             return "result";
-        }
+        } 
         return "administrateAccount";
     }
     
     
-    @RequestMapping(value = "changePassword" , method=RequestMethod.POST)
+   @RequestMapping(value = "changePassword" , method=RequestMethod.POST)
     public String changePass(@ModelAttribute NewPassword newPassword, BindingResult error, Model modell, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin,HttpSession session) {
        
         if(error.hasErrors()){

@@ -10,7 +10,7 @@
 
 <html>
     <head>
-        <title>Start Page</title>
+        <title>Startside</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         
@@ -157,7 +157,17 @@
                     mode: "css",
                     theme: "default",
                     lineNumbers: true,
-                    indentUnit: 4
+                    indentUnit: 4, 
+                    extraKeys: {
+                        "Ctrl-Enter": function(cm) {
+                            testFunc(); 
+                            testFunc(); 
+                        },
+                        "Cmd-Enter": function(cm) {
+                            testFunc(); 
+                            testFunc(); 
+                        }
+                    }
                 });
                     editableCodeMirror.setSize("100%", 300); 
                 var editableCodeMirror2 = CodeMirror.fromTextArea(document.getElementById('htmlView'), {
@@ -165,16 +175,26 @@
                     mode: "xml",
                     theme: "default",
                     lineNumbers: true,
-                    indentUnit: 4
+                    indentUnit: 4,
+                    extraKeys: {
+                        "Ctrl-Enter": function(cm) {
+                            testFunc();
+                            testFunc(); 
+                        },
+                        "Cmd-Enter": function(cm) {
+                            testFunc();
+                            testFunc(); 
+                        }
+                    }
                 });
+                testFunc(); 
 
-                testFunc();
 
                 beautify(0); 
                 beautify(1);
 
                 editableCodeMirror2.setSize("100%", 300); 
-
+/*
                 editableCodeMirror.on("changes", function(cm, change){
                     testFunc();
                     testFunc();
@@ -184,7 +204,7 @@
                     testFunc();
                     testFunc();
 
-                });
+                });*/
              };
 
              function testFunc(){
@@ -272,13 +292,13 @@
                             <form action = "finishgame" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post" >
                                 <input type = "hidden" value = "" id = "score" name = "score"/>
 
-                                <input type = "submit" id ="resembleSubmit" value = "Finish" />
+                                <input type = "submit" id ="resembleSubmit" value = "Fullfør" />
                             </form>
                         </c:when>
                         <c:otherwise>
                             <form action = "nextresembletask" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post">
                                 <input type = "hidden" value = "" id = "score" name = "score"/>
-                                <input type = "submit" value = "next" id ="resembleSubmit" />
+                                <input type = "submit" value = "Neste" id ="resembleSubmit" />
                             </form>
                         </c:otherwise>
                     </c:choose>

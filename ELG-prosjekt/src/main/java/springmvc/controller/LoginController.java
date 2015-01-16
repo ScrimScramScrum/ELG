@@ -60,15 +60,15 @@ public class LoginController {
         Person person = personService.getPerson(sendNewPassword.getEmail());
         //Person has to be pulled from session?
         if (person == null){ // Denne kjører, Hvorfor vil ikke feilmeldingen vises? 
-            System.out.println("Feil: Noe gikk galt ved endring av passord");
-            modell.addAttribute("sendNewPasswordError", "something went wrong with the resend of the Password");
+            System.out.println("Feil ved endring av passord");
+            modell.addAttribute("sendNewPasswordError", "Feil ved endring av passord");
             return "forgotPasswordFromLogin";
         }else if (personService.generateNewPassword(person)){
-            System.out.println("New Password is sent");
+            System.out.println("Nytt passord er sendt");
             modell.addAttribute("regeneratedPassword", "<br>Passordet er nå sent på mailen din: "+person.getEmail()+"<br> &nbsp"); 
         } else {
-            System.out.println("Error, something went wrong with the resend of the Password");
-            modell.addAttribute("Error, something went wrong with the resend of the Password"); 
+            System.out.println("Feil ved endring av passord");
+            modell.addAttribute("sendNewPasswordError", "Feil ved endring av passord"); 
             return "forgotPasswordFromLogin";
 
         }

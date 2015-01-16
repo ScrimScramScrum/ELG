@@ -135,7 +135,7 @@ function checkPasswordMatch() {
                                 </td> 
                             </tr>
 
-                            <tr><td colspan="2"><center><input type="submit" value="Legg til ny klasse"></td></tr></center>
+                            <tr><td colspan="2"><center><input type="submit" value="Registrer"></td></tr></center>
                         </table>
                     </form:form>
                     <font color=red>${NewClassMessage}</font>
@@ -145,7 +145,7 @@ function checkPasswordMatch() {
                         <h2>Få administrator-rettigheter</h2><br>
                         <table>        
                             <tr>  
-                                <td> Type admin-password: </td>
+                                <td> Skriv admin-passord: </td>
                                 <td> <form:input path="makeAdminPw" type="password" /> 
                                      <form:errors path="makeAdminPw" />
                                 </td> 
@@ -158,7 +158,7 @@ function checkPasswordMatch() {
                 </c:when>
                 <c:when test="${chooseSite == 4}"> 
                     <form:form action="makeClass" method="post" modelAttribute="makeNewClassAttribute" >
-                        <h2>Registrer ny klasse</h2><br>
+                        <h2>Registrer en ny klasse</h2><br>
                         <table>        
                             <tr>  
                                 <td> Ny klasse: </td>
@@ -166,13 +166,13 @@ function checkPasswordMatch() {
                                      <form:errors path="classId" />
                                 </td> 
                             </tr>
-                           <tr><td colspan="2"> <center><input type="submit" value="Lag ny klasse"</td></tr></center>
+                           <tr><td colspan="2"> <center><input type="submit" value="Registrer"</td></tr></center>
                         </table>
                     </form:form>
                     <font color=red> ${makeClassMessage}</font>
                 </c:when> 
                 <c:when test="${chooseSite == 5}"> 
-                    <h2 align=center><font color=red> Guest user har ikke tilgang til denne funksjonen. </font></h2>
+                    <h2 align=center><font color=red> Gjestebrukere har ikke tilgang til denne funksjonen. </font></h2>
                 </c:when> 
                 <c:otherwise>
                     <h1>Velg fra menyen til venstre. </h2>
