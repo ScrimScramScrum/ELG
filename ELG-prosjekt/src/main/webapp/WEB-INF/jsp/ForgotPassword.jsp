@@ -34,22 +34,17 @@
             <form:errors path="email" />
             
             
-               <div class="olvido">
-            </div>
+            <div class="olvido"/>
             
             <a href="javascript:confirmComplete()" name="submitCommand"class="enviar">OK Send epost</a> 
             
             <div class="olvido">
-                <div class="col"><a href="javascript:sendToLogin()" title="Ver Carásteres">back</a></div>
+                <div class="col"><a href="javascript:sendToLogin()" title="Back to login">back</a></div>
             </div>
 
             <div id ="errorMessage" class="errorMessages" >
                 ${sendNewPasswordError}
             </div>
-            
-            
-            
-
         </form:form>
                             
     </section>

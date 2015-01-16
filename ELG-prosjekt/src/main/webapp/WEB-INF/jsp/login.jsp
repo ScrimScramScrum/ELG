@@ -17,7 +17,7 @@
     
     function guestUserLogin(){
         window.location.href='<c:url value="/loginAsGuest"/>';
-    }
+    }       
 </script>
 
 
@@ -27,16 +27,16 @@
     <section class="login">
         <div class="titulo">Education Learning Game</div>
          <form:form action="login" method="post" modelAttribute="login" enctype="application/x-www-form-urlencoded" >
+             
             <form:input path="email" value="test@gmail.com" type="text"  placeholder="Username" data-icon="U" />
-            <form:input path="password" type="password" placeholder="Password" data-icon="x" />
-            
-            <a href="javascript:submitFormWithValue()" name="submitCommand"class="enviar">Submit</a> 
+            <form:input path="password" type="password" placeholder="Password" data-icon="x"  />
+            <input type="submit" style="position: absolute; left: -9999px"/>
+            <a href="javascript:submitFormWithValue()" type="submit" name="submitCommand"class="enviar">Login</a> 
             
             <div class="olvido">
                     <div class="col"><a href="javascript:sendToRegisterNewUser()" title="Register new user">Registrer ny bruker</a></div>
                     <div class="col"><a href="javascript:sendToForgotPassword()" title="Forgotten password">Forgot Password?</a></div>
-                    <div class="col"><a href="javascript:guestUserLogin()" title="Guest user">Guest user</a></div>
-
+                    <div class="col"><a href="javascript:guestUserLogin()" title="Login as a guest user">Guest user</a></div>
             </div>
             
 
@@ -49,21 +49,16 @@
             <div id ="info" class="infoMessages" >
                 ${regeneratedPassword} 
                 ${changedPassword}   
-                ${wrongPassword} 
-                ${registeredOK}
-                
+                ${registeredOK}                
             </div>
-
             
-            <br>
-            <br>
+            <br><br>
         </form:form>
     </section>
 
         
 </div>
 
-${pageContext.request.contextPath}
 
   
 
@@ -194,6 +189,7 @@ body {
 }
 
 .login .olvido {
+    
     width: 240px;
     height: auto;
     overflow: hidden;
@@ -204,6 +200,7 @@ body {
 }
 
 .login .olvido .col {
+    
     width: 100%;
     height: auto;
     padding-top: 3px;
@@ -214,13 +211,9 @@ body {
 .login .olvido .col a {
     color: #fff;
     text-decoration: none;
-    font: 12px Arial;
+    font: 12px Arial;    
 }
 
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
     margin: 0;
@@ -231,7 +224,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     vertical-align: baseline;
 }
 
-/* HTML5 display-role reset for older browsers */
+/* HTML5 display-role reset for eldre nettlesere */
 
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block }
 
