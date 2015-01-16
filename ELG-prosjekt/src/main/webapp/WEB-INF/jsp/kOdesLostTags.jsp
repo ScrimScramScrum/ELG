@@ -426,12 +426,12 @@ var renderFinishScoore = function(won) {
 	ctx.textBaseline = "top";
         
         if (theGame.score==19){
-            ctx.fillText("GRATULERER du har runna hele K.Odes Lost Tags!", 32, 32);
+            ctx.fillText("GRATULERER du har fullført K.Odes Lost Tags!", 32, 32);
             ctx.fillText("Du fikk " + theGame.score + " poeng", 100, 100);
-            ctx.fillText("Nå har dr. K.Ode endelig fått tilbake tagsene sine!", 50, 600);
+            ctx.fillText("Nå har professor K.Ode endelig fått tilbake sine tags!", 50, 600);
 
         } else if (theGame.score==0) {
-            ctx.fillText("Uff... Nå har kanskje kode mistet tagsa", 32, 32);
+            ctx.fillText("Uff... Nå har kanskje K. Ode mistet sine tags", 32, 32);
             ctx.fillText("for alltid.... Du fikk bare " + theGame.score + " poeng", 100, 100);
             ctx.fillText("Du burde absolutt jobbe videre!", 50, 600);
 
@@ -480,12 +480,12 @@ var renderStartGame = function () {
 	ctx.font = "24px Helvetica";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
-	ctx.fillText("Vi trenger din hjelp til å samle inn taggene til dr. K.Ode!", 10, 32);
-        ctx.fillText("Du får opp et en kodesnut, så skal du velge hvilken ", 10, 64);
+	ctx.fillText("Å nei! Professor Kristian Ode har mistet sine tags.", 10, 32);
+        ctx.fillText("Du får opp et en kodesnutt, så skal du velge hvilken ", 10, 64);
 	ctx.fillText("kategori denne kodesnutten hører til. Lykke til!   ", 10, 96);
-        ctx.fillText("Starter ved å trykke på Enter! ", 10, 160);
+        ctx.fillText("Du starter spillet ved å trykke på Enter! ", 10, 160);
 
-	ctx.fillText("DU bevegel Dr K.Ode med pilene ( ->,<- )  på tastaturet.   ", 10, 600);
+	ctx.fillText("Du styrer professor K. Ode med piltastene", 10, 600);
 
         
 }
