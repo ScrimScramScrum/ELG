@@ -48,7 +48,7 @@
     </definition>
     
     <definition name="chooseGame" extends="baseGameMenuLayout">
-        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="title"  value="Spill"/>
         <put-attribute name="body"   value="/WEB-INF/tiles/gamemenu.jsp"/>
         <put-attribute name="gamedisplay" value="/WEB-INF/tiles/preview.jsp"/> 
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_games.jsp"/>   
