@@ -146,18 +146,43 @@ public class MainController {
         mav.setViewName("chooseGame");
         return mav;
     }
-
-    @RequestMapping(value = "highscore")
-    public ModelAndView chooseGameHighscore(ModelAndView mav, HttpSession session) {
-        /*User user = (User)session.getAttribute("user");
+    
+    @RequestMapping(value = "highscore", method = RequestMethod.GET)
+    public ModelAndView chooseGameHighscore(ModelAndView mav, HttpSession session, @ModelAttribute Login login) {
+        
+        User user = (User)session.getAttribute("user");
         if(user == null){
-            mav.setViewName("about");
+            mav.setViewName("firstLogin");
             return mav;
-        } */
+        }
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames();
+        System.out.println("Kommer hit 1");
         ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();
+        System.out.println("Kommer hit 2");
         int resemble = 0;
         mav.addObject("gametype", resemble);
+        System.out.println("Kommer hit 3");
+        mav.addObject("resembleGames", resembleGames);
+        mav.addObject("multiChoiceGames", multiChoiceGames);
+        mav.setViewName("chooseGameHighscore");
+        return mav;
+    }
+
+    @RequestMapping(value = "highscore", method = RequestMethod.POST)
+    public ModelAndView chooseGameHighscore(ModelAndView mav, HttpSession session) {
+        
+        User user = (User)session.getAttribute("user");
+        if(user == null){
+            mav.setViewName("login");
+            return mav;
+        }
+        ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames();
+        System.out.println("Kommer hit 1");
+        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();
+        System.out.println("Kommer hit 2");
+        int resemble = 0;
+        mav.addObject("gametype", resemble);
+        System.out.println("Kommer hit 3");
         mav.addObject("resembleGames", resembleGames);
         mav.addObject("multiChoiceGames", multiChoiceGames);
         mav.setViewName("chooseGameHighscore");

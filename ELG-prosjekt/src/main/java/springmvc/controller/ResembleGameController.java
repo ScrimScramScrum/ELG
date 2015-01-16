@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import springmvc.domain.HighscoreDisplay;
+import springmvc.domain.Login;
 import springmvc.domain.ResembleGame;
 import springmvc.domain.User;
 import springmvc.service.GameListService;
@@ -36,15 +37,7 @@ public class ResembleGameController {
     
     @Autowired
     private ResultService r;
-  /*  
-    @RequestMapping(value = "resemblegame")
-    public ModelAndView resembleGame(ModelAndView mav){
-        ResembleGame resembleGame = resembleGameService.getResembleGame(1);
-        mav.addObject("resembleGame", resembleGame);
-        mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask())); 
-        mav.setViewName("resembleGame");
-        return mav; 
-    }*/
+  
     
     @ExceptionHandler(Exception.class)
     public ModelAndView handleError(HttpServletRequest req, Exception exception){
@@ -78,7 +71,8 @@ public class ResembleGameController {
         // TODO: ADD IF ELSE (lastelement in list -> setviewname index???? 
     }
     
-    @RequestMapping(value ="finishgame")
+    
+    @RequestMapping(value ="finishgame", method = RequestMethod.POST)
     public String resembleGameFinish(HttpSession session, ModelAndView mav, @ModelAttribute(value = "resembleGame") ResembleGame resembleGame, HttpServletRequest req) {
         System.out.println("Finishgame kjører");
         User user = (User)session.getAttribute("user");
@@ -108,3 +102,14 @@ public class ResembleGameController {
         return "finishgame";//finishgame
     }
 }
+
+
+/*  
+    @RequestMapping(value = "resemblegame")
+    public ModelAndView resembleGame(ModelAndView mav){
+        ResembleGame resembleGame = resembleGameService.getResembleGame(1);
+        mav.addObject("resembleGame", resembleGame);
+        mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask())); 
+        mav.setViewName("resembleGame");
+        return mav; 
+    }*/
