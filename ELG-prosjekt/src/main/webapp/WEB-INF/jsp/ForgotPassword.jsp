@@ -37,10 +37,10 @@
                <div class="olvido">
             </div>
             
-            <a href="javascript:confirmComplete()" name="submitCommand"class="enviar">OK Send epost</a> 
+            <a href="javascript:confirmComplete()" name="submitCommand"class="enviar">Endre passord</a> 
             
             <div class="olvido">
-                <div class="col"><a href="javascript:sendToLogin()" title="Ver Carásteres">back</a></div>
+                <div class="col"><a href="javascript:sendToLogin()" title="Ver Carásteres">Tilbake til innlogging</a></div>
             </div>
 
             <div id ="errorMessage" class="errorMessages" >
