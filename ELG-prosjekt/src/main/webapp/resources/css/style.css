@@ -149,6 +149,7 @@ body, #skel-panels-pageWrapper
 }
 
 #gameLinkA:hover{
+  	cursor:default;
 	color: white;
 }
 
