@@ -269,7 +269,7 @@ public class MainController {
             int a = Integer.parseInt(id);
             resemble = 1;
             resembleTemp = gameListService.getResembleGame(a);
-            hs = r.getCompletionRG(resembleTemp);
+            //hs = r.getCompletionRG(resembleTemp);
             if (hs.size() == 0) {
                 String s = "Ingen studenter har bestått";
                 mav.addObject("nopass", s);
@@ -280,7 +280,7 @@ public class MainController {
         } catch (NumberFormatException e) {
             resemble = 2;
             multiTemp = gameListService.getMultiChoiceGame(id);
-            hs = r.getCompletion(multiTemp);
+            //hs = r.getCompletion(multiTemp);
             if (hs.size() == 0) {
                 String s = "Ingen studenter har bestått";
                 mav.addObject("nopass", s);
