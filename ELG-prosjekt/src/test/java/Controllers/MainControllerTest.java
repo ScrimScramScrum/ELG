@@ -225,11 +225,36 @@ public class MainControllerTest {
 
     
     @Test
+    public void testLoginPostWithError() throws Exception{
+        Person loggedIn = new Person("email@email.com", "Chris", "banana"); 
+        when(personService.getPerson(any(String.class))).thenReturn(loggedIn);
+        when(loginService.compareInformation(any(Login.class))).thenReturn(true); 
+        this.mockMvc.perform(post("/login").param("this ", "asd")).andExpect(view().name("firstLogin"));
+    }
+    
+    @Test
     public void testLoginPostOk() throws Exception{
         Person loggedIn = new Person("email@email.com", "Chris", "banana"); 
         when(personService.getPerson(any(String.class))).thenReturn(loggedIn);
         when(loginService.compareInformation(any(Login.class))).thenReturn(true); 
-        this.mockMvc.perform(post("/login").param("asd", "asd")).andExpect(view().name("firstLogin"));
+        this.mockMvc.perform(post("/login")
+                .param("email ", "email@email.com")
+                .param("password", "thisisapass")
+                .param("email", "eamsdasd@asd.com"))
+                .andExpect(view().name("chooseGameHighscore"));
+    }
+    
+    @Test
+    public void testLoginInvalidCompareInfo() throws Exception{
+        Person loggedIn = new Person("email@email.com", "Chris", "banana"); 
+        when(personService.getPerson(any(String.class))).thenReturn(loggedIn);
+        when(loginService.compareInformation(any(Login.class))).thenReturn(false); 
+        this.mockMvc.perform(post("/login")
+                .param("email ", loggedIn.getEmail())
+                .param("password", "thisisapass")
+                .param("email", "eamsdasd@asd.com"))
+                .andExpect(model().attribute("wrongPassword", "Feil brukernavn/passord. Prøv på nytt"))
+                .andExpect(view().name("firstLogin"));
     }
     
     @Test
@@ -385,5 +410,4 @@ public class MainControllerTest {
                 .andExpect(model().attributeExists("list"))
                 .andExpect(view().name("completionlist"));
     }
-    
 }
