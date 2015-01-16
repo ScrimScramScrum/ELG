@@ -73,7 +73,7 @@ public class ResembleGameController {
     public String resembleGameFinish(HttpSession session, ModelAndView mav, @ModelAttribute(value = "resembleGame") ResembleGame resembleGame, HttpServletRequest req) {
         resembleGame.setTaskNumberScore(resembleGame.getCurrentTask(), Double.parseDouble(req.getParameter("score")));
         System.out.println("TOTAL SCORE: " + resembleGame.getTotalScore());
-        Double score = resembleGame.getTotalScore();            
+        Double score = (resembleGame.getTotalScore()/resembleGame.numberOfTasks());            
             User user = (User)session.getAttribute("user");
             String k = user.getEmail();
             int d = r.getResembleGameRes(k, resembleGame);

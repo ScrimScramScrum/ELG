@@ -36,5 +36,9 @@ public interface ResultRepo{
         
         public ArrayList <HighscoreDisplay> getCompletion(String classname);
         
-        public ArrayList <HighscoreDisplay> getCompletionRG(String classname, int scorelimit);
+        public ArrayList <HighscoreDisplay> getCompletionRG(String classname);
+        
+        public ArrayList <String> getAllOvinger();
+        
+        public ArrayList <String> getAllClasses(String email);
 }

@@ -33,22 +33,15 @@
     <body>
                 <div id="sidebar">
             <center>
-            <h2>Select a game</h2>
-            <h4>Resemble Games</h4>
+            <h2>Velg en klasse</h2>
+            <h4>Klasser:</h4>
 
-                <c:forEach items="${resembleGames}" var="game">
+                <c:forEach items="${allClasses}" var="class">
                         <form action="choosegameCompletionlist" method="post">
-                            <input type="hidden" name="gameid" id="gameid" value="${game.gameId}" />
-                            <div class = "gamelink"><a href ="choosegame" id="gameLinkA" onclick =" get_form(this).submit(); return false"><c:out value = "${game.getGamename()}"/></a></div>
+                            <input type="hidden" name="classid" id="classid" value="${class}" />
+                            <div class = "gamelink"><a href ="completionlist" id="gameLinkA" onclick =" get_form(this).submit(); return false"><c:out value = "${class}"/></a></div>
                         </form>
                 </c:forEach>
-            <h4>MultiChoice Games</h4>
-            <c:forEach items="${multiChoiceGames}" var="game">
-                    <form action="choosegameCompletionlist" method="post">
-                        <input type="hidden" name="gameid" id="gameid" value="${game.name}" />
-                        <div class = "gamelink"><a href ="choosegame" id="gameLinkA" onclick =" get_form(this).submit(); return false"> <c:out value = "${game.name}"/></a></div>
-                    </form>
-            </c:forEach>
             </center>
         </div>
     </body>

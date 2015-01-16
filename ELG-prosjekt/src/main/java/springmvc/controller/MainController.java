@@ -244,61 +244,31 @@ public class MainController {
             mav.setViewName("about");
             return mav;
         }
-        ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames();
-        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();
-        int resemble = 0;
-        mav.addObject("gametype", resemble);
-        mav.addObject("resembleGames", resembleGames);
-        mav.addObject("multiChoiceGames", multiChoiceGames);
+        ArrayList<String> list = r.getAllClasses(user.getEmail());
+        mav.addObject("allClasses", list);
         mav.setViewName("completionlist");
         return mav;
     }
 
     @RequestMapping(value = "choosegameCompletionlist", method = RequestMethod.POST)
-    public ModelAndView chooseGameCompletionlist(ModelAndView mav, @RequestParam("gameid") String id, HttpSession session) {
+    public ModelAndView chooseGameCompletionlist(ModelAndView mav, @RequestParam("classid") String id, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (!user.isAdmin()) {
             mav.setViewName("about");
             return mav;
         }
-        int resemble = 0;
-        MultiChoice multiTemp = null;
-        ResembleGame resembleTemp = null;
         ArrayList<HighscoreDisplay> hs = new ArrayList<HighscoreDisplay>();
-        try {
-            int a = Integer.parseInt(id);
-            resemble = 1;
-            resembleTemp = gameListService.getResembleGame(a);
-            hs = r.getCompletionRG(resembleTemp);
+            hs = r.getCompleteCompletion(id);
             if (hs.size() == 0) {
                 String s = "Ingen studenter har bestått";
                 mav.addObject("nopass", s);
             }
             mav.addObject("list", hs);
             System.out.println("***** lengde= " + hs.size());
-
-        } catch (NumberFormatException e) {
-            resemble = 2;
-            multiTemp = gameListService.getMultiChoiceGame(id);
-            hs = r.getCompletion(multiTemp);
-            if (hs.size() == 0) {
-                String s = "Ingen studenter har bestått";
-                mav.addObject("nopass", s);
-            }
-            mav.addObject("list", hs);
-            System.out.println("********** lengde = " + hs.size());
-        }
-        mav.addObject("gametype", resemble);
-        // use session instead of getting all games every time a game get clicked?
-        ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames();
-        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();
-        mav.addObject("gamenr", id);
-        //mav.addObject("info", info);
-        mav.addObject("sortedScores", r.sortHighScores(hs));
-        mav.addObject("resembleGames", resembleGames);
-        mav.addObject("multiChoiceGames", multiChoiceGames);
-        mav.setViewName("completionlist");
-        return mav;
+            ArrayList<String> list = r.getAllClasses(user.getEmail());
+            mav.addObject("allClasses", list);
+            mav.setViewName("completionlist");
+            return mav;
     }
     
     

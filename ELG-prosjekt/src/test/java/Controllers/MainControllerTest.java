@@ -308,7 +308,7 @@ public class MainControllerTest {
         user.setAdmin(true);
         MockHttpSession mockHttpSession = new MockHttpSession(); 
         mockHttpSession.setAttribute("user", user);
-        when(r.getCompletionRG(any(ResembleGame.class))).thenReturn(new ArrayList<HighscoreDisplay>()); 
+        //when(r.getCompletionRG(any(ResembleGame.class))).thenReturn(new ArrayList<HighscoreDisplay>()); 
         this.mockMvc.perform(post("/choosegameCompletionlist")
                 .param("gameid", "1")
                 .session(mockHttpSession))
