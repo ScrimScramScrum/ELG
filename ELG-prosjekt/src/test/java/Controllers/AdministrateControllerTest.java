@@ -117,7 +117,7 @@ public class AdministrateControllerTest {
     @Test
     public void testAdministrateAccountNullUser() throws Exception{
         this.mockMvc.perform(get("/administrateAccount"))
-                .andExpect(view().name("error")); 
+                .andExpect(view().name("firstLogin")); 
     }
     
     @Test

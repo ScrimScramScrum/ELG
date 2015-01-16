@@ -99,14 +99,14 @@ public class LoginControllerTest {
     
     @Test
     public void testSendNewPassword() throws Exception{
-        this.mockMvc.perform(get("/sendNewPassword")).andExpect(status().isOk()).andExpect(view().name("firstLogin"));
+        this.mockMvc.perform(get("/sendNewPassword")).andExpect(status().isOk()).andExpect(view().name("forGotPasswordFromLogin"));
     }
     
      @Test
     public void testSendNewPasswordTrue() throws Exception{
         when(personService.getPerson(any(String.class))).thenReturn(new Person()); 
         when(personService.generateNewPassword(any(Person.class))).thenReturn(true); 
-        this.mockMvc.perform(get("/sendNewPassword")).andExpect(status().isOk()).andExpect(view().name("firstLogin"));
+        this.mockMvc.perform(get("/sendNewPassword")).andExpect(status().isOk()).andExpect(view().name("forGotPasswordFromLogin"));
     }
     
     @Test
