@@ -10,7 +10,7 @@
 
 <html>
     <head>
-        <title>Start Page</title>
+        <title>Startside</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         
@@ -292,13 +292,13 @@
                             <form action = "finishgame" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post" >
                                 <input type = "hidden" value = "" id = "score" name = "score"/>
 
-                                <input type = "submit" id ="resembleSubmit" value = "Finish" />
+                                <input type = "submit" id ="resembleSubmit" value = "Fullfør" />
                             </form>
                         </c:when>
                         <c:otherwise>
                             <form action = "nextresembletask" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post">
                                 <input type = "hidden" value = "" id = "score" name = "score"/>
-                                <input type = "submit" value = "next" id ="resembleSubmit" />
+                                <input type = "submit" value = "Neste" id ="resembleSubmit" />
                             </form>
                         </c:otherwise>
                     </c:choose>
