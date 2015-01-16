@@ -17,13 +17,13 @@
             
         <c:forEach items="${resembleGame.taskNumbers}" var="taskNumber" varStatus="status">
             <li>
-                Task number: <c:out value ="${status.index+1}"/> score is: <c:out value ="${resembleGame.taskScores[status.index]}"/>
+                Oppgave nr: <c:out value ="${status.index+1}"/> , Poengsum: <c:out value ="${resembleGame.taskScores[status.index]}"/>
             </li>
         </c:forEach>
         
         <ul>
             <li>
-                Total score : ${resembleGame.totalScore}
+                Total poengsum: ${resembleGame.totalScore}
             </li>
         </ul>
     </body>
