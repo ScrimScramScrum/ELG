@@ -60,13 +60,12 @@ function Game() {
 	};
 }
 
-
 var oppgave1 = new Questions("Et paragraf på en webside", "tag1");
 var oppgave2 = new Questions("background-color: red;", "tag2");
 var oppgave3 = new Questions("OVERSKRIFT", "tag3");
 var oppgave4 = new Questions("Ting som skal vises på siden", "tag4");
 var oppgave5 = new Questions(";PppppPPppppPppp", "tag1");
-var oppgave6 = new Questions("animation-iteration-count: infinite;", "tag2");
+var oppgave6 = new Questions("h1 {color:red;}", "tag2");
 var oppgave7 = new Questions("STORSKRIFT", "tag3");
 var oppgave8 = new Questions("Kropp?", "tag4");
 var oppgave9 = new Questions("avsnitt?", "tag1");
@@ -463,8 +462,14 @@ var renderFinishScoore = function(won) {
         }
         
         
+       setTimeout(function(){ location.reload(); }, 10000);
+
+        
 
 }
+
+
+
 
 var renderStartGame = function () {
         ctx.drawImage(bgFinishImage, 0, 0);
@@ -477,7 +482,10 @@ var renderStartGame = function () {
 	ctx.textBaseline = "top";
 	ctx.fillText("Vi trenger din hjelp til å samle inn taggene til dr. K.Ode!", 10, 32);
         ctx.fillText("Du får opp et en kodesnut, så skal du velge hvilken ", 10, 64);
-	ctx.fillText("kategori denne kodesnutten hører til.  ", 10, 96);
+	ctx.fillText("kategori denne kodesnutten hører til. Lykke til!   ", 10, 96);
+        ctx.fillText("Starter ved å trykke på Enter! ", 10, 160);
+
+	ctx.fillText("DU bevegel Dr K.Ode med pilene ( ->,<- )  på tastaturet.   ", 10, 600);
 
         
 }
@@ -497,7 +505,7 @@ var startGameFunc = function () {
 	then = now;
 
 	// Request to do this again ASAP
-        if ((theGame.round >= 15)){
+        if ((theGame.round >= 20)){
 		finishedGame(true);
 	} 
         
@@ -558,3 +566,4 @@ audioStart.play();
 startGame();
 
 </script>
+
