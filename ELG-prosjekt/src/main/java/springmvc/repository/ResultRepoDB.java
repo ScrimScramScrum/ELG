@@ -37,8 +37,29 @@ public class ResultRepoDB implements ResultRepo {
     private final String sqlGetResultResemble = "select score from resembleresult where email = ? and idGame = ?";
     private final String sqlUpdateResemble = "update resembleresult set score = ? where email = ? and idGame = ?";
     private final String sqlGetHighscoreResemble = "select score, fname, lname from resembleresult join person on resembleresult.email = person.email where idGame = ? order by score desc fetch first 10 rows only";
-    private final String sqlGetCompletion ="select fname, lname from multiresult join person on multiresult.email = person.email where idGame = ? and score > 79";
-    private final String sqlGetCompletionResemble ="select fname, lname from resembleresult join person on resembleresult.email = person.email where idGame = ? and score > ?";
+    private final String sqlGetCompletion = "select distinct fname, lname from oving " +
+                                            "join ovingmultigame on oving.IDOVING = ovingmultigame.IDOVING " +
+                                            "join multiresult on multiresult.IDGAME = ovingmultigame.IDGAMEMULTI " + 
+                                            "join personclass on personclass.EMAIL = multiresult.EMAIL " +
+                                            "join person on person.EMAIL = personclass.EMAIL " + 
+                                            "where classname = ? and score > 79 and (select count(ovingmultigame.IDGAMEMULTI) from ovingmultigame) = (select count (multiresult.email) from oving " +
+                                            "join ovingmultigame on oving.IDOVING = ovingmultigame.IDOVING " + 
+                                            "join multiresult on multiresult.IDGAME = ovingmultigame.IDGAMEMULTI " +
+                                            "join personclass on personclass.EMAIL = multiresult.EMAIL " +
+                                            "join person on person.EMAIL = personclass.EMAIL " +
+                                            "where score > 79)";
+    
+    private final String sqlGetCompletionResemble ="select distinct fname, lname from oving\n" +
+                                                    "join ovingresemblegame on oving.IDOVING = ovingresemblegame.IDOVING\n" +
+                                                    "join resembleresult on resembleresult.IDGAME = ovingresemblegame.IDGAMEresemble\n" +
+                                                    "join personclass on personclass.EMAIL = resembleresult.EMAIL\n" +
+                                                    "join person on person.EMAIL = personclass.EMAIL \n" +
+                                                    "where classname = ? and score > ? and (select count(ovingresemblegame.IDGAMERESEMBLE) from ovingresemblegame) = (select count (resembleresult.email) from oving\n" +
+                                                    "join ovingresemblegame on oving.IDOVING = ovingresemblegame.IDOVING\n" +
+                                                    "join resembleresult on resembleresult.IDGAME = ovingresemblegame.IDGAMERESEMBLE\n" +
+                                                    "join personclass on personclass.EMAIL = resembleresult.EMAIL\n" +
+                                                    "join person on person.EMAIL = personclass.EMAIL\n" +
+                                                    "where score > ?)";
     public ResultRepoDB() {
     }
 
@@ -141,10 +162,10 @@ public class ResultRepoDB implements ResultRepo {
         return l;
     }
     
-    public ArrayList <HighscoreDisplay> getCompletion(MultiChoice game){
+    public ArrayList <HighscoreDisplay> getCompletion(String classname){
                 ArrayList<HighscoreDisplay> l = new ArrayList<HighscoreDisplay>();
         try {
-            l = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetCompletion, new Object[]{game.getGameid()}, new CompletionMapper());
+            l = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetCompletion, new Object[]{classname}, new CompletionMapper());
             //System.out.println("har laget highscoreliste" + l.get(0).getFname());
         } catch (Exception e) {
             System.out.println("Feilxxxxxxxxxxx: " + e);
@@ -152,12 +173,11 @@ public class ResultRepoDB implements ResultRepo {
         return l;
     }
     
-    public ArrayList <HighscoreDisplay> getCompletionRG(ResembleGame game){
-        double scoret = ((100 * game.numberOfTasks())*0.8);
-        int score = (int)scoret;
+    public ArrayList <HighscoreDisplay> getCompletionRG(String classname, int scorelimit){
+
         ArrayList<HighscoreDisplay> l = new ArrayList<HighscoreDisplay>();
         try {
-            l = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetCompletionResemble, new Object[]{game.getGameId(), score}, new CompletionMapper());
+            l = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetCompletionResemble, new Object[]{classname, scorelimit, scorelimit}, new CompletionMapper());
             //System.out.println("har laget highscoreliste" + l.get(0).getFname());
         } catch (Exception e) {
             System.out.println("Feilxxxxxxxxxxx: " + e);

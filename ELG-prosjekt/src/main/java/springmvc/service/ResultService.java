@@ -72,11 +72,11 @@ public class ResultService {
         return sorted;
     } 
     
-    public ArrayList <HighscoreDisplay> getCompletion(MultiChoice game){
-        return repo.getCompletion(game);
+    public ArrayList <HighscoreDisplay> getCompletion(String classname){
+        return repo.getCompletion(classname);
     }
     
-    public ArrayList <HighscoreDisplay> getCompletionRG(ResembleGame game){
-        return repo.getCompletionRG(game);
+    public ArrayList <HighscoreDisplay> getCompletionRG(String classname, int scorelimit){
+        return repo.getCompletionRG(classname, scorelimit);
     }
 }

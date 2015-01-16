@@ -34,7 +34,7 @@ public interface ResultRepo{
         
         public ArrayList<HighscoreDisplay> highscoreRG(ResembleGame game);
         
-        public ArrayList <HighscoreDisplay> getCompletion(MultiChoice game);
+        public ArrayList <HighscoreDisplay> getCompletion(String classname);
         
-        public ArrayList <HighscoreDisplay> getCompletionRG(ResembleGame game);
+        public ArrayList <HighscoreDisplay> getCompletionRG(String classname, int scorelimit);
 }
