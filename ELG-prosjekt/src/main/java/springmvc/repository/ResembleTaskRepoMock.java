@@ -72,4 +72,11 @@ public class ResembleTaskRepoMock implements ResembleTaskRepo{
         list.add(new ResembleTask( 3,  mockTaskText[2], mockSolutionHTML[2], mockSolutionCSS[2], mockStartingHTML[2], mockStartingCSS[2], mockWidth[2], mockHeight[2]));
         return list; 
     }
+
+    @Override
+    public boolean insertResembleTask(String taskText, String solutionHTML, String solutionCSS, String startingHTML, String startingCSS, int width, int height, int idGame) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
 }

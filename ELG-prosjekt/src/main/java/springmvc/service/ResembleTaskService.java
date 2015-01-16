@@ -23,4 +23,8 @@ public class ResembleTaskService {
         task.setSolutionHTML(task.getSolutionHTML().replace("\"", "\'"));
         return task; 
     }
+    
+    public boolean insertResembleTask(String taskText, String solutionHTML, String solutionCSS, String startingHTML, String startingCSS,  int width, int height, int idGame){
+        return this.repo.insertResembleTask(taskText, solutionHTML, solutionCSS, startingHTML, startingCSS, width, height, idGame);
+    }
 }

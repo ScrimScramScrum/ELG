@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import springmvc.domain.CreateResembleGame;
 import springmvc.domain.HighscoreDisplay;
 import springmvc.domain.ResembleGame;
 import springmvc.domain.ResembleTask;
@@ -27,7 +28,7 @@ import springmvc.service.ResembleTaskService;
 import springmvc.service.ResultService;
 
 @Controller
-@SessionAttributes("resembleGame")
+@SessionAttributes({"resembleGame", "createResembleGame"})
 public class ResembleGameController {
     
     @Autowired
@@ -91,5 +92,23 @@ public class ResembleGameController {
             mav.addObject("highscorelist", melding);
         // resembleGameService.updatePoints(Person person);
         return "finishgame";//finishgame
+    }
+    
+    
+    @RequestMapping(value = "createresembletask")
+    public ModelAndView createResembleTaskView(ModelAndView mav, @ModelAttribute(value = "createResembleTask") ResembleTask resembleTask){
+        CreateResembleGame createResembleGame = new CreateResembleGame(); 
+        createResembleGame.setResembleGame(new ResembleGame());
+        mav.addObject("createResembleTask", resembleTask);
+        mav.addObject("createResembleGame", createResembleGame); 
+        mav.setViewName("createresembletask");
+        return mav; 
+    }
+    
+    @RequestMapping(value="createresembletask", method = RequestMethod.POST)
+    public String createResembleTask(ModelAndView mav, HttpServletRequest req, @ModelAttribute(value="createResembleTask") ResembleTask resembleTask, @ModelAttribute(value = "createResembleGame") CreateResembleGame createResembleGame){
+        createResembleGame.addResembleTask(resembleTask);
+        System.out.println("SOLUTINCSS: " + resembleTask.getSolutionCSS() + resembleTask.getSolutionHTML() + resembleTask.getStartingCSS() + resembleTask.getStartingHTML());
+        return "firstLogin";
     }
 }

@@ -18,7 +18,7 @@ public class ResembleTaskRepoDB implements ResembleTaskRepo{
     private final String sqlSelectAllTasks = "Select * from resembletask";
     private final String sqlSelectTasksByGameId = "Select * from resembletask where idGame = ?";
     
-    private final String sqlInsertTask = "insert into task values(?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String sqlInsertTask = "insert into resembletask values(DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
    // private final String sqlUpdateTask = "update person set fornavn=?, etternavn = ? where personnr = ?";
 
     
@@ -57,5 +57,10 @@ public class ResembleTaskRepoDB implements ResembleTaskRepo{
     
     public ArrayList<ResembleTask> getResembleTasksByGameId(int gameId){
         return (ArrayList<ResembleTask>) jdbcTemplateObject.query(sqlSelectTasksByGameId, new Object[]{gameId}, new ResembleTaskMapper()); 
+    }
+
+    public boolean insertResembleTask(String taskText, String solutionHTML, String solutionCSS, String startingHTML, String startingCSS,  int width, int height, int idGame){
+        this.jdbcTemplateObject.update(sqlInsertTask, new Object[]{taskText, solutionHTML, solutionCSS, startingHTML, startingCSS, width, height, idGame});
+        return true; 
     }
 }
