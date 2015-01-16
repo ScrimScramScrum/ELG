@@ -30,15 +30,17 @@
             <form:input path="email" value="test@gmail.com" type="text"  placeholder="Username" data-icon="U" />
             <form:input path="password" type="password" placeholder="Password" data-icon="x" />
             
-            <a href="javascript:submitFormWithValue()" name="submitCommand"class="enviar">Submit</a> 
+            <div class="space" />            
+            
+            <input type="submit" style="position: absolute; left: -9999px"/>
+            <a href="javascript:submitFormWithValue()" name="submitCommand"class="enviar">Logg inn</a> 
             
             <div class="olvido">
                     <div class="col"><a href="javascript:sendToRegisterNewUser()" title="Register new user">Registrer ny bruker</a></div>
-                    <div class="col"><a href="javascript:sendToForgotPassword()" title="Forgotten password">Forgot Password?</a></div>
-                    <div class="col"><a href="javascript:guestUserLogin()" title="Guest user">Guest user</a></div>
+                    <div class="col"><a href="javascript:sendToForgotPassword()" title="Forgotten password">Glemt passord?</a></div>
+                    <div class="col"><a href="javascript:guestUserLogin()" title="Guest user">Gjestebruker</a></div>
 
-            </div>
-            
+            </div>           
 
             <div id ="errorMessage" class="errorMessages" >
                 <form:errors path="password" htmlEscape="false" />
@@ -49,14 +51,11 @@
             <div id ="info" class="infoMessages" >
                 ${regeneratedPassword} 
                 ${changedPassword}   
-                ${wrongPassword} 
                 ${registeredOK}
                 
             </div>
 
-            
-            <br>
-            <br>
+            <br><br>
         </form:form>
     </section>
 
@@ -79,7 +78,16 @@ body {
     
 }
 
-    .errorMessages {
+
+.space {
+    width: 100%;
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+ .errorMessages {
     width: auto;
         height: auto;
         font-size: 14px;

@@ -207,9 +207,7 @@ public class MainControllerTest {
     
      @Test
     public void testHighScoreViewUserNotLoggedIn() throws Exception{
-      //  User user = new User(); 
         MockHttpSession mockHttpSession = new MockHttpSession(); 
-      //  mockHttpSession.setAttribute("user", user);
         this.mockMvc.perform(get("/highscore").session(mockHttpSession)).andExpect(view().name("firstLogin"));
     }
     
@@ -255,6 +253,7 @@ public class MainControllerTest {
                 .param("email", "eamsdasd@asd.com"))
                 .andExpect(model().attribute("wrongPassword", "Feil brukernavn/passord. Prøv på nytt"))
                 .andExpect(view().name("firstLogin"));
+
     }
     
     @Test
@@ -265,7 +264,6 @@ public class MainControllerTest {
         this.mockMvc.perform(post("/login")
                 .param("asd", "asd"))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeHasErrors("login"))
                 .andExpect(view().name("firstLogin"));
     }
     
@@ -322,7 +320,7 @@ public class MainControllerTest {
         MockHttpSession mockHttpSession = new MockHttpSession(); 
         mockHttpSession.setAttribute("user", user);
         this.mockMvc.perform(post("/choosegameCompletionlist")
-                .param("gameid", "1")
+                .param("classid", "1")
                 .session(mockHttpSession))
                 .andExpect(view().name("about"));
     }
@@ -333,13 +331,9 @@ public class MainControllerTest {
         user.setAdmin(true);
         MockHttpSession mockHttpSession = new MockHttpSession(); 
         mockHttpSession.setAttribute("user", user);
-
-     //   when(r.getCompletionRG(any(ResembleGame.class))).thenReturn(new ArrayList<HighscoreDisplay>()); 
-
         //when(r.getCompletionRG(any(ResembleGame.class))).thenReturn(new ArrayList<HighscoreDisplay>()); 
-
         this.mockMvc.perform(post("/choosegameCompletionlist")
-                .param("gameid", "1")
+                .param("classid", "1")
                 .session(mockHttpSession))
                 .andExpect(model().attributeExists("nopass"))
                 .andExpect(view().name("completionlist"));                
@@ -354,14 +348,10 @@ public class MainControllerTest {
         ArrayList<HighscoreDisplay> hsd = new ArrayList<HighscoreDisplay>(); 
         hsd.add(new HighscoreDisplay()); 
         hsd.add(new HighscoreDisplay()); 
-        hsd.add(new HighscoreDisplay());
-
-      //  when(r.getCompletionRG(any(ResembleGame.class))).thenReturn(hsd); 
-
-        //when(r.getCompletionRG(any(ResembleGame.class))).thenReturn(hsd); 
-
+        hsd.add(new HighscoreDisplay()); 
+        when(r.getCompletionRG(any(String.class))).thenReturn(hsd); 
         this.mockMvc.perform(post("/choosegameCompletionlist")
-                .param("gameid", "1")
+                .param("classid", "1")
                 .session(mockHttpSession))
                 .andExpect(model().attributeExists("list"))
                 .andExpect(view().name("completionlist"));
@@ -377,13 +367,9 @@ public class MainControllerTest {
         hsd.add(new HighscoreDisplay()); 
         hsd.add(new HighscoreDisplay()); 
         hsd.add(new HighscoreDisplay()); 
-
-     //   when(r.getCompletion(any(MultiChoice.class))).thenReturn(new ArrayList<HighscoreDisplay>()); 
-
-        //when(r.getCompletion(any(MultiChoice.class))).thenReturn(new ArrayList<HighscoreDisplay>()); 
-
+        when(r.getCompletion(any(String.class))).thenReturn(new ArrayList<HighscoreDisplay>()); 
         this.mockMvc.perform(post("/choosegameCompletionlist")
-                .param("gameid", "1")
+                .param("classid", "1")
                 .session(mockHttpSession))
                 .andExpect(model().attributeExists("nopass"))
                 .andExpect(view().name("completionlist"));
@@ -399,13 +385,9 @@ public class MainControllerTest {
         hsd.add(new HighscoreDisplay()); 
         hsd.add(new HighscoreDisplay()); 
         hsd.add(new HighscoreDisplay()); 
-
-    //    when(r.getCompletion(any(MultiChoice.class))).thenReturn(hsd); 
-
-        //when(r.getCompletion(any(MultiChoice.class))).thenReturn(hsd); 
-
+        when(r.getCompletion(any(String.class))).thenReturn(hsd); 
         this.mockMvc.perform(post("/choosegameCompletionlist")
-                .param("gameid", "1")
+                .param("classid", "1")
                 .session(mockHttpSession))
                 .andExpect(model().attributeExists("list"))
                 .andExpect(view().name("completionlist"));

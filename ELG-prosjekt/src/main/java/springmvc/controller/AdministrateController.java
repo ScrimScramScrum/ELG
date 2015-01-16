@@ -48,7 +48,7 @@ public class AdministrateController {
             return "firstLogin"; 
         }
         if (user.getEmail().equals("GUEST")){
-            return "result";
+            return "about";
         } 
         return "administrateAccount";
     }
