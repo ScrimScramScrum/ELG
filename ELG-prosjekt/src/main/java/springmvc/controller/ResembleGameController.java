@@ -39,7 +39,7 @@ public class ResembleGameController {
     private ResultService r;
   
     
-    @ExceptionHandler(Exception.class)
+    /*@ExceptionHandler(Exception.) // .class 
     public ModelAndView handleError(HttpServletRequest req, Exception exception){
         System.out.println("Kommer hit");
         ModelAndView mav = new ModelAndView(); 
@@ -47,7 +47,7 @@ public class ResembleGameController {
         mav.addObject("unntak", exception); 
         mav.setViewName("about");
         return mav; 
-    } 
+    } */
     
     
     @RequestMapping(value = "resemblegame", method = RequestMethod.POST)

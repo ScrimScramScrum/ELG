@@ -43,7 +43,7 @@ public class MultiChoiceController {
     @Autowired
     private ResultService r;
     
-    @ExceptionHandler(Exception.class)
+    /*@ExceptionHandler(Exception.class)
     public ModelAndView handleError(HttpServletRequest req, Exception exception){
         System.out.println("Kommer hit");
         ModelAndView mav = new ModelAndView(); 
@@ -51,7 +51,7 @@ public class MultiChoiceController {
         mav.addObject("unntak", exception); 
         mav.setViewName("about");
         return mav; 
-    } 
+    } */
 
     
     @RequestMapping(value = "multi", method = RequestMethod.POST)
@@ -62,7 +62,7 @@ public class MultiChoiceController {
         return "multichoice"; 
     }
     
-    @RequestMapping(value = "nextTask")
+    @RequestMapping(value = "nextTask", method = RequestMethod.POST)
     public String nextTask(HttpSession session, Model model, @ModelAttribute(value = "spillet") MultiChoice mc, String value, HttpServletRequest request){
         User user = (User)session.getAttribute("user");
         if (user == null){
