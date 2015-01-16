@@ -53,6 +53,12 @@
         <put-attribute name="gamedisplay" value="/WEB-INF/tiles/preview.jsp"/> 
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_games.jsp"/>   
     </definition>
+    <definition name="chooseOtherGames" extends="baseGameMenuLayout">
+        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="body"   value="/WEB-INF/tiles/othergamemenu.jsp"/>
+        <put-attribute name="gamedisplay" value="/WEB-INF/tiles/preview.jsp"/> 
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_othergames.jsp"/>   
+    </definition>
     
     <definition name="result" extends="baseLayout">
         <put-attribute name="title"  value="Index"/>

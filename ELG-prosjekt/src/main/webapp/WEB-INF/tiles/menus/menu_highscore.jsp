@@ -29,7 +29,8 @@
                 <div id="logo"><h1><a href="#">ELG</a></h1></div>
                 <nav id="nav">
                     <ul>
-                        <li><a href="<c:url value="/choosegame" />" name = 'choosegame' id="games" onClick ="changeId(this)">Spill</a></li>
+                        <li><a href="<c:url value="/choosegame" />" name = 'choosegame' id="chooseGame" onClick ="changeId(this)">Øving</a></li>
+                        <li><a href="<c:url value="/chooseothergames" />" name = 'chooseothergames' id="chooseOtherGames" onClick ="changeId(this)">Andre spill</a></li>
                         <li class="current_page_item"><a href="<c:url value="/highscore" />" name = 'highscore' id="highscore" onClick ="changeId(this)">High Score</a></li>
                         <%
                             User user = (User)session.getAttribute("user");
