@@ -125,7 +125,7 @@ public class Configuration extends WebMvcConfigurationSupport {
     //KOPIERES
     @Bean
     public PersonService personService(){
-        return new PersonServiceTesting();
+        return new PersonServiceImpl();
     }
     
     //KOPIERES     

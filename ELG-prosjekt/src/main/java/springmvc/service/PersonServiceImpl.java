@@ -15,7 +15,7 @@ import springmvc.repository.*;
 
 
 
-public class PersonServiceTesting implements PersonService {
+public class PersonServiceImpl implements PersonService {
     
     @Autowired
     private PersonRepoDB personRepo;  //endre denne til DB etter hvert
