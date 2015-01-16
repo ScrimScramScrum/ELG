@@ -157,7 +157,17 @@
                     mode: "css",
                     theme: "default",
                     lineNumbers: true,
-                    indentUnit: 4
+                    indentUnit: 4, 
+                    extraKeys: {
+                        "Ctrl-Enter": function(cm) {
+                            testFunc(); 
+                            testFunc(); 
+                        },
+                        "Cmd-Enter": function(cm) {
+                            testFunc(); 
+                            testFunc(); 
+                        }
+                    }
                 });
                     editableCodeMirror.setSize("100%", 300); 
                 var editableCodeMirror2 = CodeMirror.fromTextArea(document.getElementById('htmlView'), {
@@ -165,16 +175,26 @@
                     mode: "xml",
                     theme: "default",
                     lineNumbers: true,
-                    indentUnit: 4
+                    indentUnit: 4,
+                    extraKeys: {
+                        "Ctrl-Enter": function(cm) {
+                            testFunc();
+                            testFunc(); 
+                        },
+                        "Cmd-Enter": function(cm) {
+                            testFunc();
+                            testFunc(); 
+                        }
+                    }
                 });
+                testFunc(); 
 
-                testFunc();
 
                 beautify(0); 
                 beautify(1);
 
                 editableCodeMirror2.setSize("100%", 300); 
-
+/*
                 editableCodeMirror.on("changes", function(cm, change){
                     testFunc();
                     testFunc();
@@ -184,7 +204,7 @@
                     testFunc();
                     testFunc();
 
-                });
+                });*/
              };
 
              function testFunc(){
