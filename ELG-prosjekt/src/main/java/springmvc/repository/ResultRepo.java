@@ -41,4 +41,6 @@ public interface ResultRepo{
         public ArrayList <String> getAllOvinger();
         
         public ArrayList <String> getAllClasses(String email);
+        
+        public int getNumberInClass(String classname);
 }

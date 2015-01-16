@@ -118,4 +118,8 @@ public class ResultService {
     public ArrayList<String> getAllClasses(String email) {
         return repo.getAllClasses(email);
     }
+    
+    public int getNumberInClass(String classname){
+        return repo.getNumberInClass(classname);
+    }
 }

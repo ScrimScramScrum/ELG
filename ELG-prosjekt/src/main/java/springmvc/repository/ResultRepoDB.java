@@ -75,6 +75,7 @@ public class ResultRepoDB implements ResultRepo {
     
     private final String sqlGetAllOvinger = "select ovingname from oving";
     private final String sqlGetAllClasses = "select classes.classname from classes join personclass on classes.classname = personclass.classname where email = ?";
+    private final String sqlGetNumberInClass = "select count(email) from personclass where classname = ?";
     
     public ResultRepoDB() {
     }
@@ -225,5 +226,17 @@ public class ResultRepoDB implements ResultRepo {
             System.out.println("Kan ikke hente klasser");
         }
         return l;
+    }
+    
+    public int getNumberInClass(String classname){
+                int i;
+        try {
+            i = (int) jdbcTemplateObject.queryForInt(sqlGetNumberInClass, new Object[]{classname});
+
+        } catch (Exception e) {
+            System.out.println("Ingen går i denne klassen");
+            i = 0;
+        }
+        return i;
     }
 }

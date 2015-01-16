@@ -294,7 +294,8 @@ public class MainController {
                 mav.addObject("nopass", s);
             }
             mav.addObject("list", hs);
-            System.out.println("***** lengde= " + hs.size());
+            int nc = (r.getNumberInClass(id)-(hs.size()));
+            mav.addObject("notcompleted", nc);
             ArrayList<String> list = r.getAllClasses(user.getEmail());
             mav.addObject("allClasses", list);
             mav.setViewName("completionlist");

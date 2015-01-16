@@ -98,7 +98,7 @@
                                 Ikke godkjent:
                             </td>
                             <td id="completionlistrighttableright">
-                                3
+                                <c:out value="${notcompleted}"/>
                             </td>
                         </tr>
                     </table>
@@ -132,7 +132,7 @@
                         label: "Godkjent"
                     },
                     {
-                        value: 3,
+                        value: ${notcompleted},
                         color: "#F7464A",
                         highlight: "#FF5A5E",
                         label: "Ikke Godkjent"
