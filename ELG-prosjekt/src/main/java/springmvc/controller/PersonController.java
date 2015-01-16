@@ -31,10 +31,14 @@ public class PersonController {
     
     @RequestMapping(value = "newPersonFromLogin" , method=RequestMethod.POST)
     public String CreateNewPerson(@Valid @ModelAttribute("person") Person person, BindingResult error, Model modell,@ModelAttribute Login login, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
-        
         if(error.hasErrors()){
             System.out.println(" Validering feilet **** ");
             //modell.addAttribute("melding", "Personnr ikke fylt ut riktig"); 
+            return "newPersonFromLogin";
+        }
+        if (personService.getPerson(person.getEmail()) != null){
+            System.out.println("Feil ved registrering av ny person");
+            modell.addAttribute("newPersonError", "Feil ved endring av passord");
             return "newPersonFromLogin";
         }
         
