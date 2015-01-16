@@ -109,6 +109,6 @@ public class ResembleGameController {
     public String createResembleTask(ModelAndView mav, HttpServletRequest req, @ModelAttribute(value="createResembleTask") ResembleTask resembleTask, @ModelAttribute(value = "createResembleGame") CreateResembleGame createResembleGame){
         createResembleGame.addResembleTask(resembleTask);
         System.out.println("SOLUTINCSS: " + resembleTask.getSolutionCSS() + resembleTask.getSolutionHTML() + resembleTask.getStartingCSS() + resembleTask.getStartingHTML());
-        return "firstLogin";
+        return "createresemblegame";
     }
 }

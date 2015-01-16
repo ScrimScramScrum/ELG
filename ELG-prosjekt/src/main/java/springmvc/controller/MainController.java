@@ -390,4 +390,11 @@ public class MainController {
         mav.setViewName("firstLogin");
         return mav;
     }
+    
+    @RequestMapping(value = "createresemblegame")
+    public String showCreateResembleGame(){
+        return "createresemblegame"; 
+    }
+        
+
 }

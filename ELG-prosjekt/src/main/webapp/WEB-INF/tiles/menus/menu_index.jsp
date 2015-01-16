@@ -31,6 +31,7 @@
                     <ul>
                         <li><a href="<c:url value="/choosegame" />" name = 'choosegame' id="chooseGame" onClick ="changeId(this)">Øving</a></li>
                         <li><a href="<c:url value="/chooseothergames" />" name = 'chooseothergames' id="chooseOtherGames" onClick ="changeId(this)">Andre spill</a></li>
+                        <li><a href="<c:url value="/createresemblegame" />" name = 'createresemblegame' id="createresemblegame" onClick ="changeId(this)">Lag spill</a></li>
                         <li><a href="<c:url value="/highscore" />" name = 'highscore' id="highscore" onClick ="changeId(this)">High Score</a></li>
                         <%
                             User user = (User)session.getAttribute("user");
