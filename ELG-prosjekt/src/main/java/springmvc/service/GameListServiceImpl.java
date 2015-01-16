@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.MultiChoiceInfo;
+import springmvc.domain.MultiResult;
 import springmvc.domain.ResembleGame;
 import springmvc.domain.ResembleTask;
 import springmvc.domain.User;
@@ -86,7 +87,7 @@ public class GameListServiceImpl implements GameListService{
     public ArrayList<MultiChoiceInfo> updateApprovedMultiChoiceGames(ArrayList<MultiChoiceInfo> multiChoiceGames, User user){
         
         //TODO get information from the DB. This is just test DATA. 
-        /*
+        
                 System.out.println("in updateApprovedMultiChoiceGames");
         for (int i = 0; i<multiChoiceGames.size();i++){
             System.out.println(multiChoiceGames.get(i));
@@ -95,10 +96,25 @@ public class GameListServiceImpl implements GameListService{
             }
             //multiChoiceGames.get(i).setApproved(1);
         }
-                */
                 
+        /*for (int i = 0; i<multiChoiceGames.size();i++){
+            System.out.println(multiChoiceGames.get(i));
+            //MultiChoice multiChoice = multipleChoiceRepoDB.getMultiChoiceAndUsername(multiChoiceGames.get(i).getName(), user.getEmail());
+            //System.out.println(multiChoice.getGameid());
+            
+            
+        } */  
         
-        
+        /*for (int i = 0; i<multiChoiceGames.size();i++){
+            System.out.println(multiChoiceGames.get(i).getName());
+            MultiResult multiResult = multipleChoiceRepoDB.getMultiChoiceAndUsername(multiChoiceGames.get(i).getName(), user.getEmail());
+            
+            if (multiResult!=null){
+                System.out.println(multiResult.getScore());
+            }
+            //System.out.println(multiResult.getScore());
+        }
+        */
         
         
         

@@ -11,12 +11,15 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import springmvc.domain.Exercise;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.MultiChoiceInfo;
+import springmvc.domain.MultiResult;
 import springmvc.repository.mappers.MultiChoiceExerciseMapper;
 import springmvc.repository.mappers.MultiChoiceInfoMapper;
 import springmvc.repository.mappers.MultiChoiceMapper;
+import springmvc.repository.mappers.MultiResultMapper;
 /**
  *
  * @author eiriksandberg
@@ -30,7 +33,7 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
     private final String sqlGetGame = "select * from multichoicegame where gamename = ?";
     private final String sqlGetExercises = "select * from multiexercise where idGame = ?";
     private final String sqlGetAllMultiChoiceGames = "select * from multichoicegame"; 
-    
+    private final String sqlGetIdgameFromMultiChoiseWithGameNameAndEmail = "SELECT * FROM ELGUSER.MULTIRESULT WHERE idgame =(SELECT idgame FROM multichoicegame WHERE gamename = ?) AND email= ? ";
     public MultipleChoiceRepoDB() {}
     
     @Autowired
@@ -66,5 +69,26 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
     
     public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfo(){
         return (ArrayList<MultiChoiceInfo>)jdbcTemplateObject.query(sqlGetAllMultiChoiceGames, new MultiChoiceInfoMapper()); 
+    }
+    
+    public MultiResult getMultiChoiceAndUsername(String gamename, String email){ 
+        System.out.println("runnign now getMultiChoiceAndUsername");
+        MultiResult multiResult = null;
+        try {
+             multiResult = (MultiResult)jdbcTemplateObject.queryForObject(
+                sqlGetIdgameFromMultiChoiseWithGameNameAndEmail, 
+                new Object[]{gamename, email}, new MultiResultMapper());
+        
+        System.out.println(multiResult.getScore());
+        
+        }
+        
+        catch(Exception e){
+            System.out.println("Erreoren er : "+e);
+            
+        }
+        
+        
+        return multiResult;
     }
 }

@@ -108,7 +108,14 @@ public class MainController {
         //add a function to update the multiChoiceGames and resembleGames lists to a version that 	says if its done or not. 
         //updateApprovedGames(user, resembleGames, multiChoiceGames);
         ArrayList<MultiChoiceInfo> multiChoiceGamesWithApproved = gameListService.updateApprovedMultiChoiceGames(multiChoiceGames, user);
-        
+        if (multiChoiceGamesWithApproved==null){
+            int resemble = 0;
+            mav.addObject("gametype", resemble);
+            mav.addObject("resembleGames", resembleGames);
+            mav.addObject("multiChoiceGames", multiChoiceGames);
+            mav.setViewName("chooseGame");
+            return mav;
+        }
         
         
         int resemble = 0;
