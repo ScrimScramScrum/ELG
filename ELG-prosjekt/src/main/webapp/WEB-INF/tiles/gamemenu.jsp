@@ -40,6 +40,18 @@
                 return 0; //error: no form found in ancestors
             }
             //]]>
+            
+            
+            
+            function approvedOrNot(approved){
+                if (approved==1){
+                    <c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/background.png"/>
+                    return true;
+                } else {
+                    return false;
+                }
+                
+            }
         </script>
     </head>
     <body>
@@ -58,7 +70,19 @@
             <c:forEach items="${multiChoiceGames}" var="game">
                     <form action="choosegame" method="post">
                         <input type="hidden" name="gameid" id="gameid" value="${game.name}" />
-                        <div class = "gamelink"><a href ="choosegame" id="gameLinkA" onclick =" get_form(this).submit(); return false"> <c:out value = "${game.name}"/></a></div>
+                        <div class = "gamelink"> 
+                            <table>        
+                                <tr>  
+                                    <td><a href ="choosegame" id="gameLinkA" onclick =" get_form(this).submit(); return false"> <c:out value = "${game.name}"/></a>
+                                   
+                                    <c:choose> 
+                                        <c:when test="${game.approved == 1}">                                    
+                                        <td> <img src="<c:url value="/resources/images/check.png"/>" >
+                                     </c:when>                         
+                                    </c:choose>
+                                </tr>
+                            </table> 
+                        </div>                        
                     </form>
             </c:forEach>
             </center>

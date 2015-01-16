@@ -27,6 +27,7 @@ import springmvc.domain.ResembleTask;
 import springmvc.domain.User;
 import springmvc.service.GameListService;
 import springmvc.service.GameListServiceImpl;
+import springmvc.service.GameListServiceMock;
 import springmvc.service.LoginService;
 import springmvc.service.PersonService;
 import springmvc.service.ResultService;
@@ -100,10 +101,19 @@ public class MainController {
         } 
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames();
         ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();
+        
+        
+        System.out.println("ChooseGame Rdy for multiChoiceGamesWithApproved");
+        //add a function to update the multiChoiceGames and resembleGames lists to a version that 	says if its done or not. 
+        //updateApprovedGames(user, resembleGames, multiChoiceGames);
+        ArrayList<MultiChoiceInfo> multiChoiceGamesWithApproved = gameListService.updateApprovedMultiChoiceGames(multiChoiceGames, user);
+        
+        
+        
         int resemble = 0;
         mav.addObject("gametype", resemble);
         mav.addObject("resembleGames", resembleGames);
-        mav.addObject("multiChoiceGames", multiChoiceGames);
+        mav.addObject("multiChoiceGames", multiChoiceGamesWithApproved);
         mav.setViewName("chooseGame");
         return mav;
     }
@@ -139,6 +149,7 @@ public class MainController {
         // use session instead of getting all games every time a game get clicked?
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames();
         ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();
+        
         mav.addObject("gamenr", id);
         //mav.addObject("info", info);
         mav.addObject("resembleGames", resembleGames);

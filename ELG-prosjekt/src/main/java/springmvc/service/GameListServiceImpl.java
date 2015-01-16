@@ -9,6 +9,7 @@ import springmvc.domain.MultiChoice;
 import springmvc.domain.MultiChoiceInfo;
 import springmvc.domain.ResembleGame;
 import springmvc.domain.ResembleTask;
+import springmvc.domain.User;
 import springmvc.repository.MultiChoiceRepository;
 import springmvc.repository.MultipleChoiceRepoDB;
 import springmvc.repository.ResembleGameRepo;
@@ -81,4 +82,27 @@ public class GameListServiceImpl implements GameListService{
     public MultiChoiceInfo getMultiChoiceInfo(String gameId){
         return multipleChoiceRepoDB.getMultiChoiceInfo(gameId); 
     }    
+    
+    public ArrayList<MultiChoiceInfo> updateApprovedMultiChoiceGames(ArrayList<MultiChoiceInfo> multiChoiceGames, User user){
+        
+        //TODO get information from the DB. This is just test DATA. 
+        /*
+                System.out.println("in updateApprovedMultiChoiceGames");
+        for (int i = 0; i<multiChoiceGames.size();i++){
+            System.out.println(multiChoiceGames.get(i));
+            if (multiChoiceGames.get(i).getName().equals("CSS spill")){
+                multiChoiceGames.get(i).setApproved(1);
+            }
+            //multiChoiceGames.get(i).setApproved(1);
+        }
+                */
+                
+        
+        
+        
+        
+        
+        return multiChoiceGames;
+    }
+
 }

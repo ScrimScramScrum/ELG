@@ -5,6 +5,7 @@ import springmvc.domain.MultiChoice;
 import springmvc.domain.MultiChoiceInfo;
 import springmvc.domain.ResembleGame;
 import springmvc.domain.ResembleTask;
+import springmvc.domain.User;
 
 public interface GameListService {
     
@@ -15,4 +16,5 @@ public interface GameListService {
     public ArrayList<ResembleTask> getResembleTasks(ArrayList<Integer> taskNumbers);
     public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfo(); 
     public MultiChoiceInfo getMultiChoiceInfo(String gameId); 
+    public ArrayList<MultiChoiceInfo> updateApprovedMultiChoiceGames(ArrayList<MultiChoiceInfo> multiChoiceGames, User user);
 }

@@ -5,6 +5,7 @@ import springmvc.domain.MultiChoice;
 import springmvc.domain.MultiChoiceInfo;
 import springmvc.domain.ResembleGame;
 import springmvc.domain.ResembleTask;
+import springmvc.domain.User;
 import springmvc.repository.ResembleTaskRepoMock;
 
 public class GameListServiceMock implements GameListService{
@@ -96,4 +97,14 @@ public class GameListServiceMock implements GameListService{
     public MultiChoice getMultiChoiceGame(String gameId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public ArrayList<MultiChoiceInfo> updateApprovedMultiChoiceGames(ArrayList<MultiChoiceInfo> multiChoiceGames, User user){
+        System.out.println("in updateApprovedMultiChoiceGames");
+        for (int i = 0; i<multiChoiceGames.size();i++){
+            System.out.println(multiChoiceGames.get(i));
+        }
+        
+        return multiChoiceGames;
+    }
+
 }
