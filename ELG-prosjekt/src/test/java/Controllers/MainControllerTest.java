@@ -111,12 +111,12 @@ public class MainControllerTest {
     
     @Test
     public void testIndexNullUser() throws Exception{
-        this.mockMvc.perform(get("/index")).andExpect(view().name("firstlogin"));
+        this.mockMvc.perform(get("/index")).andExpect(view().name("firstLogin"));
     }
     
     @Test
     public void testAboutURLNullUser() throws Exception{
-        this.mockMvc.perform(get("/about")).andExpect(view().name("notloggedin"));
+        this.mockMvc.perform(get("/about")).andExpect(view().name("firstLogin"));
     }
     
     @Test
@@ -124,7 +124,7 @@ public class MainControllerTest {
         User user = new User(); 
         MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest(); 
         mockHttpServletRequest.getSession().setAttribute("user", user);
-        this.mockMvc.perform(get("/about")).andExpect(view().name("notloggedin"));
+        this.mockMvc.perform(get("/about")).andExpect(view().name("firstLogin"));
     }
     
     @Test
@@ -138,7 +138,7 @@ public class MainControllerTest {
     
     @Test
     public void testChooseGameNullUser() throws Exception{
-        this.mockMvc.perform(get("/choosegame")).andExpect(view().name("notloggedin"));
+        this.mockMvc.perform(get("/choosegame")).andExpect(view().name("firstLogin"));
     }
     
     @Test
@@ -146,7 +146,7 @@ public class MainControllerTest {
         User user = new User(); 
         MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest(); 
         mockHttpServletRequest.getSession().setAttribute("user", user);
-        this.mockMvc.perform(get("/choosegame")).andExpect(view().name("notloggedin"));
+        this.mockMvc.perform(get("/choosegame")).andExpect(view().name("firstLogin"));
     }
     
      @Test
@@ -202,15 +202,15 @@ public class MainControllerTest {
     
     @Test
     public void testHighScoreViewNullUser() throws Exception{
-        this.mockMvc.perform(get("/highscore")).andExpect(view().name("notloggedin"));
+        this.mockMvc.perform(get("/highscore")).andExpect(view().name("firstLogin"));
     }
     
      @Test
     public void testHighScoreViewUserNotLoggedIn() throws Exception{
-        User user = new User(); 
+      //  User user = new User(); 
         MockHttpSession mockHttpSession = new MockHttpSession(); 
-        mockHttpSession.setAttribute("user", user);
-        this.mockMvc.perform(get("/highscore").session(mockHttpSession)).andExpect(view().name("notloggedin"));
+      //  mockHttpSession.setAttribute("user", user);
+        this.mockMvc.perform(get("/highscore").session(mockHttpSession)).andExpect(view().name("firstLogin"));
     }
     
         @Test
@@ -229,7 +229,7 @@ public class MainControllerTest {
         Person loggedIn = new Person("email@email.com", "Chris", "banana"); 
         when(personService.getPerson(any(String.class))).thenReturn(loggedIn);
         when(loginService.compareInformation(any(Login.class))).thenReturn(true); 
-        this.mockMvc.perform(post("/login").param("asd", "asd")).andExpect(view().name("chooseGameHighscore"));
+        this.mockMvc.perform(post("/login").param("asd", "asd")).andExpect(view().name("firstLogin"));
     }
     
     @Test
@@ -240,7 +240,7 @@ public class MainControllerTest {
         this.mockMvc.perform(post("/login")
                 .param("asd", "asd"))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeExists("wrongPassword"))
+                .andExpect(model().attributeHasErrors("login"))
                 .andExpect(view().name("firstLogin"));
     }
     
