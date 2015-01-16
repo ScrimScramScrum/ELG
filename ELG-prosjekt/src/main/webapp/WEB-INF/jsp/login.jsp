@@ -81,19 +81,19 @@ body {
     
 }
 
-.errorMessages {
-width: auto;
-    height: auto;
-    font-size: 14px;
-    text-align: center;
-    color: #ff6437;
-    background: #121212;
-    border-top-right-radius: 6px;
-    border-top-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-    border-bottom-left-radius: 6px;
-    
-}
+    .errorMessages {
+    width: auto;
+        height: auto;
+        font-size: 14px;
+        text-align: center;
+        color: #ff6437;
+        background: #121212;
+        border-top-right-radius: 6px;
+        border-top-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        border-bottom-left-radius: 6px;
+
+    }
 
 .infoMessages {
     width: auto;

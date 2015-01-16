@@ -43,9 +43,40 @@ public class LoginController {
     }
     
     
+    @RequestMapping(value = "forgotPasswordFromLogin" , method=RequestMethod.GET)
+    public String sendToForgotPassword(@ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword, Model modell) {
+        return "forgotPasswordFromLogin";
+    }
     
-   
-    /*
+    @RequestMapping(value = "sendNewPassword")
+    public String sendNewPassword(@Valid @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword, BindingResult error, Model modell, @ModelAttribute Login login, @ModelAttribute NewPassword newPassword) {
+        System.out.println("NEWPASSWORD ON THE WAY TO: "+sendNewPassword.getEmail());
+        
+        if(error.hasErrors()){
+            System.out.println("errors in forgotten password. ");
+            return "forgotPasswordFromLogin";
+        }
+        
+        Person person = personService.getPerson(sendNewPassword.getEmail());
+        //Person has to be pulled from session?
+        if (person == null){ // Denne kjører, Hvorfor vil ikke feilmeldingen vises? 
+            System.out.println("Error, something went wrong with the resend of the Password");
+            modell.addAttribute("sendNewPasswordError", "something went wrong with the resend of the Password");
+            return "forgotPasswordFromLogin";
+        }else if (personService.generateNewPassword(person)){
+            System.out.println("New Password is sent");
+            modell.addAttribute("regeneratedPassword", "<br>Passordet er nå sent på mailen din: "+person.getEmail()+"<br> &nbsp"); 
+        } else {
+            System.out.println("Error, something went wrong with the resend of the Password");
+            modell.addAttribute("Error, something went wrong with the resend of the Password"); 
+            return "forgotPasswordFromLogin";
+
+        }
+        return "firstLogin";
+    } 
+}
+
+ /*
     @RequestMapping(value = "resemblegame", method = RequestMethod.POST)
     public ModelAndView resembleGame(ModelAndView mav, @RequestParam("gameid") String id){
         int gameid = Integer.parseInt(id);
@@ -78,33 +109,3 @@ public class LoginController {
     }
     
     */
-    
-    
-    @RequestMapping(value = "forgotPasswordFromLogin" , method=RequestMethod.GET)
-    public String sendToForgotPassword(@ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
-        return "forgotPasswordFromLogin";
-    }
-    
-    @RequestMapping(value = "sendNewPassword")
-    public String sendNewPassword(@Valid @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword, BindingResult error, Model modell, @ModelAttribute Login login, @ModelAttribute NewPassword newPassword) {
-        System.out.println("NEWPASSWORD ON THE WAY TO: "+sendNewPassword.getEmail());
-        
-        if(error.hasErrors()){
-            System.out.println("errors in forgotten password. ");
-           
-            return "forgotPasswordFromLogin";
-        }
-        
-        Person person = personService.getPerson(sendNewPassword.getEmail());
-        //Person has to be pulled from session?
-        if(personService.generateNewPassword(person)){
-            System.out.println("New Password is sent");
-            modell.addAttribute("regeneratedPassword", "<br>Passordet er nå sent på mailen din: "+person.getEmail()+"<br> &nbsp"); 
-        } else {
-            System.out.println("Error, something went wrong with the resend of the Password");
-            modell.addAttribute("Error, something went wrong with the resend of the Password"); 
-
-        }
-        return "firstLogin";
-    } 
-}

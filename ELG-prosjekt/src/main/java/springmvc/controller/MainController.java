@@ -187,11 +187,9 @@ public class MainController {
             mav.setViewName("chooseGameHighscore");
             System.out.println("Highscore er satt **********************************");
             return chooseGameHighscore(mav, session);
-
         } else {
             System.out.println("Innlogging feilet.  ");
             modell.addAttribute("wrongPassword", "Feil brukernavn/passord. Prøv på nytt");
-
             mav.setViewName("firstLogin");
             return mav;
         }

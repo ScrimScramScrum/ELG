@@ -34,15 +34,18 @@
             
             
                <div class="olvido">
-                    <div class="col"></div>
-                    <div class="col"></div>
             </div>
             
             <a href="javascript:confirmComplete()" name="submitCommand"class="enviar">OK Send epost</a> 
             
             <div class="olvido">
-                    <div class="col"><a href="javascript:sendToLogin()" title="Ver Carásteres">back</a></div>
+                <div class="col"><a href="javascript:sendToLogin()" title="Ver Carásteres">back</a></div>
             </div>
+
+            <div id ="errorMessage" class="errorMessages" >
+                ${sendNewPasswordError}
+            </div>
+            
             
             
 
@@ -60,16 +63,29 @@ body {
     background-size: 1000px 1000px, 410px 410px, 610px 610px, 530px 530px, 730px 730px, 1000px 1000px;
     background-color: #58B86F;
     background: #58B86F;
+}
 
-
+.errorMessages {
+    width: auto;
+    height: auto;
+    font-size: 14px;
+    text-align: center;
+    color: #ff6437;
+    background: #121212;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
     
 }
 
+
 .login {
     width: 300px;
-    height: 285px;
+    height: auto;
     overflow: hidden;
     background: #1e1e1e;
+    padding-bottom: 6px;
     border-radius: 6px;
     margin: 50px auto;
     box-shadow: 0px 0px 50px rgba(0,0,0,.8);
@@ -77,7 +93,7 @@ body {
 
 .login .titulo {
     width: 298px;
-    height: 14px;
+    height: auto;
     padding-top: 13px;
     padding-bottom: 13px;
     font-size: 14px;
@@ -152,16 +168,25 @@ body {
     width: 240px;
     height: auto;
     overflow: hidden;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: 12px;
+    padding-bottom: 15px;
     font-size: 10px;
     text-align: center;
 }
 
 .login .olvido .col {
-    width: 50%;
+    width: 100%;
     height: auto;
-    float: left;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: center;
+}
+
+.login .olvido .space {
+    width: 100%;
+    height: auto;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 .login .olvido .col a {
@@ -203,6 +228,6 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-    
+
     
 </style>
