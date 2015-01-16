@@ -308,7 +308,11 @@ public class MainControllerTest {
         user.setAdmin(true);
         MockHttpSession mockHttpSession = new MockHttpSession(); 
         mockHttpSession.setAttribute("user", user);
+
      //   when(r.getCompletionRG(any(ResembleGame.class))).thenReturn(new ArrayList<HighscoreDisplay>()); 
+
+        //when(r.getCompletionRG(any(ResembleGame.class))).thenReturn(new ArrayList<HighscoreDisplay>()); 
+
         this.mockMvc.perform(post("/choosegameCompletionlist")
                 .param("gameid", "1")
                 .session(mockHttpSession))
@@ -325,8 +329,12 @@ public class MainControllerTest {
         ArrayList<HighscoreDisplay> hsd = new ArrayList<HighscoreDisplay>(); 
         hsd.add(new HighscoreDisplay()); 
         hsd.add(new HighscoreDisplay()); 
-        hsd.add(new HighscoreDisplay()); 
+        hsd.add(new HighscoreDisplay());
+
       //  when(r.getCompletionRG(any(ResembleGame.class))).thenReturn(hsd); 
+
+        //when(r.getCompletionRG(any(ResembleGame.class))).thenReturn(hsd); 
+
         this.mockMvc.perform(post("/choosegameCompletionlist")
                 .param("gameid", "1")
                 .session(mockHttpSession))
@@ -344,7 +352,11 @@ public class MainControllerTest {
         hsd.add(new HighscoreDisplay()); 
         hsd.add(new HighscoreDisplay()); 
         hsd.add(new HighscoreDisplay()); 
+
      //   when(r.getCompletion(any(MultiChoice.class))).thenReturn(new ArrayList<HighscoreDisplay>()); 
+
+        //when(r.getCompletion(any(MultiChoice.class))).thenReturn(new ArrayList<HighscoreDisplay>()); 
+
         this.mockMvc.perform(post("/choosegameCompletionlist")
                 .param("gameid", "1")
                 .session(mockHttpSession))
@@ -362,7 +374,11 @@ public class MainControllerTest {
         hsd.add(new HighscoreDisplay()); 
         hsd.add(new HighscoreDisplay()); 
         hsd.add(new HighscoreDisplay()); 
+
     //    when(r.getCompletion(any(MultiChoice.class))).thenReturn(hsd); 
+
+        //when(r.getCompletion(any(MultiChoice.class))).thenReturn(hsd); 
+
         this.mockMvc.perform(post("/choosegameCompletionlist")
                 .param("gameid", "1")
                 .session(mockHttpSession))

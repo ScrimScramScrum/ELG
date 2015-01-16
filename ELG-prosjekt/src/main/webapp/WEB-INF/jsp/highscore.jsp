@@ -35,7 +35,7 @@
     <body>
         <div id="sidebar">
             <center>
-            <h2>Select a game</h2>
+            <h2>Velg spill</h2>
             <h4>Resemble Games</h4>
 
                 <c:forEach items="${resembleGames}" var="game">

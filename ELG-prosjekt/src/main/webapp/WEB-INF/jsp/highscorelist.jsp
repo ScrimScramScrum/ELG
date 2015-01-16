@@ -63,14 +63,9 @@
                     <c:choose>
                         <c:when test="${gametype == 0}">
                             <h1>
-                                Highscore - top 10
+                                Highscore - Top 10
                             </h1>
-                            <br>
-                            This is a top-10 view of the game of your choice
-                            <br>
-                            You choose your game on the left
-                            <br>
-                            While on the right you can choose how you want the graph to be displayed
+                            <spring:message code="highscorelistInfo" />
                         </c:when>
                         <c:otherwise>
                             <table id="hs_table">
