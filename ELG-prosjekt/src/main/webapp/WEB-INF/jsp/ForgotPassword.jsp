@@ -1,9 +1,10 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <script>
     function confirmComplete() {
-        if (confirm('Sikker på at du ønsker å resette passordet? OK=ja')) {
+        if (confirm('<spring:message code="bekreftPassordReset" />')) {
             
             submitFormWithValue();
             //window.location.href='<c:url value="/sendNewPassword"/>';
@@ -27,7 +28,7 @@
 <div>
 
     <section class="login">
-        <div class="titulo">Education Learning Game</div>
+        <div class="titulo">Educational Learning Game</div>
          <form:form action="sendNewPassword" method="post" modelAttribute="sendNewPassword" enctype="application/x-www-form-urlencoded" >
             <form:input path="email" value="test@gmail.com" type="text"  placeholder="Email" data-icon="U" />
             <form:errors path="email" />

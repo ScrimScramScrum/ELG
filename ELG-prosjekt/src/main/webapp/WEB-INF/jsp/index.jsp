@@ -12,8 +12,12 @@
     </head>
     <body>
         <h1>Hello World!</h1>@
-        <spring:message code="melding" />
-        
+        <p>
+            <script>
+                <spring:message code="melding" />
+            </script>
+        </p>
+
         <%--
              
         <form action="<c:url value="/login"/>">
@@ -23,22 +27,22 @@
         <form action="<c:url value="/newPerson"/>">
         <input type="submit" value="Ny person">
         </form> --%>
-        
+
         <form action="<c:url value="/administrateAccount"/>" >
-           <input type="submit" value="administrere">
+            <input type="submit" value="administrere">
         </form>
-           
+
         <form action="<c:url value="/kOdesLostTags"/>" >
-           <input type="submit" value="K.Odes Lost Tags">
+            <input type="submit" value="K.Odes Lost Tags">
         </form>
-           
-           
+
+
         <h2>${registeredOK}</h2>
-        
-        
+
+
         <h2> <c:out value="${sessionScope.user}"/>
 
 
-        
+
     </body>
 </html>
