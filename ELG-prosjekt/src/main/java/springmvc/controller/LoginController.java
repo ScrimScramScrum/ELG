@@ -68,7 +68,7 @@ public class LoginController {
             modell.addAttribute("regeneratedPassword", "<br>Passordet er nå sent på mailen din: "+person.getEmail()+"<br> &nbsp"); 
         } else {
             System.out.println("Feil ved endring av passord");
-            modell.addAttribute("Feil ved endring av passord"); 
+            modell.addAttribute("sendNewPasswordError", "Feil ved endring av passord"); 
             return "forgotPasswordFromLogin";
 
         }

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import springmvc.domain.HighscoreDisplay;
 import springmvc.domain.ResembleGame;
-import springmvc.domain.ResembleTask;
 import springmvc.domain.User;
 import springmvc.service.GameListService;
-import springmvc.service.GameListServiceImpl;
 import springmvc.service.ResembleTaskService;
 import springmvc.service.ResultService;
 
@@ -48,6 +46,17 @@ public class ResembleGameController {
         return mav; 
     }*/
     
+    @ExceptionHandler(Exception.class)
+    public ModelAndView handleError(HttpServletRequest req, Exception exception){
+        System.out.println("Kommer hit");
+        ModelAndView mav = new ModelAndView(); 
+        mav.addObject("Melding", "feilmelding.generell"); 
+        mav.addObject("unntak", exception); 
+        mav.setViewName("about");
+        return mav; 
+    } 
+    
+    
     @RequestMapping(value = "resemblegame", method = RequestMethod.POST)
     public ModelAndView resembleGame(ModelAndView mav, @RequestParam("gameid") String id){
         int gameid = Integer.parseInt(id);
@@ -71,24 +80,30 @@ public class ResembleGameController {
     
     @RequestMapping(value ="finishgame")
     public String resembleGameFinish(HttpSession session, ModelAndView mav, @ModelAttribute(value = "resembleGame") ResembleGame resembleGame, HttpServletRequest req) {
+        System.out.println("Finishgame kjører");
+        User user = (User)session.getAttribute("user");
+        ResembleGame resemblegame2 = (ResembleGame)session.getAttribute("resembleGame"); 
+        
+        if (user == null){
+            return "firstLogin"; 
+        } 
         resembleGame.setTaskNumberScore(resembleGame.getCurrentTask(), Double.parseDouble(req.getParameter("score")));
         System.out.println("TOTAL SCORE: " + resembleGame.getTotalScore());
-        Double score = resembleGame.getTotalScore();            
-            User user = (User)session.getAttribute("user");
-            String k = user.getEmail();
-            int d = r.getResembleGameRes(k, resembleGame);
-            if(d == 0){
+        Double score = resembleGame.getTotalScore();        
+        String k = user.getEmail();
+        int d = r.getResembleGameRes(k, resembleGame);
+        if(d == 0){
                 r.regResembleGameRes(k, score, resembleGame);
-            } else if(score > d){
+        } else if(score > d){
                 r.updateResembleResult(k, score, resembleGame);
-            }
-            ArrayList<HighscoreDisplay> hs = r.highscoreRG(resembleGame);
-            System.out.println(hs.size());
-            String melding = "";
-            for (int i = 0; i<hs.size(); i++){
+        }
+        ArrayList<HighscoreDisplay> hs = r.highscoreRG(resembleGame);
+        System.out.println(hs.size());
+        String melding = "";
+        for (int i = 0; i<hs.size(); i++){
                 melding += hs.get(i).getFname() + " " + hs.get(i).getLname() + " " + hs.get(i).getScore() +"\n";
-            }
-            mav.addObject("highscorelist", melding);
+        }
+        mav.addObject("highscorelist", melding);
         // resembleGameService.updatePoints(Person person);
         return "finishgame";//finishgame
     }

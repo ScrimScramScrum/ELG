@@ -12,11 +12,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import springmvc.domain.Exercise;
 import springmvc.domain.HighscoreDisplay;
 import springmvc.domain.MultiChoice;
@@ -40,6 +42,16 @@ public class MultiChoiceController {
     
     @Autowired
     private ResultService r;
+    
+    @ExceptionHandler(Exception.class)
+    public ModelAndView handleError(HttpServletRequest req, Exception exception){
+        System.out.println("Kommer hit");
+        ModelAndView mav = new ModelAndView(); 
+        mav.addObject("Melding", "feilmelding.generell"); 
+        mav.addObject("unntak", exception); 
+        mav.setViewName("about");
+        return mav; 
+    } 
 
     
     @RequestMapping(value = "multi", method = RequestMethod.POST)
@@ -52,6 +64,10 @@ public class MultiChoiceController {
     
     @RequestMapping(value = "nextTask")
     public String nextTask(HttpSession session, Model model, @ModelAttribute(value = "spillet") MultiChoice mc, String value, HttpServletRequest request){
+        User user = (User)session.getAttribute("user");
+        if (user == null){
+            return "firstLogin"; 
+        }
         if (request.getParameter("button") != null){
             String button = request.getParameter("button");
             mc.setResult(mc.current(), mc.getCurrent().checkAnswer(button));
@@ -61,7 +77,6 @@ public class MultiChoiceController {
             model.addAttribute("result", mc.getResult());
             //******DETTE HER HER FOR Å REGISTRERE RESULTAT I DATABASEN!!!*****
             Double score = mc.getResult();            
-            User user = (User)session.getAttribute("user");
             String k = user.getEmail();
             int d = r.getMultiChoiceRes(k, mc);
             if(d == 0){
