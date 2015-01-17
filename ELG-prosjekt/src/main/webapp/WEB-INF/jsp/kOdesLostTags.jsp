@@ -60,6 +60,11 @@ function Game() {
 	};
 }
 
+//TAG1 = <HEAD>
+//TAG2 = <STYLE>
+//TAG3 = <DIV>
+//TAG4 = <BODY>
+
 var oppgave1 = new Questions("Et paragraf på en webside", "tag1");
 var oppgave2 = new Questions("background-color: red;", "tag2");
 var oppgave3 = new Questions("OVERSKRIFT", "tag3");
@@ -118,7 +123,6 @@ bgImage.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/background
 // KODE START1 image
 var kodeStarter1 = new Image();
 kodeStarter1.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/kOdesLostTagsImages/kodeStart/kodeGif.gif"/>";
-
 
 
 // KODE FINISH image
