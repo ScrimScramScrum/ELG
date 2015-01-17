@@ -14,9 +14,9 @@ function Game() {
 	this.score = 0;
 	this.speed = 25;
 	this.questionOnNow = 0;
-	this.theQuestions = [oppgave1, oppgave2, oppgave3, oppgave4, oppgave5, oppgave6, oppgave7, oppgave8, oppgave9, oppgave10];
+	this.theQuestions = [oppgave1, oppgave2, oppgave3, oppgave4, oppgave5, oppgave6, oppgave7, oppgave8, oppgave9, oppgave10,oppgave11, oppgave12, oppgave13, oppgave14, oppgave15, oppgave16, oppgave17, oppgave18, oppgave19, oppgave20];
 	this.questionDone = [];
-	this.questionToBeAsked = [0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9];
+	this.questionToBeAsked = [0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19];
 	this.round = 0;
 
 
@@ -70,7 +70,16 @@ var oppgave7 = new Questions("STORSKRIFT", "tag3");
 var oppgave8 = new Questions("Kropp?", "tag4");
 var oppgave9 = new Questions("avsnitt?", "tag1");
 var oppgave10 = new Questions("text-align: center;", "tag2");
-
+var oppgave11 = new Questions("Et paragraf på en webside", "tag1");
+var oppgave12 = new Questions("background-color: red;", "tag2");
+var oppgave13 = new Questions("OVERSKRIFT", "tag3");
+var oppgave14 = new Questions("Ting som skal vises på siden", "tag4");
+var oppgave15 = new Questions(";PppppPPppppPppp", "tag1");
+var oppgave16 = new Questions("h1 {color:red;}", "tag2");
+var oppgave17 = new Questions("STORSKRIFT", "tag3");
+var oppgave18 = new Questions("Kropp?", "tag4");
+var oppgave19 = new Questions("avsnitt?", "tag1");
+var oppgave20 = new Questions("text-align: center;", "tag2");
 
 console.log("----------");
 var audio80 = new Audio("<c:url value="/resources/kOdesLostTags/Sound/kode80bpm.wav.m4a"/>");
@@ -143,7 +152,7 @@ var tag1Image = new Image();
 tag1Image.onload = function () {
 	tag1Ready = true;
 };
-tag1Image.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/p.png"/>";
+tag1Image.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/kOdesLostTagsImages/head.png"/>";
 
 
 //Tag2
@@ -152,7 +161,7 @@ var tag2Image = new Image();
 tag2Image.onload = function () {
 	tag2Ready = true;
 };
-tag2Image.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/style.png"/>";
+tag2Image.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/kOdesLostTagsImages/style.png"/>";
 
 
 //Tag3
@@ -161,7 +170,7 @@ var tag3Image = new Image();
 tag3Image.onload = function () {
 	tag3Ready = true;
 };
-tag3Image.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/h1.png"/>";
+tag3Image.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/kOdesLostTagsImages/div.png"/>";
 
 //Tag4
 var tag4Ready = false;
@@ -169,7 +178,7 @@ var tag4Image = new Image();
 tag4Image.onload = function () {
 	tag4Ready = true;
 }
-tag4Image.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/body.png"/>";
+tag4Image.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/kOdesLostTagsImages/body.png"/>";
 
 // Monster image
 var monsterReady = false;
