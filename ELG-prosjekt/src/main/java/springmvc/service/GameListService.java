@@ -19,5 +19,6 @@ public interface GameListService {
     public ArrayList<MultiChoiceInfo> updateApprovedMultiChoiceGames(ArrayList<MultiChoiceInfo> multiChoiceGames, User user);
     public boolean insertResembleGame(String gameName, String info, String learningGoals, String difficulty, String creatorId); 
     public ResembleGame getResemleGameByName(String gameName);
+    public ArrayList<ResembleGame> updateApprovedResembleGames( ArrayList<ResembleGame> resembleGames, User user);       
 
 }

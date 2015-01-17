@@ -14,6 +14,7 @@ public class ResembleGame implements Serializable{
     private int difficulty;
     private String gamename;
     private String creatorId; 
+    private int approved = -1;
 
     public ResembleGame(ArrayList<Integer> taskNumbers, int gameId, String learningGoal, String info, int difficulty) {
         this.gameId = gameId; 
@@ -129,6 +130,15 @@ public class ResembleGame implements Serializable{
     public void setCreatorId(String creatorId) {
         this.creatorId = creatorId;
     }
+
+    public int getApproved() {
+        return approved;
+    }
+
+    public void setApproved(int approved) {
+        this.approved = approved;
+    }
+    
     
     
     

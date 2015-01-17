@@ -108,6 +108,10 @@ public class MainController {
         //add a function to update the multiChoiceGames and resembleGames lists to a version that 	says if its done or not. 
         //updateApprovedGames(user, resembleGames, multiChoiceGames);
         ArrayList<MultiChoiceInfo> multiChoiceGamesWithApproved = gameListService.updateApprovedMultiChoiceGames(multiChoiceGames, user);
+        ArrayList<ResembleGame> resembleGamesWithApproved = gameListService.updateApprovedResembleGames(resembleGames, user);
+        
+        
+        
         if (multiChoiceGamesWithApproved==null){
             int resemble = 0;
             mav.addObject("gametype", resemble);
@@ -125,6 +129,8 @@ public class MainController {
         mav.setViewName("chooseGame");
         return mav;
     }
+    
+    
     
     @RequestMapping(value = "chooseothergames")
     public ModelAndView chooseOtherGames(ModelAndView mav, HttpSession session, @ModelAttribute Login login) {
