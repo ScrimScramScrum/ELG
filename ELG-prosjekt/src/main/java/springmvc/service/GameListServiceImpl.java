@@ -87,15 +87,15 @@ public class GameListServiceImpl implements GameListService{
     public ArrayList<MultiChoiceInfo> updateApprovedMultiChoiceGames(ArrayList<MultiChoiceInfo> multiChoiceGames, User user){
         
         //TODO get information from the DB. This is just test DATA. 
-        
-                System.out.println("in updateApprovedMultiChoiceGames");
-        for (int i = 0; i<multiChoiceGames.size();i++){
-            System.out.println(multiChoiceGames.get(i));
-            if (multiChoiceGames.get(i).getName().equals("CSS spill")){
-                multiChoiceGames.get(i).setApproved(1);
-            }
-            //multiChoiceGames.get(i).setApproved(1);
-        }
+//        
+//                System.out.println("in updateApprovedMultiChoiceGames");
+//        for (int i = 0; i<multiChoiceGames.size();i++){
+//            System.out.println(multiChoiceGames.get(i));
+//            if (multiChoiceGames.get(i).getName().equals("CSS spill")){
+//                multiChoiceGames.get(i).setApproved(1);
+//            }
+//            //multiChoiceGames.get(i).setApproved(1);
+//        }
                 
         /*for (int i = 0; i<multiChoiceGames.size();i++){
             System.out.println(multiChoiceGames.get(i));
@@ -105,16 +105,24 @@ public class GameListServiceImpl implements GameListService{
             
         } */  
         
-        /*for (int i = 0; i<multiChoiceGames.size();i++){
+        for (int i = 0; i<multiChoiceGames.size();i++){
             System.out.println(multiChoiceGames.get(i).getName());
             MultiResult multiResult = multipleChoiceRepoDB.getMultiChoiceAndUsername(multiChoiceGames.get(i).getName(), user.getEmail());
             
+         
             if (multiResult!=null){
-                System.out.println(multiResult.getScore());
+                System.out.println("Name: "+multiChoiceGames.get(i).getName());
+                System.out.println("email: "+multiResult.getEmail());
+                System.out.println("game : "+multiResult.getIdGame());
+                System.out.println("score: "+multiResult.getScore());
+                if (multiResult.getScore()>=80){
+                    multiChoiceGames.get(i).setApproved(1);
+                }
+                
             }
-            //System.out.println(multiResult.getScore());
+            
         }
-        */
+        
         
         
         

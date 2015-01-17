@@ -19,6 +19,7 @@ public class MultiResult {
         this.idGame = idGame;
         this.score = score;
     }
+
     
     public MultiResult(){
         
@@ -53,10 +54,11 @@ public class MultiResult {
         return score;
     }
 
-    public void setScore(int Score) {
+    public void setScore(int score) {
         this.score = score;
     }
-    
+
+   
     
     
 }
