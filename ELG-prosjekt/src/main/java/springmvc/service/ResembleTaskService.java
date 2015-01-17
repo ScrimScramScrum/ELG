@@ -31,6 +31,10 @@ public class ResembleTaskService {
     
     public boolean insertResembleTasks(ArrayList<ResembleTask> resembleTasks, int gameId){
         for(ResembleTask rt : resembleTasks){
+            rt.setSolutionHTML(rt.getSolutionHTML().replace("\'", "\""));
+            rt.setSolutionCSS(rt.getSolutionCSS().replace("\'", "\""));
+            rt.setStartingHTML(rt.getStartingHTML().replace("\'", "\""));
+            rt.setStartingCSS(rt.getStartingCSS().replace("\'", "\""));
             insertResembleTask(rt.getTaskText(), rt.getSolutionHTML(), rt.getSolutionCSS(), rt.getStartingHTML(), rt.getStartingCSS(), rt.getWidth(), rt.getHeight(), gameId); 
         }
         return true; 
