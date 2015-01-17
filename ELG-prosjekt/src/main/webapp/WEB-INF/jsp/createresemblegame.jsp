@@ -14,26 +14,29 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <form:form action = "submitresemblegame" method = "POST" modelAttribute = "createResembleGame">
+            Navn på spillet: <form:input path="resembleGame.gamename" id ="gameName" type="text" />
+            Læringsmål: <form:input path="resembleGame.learningGoal" id ="learningGoal" type="text"/>
+            Informasjon: <form:input path="resembleGame.info" id ="info" type="text"/>
+            Vanskelighetsgrad: <form:input path="resembleGame.difficulty" id ="difficulty" type="text"/><br>
+            <c:choose>
+                <c:when test="${createResembleGame.resembleTasks.size()==0}">
+                    Du har foreløpig ikke lagd noen deloppgaver.
+                </c:when>
+                <c:otherwise>
+                    Dette er deloppgavene du har lagt foreløpig: <br>
+                    <c:forEach items="${createResembleGame.resembleTasks}" var="task">
+                        <c:out value = "Solution HTML: ${task.solutionHTML}"/>
+                        <c:out value = "Solution CSS: ${task.solutionCSS}"/>
+                        <c:out value = "Starting HTML ${task.startingHTML}"/> 
+                        <c:out value = "Starting CSS: ${task.startingCSS}"/>
+                        <br>
+                    </c:forEach>
+                    <input type = "submit" value = "Lagre spill!">
+                </c:otherwise>
+            </c:choose>
+        </form:form>
         <a href ="createresembletask">Lag et spill! :D </a><br>
-        Dette er spillene du har lagt foreløpig: <br>
-        <c:forEach items="${createResembleGame.resembleTasks}" var="task">
-            <c:out value = "Solution HTML: ${task.solutionHTML}"/>
-            <c:out value = "Solution CSS: ${task.solutionCSS}"/>
-            <c:out value = "Starting HTML ${task.startingHTML}"/> 
-            <c:out value = "Starting CSS: ${task.startingCSS}"/>
-            <br>
-        </c:forEach>
-
-        <c:choose>
-            <c:when test="${createResembleGame.resembleTasks.size()==0}">
-                Du har foreløpig ikke lagd noen deloppgaver.
-            </c:when>
-            <c:otherwise>
-            <form:form action = "submitresemblegame" method = "POST" modelAttribute = "createResembleGame">
-                <form:input path="resembleGame.gamename" id ="gameName" type="text"/>
-                <input type = "submit" value = "Lagre spill!">
-            </form:form>
-            </c:otherwise>
-        </c:choose>
+        
     </body>
 </html>
