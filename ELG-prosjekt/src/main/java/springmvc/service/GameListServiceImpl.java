@@ -115,8 +115,9 @@ public class GameListServiceImpl implements GameListService{
                 System.out.println("email: "+multiResult.getEmail());
                 System.out.println("game : "+multiResult.getIdGame());
                 System.out.println("score: "+multiResult.getScore());
-                if (multiResult.getScore()>=80){
+                if (multiResult.getScore()>=80 && user.getEmail().equals(multiResult.getEmail())){
                     multiChoiceGames.get(i).setApproved(1);
+                    
                 }
                 
             }
