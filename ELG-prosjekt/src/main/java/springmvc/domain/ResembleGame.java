@@ -13,6 +13,7 @@ public class ResembleGame implements Serializable{
     private String info; 
     private int difficulty;
     private String gamename;
+    private String creatorId; 
 
     public ResembleGame(ArrayList<Integer> taskNumbers, int gameId, String learningGoal, String info, int difficulty) {
         this.gameId = gameId; 
@@ -120,5 +121,15 @@ public class ResembleGame implements Serializable{
     public void setGamename(String gamename) {
         this.gamename = gamename;
     }
+
+    public String getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
+    }
+    
+    
     
 }

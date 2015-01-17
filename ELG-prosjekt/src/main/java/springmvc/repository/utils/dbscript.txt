@@ -1,9 +1,14 @@
+DROP TABLE ovingmultigame;
+DROP TABLE ovingresemblegame;
+DROP TABLE oving;
 DROP TABLE resembletask;
 DROP TABLE resembleresult;
 DROP TABLE resemblegame;
 DROP TABLE multiexercise;
 DROP TABLE multiresult;
 DROP TABLE multichoicegame;
+DROP TABLE personclass;
+DROP TABLE classes;
 DROP TABLE person;
 
 CREATE TABLE person(
@@ -11,8 +16,17 @@ CREATE TABLE person(
 	fname VARCHAR(40) NOT NULL,
 	lname VARCHAR(40) NOT NULL,
         hashPassword VARCHAR(300),
-        classId VARCHAR(30),
+        administrator INT,
         CONSTRAINT person_pk PRIMARY KEY (email));
+
+CREATE TABLE classes(   
+classname VARCHAR(20) NOT NULL,
+CONSTRAINT classes_pk PRIMARY KEY(classname));
+
+CREATE TABLE personclass(
+email VARCHAR(50) NOT NULL,
+classname VARCHAR(20) NOT NULL,
+CONSTRAINT persclass_pk PRIMARY KEY(email, classname));
 
 CREATE TABLE multiresult(
         idResult INTEGER GENERATED ALWAYS AS IDENTITY,
@@ -20,6 +34,21 @@ CREATE TABLE multiresult(
         email VARCHAR(50),
         idGame INTEGER,
         CONSTRAINT multiResult_pk PRIMARY KEY (idResult));
+
+CREATE TABLE oving(
+        idOving INTEGER GENERATED ALWAYS AS IDENTITY,
+        ovingname VARCHAR(40),
+        CONSTRAINT oving_pk PRIMARY KEY(idOving));
+
+CREATE TABLE ovingresemblegame(
+        idOving INTEGER,
+        idGameResemble INTEGER,
+        CONSTRAINT ovingresemble_pk PRIMARY KEY(idOving, idGameResemble));
+
+CREATE TABLE ovingmultigame(
+        idOving INTEGER,
+        idGameMulti INTEGER,
+        CONSTRAINT ovingmulti_pk PRIMARY KEY(idOving, idGameMulti));
 
 CREATE TABLE multichoicegame(
         idGame INTEGER GENERATED ALWAYS AS IDENTITY,
@@ -53,6 +82,7 @@ CREATE TABLE resemblegame(
         info VARCHAR(600),
         learning_goals VARCHAR(600),
         difficulty INTEGER,
+	creator_id VARCHAR(50) NOT NULL,
         CONSTRAINT resemblegame_pk PRIMARY KEY (idGame));
 
 CREATE TABLE resembletask(
@@ -66,8 +96,6 @@ CREATE TABLE resembletask(
         height INTEGER,
         idGame INTEGER,
         CONSTRAINT resembletask_pk PRIMARY KEY (idTask));
-
--- Fremmednøkler
 
 ALTER TABLE multiresult
 ADD CONSTRAINT person_fk FOREIGN KEY(email) REFERENCES person(email);
@@ -84,27 +112,94 @@ ADD CONSTRAINT person_fk2 FOREIGN KEY(email) REFERENCES person(email);
 ALTER TABLE resembleresult
 ADD CONSTRAINT resemblegame_fk FOREIGN KEY(idGame) REFERENCES resemblegame(idGame);
 
+ALTER TABLE resemblegame
+ADD CONSTRAINT creatorID_fk FOREIGN KEY(creator_id) REFERENCES person(email);
+
 ALTER TABLE resembletask
 ADD CONSTRAINT resemblegame2_fk FOREIGN KEY(idGame) REFERENCES resemblegame(idGame);
 
+ALTER TABLE personclass
+ADD CONSTRAINT person3_fk FOREIGN KEY (email) REFERENCES person(email);
 
-INSERT INTO resemblegame VALUES(DEFAULT, '1', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but a', 'a goal', 1);
-INSERT INTO resemblegame VALUES(DEFAULT, '2', 'Den yngste av de etterlyste mennene, 18 år gamle Hamyd Mourad, meldte seg ved en politistasjon sent onsdag i Charleville-Mézières i nærheten av grensen til Belgia.','the best goal of them all', 3);
-INSERT INTO resemblegame VALUES(DEFAULT, '3', 'G har ikke ansvar for innhold på eksterne nettsider som det lenkes til. Kopiering av materiale fra VG for bruk annet sted er ikke tillatt uten avtale.', 'The best goal of them all', 2);
+ALTER TABLE personclass
+ADD CONSTRAINT class_fk FOREIGN KEY (classname) REFERENCES classes(classname);
 
+ALTER TABLE ovingresemblegame
+ADD CONSTRAINT ovingresemblegame_fk FOREIGN KEY (idGameResemble) REFERENCES resemblegame(idGame);
+
+ALTER TABLE ovingmultigame
+ADD CONSTRAINT ovingmultigame_fk FOREIGN KEY (idOving) REFERENCES oving(idOving);
+
+INSERT INTO person VALUES('SYSTEM', 'SYSTEM', 'SYSTEM', '', 1);
+
+INSERT INTO resemblegame VALUES(DEFAULT, '1', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but a', 'a goal', 1, 'SYSTEM');
+INSERT INTO resemblegame VALUES(DEFAULT, '2', 'Den yngste av de etterlyste mennene, 18 år gamle Hamyd Mourad, meldte seg ved en politistasjon sent onsdag i Charleville-Mézières i nærheten av grensen til Belgia.','the best goal of them all', 3, 'SYSTEM');
+INSERT INTO resemblegame VALUES(DEFAULT, '3', 'G har ikke ansvar for innhold på eksterne nettsider som det lenkes til. Kopiering av materiale fra VG for bruk annet sted er ikke tillatt uten avtale.', 'The best goal of them all', 2,  'SYSTEM');
 INSERT INTO resembletask VALUES(DEFAULT, 'Du skal sette bakgrunnsfargen på siden til fargen #b0c4de<br>Du skal også lage en tabell med rød farge og to kolonner der det står "hei" (border="1"', 
-'<!DOCTYPE html><html><body>Hei!<br><table border="1"><tr><td>hei</td><td>hei</td></tr></table></body></html>', 'body {background-color: #b0c4de;} table {background-color: red}', '<!DOCTYPE html><html><body>Hei!</body></html>', 'body {}', 100, 80, 1); 
-INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 1', '<html><body>supsup</body></html>', '<html></html>', '', '', 200, 150, 1); 
-INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 2', '<html><body>TEST NR 1<br>TEST NR 2<br>TEST NR 3</body></html>', '', '', '', 150, 120, 1); 
-
-
-INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 1', '<html><body>supsup</body></html>', '<html></html>', '', '', 200, 150, 2); 
+'<!DOCTYPE html><html><body>Hei!<br><table><tr><td>hei</td><td>hei</td></tr></table></body></html>', 'body {background-color: #b0c4de;} table {background-color: red;}', '<!DOCTYPE html><html><body>Hei!</body></html>', 'body {}', 100, 80, 1);
+INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 1', '<html><body>supsup</body></html>', '<html></html>', '', '', 200, 150, 1);
+INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 2', '<html><body>TEST NR 1<br>TEST NR 2<br>TEST NR 3</body></html>', '', '', '', 150, 120, 1);
+INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 1', '<html><body>supsup</body></html>', '<html></html>', '', '', 200, 150, 2);
 INSERT INTO resembletask VALUES(DEFAULT, 'Du skal sette bakgrunnsfargen på siden til fargen #b0c4de<br>Du skal også lage en tabell med rød farge og to kolonner der det står "hei" (border="1"', 
-'<!DOCTYPE html><html><body>Hei!<br><table border="1"><tr><td>hei</td><td>hei</td></tr></table></body></html>', 'body {background-color: #b0c4de;} table {background-color: red}', '<!DOCTYPE html><html><body>Hei!</body></html>', 'body {}', 100, 80, 2); 
-INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 2', '<html><body>TEST NR 1<br>TEST NR 2<br>TEST NR 3</body></html>', '', '', '', 150, 120, 2); 
-
-INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 2', '<html><body>TEST NR 1<br>TEST NR 2<br>TEST NR 3</body></html>', '', '', '', 150, 120, 3); 
-INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 1', '<html><body>supsup</body></html>', '<html></html>', '','',  200, 150, 3); 
+'<!DOCTYPE html><html><body>Hei!<br><table ><tr><td>hei</td><td>hei</td></tr></table></body></html>', 'body {background-color: #b0c4de;} table {background-color: red;}', '<!DOCTYPE html><html><body>Hei!</body></html>', 'body {}', 100, 80, 2);
+INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 2', '<html><body>TEST NR 1<br>TEST NR 2<br>TEST NR 3</body></html>', '', '', '', 150, 120, 2);
+INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 2', '<html><body>TEST NR 1<br>TEST NR 2<br>TEST NR 3</body></html>', '', '', '', 150, 120, 3);
+INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 1', '<html><body>supsup</body></html>', '<html></html>', '','',  200, 150, 3);
 INSERT INTO resembletask VALUES(DEFAULT, 'Du skal sette bakgrunnsfargen på siden til fargen #b0c4de<br>Du skal også lage en tabell med rød farge og to kolonner der det står "hei" (border="1"', 
-'<!DOCTYPE html><html><body>Hei!<br><table border="1"><tr><td>hei</td><td>hei</td></tr></table></body></html>', 'body {background-color: #b0c4de;} table {background-color: red}', '<!DOCTYPE html><html><body>Hei!</body></html>', 'body {}', 100, 80, 3); 
+'<!DOCTYPE html><html><body>Hei!<br><table ><tr><td>hei</td><td>hei</td></tr></table></body></html>', 'body {background-color: #b0c4de;} table {background-color: red;}', '<!DOCTYPE html><html><body>Hei!</body></html>', 'body {}', 100, 80, 3);
+INSERT INTO multichoicegame VALUES(DEFAULT, 'HTML spill', 'Dette er et spill som tester grunnleggende kunnskap om HTML', 'Kunne gjengi grunnleggende informasjon knyttet til HTML', 1);
+INSERT INTO multichoicegame VALUES(DEFAULT, 'CSS spill', 'Dette er et spill som tester grunnleggende kunnskap om CSS', 'Kunne gjengi grunnleggende informasjon knyttet til CSS og dens syntax', 2);
+INSERT INTO multiexercise VALUES(DEFAULT, '<a href="http://google.com">Link</a>', '<body>http://google.com"</body>', '<img src=”http://google.com”/>', '<p>http://google.com</p>', '<a href="http://google.com">Link</a>', 'Hvilken av følgende kodelinjer oppretter en link til google?',1);
+INSERT INTO multiexercise VALUES(DEFAULT,'<p>','<h1>','<title>','<h3>','<h1>','Hvilken tag skal brukes for å lage stor overskrift i HTML?',1);
+INSERT INTO multiexercise VALUES(DEFAULT,'I script', 'I headen', 'I title', 'I bodyen','I bodyen','Hvor skal forms plasseres i et HTML dokument?',1);
+INSERT INTO multiexercise VALUES(DEFAULT,'<li>', '<pt>','<ut>','<pnt>','<li>','Hvilken tag brukes for å legge til et nytt punkt i en <ul> liste?',1);
+INSERT INTO multiexercise VALUES(DEFAULT,'Hyper Text Multimedia Language','Hyper Text Model Language','Hyper Text Markup Language', 'High Maintenance Model Lavatory', 'Hyper Text Markup Language', 'Hva står HTML for?',1);
+INSERT INTO multiexercise VALUES(DEFAULT,'Colorful Style Sheets', 'Computer Style Sheets', 'Cascading Style Sheets','Creative Style Sheets','Cascading Style Sheets','Hva står CSS for?',2);
+INSERT INTO multiexercise VALUES(DEFAULT,'I head', 'I body','I title', 'Skrives i JavaScript','I head','Hvor i et HTML-dokument skal CSS kode plasseres? (interne style sheets)',2);
+INSERT INTO multiexercise VALUES(DEFAULT,'<css>','<style>','<script>','<cstyle>','<style>','Hvilken tag brukes til å definere en intern style sheet?',2);
+INSERT INTO multiexercise VALUES(DEFAULT,'<p>style="text-size:bold;">', '<p style="font-size:bold;">', 'p {font-weight:bold;}', 'p {text-size:bold;}', 'p {font-weight:bold;}','Hva er den korrekte syntaxen for å gjøre alle <p> elementer til fet type?',2);
+INSERT INTO multiexercise VALUES(DEFAULT,'// this is a comment //', '/* this is a comment */', '// this is a comment', '--this is a comment', '/* this is a comment */', 'Hvordan setter du inn kommentar i en CSS-fil?',2);
+INSERT INTO person VALUES('test_per@gmail.com', 'test_per', 'test_kåre', '123123123123123123', 0);
+INSERT INTO person VALUES('test_kåre@gmail.com', 'test_kåre', 'test_per', '123123123123123123', 0);
+INSERT INTO person VALUES('test_2@test.com', 'test_2', 'test_22', '123123123123123123', 0);
+INSERT INTO person VALUES('kåre.ode@outlook.com', 'kåre', 'ode', '123123123123123123', 0);
+INSERT INTO person VALUES('kåre.ode2@outlook.com', 'kåre', 'ode', '123123123123123123', 0);
+INSERT INTO person VALUES('kåre.ode3@outlook.com', 'kåre', 'ode', '123123123123123123', 0);
+INSERT INTO person VALUES('kåre.ode4@outlook.com', 'kåre', 'ode', '123123123123123123', 0);
+INSERT INTO person VALUES('kåre.ode5@outlook.com', 'kåre', 'ode', '123123123123123123', 0);
+INSERT INTO person VALUES('kåre.ode6@outlook.com', 'kåre', 'ode', '123123123123123123', 0);
+INSERT INTO person VALUES('kåre.ode7@outlook.com', 'kåre', 'ode', '123123123123123123', 0);
+INSERT INTO multiresult VALUES(DEFAULT, 80, 'test_per@gmail.com', 1);
+INSERT INTO multiresult VALUES(DEFAULT, 100, 'test_kåre@gmail.com', 1);
+INSERT INTO multiresult VALUES(DEFAULT, 40, 'test_2@test.com', 1);
+INSERT INTO multiresult VALUES(DEFAULT, 80, 'kåre.ode@outlook.com', 1);
+INSERT INTO multiresult VALUES(DEFAULT, 40, 'kåre.ode2@outlook.com', 1);
+INSERT INTO multiresult VALUES(DEFAULT, 60, 'kåre.ode3@outlook.com', 1);
+INSERT INTO multiresult VALUES(DEFAULT, 100, 'kåre.ode4@outlook.com', 1);
+INSERT INTO multiresult VALUES(DEFAULT, 100, 'kåre.ode5@outlook.com', 1);
+INSERT INTO multiresult VALUES(DEFAULT, 100, 'kåre.ode6@outlook.com', 1);
+INSERT INTO multiresult VALUES(DEFAULT, 80, 'kåre.ode7@outlook.com', 1);
+INSERT INTO multiresult VALUES(DEFAULT, 100, 'test_per@gmail.com', 2);
+INSERT INTO resembleresult VALUES(DEFAULT, 100, 'test_per@gmail.com', 1);
+INSERT INTO resemblegame VALUES(DEFAULT, 'Øving 2 Del 1', 'I Denne oppgaven vil man bli testet om man får til å implementere enkle nettsider med en standard layout ved å bruke basic CSS og HTML', 'Lære seg enkel HTML og CSS layout', 2, 'SYSTEM');
+INSERT INTO resembletask VALUES(DEFAULT, 'Du skal få det til å se ut som fasiten', 
+'<html><body><div id="wrapper"><div id="top"><div id="top1">top 1</div><div id="top2">top 2</div><div id="top3">top 3</div></div><div id="mid"><ul><li><a href="#">test</a></li><li><a href="#">test</a></li><li><a href="#">test</a></li></ul></div><div id="bottom">bottom</div></div></body></html>', '#wrapper { color: white; text-align: center; font-size: 15px; } #top { height: 20%; width: 100%; bottom: 10px; } #top1 { height: 100%; float: left; width: 33%; background-color: red; padding-top: 10%; } #top2 { height: 100%; float: left; width: 34%; background-color: green; } #top3 { height: 100%; float: right; width: 33%; background-color: blue; padding-top: 10%; } #mid { background-color: gray; height: 50%; width: 100%; } #mid ul { font-size: 10px; display: inline-block; } #bottom { background-color: black; height: 30%; width: 100%; }', '<!DOCTYPE html><html><body><div></div></body></html>', '#top {background-color: red;}', 200, 150, 4);
+INSERT INTO resembletask VALUES(DEFAULT, 'Du skal lage en header slik som vist i fasiten', 
+'<html><body><div id="wrapper"><center><form><table cellspacing="0"><tr><td style="height: 20%" colspan="2">Dette er et sporsmal</td></tr><tr><td id="test1"><button id="button1">Nr 1</button></td><td id="test1"><button id="button1">Nr 2</button></td></tr><tr><td id="test1"><button id="button1">Nr 3</button></td><td id="test1"><button id="button1">Nr 4</button></td></tr></table></form></center></div></body></html>', '#wrapper { color: black; text-align: center; font-size: 20px; height: 100%; width: 100%; } table { height: 100%; width: 100%; } td { background-color: yellow; text-align: center; } #test1 { height: 40%; } #button1 { height: 100%; width: 100%; }', '<!DOCTYPE html><html><body></body></html>', '#wrapper { text-align: center; }', 200, 150, 4);
+INSERT INTO resembletask VALUES(DEFAULT, 'dette er en testoppgavetekst', '<html><body><div id="top">This is a menu</div><div id="mid"><div id="left"><a href="#test">test</a><br><a href="#test">test2</a><br>Test input: <br><input /></div><div id="right"><ul><li>Test 1</li><li>Test 2</li><li>Test 3</li></ul><img src="http://intuitiontosucceed.academy/wp-content/uploads/2014/06/K2_Mount_Godwin_Austen_Chogori_Savage_Mountain1-1080x675.jpg" alt="Mountain View"></div></div></body></html>',
+'body {color: white;background-color: red; font-size: 10px;}#top {background-color: gray;height: 15%;font-size: 15px;text-align: center;}#left {float: left;background-color: yellow;width: 30%;height: 60%;text-align: center;color: black;position: relative;}#right {float: left;color: yellow;background-color: blue;width: 70%;height: 60%;} input {width: 80%;} img { width: 50%; height: 50%;}', '<!DOCTYPE html><html><body></body></html>', 'body {color: white;}', 200, 150, 4);
+INSERT INTO resemblegame VALUES(DEFAULT, 'Øving 3 Del 1', 'I Denne oppgaven vil man også bli testet om man får til å implementere enkle nettsider med en standard layout ved å bruke basic CSS og HTML', 'Lære seg veldig enkel HTML og CSS layout', 3, 'SYSTEM');
+INSERT INTO resembletask VALUES(DEFAULT, 'Skriv “Jeg skal være rød” som overskrift. “Jeg skal være blå” er vanlig tekst. Style dem i riktige farger og gjør bakgrunnen gul.', 
+'<!DOCTYPE html><html><body><h1>Jeg skal være rød</h1><p>Jeg skal være blå</p></body></html>', 'p{color: blue;}h1{color: red;}body{background-color: yellow;}', '<!DOCTYPE html><html></html>', '', 200, 150, 5);
+INSERT INTO resembletask VALUES(DEFAULT, 'Lag en overskrift og en tekst som vist i fasiten. Gjør teksten “høyrestilt” høyrestilt. Gjør den også fet med skriftstørrelse 12.', 
+'<html><body><h1>Overskrift</h1><p>Høyrestilt tekst<p></body></html>', 'p{float: right;font-size: 12pt;font-weight: bold;}', '<!DOCTYPE html><html></html>', '', 200, 150, 5);
+INSERT INTO resembletask VALUES(DEFAULT, 'Lag en tabell med to rader og to kolonner med teksten ”Celle #”. Gjør bakgrunnen i cellene rød.', '<html><body><table><tr><td>Celle 1</td><td>Celle 2</td></tr><tr><td>Celle 3</td><td>Celle 4</td></tr></table></html>',
+'tr {background-color: red;}', '<!DOCTYPE html><html></html>', '', 150, 100, 5);
+
+INSERT INTO classes values('1ING');
+INSERT INTO personclass values('test_per@gmail.com', '1ING');
+INSERT INTO oving VALUES(DEFAULT, 'Øving 1');
+INSERT INTO ovingmultigame values(1,1);
+INSERT INTO ovingmultigame values(1,2);
+INSERT INTO ovingresemblegame values(1,1);
 

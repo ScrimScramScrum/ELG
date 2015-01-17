@@ -32,4 +32,6 @@ public class CreateResembleGame implements Serializable{
     public void setResembleGame(ResembleGame resembleGame) {
         this.resembleGame = resembleGame;
     }
+    
+    
 }

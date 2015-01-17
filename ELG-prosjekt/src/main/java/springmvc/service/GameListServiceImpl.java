@@ -59,6 +59,10 @@ public class GameListServiceImpl implements GameListService{
         return game; 
     }
     
+    public ResembleGame getResemleGameByName(String gameName){
+        return this.resembleGameRepoDB.getResemleGameByName(gameName); 
+    }
+    
     @Override
     public MultiChoice getMultiChoiceGame(String gameId){
         return multipleChoiceRepoDB.getMultiChoice(gameId);
@@ -96,13 +100,12 @@ public class GameListServiceImpl implements GameListService{
             //multiChoiceGames.get(i).setApproved(1);
         }
                 */
-                
-        
-        
-        
-        
-        
         return multiChoiceGames;
+    }
+
+    @Override
+    public boolean insertResembleGame(String gameName, String info, String learningGoals, String difficulty, String creatorId) {
+        return resembleGameRepoDB.insertResembleGame(gameName, info, learningGoals, difficulty, creatorId); 
     }
 
 }

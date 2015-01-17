@@ -57,6 +57,26 @@
             var score = 0; 
             var resembleIsPressed = false; 
 
+            $(function() {
+                $("#createTaskButton").click( function(){
+                    var editor1 = $('.CodeMirror')[0].CodeMirror;
+                    var editor2 = $('.CodeMirror')[1].CodeMirror;
+                    var editor3 = $('.CodeMirror')[2].CodeMirror;
+                    var editor4 = $('.CodeMirror')[3].CodeMirror;
+
+                    var solutionCSS = editor1.getValue(); 
+                    var solutionHTML = editor2.getValue(); 
+                    var startingCSS = editor3.getValue(); 
+                    var startingHTML = editor4.getValue(); 
+
+                    document.getElementById('solutionCSS').value = solutionCSS; 
+                    document.getElementById('solutionHTML').value = solutionHTML; 
+                    document.getElementById('startingCSS').value = startingCSS; 
+                    document.getElementById('startingHTML').value = startingHTML; 
+                    document.getElementById('taskText').value = document.getElementById('taskTextCreate').value;
+                });
+            });
+
             $(document).ready(function() {
                 var solutionHtml = "${resembleTask.solutionHTML}";
                 var solutionCss = "${resembleTask.solutionCSS}";
@@ -180,14 +200,11 @@
 
 
              function testFunc2(){
-                alert("HEI");
                 var editor = $('.CodeMirror')[2].CodeMirror;
                 var cssText = editor.getValue(); 
                 var editor = $('.CodeMirror')[3].CodeMirror;
                 var htmlText = editor.getValue(); 
                 setRenderedResult($("#resultFrame"), htmlText, cssText);
-                document.getElementById('startingCSS').value = cssText; 
-                alert(document.getElementById('startingCSS').value);
              }
 
 
@@ -243,7 +260,7 @@
                 <form:input path="startingCSS" id ="startingCSS" type="hidden"/>
                 <form:input path="width" id ="width" type="hidden"/>
                 <form:input path="height" id ="height" type="hidden"/>
-                <input type ="submit" value ="Registrer deloppgave"></input>
+                <input type ="submit" value ="Registrer deloppgave" id = "createTaskButton"></input>
             </form:form>
         </div>
     </body>

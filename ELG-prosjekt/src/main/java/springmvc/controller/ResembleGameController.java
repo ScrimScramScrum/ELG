@@ -94,13 +94,19 @@ public class ResembleGameController {
         return "finishgame";//finishgame
     }
     
-    
-    @RequestMapping(value = "createresembletask")
-    public ModelAndView createResembleTaskView(ModelAndView mav, @ModelAttribute(value = "createResembleTask") ResembleTask resembleTask){
+    @RequestMapping(value = "createresemblegame")
+    public ModelAndView showCreateResembleGame(ModelAndView mav){
         CreateResembleGame createResembleGame = new CreateResembleGame(); 
         createResembleGame.setResembleGame(new ResembleGame());
-        mav.addObject("createResembleTask", resembleTask);
         mav.addObject("createResembleGame", createResembleGame); 
+        mav.setViewName("createresemblegame");
+        return mav; 
+    }
+    
+    @RequestMapping(value = "createresembletask")
+    public ModelAndView createResembleTaskView(ModelAndView mav){
+        ResembleTask resembleTask = new ResembleTask(); 
+        mav.addObject("createResembleTask", resembleTask);
         mav.setViewName("createresembletask");
         return mav; 
     }
@@ -108,7 +114,20 @@ public class ResembleGameController {
     @RequestMapping(value="createresembletask", method = RequestMethod.POST)
     public String createResembleTask(ModelAndView mav, HttpServletRequest req, @ModelAttribute(value="createResembleTask") ResembleTask resembleTask, @ModelAttribute(value = "createResembleGame") CreateResembleGame createResembleGame){
         createResembleGame.addResembleTask(resembleTask);
-        System.out.println("SOLUTINCSS: " + resembleTask.getSolutionCSS() + resembleTask.getSolutionHTML() + resembleTask.getStartingCSS() + resembleTask.getStartingHTML());
         return "createresemblegame";
+    }
+    
+    @RequestMapping(value = "submitresemblegame", method = RequestMethod.POST)
+    public String submitResembleGame(@ModelAttribute(value = "createResembleGame") CreateResembleGame createResembleGame, HttpSession session){
+        ResembleGame resembleGame = createResembleGame.getResembleGame(); 
+        User user = (User)session.getAttribute("user");
+        resembleGame.setCreatorId(user.getEmail());
+        
+        ArrayList<ResembleTask> resembleTasks = createResembleGame.getResembleTasks();
+        gameListService.insertResembleGame(resembleGame.getGamename(), resembleGame.getInfo(), resembleGame.getLearningGoal(), ""+resembleGame.getDifficulty(), resembleGame.getCreatorId());
+        
+        int gameId = gameListService.getResemleGameByName(resembleGame.getGamename()).getGameId(); 
+        resembleTaskService.insertResembleTasks(resembleTasks, gameId);
+        return "about"; 
     }
 }

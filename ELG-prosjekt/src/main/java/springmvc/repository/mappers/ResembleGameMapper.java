@@ -24,6 +24,7 @@ public class ResembleGameMapper implements RowMapper<ResembleGame>{
         resembleGame.setLearningGoal(rs.getString("learning_goals"));
         resembleGame.setInfo(rs.getString("info"));
         resembleGame.setDifficulty(rs.getInt("difficulty"));
+        resembleGame.setCreatorId(rs.getString("creator_id"));
         //TASKNUMBERS?!?!?!?!        
         return resembleGame; 
     }

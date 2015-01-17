@@ -5,6 +5,7 @@
  */
 package springmvc.service;
 
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import springmvc.domain.ResembleTask;
 import springmvc.repository.ResembleTaskRepo;
@@ -26,5 +27,12 @@ public class ResembleTaskService {
     
     public boolean insertResembleTask(String taskText, String solutionHTML, String solutionCSS, String startingHTML, String startingCSS,  int width, int height, int idGame){
         return this.repo.insertResembleTask(taskText, solutionHTML, solutionCSS, startingHTML, startingCSS, width, height, idGame);
+    }
+    
+    public boolean insertResembleTasks(ArrayList<ResembleTask> resembleTasks, int gameId){
+        for(ResembleTask rt : resembleTasks){
+            insertResembleTask(rt.getTaskText(), rt.getSolutionHTML(), rt.getSolutionCSS(), rt.getStartingHTML(), rt.getStartingCSS(), rt.getWidth(), rt.getHeight(), gameId); 
+        }
+        return true; 
     }
 }

@@ -107,4 +107,14 @@ public class GameListServiceMock implements GameListService{
         return multiChoiceGames;
     }
 
+    @Override
+    public boolean insertResembleGame(String gameName, String info, String learningGoals, String difficulty, String creatorId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ResembleGame getResemleGameByName(String gameName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
