@@ -37,15 +37,20 @@
             <form:errors path="lname" />
             
             
-               <div class="olvido">
-            </div>
+            <br><br>
             
             <a href="javascript:submitFormWithValue()" name="submitCommand"class="enviar">Registrer</a> 
             
             <div class="olvido">
                     <div class="col"><a href="javascript:sendToLogin()" title="Back">back</a></div>
-            </div>
             
+                    <c:choose>
+                        <c:when test="${newPersonError != null}">
+                                <div id ="errorMessage" class="errorMessages" >
+                                    ${newPersonError}
+                                </div>
+                        </c:when>
+                    </c:choose>
             
 
         </form:form>
@@ -67,9 +72,25 @@ body {
     
 }
 
+.errorMessages {
+    width: auto;
+    height: auto;
+    font-size: 14px;
+    text-align: center;
+    color: #ff6437;
+    background: #121212;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    
+}
+
 .login {
     width: 300px;
-    height: 320px;
+    height: auto;
     overflow: hidden;
     background: #1e1e1e;
     border-radius: 6px;
@@ -152,10 +173,20 @@ body {
 
 .login .olvido {
     width: 240px;
-    height: 5px;
+    height: auto;
     overflow: hidden;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: auto;
+    padding-bottom: auto;
+    font-size: 10px;
+    text-align: center;
+}
+
+.login .space {
+    width: 240px;
+    height: auto;
+    overflow: hidden;
+    padding-top: auto;
+    padding-bottom: auto;
     font-size: 10px;
     text-align: center;
 }
@@ -163,7 +194,10 @@ body {
 .login .olvido .col {
     width: 50%;
     height: auto;
-    float: left;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .login .olvido .col a {

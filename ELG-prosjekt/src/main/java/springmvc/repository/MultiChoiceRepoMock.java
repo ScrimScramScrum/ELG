@@ -11,6 +11,8 @@ import java.util.List;
 import springmvc.domain.Exercise;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.MultiChoiceInfo;
+import springmvc.domain.MultiResult;
+import springmvc.repository.mappers.MultiChoiceMapper;
 
 /**
  *
@@ -76,5 +78,12 @@ public class MultiChoiceRepoMock implements MultiChoiceRepository {
     @Override
     public MultiChoiceInfo getMultiChoiceInfo(String gameId) {
         return null; 
+    }
+    
+    
+    @Override
+    public MultiResult getMultiChoiceAndUsername(String gamename, String email){ 
+        
+        return null;
     }
 }

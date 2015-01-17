@@ -9,6 +9,7 @@ package springmvc.repository;
 import java.util.ArrayList;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.MultiChoiceInfo;
+import springmvc.domain.MultiResult;
 
 /**
  *
@@ -20,4 +21,5 @@ public interface MultiChoiceRepository {
     public ArrayList<MultiChoice> getAllMultiChoiceGames(); 
     public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfo();
     public MultiChoiceInfo getMultiChoiceInfo(String gameId);
+    public MultiResult getMultiChoiceAndUsername(String gamename, String email);
 }

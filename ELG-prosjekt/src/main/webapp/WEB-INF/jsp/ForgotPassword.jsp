@@ -34,8 +34,7 @@
             <form:errors path="email" />
             
             
-               <div class="olvido">
-            </div>
+            <div class="olvido"></div>
             
             <a href="javascript:confirmComplete()" name="submitCommand"class="enviar">Endre passord</a> 
             
