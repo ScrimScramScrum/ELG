@@ -29,7 +29,7 @@ body, #skel-panels-pageWrapper
 }
 
 #sizeSliders{
-	width:50%;
+	width:40%;
 	float:right;
 }
 
@@ -5911,7 +5911,7 @@ ul.off-canvas-list {
 
 .range-slider {
   position: relative;
-  width: 30%;
+  width: 100%;
   height: 1rem;
   border: 1px solid #DDDDDD;
   margin: 1.25rem 0;
@@ -5920,7 +5920,7 @@ ul.off-canvas-list {
   background: #FAFAFA; }
   .range-slider.vertical-range {
     position: relative;
-    width: 30%;
+    width: 100%;
     height: 1rem;
     border: 1px solid #DDDDDD;
     margin: 1.25rem 0;
