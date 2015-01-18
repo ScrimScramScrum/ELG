@@ -15,12 +15,11 @@
         <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css/style.css'/>">
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      
         
         <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css">
         <script src="http://codemirror.net/lib/codemirror.js"></script>
         <script src="http://codemirror.net/addon/edit/matchbrackets.js"></script>
-        <script src="http://codemirror.net/addon/edit/continuecomment.js"></script>
         
         <script src="http://codemirror.net/mode/css/css.js"></script>
         <script src="http://codemirror.net/mode/xml/xml.js"></script>
@@ -32,6 +31,12 @@
         <script src="<c:url value='/resources/jsbeautifier/lib/beautify.js' />"></script>
         <script src="<c:url value='/resources/jsbeautifier/lib/beautify-css.js' />"></script>
         <script src="<c:url value='/resources/jsbeautifier/lib/beautify-html.js' />"></script>
+
+        <script src="<c:url value='/resources/js/jquery.js' />"></script>
+        <script src="<c:url value='/resources/js/foundation.js' />"></script>
+        <script src="<c:url value='/resources/js/foundation.slider.js' />"></script>
+
+
 
         <script>
             var the = {
@@ -74,6 +79,8 @@
                     document.getElementById('startingCSS').value = startingCSS; 
                     document.getElementById('startingHTML').value = startingHTML; 
                     document.getElementById('taskText').value = document.getElementById('taskTextCreate').value;
+                    document.getElementById('width').value = document.getElementById('sliderOutput1').value;
+                    document.getElementById('height').value = document.getElementById('sliderOutput2').value;
                 });
             });
 
@@ -207,6 +214,19 @@
                 setRenderedResult($("#resultFrame"), htmlText, cssText);
              }
 
+            function setIframeHeight(width, height){
+                var solutionFrame = document.getElementById('solutionFrame');
+                var resultFrame = document.getElementById('resultFrame');
+                solutionFrame.style.height = ""; 
+                solutionFrame.style.height = height + "px"; 
+                solutionFrame.style.width = ""; 
+                solutionFrame.style.width = width + "px"; 
+                resultFrame.style.height = ""; 
+                resultFrame.style.height = height + "px"; 
+                resultFrame.style.width = ""; 
+                resultFrame.style.width = width + "px"; 
+            }
+
 
         </script>
         <div id="resemblegamewrapper">  
@@ -215,8 +235,22 @@
                 <div id ="tasktextCreate">
                     Oppgavetekst: <br>
                     <textarea class="cssView" id="taskTextCreate" style="height:100px; resize:none;"></textarea>
-                </div>
+                        <span id="sliderOutput1"></span>
+                        <span id="sliderOutput2"></span>
 
+
+
+                    <div id = "sizeSliders">
+                        <div class="range-slider round" data-slider data-options="start: 1; end: 200; display_selector: #sliderOutput1;">
+                            <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                            <span class="range-slider-active-segment"></span>
+                        </div>             
+                        <div class="range-slider round" data-slider data-options="start: 1; end: 200; display_selector: #sliderOutput2;">
+                            <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                            <span class="range-slider-active-segment"></span>
+                        </div>     
+                    </div>
+                </div>
                 <div id="solutionDivCreate">
                     <center>
                         Fasit<br>
@@ -225,7 +259,7 @@
                 </div>   
                 <div div id = "resultDivCreate">
                     <center>
-                        Starting:
+                        Starting:<br>
                         <iframe class="renderedFrame" id ="resultFrame" src="about:blank"></iframe>
                     </center>
                 </div>
@@ -264,4 +298,15 @@
             </form:form>
         </div>
     </body>
+    <script>
+    $(document).foundation({
+      slider: {
+        on_change: function(){
+            var width = document.getElementById('sliderOutput1').innerHTML;
+            var height = document.getElementById('sliderOutput2').innerHTML;
+            setIframeHeight(width, height); 
+        }
+      }
+    });
+    </script>
 </html>
