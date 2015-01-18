@@ -30,6 +30,8 @@
                         <c:out value = "Solution CSS: ${task.solutionCSS}"/>
                         <c:out value = "Starting HTML ${task.startingHTML}"/> 
                         <c:out value = "Starting CSS: ${task.startingCSS}"/>
+                         <c:out value = "Width ${task.height}"/> 
+                        <c:out value = "Height: ${task.width}"/>
                         <br>
                     </c:forEach>
                     <input type = "submit" value = "Lagre spill!">

@@ -79,12 +79,20 @@
                     document.getElementById('startingCSS').value = startingCSS; 
                     document.getElementById('startingHTML').value = startingHTML; 
                     document.getElementById('taskText').value = document.getElementById('taskTextCreate').value;
-                    document.getElementById('width').value = document.getElementById('sliderOutput1').value;
-                    document.getElementById('height').value = document.getElementById('sliderOutput2').value;
+                    document.getElementById('width').value = document.getElementById('sliderOutput1').innerHTML;
+                    document.getElementById('height').value = document.getElementById('sliderOutput2').innerHTML;
                 });
             });
 
             $(document).ready(function() {
+
+             /*  $("#createTaskButton").click(function() {
+                    $.post($("#form2").attr("createresembletask"), $("#form2").serialize()+$("#form1").serialize(),
+                          function() {
+                            alert('Both forms submitted');
+                          });
+                  });*/
+
                 var solutionHtml = "${resembleTask.solutionHTML}";
                 var solutionCss = "${resembleTask.solutionCSS}";
                 
@@ -227,7 +235,6 @@
                 resultFrame.style.width = width + "px"; 
             }
 
-
         </script>
         <div id="resemblegamewrapper">  
 
@@ -286,16 +293,20 @@
                 </div>
                
             </div>
-            <form:form action="createresembletask" method="post" modelAttribute="createResembleTask" >
+            <form:form id = "form1" action = "createresembletask" class = "myForms" method="post" modelAttribute="createResembleTask" >
                 <form:input path="taskText" id ="taskText" value="" type="hidden"/>
                 <form:input path="solutionHTML" id ="solutionHTML"  type="hidden"/>
                 <form:input path="solutionCSS" id ="solutionCSS" type="hidden"/>
                 <form:input path="startingHTML" id ="startingHTML" type="hidden"/>
                 <form:input path="startingCSS" id ="startingCSS" type="hidden"/>
-                <form:input path="width" id ="width" type="hidden"/>
-                <form:input path="height" id ="height" type="hidden"/>
+                <form:input path = "width" id ="width" name = "width" type="hidden"/>
+                <form:input path = "height" id ="height" name = "height" type="hidden"/>
                 <input type ="submit" value ="Registrer deloppgave" id = "createTaskButton"></input>
             </form:form>
+            <!-- <form class = "myForms" method = "post" id = "form2">
+                 <input id ="width" name = "width" type="text">
+                <input id ="height" name = "height" type="text">
+            </form> -->
         </div>
     </body>
     <script>
