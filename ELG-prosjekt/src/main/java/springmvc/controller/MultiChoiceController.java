@@ -62,6 +62,22 @@ public class MultiChoiceController {
         return "multichoice"; 
     }
     
+    @RequestMapping(value = "createmulti")
+    public ModelAndView showCreateMultiChoice(ModelAndView mav){
+        mav.setViewName("createmulti");
+        return mav; 
+    }
+    
+    @RequestMapping(value = "number", method = RequestMethod.POST)
+    public ModelAndView showCreateMultiChoice(ModelAndView mav, HttpServletRequest request){
+        String number = request.getParameter("number");
+        int n = Integer.parseInt(number);
+        mav.addObject("numberOfTasks", n);
+        mav.setViewName("createmulti");
+        return mav; 
+    }
+    
+    
     @RequestMapping(value = "nextTask", method = RequestMethod.POST)
     public String nextTask(HttpSession session, Model model, @ModelAttribute(value = "spillet") MultiChoice mc, String value, HttpServletRequest request){
         User user = (User)session.getAttribute("user");

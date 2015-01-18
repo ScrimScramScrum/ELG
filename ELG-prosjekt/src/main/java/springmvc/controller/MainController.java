@@ -355,6 +355,7 @@ public class MainController {
         return mav;
     }
 
+    
     @RequestMapping(value = "choosegameCompletionlist", method = RequestMethod.POST)
     public ModelAndView chooseGameCompletionlist(ModelAndView mav, @RequestParam("classid") String id, HttpSession session) {
 

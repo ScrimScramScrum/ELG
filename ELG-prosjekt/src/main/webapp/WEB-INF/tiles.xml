@@ -71,7 +71,7 @@
         <put-attribute name="body"   value="/WEB-INF/jsp/newPerson.jsp"/> 
     </definition>
     
-     <definition name="login" extends="baseLayout">
+    <definition name="login" extends="baseLayout">
         <put-attribute name="title"  value="loginNoeANnet"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/login.jsp"/> 
     </definition>
@@ -111,7 +111,7 @@
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_highscore.jsp"/>   
     </definition>
     
-        <definition name="completionlist" extends="baseGameMenuLayout">
+    <definition name="completionlist" extends="baseGameMenuLayout">
         <put-attribute name="title"  value="Completionlist"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/completionlist_gamelist.jsp"/>
         <put-attribute name="gamedisplay" value="/WEB-INF/jsp/completionlist.jsp"/> 
@@ -127,11 +127,15 @@
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_createresemblegame.jsp"/>   
     </definition>  
     
-       <definition name="createresembletask" extends="baseLayout">
+    <definition name="createresembletask" extends="baseLayout">
         <put-attribute name="body"   value="/WEB-INF/jsp/createresembletask.jsp"/> 
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_createresemblegame.jsp"/>   
+    </definition>
+    
+    <definition name="createmulti" extends="baseLayout">
+        <put-attribute name="body"   value="/WEB-INF/jsp/createmulti.jsp"/>
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_about.jsp"/>   
     </definition>  
-
     
     <definition name="kOdesLostTags" extends="loginBaseLayout">
         <put-attribute name="body"   value="/WEB-INF/jsp/kOdesLostTags.jsp"/> 
