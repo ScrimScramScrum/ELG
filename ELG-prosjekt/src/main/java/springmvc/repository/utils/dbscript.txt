@@ -1,3 +1,5 @@
+DROP TABLE person_resemble_vote;
+DROP TABLE person_multi_vote;
 DROP TABLE ovingmultigame;
 DROP TABLE ovingresemblegame;
 DROP TABLE oving;
@@ -105,11 +107,23 @@ CREATE TABLE person_resemble_vote(
 	idPerson VARCHAR(50) NOT NULL, 
 	CONSTRAINT person_resemble_vote_pk PRIMARY KEY(idResembleGame, idPerson));
 
+CREATE TABLE person_multi_vote(
+	idMultiGame INTEGER NOT NULL, 
+	idPerson VARCHAR(50) NOT NULL, 
+	CONSTRAINT person_multi_vote_pk PRIMARY KEY(idMultiGame, idPerson));
+
+
 ALTER TABLE person_resemble_vote 
 ADD CONSTRAINT person_resemble_vote_gameid_fk FOREIGN KEY(idResembleGame) REFERENCES resemblegame(idGame);
 
 ALTER TABLE person_resemble_vote 
 ADD CONSTRAINT person_resemble_vote_person_fk FOREIGN KEY(idPerson) REFERENCES person(email);
+
+ALTER TABLE person_multi_vote 
+ADD CONSTRAINT person_multi_vote_gameid_fk FOREIGN KEY(idMultiGame) REFERENCES multichoicegame(idGame);
+
+ALTER TABLE person_multi_vote 
+ADD CONSTRAINT person_multi_vote_person_fk FOREIGN KEY(idPerson) REFERENCES person(email);
 
 ALTER TABLE multiresult
 ADD CONSTRAINT person_fk FOREIGN KEY(email) REFERENCES person(email);
