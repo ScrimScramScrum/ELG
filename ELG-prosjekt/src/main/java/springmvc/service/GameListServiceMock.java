@@ -98,6 +98,7 @@ public class GameListServiceMock implements GameListService{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    @Override
     public ArrayList<MultiChoiceInfo> updateApprovedMultiChoiceGames(ArrayList<MultiChoiceInfo> multiChoiceGames, User user){
         System.out.println("in updateApprovedMultiChoiceGames");
         for (int i = 0; i<multiChoiceGames.size();i++){
@@ -122,4 +123,23 @@ public class GameListServiceMock implements GameListService{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public ArrayList<ResembleGame> getAllResembleGamesFromOving() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOving() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<ResembleGame> getAllResembleGamesFromOvingExtra() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOvingExtra() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

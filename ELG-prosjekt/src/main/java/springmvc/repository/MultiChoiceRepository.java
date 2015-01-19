@@ -18,8 +18,10 @@ import springmvc.domain.MultiResult;
 public interface MultiChoiceRepository {
  
     public MultiChoice getMultiChoice(String name);
-    public ArrayList<MultiChoice> getAllMultiChoiceGames(); 
+    public ArrayList<MultiChoice> getAllMultiChoiceGames();  
     public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfo();
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOving();
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOvingExtra();
     public MultiChoiceInfo getMultiChoiceInfo(String gameId);
     public MultiResult getMultiChoiceAndUsername(String gamename, String email);
 }

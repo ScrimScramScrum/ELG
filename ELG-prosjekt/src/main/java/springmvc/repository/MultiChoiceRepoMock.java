@@ -69,6 +69,12 @@ public class MultiChoiceRepoMock implements MultiChoiceRepository {
     public ArrayList<MultiChoice> getAllMultiChoiceGames() {
         return games; 
     }
+    
+    @Override
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOving() {
+        return null;  
+    }
+
 
     @Override
     public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfo() {
@@ -85,5 +91,10 @@ public class MultiChoiceRepoMock implements MultiChoiceRepository {
     public MultiResult getMultiChoiceAndUsername(String gamename, String email){ 
         
         return null;
+    }
+
+    @Override
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOvingExtra() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

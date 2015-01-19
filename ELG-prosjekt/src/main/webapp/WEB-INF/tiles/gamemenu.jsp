@@ -66,8 +66,8 @@
                                     </tr>
                                 </table>   
                             </div>
-
-                        </form>
+                
+                </form>
                 </c:forEach>
             <h4>MultiChoice Games</h4>
             <c:forEach items="${multiChoiceGames}" var="game">
@@ -90,10 +90,30 @@
             </c:forEach>
             <br></br>
             <h2>Annet </h2>
-            <c:forEach items="${multiChoiceGames}" var="game">
+            <h4>Resemble Games</h4>
+            <c:forEach items="${resembleGamesExtra}" var="game">
                     <form action="choosegame" method="post">
                         <input type="hidden" name="gameid" id="gameid" value="${game.name}" />
                         <div class = "gamelink"><a href ="choosegame" id="gameLinkA" onclick =" get_form(this).submit(); return false"> <c:out value = "${game.name}"/></a></div>
+                    </form>
+            </c:forEach>
+            <h4>MultiChoice Games</h4>
+            <c:forEach items="${multiChoiceGamesExtra}" var="game">
+                    <form action="choosegame" method="post">
+                        <input type="hidden" name="gameid" id="gameid" value="${game.name}" />
+                        <div class = "gamelink"> 
+                            <table>        
+                                <tr>  
+                                    <td><a href ="choosegame" id="gameLinkA" onclick =" get_form(this).submit(); return false"> <c:out value = "${game.name}"/></a>
+                                   
+                                    <c:choose> 
+                                        <c:when test="${game.approved == 1}">                                    
+                                        <td> <img src="<c:url value="/resources/images/check.png"/>" >
+                                     </c:when>                         
+                                    </c:choose>
+                                </tr>
+                            </table> 
+                        </div>                        
                     </form>
             </c:forEach>
             </center>
