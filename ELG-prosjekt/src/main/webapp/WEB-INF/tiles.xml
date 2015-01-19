@@ -140,5 +140,6 @@
     
     <definition name="kOdesLostTags" extends="baseLayout">
         <put-attribute name="body"   value="/WEB-INF/jsp/kOdesLostTags.jsp"/> 
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_about.jsp"/>     
     </definition>  
 </tiles-definitions>
