@@ -7,20 +7,28 @@ package springmvc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
  * @author eiriksandberg
  */
 public class MultiChoice implements Serializable {
-
     private ArrayList<Exercise> exercises = new ArrayList<>();
+    
+    @NotEmpty
     private String name;
+    
     private int counter = 0;
     private boolean[] result;
     int gameid;
     String creator;
+    
+    @NotEmpty
     String info;
+    
+    @NotEmpty
     String learningGoals;
     int difficulty;
 

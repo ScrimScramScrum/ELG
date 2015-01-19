@@ -32,11 +32,7 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
     //SQL setninger:
     private final String sqlGetGame = "select * from multichoicegame where gamename = ?";
     private final String sqlGetExercises = "select * from multiexercise where idGame = ?";
-<<<<<<< HEAD
     private final String sqlGetAllMultiChoiceGames = "select * from multichoicegame";
-=======
-    private final String sqlGetAllMultiChoiceGames = "select * from multichoicegame"; 
->>>>>>> FETCH_HEAD
     private final String sqlGetAllMultiChoiceGamesFromOving = "select * from multichoicegame where multichoicegame.idgame in (select idgamemulti from ovingmultigame where isextra = 0)"; 
     private final String sqlGetAllMultiChoiceGamesFromOvingExtra = "select * from multichoicegame where multichoicegame.idgame in (select idgamemulti from ovingmultigame where isextra = 1)"; 
     private final String sqlGetIdgameFromMultiChoiseWithGameNameAndEmail = "SELECT * FROM ELGUSER.MULTIRESULT WHERE idgame =(SELECT idgame FROM multichoicegame WHERE gamename = ?) AND email= ? ";
@@ -92,16 +88,6 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
         return (ArrayList<MultiChoiceInfo>)jdbcTemplateObject.query(sqlGetAllMultiChoiceGamesFromOvingExtra, new MultiChoiceInfoMapper()); 
     }
     
-    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOving(){
-        System.out.println("** MultipleChoiceRepoDB: getAllMultiChoiceInfoFromOving  ** ");
-        return (ArrayList<MultiChoiceInfo>)jdbcTemplateObject.query(sqlGetAllMultiChoiceGamesFromOving, new MultiChoiceInfoMapper()); 
-    }
-    
-    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOvingExtra(){
-        System.out.println("** MultipleChoiceRepoDB: getAllMultiChoiceInfoFromOving  ** ");
-        return (ArrayList<MultiChoiceInfo>)jdbcTemplateObject.query(sqlGetAllMultiChoiceGamesFromOvingExtra, new MultiChoiceInfoMapper()); 
-    }
-    
     public MultiResult getMultiChoiceAndUsername(String gamename, String email){ 
         System.out.println("runnign now getMultiChoiceAndUsername");
         MultiResult multiResult = null;
@@ -140,15 +126,16 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
     public boolean regMultiTask(MultiChoice game) {
         try{
             ArrayList<Exercise> e = game.getExercises();
+            int u = (int) jdbcTemplateObject.queryForInt("select idgame from multichoicegame where gamename = ? and creator_id = ?", new Object[]{game.getName(), game.getCreator()});
             for (int i = 0; i < e.size(); i++) {
                 jdbcTemplateObject.update(sqlRegTasks, new Object[]{
                     e.get(i).getAlternativeIndex(0),
-                e.get(i).getAlternativeIndex(1),
-                e.get(i).getAlternativeIndex(2),
-                e.get(i).getAlternativeIndex(3),
-                e.get(i).getSolution(),
-                e.get(i).getTaskText(),
-                jdbcTemplateObject.queryForInt("select idgame from multichoicegame where gamename = ? and creator_id = ?", new Object[]{game.getName(), game.getCreator()})
+                    e.get(i).getAlternativeIndex(1),
+                    e.get(i).getAlternativeIndex(2),
+                    e.get(i).getAlternativeIndex(3),
+                    e.get(i).getSolution(),
+                    e.get(i).getTaskText(),
+                    u
             });
         }
         } catch (Exception e){

@@ -84,7 +84,12 @@ public class MultiChoiceController {
     }
 
     @RequestMapping(value = "createExercise", method = RequestMethod.POST)
-    public ModelAndView createExercise(ModelAndView mav, @ModelAttribute(value = "Exercises") ArrayList<Exercise> exercises, @ModelAttribute(value = "Exercise") Exercise e, @ModelAttribute(value = "createExercise") CreateMultiExercise ce) {
+    public ModelAndView createExercise(ModelAndView mav, @ModelAttribute(value = "Exercises") ArrayList<Exercise> exercises, @ModelAttribute(value = "Exercise") Exercise e, @Valid @ModelAttribute(value = "createExercise") CreateMultiExercise ce, BindingResult error) {
+        if (error.hasErrors()) {
+            System.out.println("Feil! Ikke fylt ut alt");
+            mav.setViewName("createmulti");
+            return mav;
+        }
         String[] t = {ce.getAlt1(), ce.getAlt2(), ce.getAlt3(), ce.getAlt4()};
         e = new Exercise(t, ce.getAnswer(), ce.getTaskText());
         exercises.add(e);
@@ -94,7 +99,19 @@ public class MultiChoiceController {
     }
 
     @RequestMapping(value = "submitgame", method = RequestMethod.POST)
-    public ModelAndView makeMultiChoiceGame(ModelAndView mav, HttpSession session, HttpServletRequest request, @ModelAttribute(value = "Exercises") ArrayList<Exercise> exercises, @ModelAttribute(value = "MultiGame") MultiChoice game1) {
+    public ModelAndView makeMultiChoiceGame(ModelAndView mav, HttpSession session, HttpServletRequest request, @ModelAttribute(value = "Exercises") ArrayList<Exercise> exercises, @Valid @ModelAttribute(value = "MultiGame") MultiChoice game1, BindingResult error) {
+        if (error.hasErrors()) {
+            System.out.println("Feil! Ikke fylt ut alt");
+            mav.setViewName("createmulti");
+            return mav;
+        }
+        if (exercises.isEmpty()) {
+            String er = "Du må minst legge til ett spørsmål";
+            mav.addObject("ErrorMessage", er);
+            System.out.println("Feil! Ikke fylt ut alt");
+            mav.setViewName("createmulti");
+            return mav;
+        }
         User user = (User) session.getAttribute("user");
         game1.setExercises(exercises);
         game1.setCreator(user.getEmail());
