@@ -4,6 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <head>
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="<c:url value='/resources/resemble.js' />"></script>
     <script src="<c:url value='/resources/html2canvas.js' />"></script>
@@ -79,6 +80,11 @@
             var $head = frame.contents().find("head");                
             $head.append("<style>" + css + "</style>") 
         }
+
+        $('#gameform').submit(function () {
+            sendContactForm();
+            return false;
+        });
     </script>
 </head>
 
@@ -90,28 +96,31 @@
             <h2> ${resembleInfo.gamename}</h2>
             <br>
             <h4>Vanskelighetsgrad</h4>
-            ${resembleInfo.difficulty}/3
+            ${resembleInfo.difficulty} av 3
             <br>
             <h4>Informasjon</h4>
             ${resembleInfo.info}
             <br>
-            <h4>Læringsmål</h4>
+            <h4>LÃ¦ringsmÃ¥l</h4>
             ${resembleInfo.learningGoal}
             <br><br>
             <form action="resemblegame" method="post" style="float: right">
                 <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
-                <button id="playbutton" type="submit" value="play">
-                        <spring:message code="play"/>
-            </button>
-
+                <button id="playbutton" type="submit" name = "button" value="play"><spring:message code="play"/></button>
             </form>
-
             <%
                 User user = (User)session.getAttribute("user");
+                if(!user.getEmail().equals("GUEST")){%>
+                    <form action="voteresemblegame" id = "gameform" name = "gameform" method="post" style="float: right">
+                        <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
+                        <button id="playbutton" type="submit" name = "button" value="vote">Stem!</button>
+                    </form>            
+                <%}
                 if(user.isAdmin()){%>
                     <form action="moveresemblegame" id = "gameform" name = "gameform" method="post" style="float: right">
                             <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
-                            <button id="playbutton" type="submit" name = "button" value="removeexercise">Fjern fra øving!</button>
+                            <button id="playbutton" type="submit" name = "button" style = "font-size:6px;" value="makeextra">GjÃ¸r til ekstraoppgave!</button>
+                            <button id="playbutton" type="submit" name = "button" style = "font-size:6px;" value="makeexercise">Legg til i Ã¸ving!</button>
                     </form>                
                 <%}
              %> 
@@ -152,13 +161,13 @@
         <div id="leftcolumn">
             <h2>${gamenr}</h2>
             <br>
-            <h4>Vanskelighetsgrad</h4>
-            ${multiChoiceInfo.difficulty}/3
+            <h4>Difficulty</h4>
+            Vanskelighetsgrad: ${multiChoiceInfo.difficulty}
             <br>
-            <h4>Informasjon</h4>
+            <h4>Info</h4>
             ${multiChoiceInfo.info}
             <br>
-            <h4>Læringsmål</h4>
+            <h4>Learning Goals</h4>
             ${multiChoiceInfo.learningGoal}
             <br><br>
             <form action="multi" method="post" id="playbutton" style="float: right">

@@ -159,6 +159,47 @@ public class GameListServiceImpl implements GameListService{
         return resembleGameRepoDB.insertResembleGame(gameName, info, learningGoals, difficulty, creatorId); 
     }
 
+    public ArrayList<ResembleGame> getAllResembleGamesNotInOving(){
+        ArrayList<ResembleGame> resembleGames = resembleGameRepoDB.getAllResembleGamesNotInOving();
+        for(ResembleGame rg : resembleGames){
+            ArrayList<ResembleTask> resembleTasks = resembleTaskRepoDB.getResembleTasksByGameId(rg.getGameId());
+            ArrayList<Integer> taskNumbers = new ArrayList<>(); 
+            for(ResembleTask rt : resembleTasks){
+                taskNumbers.add(rt.getTaskNumber());
+            }
+            rg.setTaskNumbers(taskNumbers);
+            rg.setVotes(getVoteCountByGameId(rg.getGameId()));
+        }
+        return resembleGames;
+    }
 
+    @Override
+    public int getVoteCountByGameId(int gameId) {
+        return this.resembleGameRepoDB.getVoteCountByGameId(gameId);
+    }
     
+    @Override
+    public boolean registerResembleGameVote(String usermail, int gameId){
+        if(this.resembleGameRepoDB.hasUserVotedResembleGame(usermail, gameId)>0){
+            return false; 
+        }else{
+            this.resembleGameRepoDB.registerResembleGameVote(usermail, gameId); 
+        }
+        return true; 
+    }
+    
+    @Override
+    public boolean makeResembleGameExercise(int gameId){
+        return this.resembleGameRepoDB.makeResembleGameExercise(gameId); 
+    }
+    
+    @Override
+    public boolean makeResembleGameExerciseExtra(int gameId){
+        return this.resembleGameRepoDB.makeResembleGameExerciseExtra(gameId); 
+    }
+    
+    @Override
+    public boolean removeResembleGameFromExercise(int gameId){
+        return this.resembleGameRepoDB.removeResembleGameFromExercise(gameId); 
+    }
 }

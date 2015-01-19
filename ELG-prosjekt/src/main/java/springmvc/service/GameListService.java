@@ -24,4 +24,10 @@ public interface GameListService {
     public boolean insertResembleGame(String gameName, String info, String learningGoals, String difficulty, String creatorId); 
     public ResembleGame getResemleGameByName(String gameName);
     public ArrayList<ResembleGame> updateApprovedResembleGames( ArrayList<ResembleGame> resembleGames, User user);       
+    public ArrayList<ResembleGame> getAllResembleGamesNotInOving();
+    public int getVoteCountByGameId(int gameId);
+    public boolean registerResembleGameVote(String usermail, int gameId);
+    public boolean makeResembleGameExercise(int gameId);
+    public boolean makeResembleGameExerciseExtra(int gameId);
+    public boolean removeResembleGameFromExercise(int gameId);
 }

@@ -14,9 +14,17 @@ public class ResembleGameRepoDB implements ResembleGameRepo{
     private final String sqlSelectGameByName = "Select * from resemblegame where gamename = ?"; 
     private final String sqlSelectAllResembleGames = "Select * from resemblegame"; 
     private final String sqlSelectAllResembleGamesFromOving = "Select * from resemblegame where resemblegame.idgame in (select idgameresemble from ovingresemblegame where isextra = 0)"; 
+    //private final String sqlSelectAllResembleGamesFromOving = "Select * from resemblegame where resemblegame.idgame in (select idgameresemble from ovingresemblegame)"; 
     private final String sqlSelectAllResembleGamesFromOvingExtra = "Select * from resemblegame where resemblegame.idgame in (select idgameresemble from ovingresemblegame where isextra = 1)"; 
+    private final String sqlSelectAllResembleGamesNotInOving = "Select * from resemblegame where resemblegame.idgame NOT IN (Select idgameresemble from ovingresemblegame)";
     private final String sqlInsertGame = "insert into resemblegame values (DEFAULT, ?, ?, ?, ?, ?)"; 
-        private final String sqlGetScoreFromFromResebleGameWithNameAndEmail = "SELECT score FROM resembleresult WHERE idgame =(SELECT idgame FROM resemblegame WHERE gamename = ?) AND email = ?";
+    private final String sqlGetScoreFromFromResebleGameWithNameAndEmail = "SELECT score FROM resembleresult WHERE idgame =(SELECT idgame FROM resemblegame WHERE gamename = ?) AND email = ?";
+    private final String sqlGetVoteCountByGameId = "select COUNT(idResembleGame) from person_resemble_vote WHERE idResembleGame = ?";
+    private final String sqlHasUserVotedResembleGame = "select COUNT(idPerson) FROM person_resemble_vote WHERE idPerson = ? AND idresemblegame = ?"; 
+    private final String sqlUpdateUserResembleVote = "UPDATE person_resemble_vote SET idResembleGame = ? where idPerson = ?";
+    private final String sqlRegisterResembleGameVote = "insert into person_resemble_vote VALUES(?, ?)";
+    private final String sqlMakeResembleGameExercise = "insert into ovingresemblegame values (?, ?, ?)";
+    private final String sqlRemoveResembleGameFromExercise = "delete from ovingresemblegame WHERE idgameresemble = ?"; 
 
     private DataSource dataSource;
     JdbcTemplate jdbcTemplateObject;
@@ -78,6 +86,51 @@ public class ResembleGameRepoDB implements ResembleGameRepo{
         } catch (Exception e){
             System.out.println("feil"+e);
         }
-        return score;
+        return score;   
+    }
+     
+    @Override 
+    public ArrayList<ResembleGame> getAllResembleGamesNotInOving(){
+        return (ArrayList<ResembleGame>) jdbcTemplateObject.query(sqlSelectAllResembleGamesNotInOving, new ResembleGameMapper());
+    }
+    
+    @Override
+    public int getVoteCountByGameId(int gameId){
+        return this.jdbcTemplateObject.queryForObject(sqlGetVoteCountByGameId, new Object[]{gameId}, Integer.class); 
+    }
+    
+    @Override
+    public boolean registerResembleGameVote(String usermail, int gameId){
+        this.jdbcTemplateObject.update(sqlRegisterResembleGameVote, new Object[]{gameId, usermail});
+        return true; 
+    }
+    
+    @Override 
+    public boolean updateUserResembleVote(String usermail, int gameId){
+        this.jdbcTemplateObject.update(sqlUpdateUserResembleVote, new Object[]{gameId, usermail}); 
+        return true; 
+    }
+    
+    @Override
+    public int hasUserVotedResembleGame(String usermail, int gameId){
+        return this.jdbcTemplateObject.queryForObject(sqlHasUserVotedResembleGame, new Object[]{usermail, gameId}, Integer.class); 
+    }
+    
+    @Override
+    public boolean makeResembleGameExercise(int gameId){
+        this.jdbcTemplateObject.update(sqlMakeResembleGameExercise, new Object[]{1, gameId, 0});
+        return true; 
+    }
+    
+    @Override
+    public boolean makeResembleGameExerciseExtra(int gameId){
+        this.jdbcTemplateObject.update(sqlMakeResembleGameExercise, new Object[]{1, gameId, 1});
+        return true; 
+    }
+    
+    @Override
+    public boolean removeResembleGameFromExercise(int gameId){
+        this.jdbcTemplateObject.update(sqlRemoveResembleGameFromExercise, new Object[]{gameId});
+        return true; 
     }
 }

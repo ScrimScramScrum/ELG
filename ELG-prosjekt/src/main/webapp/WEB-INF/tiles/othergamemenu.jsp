@@ -50,7 +50,7 @@
                 <c:forEach items="${resembleGames}" var="game">
                         <form action="chooseothergames" method="post">
                             <input type="hidden" name="gameid" id="gameid" value="${game.gameId}" />
-                            <div class = "gamelink"><a href ="chooseothergames" id="gameLinkA" onclick =" get_form(this).submit(); return false"><c:out value = "${game.getGamename()}"/></a></div>
+                            <div class = "gamelink"><a href ="chooseothergames" id="gameLinkA" onclick =" get_form(this).submit(); return false"><c:out value = "${game.getGamename()} + ${game.votes}"/></a></div>
                         </form>
                 </c:forEach>
             <h4>MultiChoice Games</h4>
