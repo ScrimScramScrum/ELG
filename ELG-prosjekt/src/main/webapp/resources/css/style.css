@@ -16,6 +16,44 @@ body
 	font-size: 10pt;
 	color: #686868;
 }
+#rightcolumnCreate {
+	width: 50%;
+	float: right;
+	margin-left: auto;
+    margin-right: auto;
+	/*float: left;*/
+}
+#leftcolumnCreate {
+	width: 50%;
+	float: left;
+	margin-left: auto;
+    margin-right: auto;
+	/*float: left;*/
+}
+
+#rowCreateResemble{
+	width:100%;
+}
+
+#createIframes{
+	width:80%;
+	float:right;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#testid1{
+	width:20%;
+	float:left;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#createResembleContainer{
+	width:80%;
+	margin-left: auto;
+    margin-right: auto;
+}
 
 body, #skel-panels-pageWrapper
 {
