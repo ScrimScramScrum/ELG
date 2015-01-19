@@ -73,7 +73,7 @@
                         <tr>
                         <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "0" end = "1">
                             <td id="td1">
-                                <button id="button1" type="submit" value="${teller}" name ="button" >
+                                <button id="button1" type="submit" name="button" value="${teller}">
                                     <c:out value="${teller}" />
                                 </button
                             </td>
@@ -82,7 +82,7 @@
                     <tr>
                         <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "2" end = "3">
                             <td id="td1">
-                                <button id="button1" type="submit" value="${teller}" name ="button">
+                                <button id="button1" type="submit" name="button" value="${teller}">
                                     <c:out value="${teller}" />
                                 </button>
                             </td>
