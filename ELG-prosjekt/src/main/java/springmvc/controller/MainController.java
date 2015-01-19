@@ -91,17 +91,19 @@ public class MainController {
      // return ((User)session.getAttribute("user")).isInLogged() ? "highscore" : "index"; 
      // return "highscore"; 
      }*/
-    @RequestMapping(value = "choosegame")
+    @RequestMapping(value = "choosegame") // Øving
     public ModelAndView chooseGame(ModelAndView mav, HttpSession session, @ModelAttribute Login login) {
-        System.out.println("Øving INGENTING");
+        System.out.println("chooseGames");
         User user = (User)session.getAttribute("user");
-        System.out.println("chooseGame");
         if(user == null){
             mav.setViewName("firstLogin");
             return mav;
         } 
-        ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames();
-        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();
+        ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGamesFromOving();
+        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfoFromOving();
+        
+        ArrayList<ResembleGame> resembleGamesExtra = gameListService.getAllResembleGamesFromOvingExtra();
+        ArrayList<MultiChoiceInfo> multiChoiceGamesExtra = gameListService.getAllMultiChoiceInfoFromOvingExtra();
         
         
         System.out.println("ChooseGame Rdy for multiChoiceGamesWithApproved");
@@ -109,8 +111,59 @@ public class MainController {
         //updateApprovedGames(user, resembleGames, multiChoiceGames);
         ArrayList<MultiChoiceInfo> multiChoiceGamesWithApproved = gameListService.updateApprovedMultiChoiceGames(multiChoiceGames, user);
         ArrayList<ResembleGame> resembleGamesWithApproved = gameListService.updateApprovedResembleGames(resembleGames, user);
+        ArrayList<MultiChoiceInfo> multiChoiceGamesWithApprovedExtra = gameListService.updateApprovedMultiChoiceGames(multiChoiceGamesExtra, user);
+        ArrayList<ResembleGame> resembleGamesWithApprovedExtra = gameListService.updateApprovedResembleGames(resembleGamesExtra, user);
         
         
+        
+        if (multiChoiceGamesWithApproved==null){
+            int resemble = 0;
+            mav.addObject("gametype", resemble);
+            mav.addObject("resembleGames", resembleGames);
+            mav.addObject("multiChoiceGames", multiChoiceGames);
+            mav.addObject("resembleGamesExtra", resembleGamesWithApprovedExtra);
+            mav.addObject("multiChoiceGamesExtra", multiChoiceGamesWithApprovedExtra);
+            mav.setViewName("chooseGame");
+            return mav;
+        }
+        
+        
+        int resemble = 0;
+        mav.addObject("gametype", resemble);
+        mav.addObject("resembleGames", resembleGames);
+        mav.addObject("multiChoiceGames", multiChoiceGamesWithApproved);
+        mav.addObject("resembleGamesExtra", resembleGamesExtra);
+        mav.addObject("multiChoiceGamesExtra", multiChoiceGamesExtra);
+        mav.setViewName("chooseGame");
+        return mav;
+    }
+    
+    
+      @RequestMapping(value = "voteresemblegame", method = RequestMethod.POST)
+    public ModelAndView voteResembleGame(ModelAndView mav,@RequestParam("gameid") String id, HttpSession session){
+        int gameid = Integer.parseInt(id);
+        User user = (User)session.getAttribute("user"); 
+        gameListService.registerResembleGameVote(user.getEmail(), gameid); 
+        return chooseOtherGames(mav, session);
+    }
+    
+    @RequestMapping(value = "chooseothergames") // Øving
+    public ModelAndView chooseOtherGames(ModelAndView mav, HttpSession session) {
+        System.out.println("chooseOtherGames");
+        User user = (User)session.getAttribute("user");
+        if(user == null){
+            mav.setViewName("firstLogin");
+            return mav;
+        } 
+        ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGamesNotInOving();
+        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();//not in oving
+        
+        
+        System.out.println("ChooseGame Rdy for multiChoiceGamesWithApproved");
+        //add a function to update the multiChoiceGames and resembleGames lists to a version that 	says if its done or not. 
+        //updateApprovedGames(user, resembleGames, multiChoiceGames);
+        ArrayList<MultiChoiceInfo> multiChoiceGamesWithApproved = gameListService.updateApprovedMultiChoiceGames(multiChoiceGames, user);
+        ArrayList<ResembleGame> resembleGamesWithApproved = gameListService.updateApprovedResembleGames(resembleGames, user);
         
         if (multiChoiceGamesWithApproved==null){
             int resemble = 0;
@@ -126,33 +179,12 @@ public class MainController {
         mav.addObject("gametype", resemble);
         mav.addObject("resembleGames", resembleGames);
         mav.addObject("multiChoiceGames", multiChoiceGamesWithApproved);
-        mav.setViewName("chooseGame");
-        return mav;
-    }
-    
-    
-    
-    @RequestMapping(value = "chooseothergames")
-    public ModelAndView chooseOtherGames(ModelAndView mav, HttpSession session, @ModelAttribute Login login) {
-        System.out.println("ANDRE SPILL INGENTING");
-        User user = (User)session.getAttribute("user");
-        System.out.println("chooseOtherGames");
-        if(user == null){
-            mav.setViewName("firstLogin");
-            return mav;
-        } 
-        ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames();
-        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();
-        int resemble = 0;
-        mav.addObject("gametype", resemble);
-        mav.addObject("resembleGames", resembleGames);
-        mav.addObject("multiChoiceGames", multiChoiceGames);
-        mav.setViewName("chooseOtherGames");
+        mav.setViewName("chooseothergame");
         return mav;
     }
 
-   @RequestMapping(value = "choosegame", method = RequestMethod.POST)
-    public ModelAndView chooseGame(ModelAndView mav, @RequestParam("gameid") String id, HttpSession session) {
+     @RequestMapping(value = "chooseothergames", method = RequestMethod.POST)
+    public ModelAndView chooseOtherGames(ModelAndView mav, @RequestParam("gameid") String id, HttpSession session) {
         System.out.println("Øving POST");
         User user = (User)session.getAttribute("user");
         if(user == null){
@@ -163,10 +195,12 @@ public class MainController {
         String info = "test...";
         MultiChoiceInfo multiTemp = null;
         ResembleGame resembleTemp = null;
+
         try {
             int a = Integer.parseInt(id);
             resemble = 1;
             resembleTemp = gameListService.getResembleGame(a);
+            
             ArrayList<Integer> task_numbers = resembleTemp.getTaskNumbers();
             ArrayList<ResembleTask> temp_tasks = gameListService.getResembleTasks(task_numbers);
             mav.addObject("tasks", temp_tasks);
@@ -181,13 +215,73 @@ public class MainController {
         }
         mav.addObject("gametype", resemble);
         // use session instead of getting all games every time a game get clicked?
-        ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames();
-        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();
+        ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGamesNotInOving();
+        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();//not in oving
         
         mav.addObject("gamenr", id);
         //mav.addObject("info", info);
         mav.addObject("resembleGames", resembleGames);
         mav.addObject("multiChoiceGames", multiChoiceGames);
+        mav.setViewName("chooseothergame");
+        return mav;
+    }
+    
+    
+   @RequestMapping(value = "choosegame", method = RequestMethod.POST)
+    public ModelAndView chooseGame(ModelAndView mav, @RequestParam("gameid") String id, HttpSession session) {
+        System.out.println("Øving POST");
+        User user = (User)session.getAttribute("user");
+        if(user == null){
+            mav.setViewName("firstLogin");
+            return mav;
+        } 
+        int resemble = 0;
+        String info = "test...";
+        MultiChoiceInfo multiTemp = null;
+        ResembleGame resembleTemp = null;
+
+        try {
+            int a = Integer.parseInt(id);
+            resemble = 1;
+            resembleTemp = gameListService.getResembleGame(a);
+            
+            ArrayList<Integer> task_numbers = resembleTemp.getTaskNumbers();
+            ArrayList<ResembleTask> temp_tasks = gameListService.getResembleTasks(task_numbers);
+            mav.addObject("tasks", temp_tasks);
+            mav.addObject("resembleInfo", resembleTemp);
+            // add info here
+        } catch (NumberFormatException e) {
+            resemble = 2;
+            multiTemp = gameListService.getMultiChoiceInfo(id);
+            mav.addObject("multiChoiceInfo", multiTemp);
+            // or info here
+            System.out.println("MultiChoice");
+        }
+        
+    
+        
+        ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGamesFromOving();
+        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfoFromOving();
+        ArrayList<ResembleGame> resembleGamesExtra = gameListService.getAllResembleGamesFromOvingExtra();
+        ArrayList<MultiChoiceInfo> multiChoiceGamesExtra = gameListService.getAllMultiChoiceInfoFromOvingExtra();     
+        
+    
+        ArrayList<MultiChoiceInfo> multiChoiceGamesWithApproved = gameListService.updateApprovedMultiChoiceGames(multiChoiceGames, user);
+
+        
+        
+        mav.addObject("resembleGames", resembleGames);
+        mav.addObject("resembleGamesExtra", resembleGamesExtra);
+        mav.addObject("multiChoiceGamesExtra", multiChoiceGamesExtra);
+        mav.addObject("gametype", resemble);
+        mav.addObject("multiChoiceGames", multiChoiceGamesWithApproved);
+
+        // use session instead of getting all games every time a game get clicked?
+        
+        mav.addObject("gamenr", id);
+//        //mav.addObject("info", info);
+//        mav.addObject("resembleGames", resembleGames);
+//        mav.addObject("multiChoiceGames", multiChoiceGames);
         mav.setViewName("chooseGame");
         return mav;
     }

@@ -48,6 +48,17 @@ public class GameListServiceImpl implements GameListService{
     public ArrayList<MultiChoice> getAllMultiChoiceGames(){
         return multipleChoiceRepoDB.getAllMultiChoiceGames(); 
     }
+    
+    @Override
+    public ArrayList<ResembleGame> getAllResembleGamesFromOving(){ 
+        return resembleGameRepoDB.getAllResembleGamesFromOving(); 
+    }
+    
+    @Override
+    public ArrayList<ResembleGame> getAllResembleGamesFromOvingExtra(){ 
+        return resembleGameRepoDB.getAllResembleGamesFromOvingExtra(); 
+    }
+    
     @Override
     public ResembleGame getResembleGame(int gameId){
         ResembleGame game = resembleGameRepoDB.getResembleGame(gameId); 
@@ -84,6 +95,17 @@ public class GameListServiceImpl implements GameListService{
     }
     
     @Override
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOving(){
+        return multipleChoiceRepoDB.getAllMultiChoiceInfoFromOving(); 
+    }
+    
+    @Override
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOvingExtra(){
+        return multipleChoiceRepoDB.getAllMultiChoiceInfoFromOvingExtra(); 
+    }
+    
+    
+    @Override
     public MultiChoiceInfo getMultiChoiceInfo(String gameId){
         return multipleChoiceRepoDB.getMultiChoiceInfo(gameId); 
     }    
@@ -92,10 +114,16 @@ public class GameListServiceImpl implements GameListService{
     
     public ArrayList<ResembleGame> updateApprovedResembleGames( ArrayList<ResembleGame> resembleGames, User user){ 
         System.out.println("--------updateApprovedResembleGames");
+        System.out.println("size: "+resembleGames.size());
         for (int i = 0; i<resembleGames.size();i++){
-            //need to call the DB and get a scoore based on user.getEmail();
-         
+            System.out.println("name: "+resembleGames.get(i).getGamename());
             
+            int score = resembleGameRepoDB.sqlGetScoreFromFromResebleGameWithNameAndEmail(resembleGames.get(i).getGamename(), user.getEmail());
+            
+            if (score>=80){
+                resembleGames.get(i).setApproved(1);
+                System.out.println("set approved");
+            }            
         }
         return resembleGames;
         
@@ -131,4 +159,47 @@ public class GameListServiceImpl implements GameListService{
         return resembleGameRepoDB.insertResembleGame(gameName, info, learningGoals, difficulty, creatorId); 
     }
 
+    public ArrayList<ResembleGame> getAllResembleGamesNotInOving(){
+        ArrayList<ResembleGame> resembleGames = resembleGameRepoDB.getAllResembleGamesNotInOving();
+        for(ResembleGame rg : resembleGames){
+            ArrayList<ResembleTask> resembleTasks = resembleTaskRepoDB.getResembleTasksByGameId(rg.getGameId());
+            ArrayList<Integer> taskNumbers = new ArrayList<>(); 
+            for(ResembleTask rt : resembleTasks){
+                taskNumbers.add(rt.getTaskNumber());
+            }
+            rg.setTaskNumbers(taskNumbers);
+            rg.setVotes(getVoteCountByGameId(rg.getGameId()));
+        }
+        return resembleGames;
+    }
+
+    @Override
+    public int getVoteCountByGameId(int gameId) {
+        return this.resembleGameRepoDB.getVoteCountByGameId(gameId);
+    }
+    
+    @Override
+    public boolean registerResembleGameVote(String usermail, int gameId){
+        if(this.resembleGameRepoDB.hasUserVotedResembleGame(usermail, gameId)>0){
+            return false; 
+        }else{
+            this.resembleGameRepoDB.registerResembleGameVote(usermail, gameId); 
+        }
+        return true; 
+    }
+    
+    @Override
+    public boolean makeResembleGameExercise(int gameId){
+        return this.resembleGameRepoDB.makeResembleGameExercise(gameId); 
+    }
+    
+    @Override
+    public boolean makeResembleGameExerciseExtra(int gameId){
+        return this.resembleGameRepoDB.makeResembleGameExerciseExtra(gameId); 
+    }
+    
+    @Override
+    public boolean removeResembleGameFromExercise(int gameId){
+        return this.resembleGameRepoDB.removeResembleGameFromExercise(gameId); 
+    }
 }

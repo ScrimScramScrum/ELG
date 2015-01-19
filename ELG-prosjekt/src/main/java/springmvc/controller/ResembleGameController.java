@@ -56,8 +56,30 @@ public class ResembleGameController {
         mav.addObject("resembleGame", resembleGame);
         mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask())); 
         mav.setViewName("resembleGame");
-        return mav; 
+        return mav;       
     }
+    
+        
+    @RequestMapping(value = "moveresemblegame", method = RequestMethod.POST)
+    public ModelAndView moveResembleGame(ModelAndView mav, @RequestParam("gameid") String id, @RequestParam("button") String button, HttpSession session){
+        int gameid = Integer.parseInt(id);
+        ResembleGame resembleGame = gameListService.getResembleGame(gameid);
+        User user = (User)session.getAttribute("user"); 
+
+        if(button.equals("makeextra")){
+            gameListService.makeResembleGameExerciseExtra(gameid); 
+        }else if(button.equals("makeexercise")){
+            gameListService.makeResembleGameExercise(gameid);
+        }else if(button.equals("removeexercise")){
+            gameListService.removeResembleGameFromExercise(gameid);
+        }
+        mav.addObject("resembleGame", resembleGame);
+        mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask())); 
+        mav.setViewName("about");
+        return mav;       
+    }
+    
+  
     
     @RequestMapping(value ="nextresembletask", method = RequestMethod.POST)
     public ModelAndView resembleGameNext(ModelAndView mav, @ModelAttribute(value = "resembleGame") ResembleGame resembleGame, HttpServletRequest req) {

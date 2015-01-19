@@ -33,6 +33,8 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
     private final String sqlGetGame = "select * from multichoicegame where gamename = ?";
     private final String sqlGetExercises = "select * from multiexercise where idGame = ?";
     private final String sqlGetAllMultiChoiceGames = "select * from multichoicegame";
+    private final String sqlGetAllMultiChoiceGamesFromOving = "select * from multichoicegame where multichoicegame.idgame in (select idgamemulti from ovingmultigame where isextra = 0)"; 
+    private final String sqlGetAllMultiChoiceGamesFromOvingExtra = "select * from multichoicegame where multichoicegame.idgame in (select idgamemulti from ovingmultigame where isextra = 1)"; 
     private final String sqlGetIdgameFromMultiChoiseWithGameNameAndEmail = "SELECT * FROM ELGUSER.MULTIRESULT WHERE idgame =(SELECT idgame FROM multichoicegame WHERE gamename = ?) AND email= ? ";
     private final String sqlRegGame = "insert into multichoicegame values(default, ?, ?, ?, ?, ?)";
     private final String sqlRegTasks = "insert into multiexercise values(default,?, ?, ?, ?, ?, ?, ?)";
@@ -75,7 +77,18 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
         return (ArrayList<MultiChoiceInfo>) jdbcTemplateObject.query(sqlGetAllMultiChoiceGames, new MultiChoiceInfoMapper());
     }
 
-    public MultiResult getMultiChoiceAndUsername(String gamename, String email) {
+    
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOving(){
+        System.out.println("** MultipleChoiceRepoDB: getAllMultiChoiceInfoFromOving  ** ");
+        return (ArrayList<MultiChoiceInfo>)jdbcTemplateObject.query(sqlGetAllMultiChoiceGamesFromOving, new MultiChoiceInfoMapper()); 
+    }
+    
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOvingExtra(){
+        System.out.println("** MultipleChoiceRepoDB: getAllMultiChoiceInfoFromOving  ** ");
+        return (ArrayList<MultiChoiceInfo>)jdbcTemplateObject.query(sqlGetAllMultiChoiceGamesFromOvingExtra, new MultiChoiceInfoMapper()); 
+    }
+    
+    public MultiResult getMultiChoiceAndUsername(String gamename, String email){ 
         System.out.println("runnign now getMultiChoiceAndUsername");
         MultiResult multiResult = null;
         try {

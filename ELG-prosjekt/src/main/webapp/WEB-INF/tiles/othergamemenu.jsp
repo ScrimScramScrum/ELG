@@ -48,16 +48,16 @@
             <h2>Andre spill</h2>
             <h4>Resemble Games</h4>
                 <c:forEach items="${resembleGames}" var="game">
-                        <form action="choosegame" method="post">
+                        <form action="chooseothergames" method="post">
                             <input type="hidden" name="gameid" id="gameid" value="${game.gameId}" />
-                            <div class = "gamelink"><a href ="choosegame" id="gameLinkA" onclick =" get_form(this).submit(); return false"><c:out value = "${game.getGamename()}"/></a></div>
+                            <div class = "gamelink"><a href ="chooseothergames" id="gameLinkA" onclick =" get_form(this).submit(); return false"><c:out value = "${game.getGamename()} + ${game.votes}"/></a></div>
                         </form>
                 </c:forEach>
             <h4>MultiChoice Games</h4>
             <c:forEach items="${multiChoiceGames}" var="game">
-                    <form action="choosegame" method="post">
+                    <form action="chooseothergames" method="post">
                         <input type="hidden" name="gameid" id="gameid" value="${game.name}" />
-                        <div class = "gamelink"><a href ="choosegame" id="gameLinkA" onclick =" get_form(this).submit(); return false"> <c:out value = "${game.name}"/></a></div>
+                        <div class = "gamelink"><a href ="chooseothergames" id="gameLinkA" onclick =" get_form(this).submit(); return false"> <c:out value = "${game.name}"/></a></div>
                     </form>
             </c:forEach>
             </center>

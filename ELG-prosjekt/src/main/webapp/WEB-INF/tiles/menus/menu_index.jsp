@@ -31,7 +31,6 @@
                     <ul>
                         <li><a href="<c:url value="/choosegame" />" name = 'choosegame' id="chooseGame" onClick ="changeId(this)">Øving</a></li>
                         <li><a href="<c:url value="/chooseothergames" />" name = 'chooseothergames' id="chooseOtherGames" onClick ="changeId(this)">Andre spill</a></li>
-                        <li><a href="<c:url value="/createresemblegame" />" name = 'createresemblegame' id="createresemblegame" onClick ="changeId(this)">Lag spill</a></li>
                         <li><a href="<c:url value="/highscore" />" name = 'highscore' id="highscore" onClick ="changeId(this)">High Score</a></li>
                         <%
                             User user = (User)session.getAttribute("user");
@@ -41,7 +40,8 @@
                         <li><a href="<c:url value="/about" />" id="about" name =' about' onClick ="changeId(this)">Om ELG</a></li>
                         <%
                             if(!(user.getEmail().equals("GUEST"))){%>
-                        <li class="current_page_item"><a href="<c:url value="/administrateAccount" />" name ="settings" id="settings" onClick ="changeId(this)">Innstillinger</a></li>
+                                <li><a href="<c:url value="/createresemblegame" />" name = 'createresemblegame' id="createresemblegame" onClick ="changeId(this)">Lag spill</a></li>
+                                <li class="current_page_item"><a href="<c:url value="/administrateAccount" />" name ="settings" id="settings" onClick ="changeId(this)">Innstillinger</a></li>
                          <%}%> 
                         <li><a href="<c:url value="/logout" />" name ="logout" id="logout" onClick ="changeId(this) ">Logg ut</a></li>
                     </ul>

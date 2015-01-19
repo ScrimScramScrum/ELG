@@ -1,3 +1,5 @@
+DROP TABLE person_resemble_vote;
+DROP TABLE person_multi_vote;
 DROP TABLE ovingmultigame;
 DROP TABLE ovingresemblegame;
 DROP TABLE oving;
@@ -43,11 +45,13 @@ CREATE TABLE oving(
 CREATE TABLE ovingresemblegame(
         idOving INTEGER,
         idGameResemble INTEGER,
+isExtra INTEGER,
         CONSTRAINT ovingresemble_pk PRIMARY KEY(idOving, idGameResemble));
 
 CREATE TABLE ovingmultigame(
         idOving INTEGER,
         idGameMulti INTEGER,
+isExtra INTEGER,
         CONSTRAINT ovingmulti_pk PRIMARY KEY(idOving, idGameMulti));
 
 CREATE TABLE multichoicegame(
@@ -56,6 +60,7 @@ CREATE TABLE multichoicegame(
         info VARCHAR(600),
         learning_goals VARCHAR(600),
         difficulty INTEGER,
+        creator_id VARCHAR(50),
         CONSTRAINT multigame_pk PRIMARY KEY (idGame));
 
 CREATE TABLE multiexercise(
@@ -97,6 +102,29 @@ CREATE TABLE resembletask(
         idGame INTEGER,
         CONSTRAINT resembletask_pk PRIMARY KEY (idTask));
 
+CREATE TABLE person_resemble_vote(
+	idResembleGame INTEGER NOT NULL, 
+	idPerson VARCHAR(50) NOT NULL, 
+	CONSTRAINT person_resemble_vote_pk PRIMARY KEY(idResembleGame, idPerson));
+
+CREATE TABLE person_multi_vote(
+	idMultiGame INTEGER NOT NULL, 
+	idPerson VARCHAR(50) NOT NULL, 
+	CONSTRAINT person_multi_vote_pk PRIMARY KEY(idMultiGame, idPerson));
+
+
+ALTER TABLE person_resemble_vote 
+ADD CONSTRAINT person_resemble_vote_gameid_fk FOREIGN KEY(idResembleGame) REFERENCES resemblegame(idGame);
+
+ALTER TABLE person_resemble_vote 
+ADD CONSTRAINT person_resemble_vote_person_fk FOREIGN KEY(idPerson) REFERENCES person(email);
+
+ALTER TABLE person_multi_vote 
+ADD CONSTRAINT person_multi_vote_gameid_fk FOREIGN KEY(idMultiGame) REFERENCES multichoicegame(idGame);
+
+ALTER TABLE person_multi_vote 
+ADD CONSTRAINT person_multi_vote_person_fk FOREIGN KEY(idPerson) REFERENCES person(email);
+
 ALTER TABLE multiresult
 ADD CONSTRAINT person_fk FOREIGN KEY(email) REFERENCES person(email);
 
@@ -114,6 +142,9 @@ ADD CONSTRAINT resemblegame_fk FOREIGN KEY(idGame) REFERENCES resemblegame(idGam
 
 ALTER TABLE resemblegame
 ADD CONSTRAINT creatorID_fk FOREIGN KEY(creator_id) REFERENCES person(email);
+
+ALTER TABLE multichoicegame
+ADD CONSTRAINT creatorID_fk2 FOREIGN KEY(creator_id) REFERENCES person(email);
 
 ALTER TABLE resembletask
 ADD CONSTRAINT resemblegame2_fk FOREIGN KEY(idGame) REFERENCES resemblegame(idGame);
@@ -147,8 +178,8 @@ INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 2', '<html><b
 INSERT INTO resembletask VALUES(DEFAULT, 'Her skal vi teste noe nr 1', '<html><body>supsup</body></html>', '<html></html>', '','',  200, 150, 3);
 INSERT INTO resembletask VALUES(DEFAULT, 'Du skal sette bakgrunnsfargen på siden til fargen #b0c4de<br>Du skal også lage en tabell med rød farge og to kolonner der det står "hei" (border="1"', 
 '<!DOCTYPE html><html><body>Hei!<br><table ><tr><td>hei</td><td>hei</td></tr></table></body></html>', 'body {background-color: #b0c4de;} table {background-color: red;}', '<!DOCTYPE html><html><body>Hei!</body></html>', 'body {}', 100, 80, 3);
-INSERT INTO multichoicegame VALUES(DEFAULT, 'HTML spill', 'Dette er et spill som tester grunnleggende kunnskap om HTML', 'Kunne gjengi grunnleggende informasjon knyttet til HTML', 1);
-INSERT INTO multichoicegame VALUES(DEFAULT, 'CSS spill', 'Dette er et spill som tester grunnleggende kunnskap om CSS', 'Kunne gjengi grunnleggende informasjon knyttet til CSS og dens syntax', 2);
+INSERT INTO multichoicegame VALUES(DEFAULT, 'HTML spill', 'Dette er et spill som tester grunnleggende kunnskap om HTML', 'Kunne gjengi grunnleggende informasjon knyttet til HTML', 1, null);
+INSERT INTO multichoicegame VALUES(DEFAULT, 'CSS spill', 'Dette er et spill som tester grunnleggende kunnskap om CSS', 'Kunne gjengi grunnleggende informasjon knyttet til CSS og dens syntax', 2, null);
 INSERT INTO multiexercise VALUES(DEFAULT, '<a href="http://google.com">Link</a>', '<body>http://google.com"</body>', '<img src=”http://google.com”/>', '<p>http://google.com</p>', '<a href="http://google.com">Link</a>', 'Hvilken av følgende kodelinjer oppretter en link til google?',1);
 INSERT INTO multiexercise VALUES(DEFAULT,'<p>','<h1>','<title>','<h3>','<h1>','Hvilken tag skal brukes for å lage stor overskrift i HTML?',1);
 INSERT INTO multiexercise VALUES(DEFAULT,'I script', 'I headen', 'I title', 'I bodyen','I bodyen','Hvor skal forms plasseres i et HTML dokument?',1);
@@ -199,7 +230,9 @@ INSERT INTO resembletask VALUES(DEFAULT, 'Lag en tabell med to rader og to kolon
 INSERT INTO classes values('1ING');
 INSERT INTO personclass values('test_per@gmail.com', '1ING');
 INSERT INTO oving VALUES(DEFAULT, 'Øving 1');
-INSERT INTO ovingmultigame values(1,1);
-INSERT INTO ovingmultigame values(1,2);
-INSERT INTO ovingresemblegame values(1,1);
+INSERT INTO ovingmultigame values(1,1,0);
+INSERT INTO ovingmultigame values(1,2,0);
+INSERT INTO ovingresemblegame values(1,1, 0);
+
+
 

@@ -53,13 +53,13 @@
         <put-attribute name="gamedisplay" value="/WEB-INF/tiles/preview.jsp"/> 
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_games.jsp"/>   
     </definition>
-    <definition name="chooseOtherGames" extends="baseGameMenuLayout">
+    <definition name="chooseothergame" extends="baseGameMenuLayout">
         <put-attribute name="title"  value="Index"/>
         <put-attribute name="body"   value="/WEB-INF/tiles/othergamemenu.jsp"/>
-        <put-attribute name="gamedisplay" value="/WEB-INF/tiles/preview.jsp"/> 
+        <put-attribute name="gamedisplay" value="/WEB-INF/tiles/previewOther.jsp"/> 
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_othergames.jsp"/>   
     </definition>
-    
+
     <definition name="result" extends="baseLayout">
         <put-attribute name="title"  value="Index"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/result.jsp"/>   
@@ -90,6 +90,7 @@
     <definition name="administrateAccount" extends="baseLayout">
         <put-attribute name="title"  value="administrateAccountSomethingElse"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/administrateAccount.jsp"/> 
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_index.jsp"/>   
     </definition>
     
     <definition name="firstLogin" extends="loginBaseLayout">
@@ -137,7 +138,8 @@
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_about.jsp"/>   
     </definition>  
     
-    <definition name="kOdesLostTags" extends="loginBaseLayout">
+    <definition name="kOdesLostTags" extends="baseLayout">
         <put-attribute name="body"   value="/WEB-INF/jsp/kOdesLostTags.jsp"/> 
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_about.jsp"/>     
     </definition>  
 </tiles-definitions>
