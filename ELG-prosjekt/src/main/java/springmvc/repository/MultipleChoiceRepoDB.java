@@ -32,7 +32,11 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
     //SQL setninger:
     private final String sqlGetGame = "select * from multichoicegame where gamename = ?";
     private final String sqlGetExercises = "select * from multiexercise where idGame = ?";
+<<<<<<< HEAD
     private final String sqlGetAllMultiChoiceGames = "select * from multichoicegame";
+=======
+    private final String sqlGetAllMultiChoiceGames = "select * from multichoicegame"; 
+>>>>>>> FETCH_HEAD
     private final String sqlGetAllMultiChoiceGamesFromOving = "select * from multichoicegame where multichoicegame.idgame in (select idgamemulti from ovingmultigame where isextra = 0)"; 
     private final String sqlGetAllMultiChoiceGamesFromOvingExtra = "select * from multichoicegame where multichoicegame.idgame in (select idgamemulti from ovingmultigame where isextra = 1)"; 
     private final String sqlGetIdgameFromMultiChoiseWithGameNameAndEmail = "SELECT * FROM ELGUSER.MULTIRESULT WHERE idgame =(SELECT idgame FROM multichoicegame WHERE gamename = ?) AND email= ? ";
@@ -77,6 +81,16 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
         return (ArrayList<MultiChoiceInfo>) jdbcTemplateObject.query(sqlGetAllMultiChoiceGames, new MultiChoiceInfoMapper());
     }
 
+    
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOving(){
+        System.out.println("** MultipleChoiceRepoDB: getAllMultiChoiceInfoFromOving  ** ");
+        return (ArrayList<MultiChoiceInfo>)jdbcTemplateObject.query(sqlGetAllMultiChoiceGamesFromOving, new MultiChoiceInfoMapper()); 
+    }
+    
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOvingExtra(){
+        System.out.println("** MultipleChoiceRepoDB: getAllMultiChoiceInfoFromOving  ** ");
+        return (ArrayList<MultiChoiceInfo>)jdbcTemplateObject.query(sqlGetAllMultiChoiceGamesFromOvingExtra, new MultiChoiceInfoMapper()); 
+    }
     
     public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOving(){
         System.out.println("** MultipleChoiceRepoDB: getAllMultiChoiceInfoFromOving  ** ");

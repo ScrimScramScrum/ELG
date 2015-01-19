@@ -97,6 +97,7 @@ public class MultiChoiceRepoMock implements MultiChoiceRepository {
     public boolean regMultiChoiceGame(MultiChoice game) {
         throw new UnsupportedOperationException("Not supported yet");
     }
+
     public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOvingExtra() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
