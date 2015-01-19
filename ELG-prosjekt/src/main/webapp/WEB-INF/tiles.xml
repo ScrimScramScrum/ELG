@@ -137,7 +137,7 @@
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_about.jsp"/>   
     </definition>  
     
-    <definition name="kOdesLostTags" extends="loginBaseLayout">
+    <definition name="kOdesLostTags" extends="baseLayout">
         <put-attribute name="body"   value="/WEB-INF/jsp/kOdesLostTags.jsp"/> 
     </definition>  
 </tiles-definitions>

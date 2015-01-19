@@ -29,5 +29,10 @@ public class ResembleGameRepoMock implements ResembleGameRepo{
     public ResembleGame getResemleGameByName(String gameName) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public int sqlGetScoreFromFromResebleGameWithNameAndEmail(String gamename, String email) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

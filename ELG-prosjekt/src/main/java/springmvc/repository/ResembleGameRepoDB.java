@@ -14,7 +14,8 @@ public class ResembleGameRepoDB implements ResembleGameRepo{
     private final String sqlSelectGameByName = "Select * from resemblegame where gamename = ?"; 
     private final String sqlSelectAllResembleGames = "Select * from resemblegame"; 
     private final String sqlInsertGame = "insert into resemblegame values (DEFAULT, ?, ?, ?, ?, ?)"; 
-    
+        private final String sqlGetScoreFromFromResebleGameWithNameAndEmail = "SELECT score FROM resembleresult WHERE idgame =(SELECT idgame FROM resemblegame WHERE gamename = ?) AND email = ?";
+
     private DataSource dataSource;
     JdbcTemplate jdbcTemplateObject;
     
@@ -48,6 +49,15 @@ public class ResembleGameRepoDB implements ResembleGameRepo{
     public boolean insertResembleGame(String gameName, String info, String learningGoals, String difficulty, String creatorId){
         this.jdbcTemplateObject.update(sqlInsertGame, new Object[]{gameName, info, learningGoals, difficulty, creatorId});
         return true; 
+    }
+     public int sqlGetScoreFromFromResebleGameWithNameAndEmail(String gamename, String email){
+        int score = -1;
+         try{
+               score = Integer.parseInt((String)jdbcTemplateObject.queryForObject(sqlGetScoreFromFromResebleGameWithNameAndEmail, new Object[] { gamename, email }, String.class));
+        } catch (Exception e){
+            System.out.println("feil"+e);
+        }
+        return score;
     }
     
     

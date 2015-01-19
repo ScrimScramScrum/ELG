@@ -9,4 +9,7 @@ public interface ResembleGameRepo {
     public ArrayList<ResembleGame> getAllResembleGames(); 
     public boolean insertResembleGame(String gameName, String info, String learningGoals, String difficulty, String creatorId);
     public ResembleGame getResemleGameByName(String gameName);
+
+    public int sqlGetScoreFromFromResebleGameWithNameAndEmail(String gamename, String email);
+    
 }

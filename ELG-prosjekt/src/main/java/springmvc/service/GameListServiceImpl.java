@@ -92,10 +92,16 @@ public class GameListServiceImpl implements GameListService{
     
     public ArrayList<ResembleGame> updateApprovedResembleGames( ArrayList<ResembleGame> resembleGames, User user){ 
         System.out.println("--------updateApprovedResembleGames");
+        System.out.println("size: "+resembleGames.size());
         for (int i = 0; i<resembleGames.size();i++){
-            //need to call the DB and get a scoore based on user.getEmail();
-         
+            System.out.println("name: "+resembleGames.get(i).getGamename());
             
+            int score = resembleGameRepoDB.sqlGetScoreFromFromResebleGameWithNameAndEmail(resembleGames.get(i).getGamename(), user.getEmail());
+            
+            if (score>=80){
+                resembleGames.get(i).setApproved(1);
+                System.out.println("set approved");
+            }            
         }
         return resembleGames;
         
@@ -131,4 +137,6 @@ public class GameListServiceImpl implements GameListService{
         return resembleGameRepoDB.insertResembleGame(gameName, info, learningGoals, difficulty, creatorId); 
     }
 
+
+    
 }
