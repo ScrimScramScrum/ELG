@@ -89,7 +89,7 @@
             <h2> ${resembleInfo.gamename}</h2>
             <br>
             <h4>Vanskelighetsgrad</h4>
-            ${resembleInfo.difficulty} av 3
+            ${resembleInfo.difficulty}/3
             <br>
             <h4>Informasjon</h4>
             ${resembleInfo.info}
@@ -141,13 +141,13 @@
         <div id="leftcolumn">
             <h2>${gamenr}</h2>
             <br>
-            <h4>Difficulty</h4>
-            Vanskelighetsgrad: ${multiChoiceInfo.difficulty}
+            <h4>Vanskelighetsgrad</h4>
+            ${multiChoiceInfo.difficulty}/3
             <br>
-            <h4>Info</h4>
+            <h4>Informasjon</h4>
             ${multiChoiceInfo.info}
             <br>
-            <h4>Learning Goals</h4>
+            <h4>Læringsmål</h4>
             ${multiChoiceInfo.learningGoal}
             <br><br>
             <form action="multi" method="post" id="playbutton" style="float: right">
