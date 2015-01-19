@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package springmvc.repository;
 
 import java.sql.Connection;
@@ -20,6 +19,7 @@ import springmvc.repository.mappers.MultiChoiceExerciseMapper;
 import springmvc.repository.mappers.MultiChoiceInfoMapper;
 import springmvc.repository.mappers.MultiChoiceMapper;
 import springmvc.repository.mappers.MultiResultMapper;
+
 /**
  *
  * @author eiriksandberg
@@ -32,63 +32,102 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
     //SQL setninger:
     private final String sqlGetGame = "select * from multichoicegame where gamename = ?";
     private final String sqlGetExercises = "select * from multiexercise where idGame = ?";
-    private final String sqlGetAllMultiChoiceGames = "select * from multichoicegame"; 
+    private final String sqlGetAllMultiChoiceGames = "select * from multichoicegame";
     private final String sqlGetIdgameFromMultiChoiseWithGameNameAndEmail = "SELECT * FROM ELGUSER.MULTIRESULT WHERE idgame =(SELECT idgame FROM multichoicegame WHERE gamename = ?) AND email= ? ";
-    public MultipleChoiceRepoDB() {}
-    
+    private final String sqlRegGame = "insert into multichoicegame values(default, ?, ?, ?, ?, ?)";
+    private final String sqlRegTasks = "insert into multiexercise values(default,?, ?, ?, ?, ?, ?, ?)";
+
+    public MultipleChoiceRepoDB() {
+    }
+
     @Autowired
-    public void setDataSource(DataSource dataSource){
+    public void setDataSource(DataSource dataSource) {
         System.out.println(" Database.setDataSource " + dataSource);
         this.dataSource = dataSource;
         this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }
-    
-    public MultiChoice getMultiChoice(String gamename){ 
-        MultiChoice game = (MultiChoice)jdbcTemplateObject.queryForObject(sqlGetGame, new Object[]{gamename}, new MultiChoiceMapper());
+
+    public MultiChoice getMultiChoice(String gamename) {
+        MultiChoice game = (MultiChoice) jdbcTemplateObject.queryForObject(sqlGetGame, new Object[]{gamename}, new MultiChoiceMapper());
         ArrayList<Exercise> exercises = getExercises(game.getGameid());
         game.setExercises(exercises);
         return game;
     }
-    
-    public ArrayList<MultiChoice> getAllMultiChoiceGames(){
-        ArrayList<MultiChoice> allGames = (ArrayList<MultiChoice>) jdbcTemplateObject.query(sqlGetAllMultiChoiceGames, new MultiChoiceMapper()); 
-        
-        for(MultiChoice m : allGames){
+
+    public ArrayList<MultiChoice> getAllMultiChoiceGames() {
+        ArrayList<MultiChoice> allGames = (ArrayList<MultiChoice>) jdbcTemplateObject.query(sqlGetAllMultiChoiceGames, new MultiChoiceMapper());
+
+        for (MultiChoice m : allGames) {
             m.setExercises(getExercises(m.getGameid()));
         }
-        return allGames; 
+        return allGames;
     }
-    
-    public ArrayList<Exercise> getExercises(int gameid){
+
+    public ArrayList<Exercise> getExercises(int gameid) {
         return (ArrayList<Exercise>) jdbcTemplateObject.query(sqlGetExercises, new Object[]{gameid}, new MultiChoiceExerciseMapper());
     }
-    
-    public MultiChoiceInfo getMultiChoiceInfo(String gameName){
-        return jdbcTemplateObject.queryForObject(sqlGetGame, new Object[]{gameName}, new MultiChoiceInfoMapper()); 
+
+    public MultiChoiceInfo getMultiChoiceInfo(String gameName) {
+        return jdbcTemplateObject.queryForObject(sqlGetGame, new Object[]{gameName}, new MultiChoiceInfoMapper());
     }
-    
-    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfo(){
-        return (ArrayList<MultiChoiceInfo>)jdbcTemplateObject.query(sqlGetAllMultiChoiceGames, new MultiChoiceInfoMapper()); 
+
+    public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfo() {
+        return (ArrayList<MultiChoiceInfo>) jdbcTemplateObject.query(sqlGetAllMultiChoiceGames, new MultiChoiceInfoMapper());
     }
-    
-    public MultiResult getMultiChoiceAndUsername(String gamename, String email){ 
+
+    public MultiResult getMultiChoiceAndUsername(String gamename, String email) {
         System.out.println("runnign now getMultiChoiceAndUsername");
         MultiResult multiResult = null;
         try {
-             multiResult = (MultiResult)jdbcTemplateObject.queryForObject(
-                sqlGetIdgameFromMultiChoiseWithGameNameAndEmail, 
-                new Object[]{gamename, email}, new MultiResultMapper());
-        
-        System.out.println(multiResult.getScore());
-        
+            multiResult = (MultiResult) jdbcTemplateObject.queryForObject(
+                    sqlGetIdgameFromMultiChoiseWithGameNameAndEmail,
+                    new Object[]{gamename, email}, new MultiResultMapper());
+
+            System.out.println(multiResult.getScore());
+
+        } catch (Exception e) {
+            System.out.println("Erreoren er : " + e);
+
         }
-        
-        catch(Exception e){
-            System.out.println("Erreoren er : "+e);
-            
-        }
-        
-        
+
         return multiResult;
     }
+
+    public boolean regMultiChoiceGame(MultiChoice game) {
+        try{
+        jdbcTemplateObject.update(sqlRegGame, new Object[]{
+            game.getName(),
+            game.getInfo(),
+            game.getLearningGoals(),
+            game.getDifficulty(),
+            game.getCreator()
+        });
+        regMultiTask(game);
+        } catch(Exception e){
+            System.out.println("FEIL! I regMultiChoiceGame" + e);
+            return false;
+        }
+        return true;
+    }
+
+    public boolean regMultiTask(MultiChoice game) {
+        try{
+            ArrayList<Exercise> e = game.getExercises();
+            for (int i = 0; i < e.size(); i++) {
+                jdbcTemplateObject.update(sqlRegTasks, new Object[]{
+                    e.get(i).getAlternativeIndex(0),
+                e.get(i).getAlternativeIndex(1),
+                e.get(i).getAlternativeIndex(2),
+                e.get(i).getAlternativeIndex(3),
+                e.get(i).getSolution(),
+                e.get(i).getTaskText(),
+                jdbcTemplateObject.queryForInt("select idgame from multichoicegame where gamename = ? and creator_id = ?", new Object[]{game.getName(), game.getCreator()})
+            });
+        }
+        } catch (Exception e){
+            System.out.println("FEIL! i regMultiTask() " + e);
+            return false;
+        }
+            return true;
+}
 }

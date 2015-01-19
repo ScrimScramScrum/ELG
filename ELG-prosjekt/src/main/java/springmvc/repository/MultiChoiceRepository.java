@@ -22,4 +22,5 @@ public interface MultiChoiceRepository {
     public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfo();
     public MultiChoiceInfo getMultiChoiceInfo(String gameId);
     public MultiResult getMultiChoiceAndUsername(String gamename, String email);
+    public boolean regMultiChoiceGame(MultiChoice game);
 }

@@ -29,5 +29,9 @@ public class MultiChoiceService {
         }
         return repo.getMultiChoice(name);
     }
+    
+    public boolean regMultiChoiceGame(MultiChoice game){
+        return repo.regMultiChoiceGame(game);
+    }
   
 }

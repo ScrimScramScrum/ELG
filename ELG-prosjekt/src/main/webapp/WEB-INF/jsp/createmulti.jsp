@@ -11,41 +11,40 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script>
+            function myFunction() {
+                document.getElementById("createEx").reset();
+            }
+        </script>
     </head>
     <body>
-        <h1>Lag ditt eget multiple choice spill!</h1>
-        <form:form action="number"> 
-            Velg antall spørsmål <select id="number" name = "number">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>   
-            <input type="submit" value = "Velg">
+        <h1>Lag ditt eget multiple choice spill!</h1> 
+        <h2>Spørsmål</h2><br><br>
+        <form:form action="createExercise" modelAttribute="createExercise" method = "POST" id ="createEx">
+            Spørsmål nummer : <c:out value="${teller}"/><br>
+            Skriv inn oppgaven her: <form:input path = "taskText" type ="text" id="task"/><br>
+            Skriv fasiten her: <form:input path = "answer" type ="text" id="answer"/><br>
+            <br>
+            Alternativ 1: <form:input path = "alt1" type ="text" id="alt1"/><br>
+            Alternativ 2: <form:input path = "alt2" type ="text" id="alt2"/><br>           
+            Alternativ 3: <form:input path = "alt3" type ="text" id="alt3"/><br>   
+            Alternativ 4: <form:input path = "alt4" type ="text" id="alt4"/><br>
+            <input type ="submit" value="Lagre spørsmål"><br>
         </form:form>
 
-            <c:set var="check" value="${numberOfTasks}"/>
-            <c:if test="${check > 0}">     
-                <form:form>
-                    <c:forEach begin = "1" end = "${numberOfTasks}" var = "teller">
-                        Spørsmål nummer : <c:out value="${teller}"/><br>
-                        Skriv inn oppgaven her: <input type ="text"><br>
-                        Skriv fasiten her: <input type ="text"><br>
-                        <br>
-                        Alternativ 1: <input type ="text"><br>
-                        Alternativ 2: <input type ="text"><br>
-                        Alternativ 3: <input type ="text"><br>
-                        Alternativ 4: <input type ="text"><br>
-                        <br><br>
-                    </c:forEach>
-                    <input type ="submit" value="Lagre">
-                </form:form>
-                    </c:if>
-            </body>
-        </html>
+
+        <form:form action ="submitgame" modelAttribute="MultiGame" method = "POST">
+            <h2>Generell info: </h2><br><br>
+            Navn på spillet: <form:input path = "name" type ="text" id ="gamename"/><br>
+            Informasjon om spillet: <form:input path = "info" type ="text" id ="info"/><br>
+                Vanskelighetsgrad: <form:select path ="difficulty" id="difficulty">
+                <form:option value="1" label ="1"/>
+                <form:option value="2" label ="2"/>
+                <form:option value="3" label ="3"/>
+            </form:select>
+                <br>
+            Læringsmål: <form:input path ="learningGoals" type ="text" id ="learning_goals"/><br><br>
+            <input type ="submit" value="Lagre spill">
+        </form:form>
+    </body>
+</html>
