@@ -88,13 +88,13 @@
         <div id="leftcolumn">
             <h2> ${resembleInfo.gamename}</h2>
             <br>
-            <h4>Difficulty</h4>
-            Vanskelighetsgrad: ${resembleInfo.difficulty}
+            <h4>Vanskelighetsgrad</h4>
+            ${resembleInfo.difficulty} av 3
             <br>
-            <h4>Info</h4>
+            <h4>Informasjon</h4>
             ${resembleInfo.info}
             <br>
-            <h4>Learning Goals</h4>
+            <h4>Læringsmål</h4>
             ${resembleInfo.learningGoal}
             <br><br>
             <form action="resemblegame" method="post" style="float: right">
