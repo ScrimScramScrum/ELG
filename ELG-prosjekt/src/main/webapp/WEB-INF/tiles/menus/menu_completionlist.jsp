@@ -41,7 +41,7 @@
                         <li><a href="<c:url value="/about" />" id="about" name =' about' onClick ="changeId(this)">Om ELG</a></li>
                         <%
                             if(!(user.getEmail().equals("GUEST"))){%>
-                                <li><a href="<c:url value="/createresemblegame" />" name = 'createresemblegame' id="createresemblegame" onClick ="changeId(this)">Lag spill</a></li>
+                                <li><a href="<c:url value="/creategame" />" name = 'creategame' id="creategame" onClick ="changeId(this)">Lag spill</a></li>
                                 <li><a href="<c:url value="/administrateAccount" />" name ="settings" id="settings" onClick ="changeId(this)">Innstillinger</a></li>
                          <%}%>                         
                         <li><a href="<c:url value="/logout" />" name ="logout" id="logout" onClick ="changeId(this) ">Logg ut</a></li>

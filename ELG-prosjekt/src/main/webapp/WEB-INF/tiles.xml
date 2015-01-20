@@ -135,7 +135,12 @@
     
     <definition name="createmulti" extends="baseLayout">
         <put-attribute name="body"   value="/WEB-INF/jsp/createmulti.jsp"/>
-        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_about.jsp"/>   
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_createresemblegame.jsp"/>   
+    </definition>  
+    
+    <definition name="creategame" extends="baseLayout">
+        <put-attribute name="body"   value="/WEB-INF/jsp/creategame.jsp"/>
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_createresemblegame.jsp"/>   
     </definition>  
     
     <definition name="kOdesLostTags" extends="baseLayout">
