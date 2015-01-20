@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import springmvc.domain.Exercise;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.MultiChoiceInfo;
 import springmvc.domain.MultiResult;
@@ -77,8 +78,23 @@ public class GameListServiceImpl implements GameListService{
     
     @Override
     public MultiChoice getMultiChoiceGame(String gameId){
+       /* System.out.println("AAAAAYYAYAYAYAYAAAYYAYAYAYAYAYAYAA ALLAHU AKBAR");
+        ArrayList<Exercise> exList = multipleChoiceRepoDB.getMultiChoice(gameId).getExercises();
+        for(Exercise ex : exList){
+            String[] newAlts = new String[4];
+            for(int i = 0; i < exList.size(); i++){
+                newAlts[i] = ex.getAlternativeIndex(i).replace("\"", "\'");
+                
+            }
+            ex.setAlternatives(newAlts);
+            for (int i = 0; i < ex.getAlternatives().length; i++){
+                
+                System.out.println(ex.getAlternatives());
+            }
+        }*/
         return multipleChoiceRepoDB.getMultiChoice(gameId);
     }
+    
     @Override
     public ArrayList<ResembleTask> getResembleTasks(ArrayList<Integer> taskNumbers){
         ArrayList<ResembleTask> list = resembleTaskRepoDB.getResembleTasks(taskNumbers);
