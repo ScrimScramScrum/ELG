@@ -34,7 +34,12 @@ body
 #rowCreateResemble{
 	width:100%;
 }
-
+/*#buttonContainer{
+	width:50%;
+	margin-left: auto;
+    margin-right: auto;
+}
+*/
 #createIframes{
 	width:80%;
 	float:right;

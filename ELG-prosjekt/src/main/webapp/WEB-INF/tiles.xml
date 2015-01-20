@@ -84,7 +84,8 @@
     
     <definition name="error" extends="baseLayout">
         <put-attribute name="title"  value="FinishPage"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/error.jsp"/>            
+        <put-attribute name="body"   value="/WEB-INF/jsp/error.jsp"/>
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_error.jsp"/>   
     </definition>
     
     <definition name="administrateAccount" extends="baseLayout">

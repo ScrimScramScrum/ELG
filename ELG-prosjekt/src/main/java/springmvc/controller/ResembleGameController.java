@@ -8,9 +8,13 @@ package springmvc.controller;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,7 +52,7 @@ public class ResembleGameController {
         mav.setViewName("resembleGame");
         return mav; 
     }*/
-    
+
     @RequestMapping(value = "resemblegame", method = RequestMethod.POST)
     public ModelAndView resembleGame(ModelAndView mav, @RequestParam("gameid") String id){
         int gameid = Integer.parseInt(id);
@@ -117,7 +121,12 @@ public class ResembleGameController {
     }
     
     @RequestMapping(value = "createresemblegame")
-    public ModelAndView showCreateResembleGame(ModelAndView mav){
+    public ModelAndView showCreateResembleGame(ModelAndView mav, HttpSession session){
+         User user = (User) session.getAttribute("user");
+        if (user == null) {
+            mav.setViewName("firstLogin");
+            return mav; 
+        }
         CreateResembleGame createResembleGame = new CreateResembleGame(); 
         createResembleGame.setResembleGame(new ResembleGame());
         mav.addObject("createResembleGame", createResembleGame); 
@@ -126,7 +135,12 @@ public class ResembleGameController {
     }
     
     @RequestMapping(value = "createresembletask")
-    public ModelAndView createResembleTaskView(ModelAndView mav){
+    public ModelAndView createResembleTaskView(ModelAndView mav, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            mav.setViewName("firstLogin");
+            return mav; 
+        }
         ResembleTask resembleTask = new ResembleTask(); 
         mav.addObject("createResembleTask", resembleTask);
         mav.setViewName("createresembletask");
@@ -140,16 +154,40 @@ public class ResembleGameController {
     }
     
     @RequestMapping(value = "submitresemblegame", method = RequestMethod.POST)
-    public String submitResembleGame(@ModelAttribute(value = "createResembleGame") CreateResembleGame createResembleGame, HttpSession session){
+    public ModelAndView submitResembleGame(ModelAndView mav, @Valid @ModelAttribute(value = "createResembleGame") CreateResembleGame createResembleGame, BindingResult error, HttpSession session, @RequestParam("button") String button){
+        User user = (User) session.getAttribute("user");
+        System.out.println("ERROR: :D:D:D:D:D:D " + error.getFieldErrors());
+        if (user == null) {
+            mav.setViewName("firstLogin");
+            return mav;         
+        }
+        if(button.equals("Lag deloppgave")){
+            ResembleTask resembleTask = new ResembleTask(); 
+            mav.addObject("createResembleTask", resembleTask);
+            mav.setViewName("createresembletask");
+            return mav;
+        }
+        
+        if(error.hasErrors()){
+            System.out.println("ERROR HAR ERRORS::: ASDAD***************");
+            mav.setViewName("createresemblegame");
+            return mav; 
+        }
         ResembleGame resembleGame = createResembleGame.getResembleGame(); 
-        User user = (User)session.getAttribute("user");
         resembleGame.setCreatorId(user.getEmail());
         
         ArrayList<ResembleTask> resembleTasks = createResembleGame.getResembleTasks();
         gameListService.insertResembleGame(resembleGame.getGamename(), resembleGame.getInfo(), resembleGame.getLearningGoal(), ""+resembleGame.getDifficulty(), resembleGame.getCreatorId());
-        
-        int gameId = gameListService.getResemleGameByName(resembleGame.getGamename()).getGameId(); 
+        int gameId; 
+        try{
+            gameId = gameListService.getResemleGameByName(resembleGame.getGamename()).getGameId();
+        } catch(IncorrectResultSizeDataAccessException e){
+            mav.addObject("message", "error.duplicateresemblename");
+            mav.setViewName("createresemblegame");
+            return mav; 
+        }
         resembleTaskService.insertResembleTasks(resembleTasks, gameId);
-        return "about"; 
+        mav.setViewName("about"); 
+        return mav; 
     }
 }

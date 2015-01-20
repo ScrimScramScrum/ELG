@@ -3,9 +3,11 @@ package springmvc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.validation.Valid;
 
 
 public class CreateResembleGame implements Serializable{
+    @Valid
     private ResembleGame resembleGame; 
     private ArrayList<ResembleTask> resembleTasks; 
     

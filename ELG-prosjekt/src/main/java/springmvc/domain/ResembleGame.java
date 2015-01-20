@@ -2,6 +2,9 @@ package springmvc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ResembleGame implements Serializable{
@@ -9,8 +12,12 @@ public class ResembleGame implements Serializable{
     private ArrayList<Integer> taskNumbers; 
     private int currentTask; 
     private double[] taskScores; 
+    @NotEmpty
     private String learningGoal; 
+    @NotEmpty
     private String info; 
+    @Min(1)
+    @Max(3)
     private int difficulty;
     private String gamename;
     private String creatorId; 

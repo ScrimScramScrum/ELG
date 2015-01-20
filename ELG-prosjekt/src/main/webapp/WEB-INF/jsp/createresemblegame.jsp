@@ -7,6 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,6 +24,34 @@
             $head.append("<style>" + css + "</style>") 
         }
     </script>
+
+
+
+<style type="text/css">
+        #playbutton{
+            width: 100px;
+            height: 50px;
+            margin-right: auto;
+            margin-left: auto;
+            cursor: pointer;
+            display: inline-block;
+            background: #2B8FC4;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: 100;
+            color: #FFF !important;
+            -moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            -webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            -o-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            -ms-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            text-align: center;
+        }
+        #playbutton:hover {
+            background: #065B88;
+        }
+    </style>
     </head>
     <body>
 
@@ -32,15 +62,14 @@
                     Læringsmål: <form:input path="resembleGame.learningGoal" id ="learningGoal" type="text"/>
                     Informasjon: <form:input path="resembleGame.info" id ="info" type="text"/>
                     Vanskelighetsgrad: <form:input path="resembleGame.difficulty" id ="difficulty" type="text"/><br>
-                    <input type = "submit" value = "Lagre spill!">
-                    <a href ="createresembletask">Lag deloppgave!</a><br>
                     <c:choose>
                         <c:when test="${createResembleGame.resembleTasks.size()==0}">
                             Du har foreløpig ikke lagd noen deloppgaver.
-                            <a href ="createresembletask">Lag deloppgave!</a><br>
-                        </c:when>
+                             <button id="playbutton" type="submit" name = "button" value="Lag deloppgave">Lag deloppgave!</button>
+                         </c:when>
                         <c:otherwise>
-                            Dette er deloppgavene du har lagt foreløpig: <br>  
+<!--                             <button id="playbutton" type="submit" name = "button" value="Lag deloppgave">Lag deloppgave!</button>
+ -->                            Dette er deloppgavene du har lagt foreløpig: <br>  
                             <%
                                 int teller = 0;
                             %>
@@ -50,10 +79,10 @@
                                         Oppgavetekst: <c:out value = "${task.taskText}"/>
                                     </div>
                                     <div id = "createIframes">
-                                        <%
-                                            out.println("<iframe class='renderedFrame' id='solutionFrame" + teller + "' src='about:blank'></iframe>");
-                                            out.println("<iframe class='renderedFrame' id='resultFrame" + teller + "' src='about:blank'></iframe>");
-                                        %>
+                                    <%
+                                        out.println("<iframe class='renderedFrame' id='solutionFrame" + teller + "' src='about:blank'></iframe>");
+                                        out.println("<iframe class='renderedFrame' id='resultFrame" + teller + "' src='about:blank'></iframe>");
+                                    %>
                                     </div>
                                     <script>
                                         var solutionHtml = "${task.solutionHTML}";
@@ -66,10 +95,29 @@
                                     <%teller++;%>
                                 </div>
                             </c:forEach>
+                            <div id = "rowCreateResemble" style = "height:65px; width:25%;">
+                                <div id = "buttonContainerLeft" style = "width: 100px; height: 50px; display:inline;">
+                                    <button id="playbutton" type="submit" name = "button" value="Lagre spill">Lagre spill!</button>
+                                    <button id="playbutton" type="submit" name = "button" value="Lag deloppgave">Lag deloppgave!</button>
+                               </div>
+                           </div>
                         </c:otherwise>
                     </c:choose>
+
+                    <div id ="errorMessage" class="errorMessages" >
+                        <form:errors path = "resembleGame.gamename"/><br>
+                        <form:errors path="resembleGame.learningGoal"/><br>
+                        <form:errors path="resembleGame.info" /> <br>
+                        <form:errors path="resembleGame.difficulty"/>
+                        <c:choose>
+                            <c:when test="${empty message}">
+                            </c:when>
+                            <c:otherwise>
+                                <spring:message code="${message}" />
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
                 </form:form>
             </center>
-        </div>
     </body>
 </html>

@@ -301,7 +301,7 @@
                 <form:input path="startingCSS" id ="startingCSS" type="hidden"/>
                 <form:input path = "width" id ="width" name = "width" type="hidden"/>
                 <form:input path = "height" id ="height" name = "height" type="hidden"/>
-                <input type ="submit" value ="Registrer deloppgave" id = "createTaskButton"></input>
+                <input type ="submit" name = "button" value ="Registrer deloppgave" id = "createTaskButton"></input>
             </form:form>
             <!-- <form class = "myForms" method = "post" id = "form2">
                  <input id ="width" name = "width" type="text">
