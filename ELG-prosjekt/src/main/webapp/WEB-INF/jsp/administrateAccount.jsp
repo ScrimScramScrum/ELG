@@ -86,10 +86,15 @@ function checkPasswordMatch() {
                             <input type="hidden" name="chooseId" id="chooseId" value="3" />
                             <div class = "gamelink"><a href = "chooseId" id="gameLinkA" onClick ="get_form(this).submit(); return false"> <c:out value = "${'Få administrator-rettigheter'}"/> </a></div>
             </form>
-            <form action="chooseAdministrateFunction" method="post">
-                            <input type="hidden" name="chooseId" id="chooseId" value="4" />
-                            <div class = "gamelink"><a href = "chooseId" id="gameLinkA" onClick ="get_form(this).submit(); return false"> <c:out value = "${'Registrer en ny klasse'}"/> </a></div>
-            </form>
+            <c:choose>
+                <c:when test="${user.isAdmin()}">
+                     <form action="chooseAdministrateFunction" method="post">
+                        <input type="hidden" name="chooseId" id="chooseId" value="4" />
+                        <div class = "gamelink"><a href = "chooseId" id="gameLinkA" onClick ="get_form(this).submit(); return false"> <c:out value = "${'Registrer en ny klasse'}"/> </a></div>
+                    </form>
+                </c:when>
+            </c:choose>
+           
             </center>
         </div>     
         <div id="mainbar">
