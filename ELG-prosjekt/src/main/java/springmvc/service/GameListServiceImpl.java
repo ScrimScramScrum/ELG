@@ -84,6 +84,9 @@ public class GameListServiceImpl implements GameListService{
         ArrayList<ResembleTask> list = resembleTaskRepoDB.getResembleTasks(taskNumbers);
         for(ResembleTask rt : list){
             rt.setSolutionHTML(rt.getSolutionHTML().replace("\"", "\'"));
+            rt.setSolutionCSS(rt.getSolutionCSS().replace("\"", "\'"));
+            rt.setStartingHTML(rt.getStartingHTML().replace("\"", "\'"));
+            rt.setStartingCSS(rt.getStartingCSS().replace("\"", "\'"));
             System.out.println(rt.getSolutionHTML());
         }
         return list; 
