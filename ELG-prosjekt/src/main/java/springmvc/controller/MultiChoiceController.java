@@ -133,6 +133,7 @@ public class MultiChoiceController {
         }
         mc.getNextExercise();
         if (mc.lastExercise() == true) {
+            model.addAttribute("eachresult", mc.getEachResult());
             model.addAttribute("result", mc.getResult());
             //******DETTE HER HER FOR Å REGISTRERE RESULTAT I DATABASEN!!!*****
             Double score = mc.getResult();

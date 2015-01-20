@@ -109,6 +109,10 @@ public class MultiChoice implements Serializable {
         double ans = (right / getNumberOfQuestions()) * 100;
         return ans;
     }
+    
+    public boolean[] getEachResult() {
+        return result;
+    }
 
     public void setResult(int index, boolean r) {
         result[index] = r;
