@@ -11,14 +11,34 @@
 
     <style type="text/css">
         #leftcolumn {
-             width: 75%;
-             float: left;
+            width: 75%;
+            float: left;
+            height: 100%;
         }
+        
+        #gameInfo {
+            height: 60%;
+            width: auto;
+        }
+        
+        #bigPlayButton {
+            margin-left: 25%;
+            height: 65px;
+            width: 384px;
+        }
+        
+        #buttonWrapper{
+            margin-left: 25%;
+            height: 65px;
+            width: 384px;
+        }
+        
         #rightcolumn {
             width: 25%;
+            height: 100%;
             float: right;
-            /*float: left;*/
         }
+
         #leftcolumn input {
             width: 100px;
         }
@@ -36,28 +56,57 @@
             background-color: #dddddd; 
         }
         
-        #playbutton{
-            width: 100px;
-            height: 50px;
+        #bigPlayButtonID{
+            margin-right: 3px;
+            float: left;
+            width: 381px;
+            height: 65px;
             position: relative;
             cursor: pointer;
-    		display: inline-block;
-    		background: #2B8FC4;
-    		border-radius: 4px;
-    		text-decoration: none;
-    		font-size: 1.2em;
-    		font-weight: 100;
-    		color: #FFF !important;
-    		-moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
-    		-webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
-    		-o-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
-    		-ms-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
-    		transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
-    		text-align: center;
+            display: inline-block;
+            background: #2B8FC4;
+            border-radius: 4px;
+            text-decoration: none;
+            padding: 0px;
+            font-size: 1.4em;
+            font-weight: 100;
+            color: #FFF !important;
+            -moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            -webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            -o-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            -ms-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            text-align: center;
         }
-        #playbutton:hover {
-                background: #065B88;
-            }
+        #bigPlayButtonID:hover {
+            background: #065B88;
+        }
+
+        .playbutton{
+            margin-right: 3px;
+            float: left;
+            width: 125px;
+            height: 65px;
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            background: #2B8FC4;
+            border-radius: 4px;
+            text-decoration: none;
+            padding: 0px;
+            font-size: 1.2em;
+            font-weight: 100;
+            color: #FFF !important;
+            -moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            -webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            -o-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            -ms-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            text-align: center;
+        }
+        .playbutton:hover {
+            background: #065B88;
+        }
         #welcome{
             width: 75%;
             float: left;
@@ -67,7 +116,7 @@
             float: right;
             width: 25%;
         }
-        
+
         .renderedFrame {
             /*Add different size for the iframes?*/
             /*<c:out value="width: ${resembleTask.width}px; height: ${resembleTask.height}px" />*/
@@ -77,11 +126,11 @@
     <script type="text/javascript">
         function setRenderedResult(frame, html, css) {
             frame.contents().find("html").html(html);
-            var $head = frame.contents().find("head");                
-            $head.append("<style>" + css + "</style>") 
+            var $head = frame.contents().find("head");
+            $head.append("<style>" + css + "</style>")
         }
 
-        $('#gameform').submit(function () {
+        $('.gameform').submit(function () {
             sendContactForm();
             return false;
         });
@@ -89,42 +138,47 @@
 </head>
 
 <c:choose>
-<c:when test="${gametype == 1}">
-
-    <div id="wrapperGameInfoaaa">
+    <c:when test="${gametype == 1}">
         <div id="leftcolumn">
-            <h2> ${resembleInfo.gamename}</h2>
-            <br>
-            <h4>Vanskelighetsgrad</h4>
-            ${resembleInfo.difficulty} av 3
-            <br>
-            <h4>Informasjon</h4>
-            ${resembleInfo.info}
-            <br>
-            <h4>Læringsmål</h4>
-            ${resembleInfo.learningGoal}
-            <br><br>
-            <form action="resemblegame" method="post" style="float: right">
-                <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
-                <button id="playbutton" type="submit" name = "button" value="play"><spring:message code="play"/></button>
-            </form>
-            <%
-                User user = (User)session.getAttribute("user");
-                if(!user.getEmail().equals("GUEST")){%>
-                    <form action="voteresemblegame" id = "gameform" name = "gameform" method="post" style="float: right">
-                        <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
-                        <button id="playbutton" type="submit" name = "button" value="vote">Stem!</button>
-                    </form>            
+            <div id="gameInfo">
+                <h2> ${resembleInfo.gamename}</h2>
+                <br>
+                <h4>Vanskelighetsgrad</h4>
+                ${resembleInfo.difficulty} av 3
+                <br>
+                <h4>Informasjon</h4>
+                ${resembleInfo.info}
+                <br>
+                <h4>Læringsmål</h4>
+                ${resembleInfo.learningGoal}
+                <br><br>
+            </div> <!-- End gameInfo div> -->
+            <div id="bigPlayButton">
+                <form action= "resemblegame" id="bigPlayButtonID" method="post">
+                    <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
+                    <button id = "bigPlayButtonID" type="submit" name = "button" value="play"><spring:message code="play"/></button>
+                </form>
+            </div> <!-- End bigPlayButton div -->
+            <div id="buttonWrapper">
+                <%
+                    User user = (User) session.getAttribute("user");
+                    if (!user.getEmail().equals("GUEST")) {%>
+                <form action="voteresemblegame" class = "gameform" name = "gameform" method="post">
+                    <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
+                    <button class="playbutton" type="submit" name = "button" value="vote">Stem!</button>
+                </form>            
                 <%}
-                if(user.isAdmin()){%>
-                    <form action="moveresemblegame" id = "gameform" name = "gameform" method="post" style="float: right">
-                            <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
-                            <button id="playbutton" type="submit" name = "button" style = "font-size:6px;" value="makeextra">Gjør til ekstraoppgave!</button>
-                            <button id="playbutton" type="submit" name = "button" style = "font-size:6px;" value="makeexercise">Legg til i øving!</button>
-                    </form>                
+                if (user.isAdmin()) {%>
+                <form action="moveresemblegame" class = "gameform" name = "gameform" method="post">
+                    <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
+                    <button class="playbutton" type="submit" name = "button" value="makeextra">Gjør til ekstraoppgave!</button>
+                    <button class="playbutton" type="submit" name = "button" value="makeexercise">Legg til i øving!</button>
+                </form>                
                 <%}
-             %> 
-        </div>  
+                %>
+            </div> <!-- End buttonWrapper div -->
+        </div>
+
         <div id="rightcolumn">
             <center>
                 <!-- preview frames here -->
@@ -154,33 +208,32 @@
                 <!-- end preview frames -->
             </center>
         </div>
-    </div>
-</c:when>
-<c:when test="${gametype == 2}">
-    <div id="wrapperGameInfo">
-        <div id="leftcolumn">
-            <h2>${gamenr}</h2>
-            <br>
-            <h4>Difficulty</h4>
-            Vanskelighetsgrad: ${multiChoiceInfo.difficulty}
-            <br>
-            <h4>Info</h4>
-            ${multiChoiceInfo.info}
-            <br>
-            <h4>Learning Goals</h4>
-            ${multiChoiceInfo.learningGoal}
-            <br><br>
-            <form action="multi" method="post" id="playbutton" style="float: right">
-                <input type="hidden" name="gamename" id="gamename" value="${gamenr}" />
-                <button id="playbutton" type="submit" value="play">
+    </c:when>
+    <c:when test="${gametype == 2}">
+        <div id="wrapperGameInfo">
+            <div id="leftcolumn">
+                <h2>${gamenr}</h2>
+                <br>
+                <h4>Difficulty</h4>
+                Vanskelighetsgrad: ${multiChoiceInfo.difficulty}
+                <br>
+                <h4>Info</h4>
+                ${multiChoiceInfo.info}
+                <br>
+                <h4>Learning Goals</h4>
+                ${multiChoiceInfo.learningGoal}
+                <br><br>
+                <form action="multi" method="post" class="playbutton" style="float: right">
+                    <input type="hidden" name="gamename" id="gamename" value="${gamenr}" />
+                    <button class="playbutton" type="submit" value="play">
                         <spring:message code="play"/>
-            </button>
-            </form>
+                    </button>
+                </form>
+            </div>
+            <div id="rightcolumn">
+                <!-- Add stuff to be on the right side -->
+            </div>
         </div>
-        <div id="rightcolumn">
-            <!-- Add stuff to be on the right side -->
-        </div>
-    </div>
     </c:when>
     <c:otherwise>
         <div id="welcome_wrapper">
