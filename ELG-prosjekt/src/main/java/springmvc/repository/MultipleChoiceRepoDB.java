@@ -50,9 +50,15 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
     }
 
     public MultiChoice getMultiChoice(String gamename) {
-        MultiChoice game = (MultiChoice) jdbcTemplateObject.queryForObject(sqlGetGame, new Object[]{gamename}, new MultiChoiceMapper());
+        MultiChoice game = new MultiChoice();
+        try{
+        game = (MultiChoice) jdbcTemplateObject.queryForObject(sqlGetGame, new Object[]{gamename}, new MultiChoiceMapper());
         ArrayList<Exercise> exercises = getExercises(game.getGameid());
         game.setExercises(exercises);
+        } catch (Exception e){
+            System.out.println("***Spillet finnes ikke*** getMultiChoice" + e);
+            game = null;
+        }
         return game;
     }
 

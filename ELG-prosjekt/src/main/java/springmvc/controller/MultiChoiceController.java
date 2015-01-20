@@ -113,6 +113,14 @@ public class MultiChoiceController {
             mav.setViewName("createmulti");
             return mav;
         }
+        MultiChoice check = s.getMultiChoice(game1.getName());
+        if(check != null){
+            String er = "Et spill med dette navnet finnes fra før. Vennligst velg et annet.";
+            mav.addObject("ErrorMessage", er);
+            System.out.println("Feil! Navn finnes fra før");
+            mav.setViewName("createmulti");
+            return mav;
+        }
         User user = (User) session.getAttribute("user");
         game1.setExercises(exercises);
         game1.setCreator(user.getEmail());
