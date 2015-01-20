@@ -69,7 +69,6 @@ public class MultiChoiceController {
         CreateMultiExercise ce = new CreateMultiExercise();
         mav.addObject("MultiGame", game);
         mav.addObject("Exercises", exercises);
-        mav.addObject("Exercise", e);
         int n = 0;
         mav.addObject("createExercise", ce);
         mav.setViewName("createmulti");
@@ -77,23 +76,25 @@ public class MultiChoiceController {
     }
 
     @RequestMapping(value = "createmulti", method = RequestMethod.POST)
-    public ModelAndView showCreateMultiChoice(ModelAndView mav, @ModelAttribute(value = "Exercises") ArrayList<Exercise> exercises, @ModelAttribute(value = "Exercise") Exercise e, @ModelAttribute(value = "createExercise") CreateMultiExercise ce) {
+    public ModelAndView showCreateMultiChoice(ModelAndView mav, @ModelAttribute(value = "Exercises") ArrayList<Exercise> exercises, @ModelAttribute(value = "createExercise") CreateMultiExercise ce) {
         System.out.println("kommer ifaosjifdsa");
         mav.setViewName("createmulti");
         return mav;
     }
 
     @RequestMapping(value = "createExercise", method = RequestMethod.POST)
-    public ModelAndView createExercise(ModelAndView mav, @ModelAttribute(value = "Exercises") ArrayList<Exercise> exercises, @ModelAttribute(value = "Exercise") Exercise e, @Valid @ModelAttribute(value = "createExercise") CreateMultiExercise ce, BindingResult error) {
+    public ModelAndView createExercise(ModelAndView mav, @ModelAttribute(value = "Exercises") ArrayList<Exercise> exercises, @Valid @ModelAttribute(value = "createExercise") CreateMultiExercise ce, BindingResult error) {
         if (error.hasErrors()) {
             System.out.println("Feil! Ikke fylt ut alt");
             mav.setViewName("createmulti");
             return mav;
         }
         String[] t = {ce.getAlt1(), ce.getAlt2(), ce.getAlt3(), ce.getAlt4()};
-        e = new Exercise(t, ce.getAnswer(), ce.getTaskText());
+        Exercise e = new Exercise(t, ce.getAnswer(), ce.getTaskText());
         exercises.add(e);
         System.out.println(exercises.size());
+        ce = new CreateMultiExercise();
+        mav.addObject("createExercise", ce);
         mav.setViewName("createmulti");
         return mav;
     }

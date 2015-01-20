@@ -58,7 +58,7 @@
                     <td><form:errors path = "alt4" htmlEscape="false"/></td>
                 </tr>
                 <tr>
-                    <td colspan ="2" style="text-align: center"><input type ="submit" value="Lagre spørsmål" onclick="alert('Spørsmål er registrert')"></td>
+                    <td colspan ="2" style="text-align: center"><input type ="submit" value="Lagre spørsmål"></td>
                 </tr>
             </form:form>
         </table></center>
