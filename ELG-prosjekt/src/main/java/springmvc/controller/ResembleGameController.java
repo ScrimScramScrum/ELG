@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -177,17 +178,18 @@ public class ResembleGameController {
         resembleGame.setCreatorId(user.getEmail());
         
         ArrayList<ResembleTask> resembleTasks = createResembleGame.getResembleTasks();
-        gameListService.insertResembleGame(resembleGame.getGamename(), resembleGame.getInfo(), resembleGame.getLearningGoal(), ""+resembleGame.getDifficulty(), resembleGame.getCreatorId());
-        int gameId; 
+        
         try{
-            gameId = gameListService.getResemleGameByName(resembleGame.getGamename()).getGameId();
-        } catch(IncorrectResultSizeDataAccessException e){
+            ResembleGame rgFromDB = gameListService.getResemleGameByName(resembleGame.getGamename());
             mav.addObject("message", "error.duplicateresemblename");
             mav.setViewName("createresemblegame");
             return mav; 
+        } catch(EmptyResultDataAccessException e){
+            gameListService.insertResembleGame(resembleGame.getGamename(), resembleGame.getInfo(), resembleGame.getLearningGoal(), ""+resembleGame.getDifficulty(), resembleGame.getCreatorId());
+            int gameId = gameListService.getResemleGameByName(resembleGame.getGamename()).getGameId();
+            resembleTaskService.insertResembleTasks(resembleTasks, gameId);
+            mav.setViewName("about"); 
+            return mav; 
         }
-        resembleTaskService.insertResembleTasks(resembleTasks, gameId);
-        mav.setViewName("about"); 
-        return mav; 
     }
 }
