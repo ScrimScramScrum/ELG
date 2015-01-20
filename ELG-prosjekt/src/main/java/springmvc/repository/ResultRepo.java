@@ -43,4 +43,6 @@ public interface ResultRepo{
         public ArrayList<HighscoreDisplay> getNewCompletionlistMulti(String classname);
         
         public ArrayList<HighscoreDisplay> getNewCompletionlistResemble(String classname);
+        
+        public boolean deleteClass(String classname, String email);
 }

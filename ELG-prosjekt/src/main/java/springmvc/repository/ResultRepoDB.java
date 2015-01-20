@@ -43,7 +43,7 @@ public class ResultRepoDB implements ResultRepo {
     private final String sqlGetHighscoreResemble = "select score, fname, lname from resembleresult join person on resembleresult.email = person.email where idGame = ? order by score desc fetch first 10 rows only";
 
     private final String sqlGetAllOvinger = "select ovingname from oving";
-    private final String sqlGetAllClasses = "select classes.classname from classes join personclass on classes.classname = personclass.classname where email = ?";
+    private final String sqlGetAllClasses = "select classes.classname from classes join personclass on classes.classname = personclass.classname where email = ? and classes.classname != 'deleted class'";
     private final String sqlGetNumberInClass = "select count(personclass.email) from personclass join person on person.EMAIL=personclass.EMAIL where classname = ? and administrator = 0";
     //Sql completion
     private final String sqlGetGamesInOving = "select idgamemulti from oving join ovingmultigame on oving.IDOVING = ovingmultigame.IDOVING";
@@ -54,6 +54,8 @@ public class ResultRepoDB implements ResultRepo {
     private final String sqlGetPassedExerciseResemble = "select email from resembleresult where idgame = ? and score > 79";
     private final String sqlGetCompletedNamesResemble = "select fname, lname from person join personclass on person.EMAIL= personclass.EMAIL where personclass.email = ? and classname = ? and administrator = 0";
 
+    private final String sqlDeleteClass = "delete from personclass where classname = ? and email = ?";
+    
     public ResultRepoDB() {
     }
 
@@ -95,6 +97,14 @@ public class ResultRepoDB implements ResultRepo {
             score,
             email,
             game.getGameid()
+        });
+        return true;
+    }
+    
+    public boolean deleteClass(String classname, String email){
+        jdbcTemplateObject.update(sqlDeleteClass, new Object[]{
+            classname,
+            email,
         });
         return true;
     }

@@ -82,6 +82,11 @@ public class ResultRepoMock implements ResultRepo {
     public ArrayList<HighscoreDisplay> getNewCompletionlistResemble(String classname) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public boolean deleteClass(String classname, String email) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     

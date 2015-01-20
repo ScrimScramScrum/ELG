@@ -122,4 +122,8 @@ public class ResultService {
     public ArrayList<HighscoreDisplay> getNewCompletionlistResemble(String classname){
         return repo.getNewCompletionlistResemble(classname);
     }
+    
+    public boolean deleteClass(String classname, String email){
+        return repo.deleteClass(classname, email);
+    }
 }

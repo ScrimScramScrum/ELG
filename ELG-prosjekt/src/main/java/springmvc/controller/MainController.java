@@ -447,7 +447,6 @@ public class MainController {
 
     @RequestMapping(value = "choosegameCompletionlist", method = RequestMethod.POST)
     public ModelAndView chooseGameCompletionlist(ModelAndView mav, @RequestParam("classid") String id, HttpSession session) {
-
         User user = (User) session.getAttribute("user");
         if (user == null) {
             mav.setViewName("firstLogin");
@@ -459,11 +458,11 @@ public class MainController {
         }
         ArrayList<HighscoreDisplay> hs = new ArrayList<HighscoreDisplay>();
         hs = r.getCompleteCompletion(id);
-
         if (hs.size() == 0) {
             String s = "Ingen studenter har bestått";
             mav.addObject("nopass", s);
         }
+        mav.addObject("classid", id);
         mav.addObject("list", hs);
         int nc = (r.getNumberInClass(id) - (hs.size()));
         mav.addObject("notcompleted", nc);
@@ -472,7 +471,7 @@ public class MainController {
         mav.setViewName("completionlist");
         return mav;
     }
-
+    
     @RequestMapping(value = "kOdesLostTags")
     public String kOdesLostTags(ModelAndView mav, HttpSession session, @ModelAttribute Login login) {
         User user = (User) session.getAttribute("user");

@@ -17,11 +17,11 @@
             {
                 list-style-type: none;
             }
-            
+
             #wrappercompletion{
                 width: 100%;
             }
-            
+
             #completionleft{
                 width: 75%;
                 float: left;
@@ -120,87 +120,101 @@
                             Doughnut-chart
                         </a>
                     </div>
+                    <br><br>
+                        <table>
+                            <tr>
+                                <td>
+                                    <form action ="removeClass" method ="POST">
+                                        <c:if test="${not empty classid}">
+                                            <input type="hidden" name="classid" id="classid" value='<c:out value = "${classid}"/>'/>
+                                            <button type="submit" onclick="return confirm('Er du sikker?')">Fjern klasse</button>
+                                        </c:if>
+                                        
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
                 </center>
             </div>
         </div>
         <script>
             var doughnutData = [
-                    {
-                        value: ${list.size()},
-                        color:"#66CD00",
-                        highlight: "#76EE00",
-                        label: "Godkjent"
-                    },
-                    {
-                        value: ${notcompleted},
-                        color: "#F7464A",
-                        highlight: "#FF5A5E",
-                        label: "Ikke Godkjent"
-                    }
-
-                ];
-
-                var chart;
-                var ctx = document.getElementById("chart-area").getContext("2d");
-                chart = new Chart(ctx).Pie(doughnutData);
-
-                function setChart(chart_name) {
-                    var d = new Date();
-                    var exdays = 30;
-                    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-                    var expires = "expires="+d.toUTCString();
-                    document.cookie = "chart" + "=" + chart_name + "; " + expires;
-                    changeChart(chart_name);
-                }
-
-                function changeChart(chart_name) {
-                    chart.destroy();
-                    var canvas = document.getElementById('chart-area');
-                    if (chart_name == "nr1") {
-                        // pie
-                        var ctx = document.getElementById("chart-area").getContext("2d");
-                        ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
-                        // window.myPie = new Chart(ctx).Pie(doughnutData);
-                        chart = new Chart(ctx).Pie(doughnutData);
-                        window.myPie = chart;
-                    }
-                    else if (chart_name == "nr2") {
-                        var ctx = document.getElementById("chart-area").getContext("2d");
-                        ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
-                        // window.myPolarArea = new Chart(ctx).PolarArea(doughnutData, {responsive:true});
-                        chart = new Chart(ctx).PolarArea(doughnutData, {responsive:true});
-                        window.myPolarArea = chart;
-                    }
-                    else {
-                        // doughnut
-                        var ctx = document.getElementById("chart-area").getContext("2d");
-                        ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
-                        // window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {responsive : true});
-                        chart = new Chart(ctx).Doughnut(doughnutData, {responsive : true});
-                        window.myDoughnut = chart;
-                    }
-                }
-
-                function getCookie(c_name)
                 {
-                    var i,x,y,ARRcookies=document.cookie.split(";");
-
-                    for (i=0;i<ARRcookies.length;i++)
-                    {
-                        x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-                        y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-                        x=x.replace(/^\s+|\s+$/g,"");
-                        if (x==c_name)
-                        {
-                            return unescape(y);
-                        }
-                     }
+                    value: ${list.size()},
+                    color: "#66CD00",
+                    highlight: "#76EE00",
+                    label: "Godkjent"
+                },
+                {
+                    value: ${notcompleted},
+                    color: "#F7464A",
+                    highlight: "#FF5A5E",
+                    label: "Ikke Godkjent"
                 }
 
-                window.onload = function(){
-                    var chart_name = getCookie("chart");
-                    changeChart(chart_name);
-                };
+            ];
+
+            var chart;
+            var ctx = document.getElementById("chart-area").getContext("2d");
+            chart = new Chart(ctx).Pie(doughnutData);
+
+            function setChart(chart_name) {
+                var d = new Date();
+                var exdays = 30;
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                var expires = "expires=" + d.toUTCString();
+                document.cookie = "chart" + "=" + chart_name + "; " + expires;
+                changeChart(chart_name);
+            }
+
+            function changeChart(chart_name) {
+                chart.destroy();
+                var canvas = document.getElementById('chart-area');
+                if (chart_name == "nr1") {
+                    // pie
+                    var ctx = document.getElementById("chart-area").getContext("2d");
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    // window.myPie = new Chart(ctx).Pie(doughnutData);
+                    chart = new Chart(ctx).Pie(doughnutData);
+                    window.myPie = chart;
+                }
+                else if (chart_name == "nr2") {
+                    var ctx = document.getElementById("chart-area").getContext("2d");
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    // window.myPolarArea = new Chart(ctx).PolarArea(doughnutData, {responsive:true});
+                    chart = new Chart(ctx).PolarArea(doughnutData, {responsive: true});
+                    window.myPolarArea = chart;
+                }
+                else {
+                    // doughnut
+                    var ctx = document.getElementById("chart-area").getContext("2d");
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    // window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {responsive : true});
+                    chart = new Chart(ctx).Doughnut(doughnutData, {responsive: true});
+                    window.myDoughnut = chart;
+                }
+            }
+
+            function getCookie(c_name)
+            {
+                var i, x, y, ARRcookies = document.cookie.split(";");
+
+                for (i = 0; i < ARRcookies.length; i++)
+                {
+                    x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+                    y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+                    x = x.replace(/^\s+|\s+$/g, "");
+                    if (x == c_name)
+                    {
+                        return unescape(y);
+                    }
+                }
+            }
+
+            window.onload = function() {
+                var chart_name = getCookie("chart");
+                changeChart(chart_name);
+            };
         </script>
     </body>
 </html>
