@@ -95,7 +95,7 @@
             <h4>Informasjon</h4>
             ${resembleInfo.info}
             <br>
-            <h4>Læringsmål</h4>
+            <h4>LÃ¦ringsmÃ¥l</h4>
             ${resembleInfo.learningGoal}
             <br><br>
             <form action="resemblegame" method="post" style="float: right">
@@ -111,7 +111,7 @@
                 if(user.isAdmin()){%>
                     <form action="moveresemblegame" id = "gameform" name = "gameform" method="post" style="float: right">
                             <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
-                            <button id="playbutton" type="submit" name = "button" value="removeexercise">Fjern fra øving!</button>
+                            <button id="playbutton" type="submit" name = "button" value="removeexercise">Fjern fra ï¿½ving!</button>
                     </form>                
                 <%}
              %> 
@@ -158,7 +158,7 @@
             <h4>Informasjon</h4>
             ${multiChoiceInfo.info}
             <br>
-            <h4>Læringsmål</h4>
+            <h4>Lï¿½ringsmï¿½l</h4>
             ${multiChoiceInfo.learningGoal}
             <br><br>
             <form action="multi" method="post" id="playbutton" style="float: right">

@@ -47,7 +47,7 @@
         <div id="sidebar">
             <center>
             <h2>Øving</h2>
-            <h4>Resemble Games</h4>
+            <h4>Likhetsspill</h4>
                 <c:forEach items="${resembleGames}" var="game">
                         <form action="choosegame" method="post">
                             <div class = "gamelink">                                            
@@ -69,7 +69,7 @@
                 
                 </form>
                 </c:forEach>
-            <h4>MultiChoice Games</h4>
+            <h4>Flervalgsspill</h4>
             <c:forEach items="${multiChoiceGames}" var="game">
                     <form action="choosegame" method="post">
                         <div class = "gamelink"> 
@@ -90,14 +90,14 @@
             </c:forEach>
             <br></br>
             <h2>Annet </h2>
-            <h4>Resemble Games</h4>
+            <h4>Likhetsspill</h4>
             <c:forEach items="${resembleGamesExtra}" var="game">
                     <form action="choosegame" method="post">
                         <input type="hidden" name="gameid" id="gameid" value="${game.gameId}" />
                         <div class = "gamelink"><a href ="choosegame" id="gameLinkA" onclick =" get_form(this).submit(); return false"> <c:out value = "${game.gamename}"/></a></div>
                     </form>
             </c:forEach>
-            <h4>MultiChoice Games</h4>
+            <h4>Flervalgsspill</h4>
             <c:forEach items="${multiChoiceGamesExtra}" var="game">
                     <form action="choosegame" method="post">
                         <input type="hidden" name="gameid" id="gameid" value="${game.name}" />
