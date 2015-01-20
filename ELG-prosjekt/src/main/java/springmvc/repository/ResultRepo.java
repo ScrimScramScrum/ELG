@@ -34,13 +34,13 @@ public interface ResultRepo{
         
         public ArrayList<HighscoreDisplay> highscoreRG(ResembleGame game);
         
-        public ArrayList <HighscoreDisplay> getCompletion(String classname);
-        
-        public ArrayList <HighscoreDisplay> getCompletionRG(String classname);
-        
         public ArrayList <String> getAllOvinger();
         
         public ArrayList <String> getAllClasses(String email);
         
         public int getNumberInClass(String classname);
+        
+        public ArrayList<HighscoreDisplay> getNewCompletionlistMulti(String classname);
+        
+        public ArrayList<HighscoreDisplay> getNewCompletionlistResemble(String classname);
 }

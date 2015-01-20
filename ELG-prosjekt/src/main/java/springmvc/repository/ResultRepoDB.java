@@ -15,11 +15,14 @@ import org.springframework.jdbc.core.RowMapper;
 import springmvc.domain.HighscoreDisplay;
 import springmvc.domain.MultiChoice;
 import springmvc.domain.ResembleGame;
+import springmvc.repository.mappers.ClassMapper;
 import springmvc.repository.mappers.CompletionMapper;
+import springmvc.repository.mappers.EmailMapper;
+import springmvc.repository.mappers.GameIDMapper;
 import springmvc.repository.mappers.HighscoreMapper;
 import springmvc.repository.mappers.MultiChoiceMapper;
 import springmvc.repository.mappers.OvingMapper;
-import springmvc.repository.mappers.ClassMapper;
+
 /**
  *
  * @author eiriksandberg
@@ -38,45 +41,19 @@ public class ResultRepoDB implements ResultRepo {
     private final String sqlGetResultResemble = "select score from resembleresult where email = ? and idGame = ?";
     private final String sqlUpdateResemble = "update resembleresult set score = ? where email = ? and idGame = ?";
     private final String sqlGetHighscoreResemble = "select score, fname, lname from resembleresult join person on resembleresult.email = person.email where idGame = ? order by score desc fetch first 10 rows only";
-    private final String sqlGetCompletion = "select distinct fname, lname from oving " +
-                                            "join ovingmultigame on oving.IDOVING = ovingmultigame.IDOVING " +
-                                            "join multiresult on multiresult.IDGAME = ovingmultigame.IDGAMEMULTI " +
-                                            "join personclass on personclass.EMAIL = multiresult.EMAIL " +
-                                            "join person on person.EMAIL = personclass.EMAIL " +
-                                            "where classname = ? and score > 79 and ((select count(ovingmultigame.IDGAMEMULTI) from ovingmultigame)*(select count (distinct multiresult.EMAIL) from oving " +
-                                            "join ovingmultigame on oving.IDOVING = ovingmultigame.IDOVING " +
-                                            "left join multiresult on multiresult.IDGAME = ovingmultigame.IDGAMEMULTI " +
-                                            "join personclass on personclass.EMAIL = multiresult.EMAIL " +
-                                            "join person on person.EMAIL = personclass.EMAIL " +
-                                            "where score > 79 and classname = ?)) = (select count (multiresult.email) from oving " +
-                                            "join ovingmultigame on oving.IDOVING = ovingmultigame.IDOVING " +
-                                            "join multiresult on multiresult.IDGAME = ovingmultigame.IDGAMEMULTI " +
-                                            "join personclass on personclass.EMAIL = multiresult.EMAIL " +
-                                            "join person on person.EMAIL = personclass.EMAIL " +
-                                            "where score > 79 and classname = ?)";
 
-    
-    private final String sqlGetCompletionResemble ="select distinct fname, lname from oving\n" +
-                                                    "join ovingresemblegame on oving.IDOVING = ovingresemblegame.IDOVING\n" +
-                                                    "join resembleresult on resembleresult.IDGAME = ovingresemblegame.IDGAMERESEMBLE\n" +
-                                                    "join personclass on personclass.EMAIL = resembleresult.EMAIL\n" +
-                                                    "join person on person.EMAIL = personclass.EMAIL \n" +
-                                                    "where classname = ? and score > 79 and ((select count(ovingresemblegame.IDGAMERESEMBLE) from ovingresemblegame)*(select count (distinct resembleresult.EMAIL) from oving\n" +
-                                                    "join ovingresemblegame on oving.IDOVING = ovingresemblegame.IDOVING\n" +
-                                                    "left join resembleresult on resembleresult.IDGAME = ovingresemblegame.IDGAMERESEMBLE\n" +
-                                                    "join personclass on personclass.EMAIL = resembleresult.EMAIL\n" +
-                                                    "join person on person.EMAIL = personclass.EMAIL\n" +
-                                                    "where score > 79 and classname = ?)) = (select count (resembleresult.email) from oving\n" +
-                                                    "join ovingresemblegame on oving.IDOVING = ovingresemblegame.IDOVING\n" +
-                                                    "join resembleresult on resembleresult.IDGAME = ovingresemblegame.IDGAMERESEMBLE\n" +
-                                                    "join personclass on personclass.EMAIL = resembleresult.EMAIL\n" +
-                                                    "join person on person.EMAIL = personclass.EMAIL\n" +
-                                                    "where score > 79 and classname = ?)";
-    
     private final String sqlGetAllOvinger = "select ovingname from oving";
     private final String sqlGetAllClasses = "select classes.classname from classes join personclass on classes.classname = personclass.classname where email = ?";
-    private final String sqlGetNumberInClass = "select count(email) from personclass where classname = ?";
-    
+    private final String sqlGetNumberInClass = "select count(personclass.email) from personclass join person on person.EMAIL=personclass.EMAIL where classname = ? and administrator = 0";
+    //Sql completion
+    private final String sqlGetGamesInOving = "select idgamemulti from oving join ovingmultigame on oving.IDOVING = ovingmultigame.IDOVING";
+    private final String sqlGetPassedExercise = "select email from multiresult where idgame = ? and score > 79";
+    private final String sqlGetCompletedNames = "select fname, lname from person join personclass on person.EMAIL= personclass.EMAIL where personclass.email = ? and classname = ? and administrator = 0";
+
+    private final String sqlGetGamesInOvingResemble = "select idgameresemble from oving join ovingresemblegame on oving.IDOVING = ovingresemblegame.IDOVING";
+    private final String sqlGetPassedExerciseResemble = "select email from resembleresult where idgame = ? and score > 79";
+    private final String sqlGetCompletedNamesResemble = "select fname, lname from person join personclass on person.EMAIL= personclass.EMAIL where personclass.email = ? and classname = ? and administrator = 0";
+
     public ResultRepoDB() {
     }
 
@@ -178,35 +155,8 @@ public class ResultRepoDB implements ResultRepo {
         }
         return l;
     }
-    
-    public ArrayList <HighscoreDisplay> getCompletion(String classname){
-            String c2 = classname;
-            String c3 = classname;
-                  
-                ArrayList<HighscoreDisplay> l = new ArrayList<HighscoreDisplay>();
-        try {
-            l = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetCompletion, new Object[]{classname, c2, c3}, new CompletionMapper());
-            //System.out.println("har laget highscoreliste" + l.get(0).getFname());
-        } catch (Exception e) {
-            System.out.println("Feilxxxxxxxxxxx: " + e);
-        }
-        return l;
-    }
-    
-    public ArrayList <HighscoreDisplay> getCompletionRG(String classname){
-            String c2 = classname;
-            String c3 = classname;
-        ArrayList<HighscoreDisplay> l = new ArrayList<HighscoreDisplay>();
-        try {
-            l = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetCompletionResemble, new Object[]{classname, c2, c3}, new CompletionMapper());
-            //System.out.println("har laget highscoreliste" + l.get(0).getFname());
-        } catch (Exception e) {
-            System.out.println("Feilxxxxxxxxxxx: " + e);
-        }
-        return l;
-    }
-    
-    public ArrayList <String> getAllOvinger(){
+
+    public ArrayList<String> getAllOvinger() {
         ArrayList<String> l = new ArrayList<String>();
         try {
             l = (ArrayList<String>) jdbcTemplateObject.query(sqlGetAllOvinger, new Object[]{}, new OvingMapper());
@@ -216,8 +166,8 @@ public class ResultRepoDB implements ResultRepo {
         }
         return l;
     }
-    
-    public ArrayList <String> getAllClasses(String email){
+
+    public ArrayList<String> getAllClasses(String email) {
         ArrayList<String> l = new ArrayList<String>();
         try {
             l = (ArrayList<String>) jdbcTemplateObject.query(sqlGetAllClasses, new Object[]{email}, new ClassMapper());
@@ -227,9 +177,9 @@ public class ResultRepoDB implements ResultRepo {
         }
         return l;
     }
-    
-    public int getNumberInClass(String classname){
-                int i;
+
+    public int getNumberInClass(String classname) {
+        int i;
         try {
             i = (int) jdbcTemplateObject.queryForInt(sqlGetNumberInClass, new Object[]{classname});
 
@@ -238,5 +188,83 @@ public class ResultRepoDB implements ResultRepo {
             i = 0;
         }
         return i;
+    }
+
+    public ArrayList<HighscoreDisplay> getNewCompletionlistMulti(String classname) {
+        ArrayList<Integer> gamesInOving = new ArrayList<Integer>();
+        ArrayList<String> passedExercise = new ArrayList<String>();
+        ArrayList<String> completionlist = new ArrayList<String>();
+        ArrayList<HighscoreDisplay> nameList = new ArrayList<>();
+        try {
+            gamesInOving = (ArrayList<Integer>) jdbcTemplateObject.query(sqlGetGamesInOving, new Object[]{}, new GameIDMapper());
+            System.out.println("gamesInOving.size() = " + gamesInOving.size()); // ******TEST******
+            for (int i = 0; i < gamesInOving.size(); i++) {
+                if (i == 0) {
+                    completionlist = (ArrayList<String>) jdbcTemplateObject.query(sqlGetPassedExercise, new Object[]{gamesInOving.get(i)}, new EmailMapper());
+                } else {
+                    passedExercise = (ArrayList<String>) jdbcTemplateObject.query(sqlGetPassedExercise, new Object[]{gamesInOving.get(i)}, new EmailMapper());
+                }
+                if (i != 0) {
+                    for (int c = 0; c < completionlist.size(); c++) {
+                        boolean found = false;
+                        for (int u = 0; u < passedExercise.size(); u++) {
+                            if (completionlist.get(c).equals(passedExercise.get(u))) {
+                                found = true;
+                            }
+                        }
+                        if (found == false) {
+                            completionlist.remove(c);
+                        }
+                    }
+                }
+            }
+            System.out.println("Lengde på completionlist= " + completionlist.size());
+            for (int i = 0; i < completionlist.size(); i++) {
+                HighscoreDisplay person = (HighscoreDisplay) jdbcTemplateObject.queryForObject(sqlGetCompletedNames, new Object[]{completionlist.get(i), classname}, new CompletionMapper());
+                nameList.add(person);
+            }
+        } catch (Exception e) {
+            System.out.println("Feilxxxxxxxxxxx: " + e);
+        }
+        return nameList;
+    }
+
+    public ArrayList<HighscoreDisplay> getNewCompletionlistResemble(String classname) {
+        ArrayList<Integer> gamesInOving = new ArrayList<Integer>();
+        ArrayList<String> passedExercise = new ArrayList<String>();
+        ArrayList<String> completionlist = new ArrayList<String>();
+        ArrayList<HighscoreDisplay> nameList = new ArrayList<>();
+        try {
+            gamesInOving = (ArrayList<Integer>) jdbcTemplateObject.query(sqlGetGamesInOvingResemble, new Object[]{}, new GameIDMapper());
+            System.out.println("gamesInOving.size() = " + gamesInOving.size()); // ******TEST******
+            for (int i = 0; i < gamesInOving.size(); i++) {
+                if (i == 0) {
+                    completionlist = (ArrayList<String>) jdbcTemplateObject.query(sqlGetPassedExerciseResemble, new Object[]{gamesInOving.get(i)}, new EmailMapper());
+                } else {
+                    passedExercise = (ArrayList<String>) jdbcTemplateObject.query(sqlGetPassedExerciseResemble, new Object[]{gamesInOving.get(i)}, new EmailMapper());
+                }
+                if (i != 0) {
+                    for (int c = 0; c < completionlist.size(); c++) {
+                        boolean found = false;
+                        for (int u = 0; u < passedExercise.size(); u++) {
+                            if (completionlist.get(c).equals(passedExercise.get(u))) {
+                                found = true;
+                            }
+                        }
+                        if (found == false) {
+                            completionlist.remove(c);
+                        }
+                    }
+                }
+            }
+            System.out.println("Lengde på completionlist= " + completionlist.size());
+            for (int i = 0; i < completionlist.size(); i++) {
+                HighscoreDisplay person = (HighscoreDisplay) jdbcTemplateObject.queryForObject(sqlGetCompletedNamesResemble, new Object[]{completionlist.get(i), classname}, new CompletionMapper());
+                nameList.add(person);
+            }
+        } catch (Exception e) {
+            System.out.println("Feilxxxxxxxxxxx: " + e);
+        }
+        return nameList;
     }
 }

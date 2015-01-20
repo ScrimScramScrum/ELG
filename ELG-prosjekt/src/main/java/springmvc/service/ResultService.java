@@ -79,8 +79,8 @@ public class ResultService {
     }
 
     public ArrayList<HighscoreDisplay> getCompleteCompletion(String classname) {
-        ArrayList<HighscoreDisplay> multi = getCompletion(classname);
-        ArrayList<HighscoreDisplay> resemble = getCompletionRG(classname);
+        ArrayList<HighscoreDisplay> multi = getNewCompletionlistMulti(classname);
+        ArrayList<HighscoreDisplay> resemble = getNewCompletionlistResemble(classname);
         System.out.println(multi.size());
         System.out.println(resemble.size());
         ArrayList<HighscoreDisplay> comp = new ArrayList<>();
@@ -103,14 +103,6 @@ public class ResultService {
         return comp;
     }
 
-    public ArrayList<HighscoreDisplay> getCompletion(String classname) {
-        return repo.getCompletion(classname);
-    }
-
-    public ArrayList<HighscoreDisplay> getCompletionRG(String classname) {
-        return repo.getCompletionRG(classname);
-    }
-
     public ArrayList<String> getAllOvinger() {
         return repo.getAllOvinger();
     }
@@ -121,5 +113,13 @@ public class ResultService {
     
     public int getNumberInClass(String classname){
         return repo.getNumberInClass(classname);
+    }
+    
+    public ArrayList<HighscoreDisplay> getNewCompletionlistMulti(String classname){
+        return repo.getNewCompletionlistMulti(classname);
+    }
+    
+    public ArrayList<HighscoreDisplay> getNewCompletionlistResemble(String classname){
+        return repo.getNewCompletionlistResemble(classname);
     }
 }

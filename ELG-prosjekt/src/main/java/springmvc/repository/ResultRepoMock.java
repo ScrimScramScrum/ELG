@@ -59,16 +59,6 @@ public class ResultRepoMock implements ResultRepo {
     }
 
     @Override
-    public ArrayList<HighscoreDisplay> getCompletion(String classname) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<HighscoreDisplay> getCompletionRG(String classname) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public ArrayList<String> getAllOvinger() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -80,6 +70,16 @@ public class ResultRepoMock implements ResultRepo {
 
     @Override
     public int getNumberInClass(String classname) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<HighscoreDisplay> getNewCompletionlistMulti(String classname) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<HighscoreDisplay> getNewCompletionlistResemble(String classname) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

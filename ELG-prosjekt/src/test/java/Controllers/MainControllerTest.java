@@ -349,7 +349,7 @@ public class MainControllerTest {
         hsd.add(new HighscoreDisplay()); 
         hsd.add(new HighscoreDisplay()); 
         hsd.add(new HighscoreDisplay()); 
-        when(r.getCompletionRG(any(String.class))).thenReturn(hsd); 
+        when(r.getNewCompletionlistResemble(any(String.class))).thenReturn(hsd); 
         this.mockMvc.perform(post("/choosegameCompletionlist")
                 .param("classid", "1")
                 .session(mockHttpSession))
@@ -367,7 +367,7 @@ public class MainControllerTest {
         hsd.add(new HighscoreDisplay()); 
         hsd.add(new HighscoreDisplay()); 
         hsd.add(new HighscoreDisplay()); 
-        when(r.getCompletion(any(String.class))).thenReturn(new ArrayList<HighscoreDisplay>()); 
+        when(r.getNewCompletionlistMulti(any(String.class))).thenReturn(new ArrayList<HighscoreDisplay>()); 
         this.mockMvc.perform(post("/choosegameCompletionlist")
                 .param("classid", "1")
                 .session(mockHttpSession))
@@ -385,7 +385,7 @@ public class MainControllerTest {
         hsd.add(new HighscoreDisplay()); 
         hsd.add(new HighscoreDisplay()); 
         hsd.add(new HighscoreDisplay()); 
-        when(r.getCompletion(any(String.class))).thenReturn(hsd); 
+        when(r.getCompleteCompletion(any(String.class))).thenReturn(hsd); 
         this.mockMvc.perform(post("/choosegameCompletionlist")
                 .param("classid", "1")
                 .session(mockHttpSession))
