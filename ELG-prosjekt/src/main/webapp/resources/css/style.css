@@ -23,6 +23,14 @@ body
     margin-right: auto;
 	/*float: left;*/
 }
+
+#kodelosttags{
+	width:600px;
+	height:650px; 
+	margin-left: auto;
+    margin-right: auto;
+}
+
 #leftcolumnCreate {
 	width: 50%;
 	float: left;

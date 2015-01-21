@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<h1>K.Odes Lost Tags</h1>
+<div id = "kodelosttags">
+<center><h1>K.Odes Lost Tags</h1></center>
 
 <script> 
 function Questions(question, answer) {
@@ -107,7 +107,10 @@ var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 canvas.width = 600;
 canvas.height = 650;
-document.body.appendChild(canvas);
+canvas.marginLeft = "auto";
+canvas.marginRight = "auto";
+//document.body.appendChild(canvas);
+document.getElementById('kodelosttags').appendChild(canvas);
 
 // Background image
 var bgReady = false;
@@ -579,4 +582,4 @@ audioStart.play();
 startGame();
 
 </script>
-
+</div>
