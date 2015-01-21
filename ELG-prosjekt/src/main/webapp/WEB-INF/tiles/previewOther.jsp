@@ -15,24 +15,24 @@
             float: left;
             height: 100%;
         }
-        
+
         #gameInfo {
             height: 60%;
             width: auto;
         }
-        
+
         #bigPlayButton {
             margin-left: 25%;
             height: 65px;
             width: 384px;
         }
-        
+
         #buttonWrapper{
             margin-left: 25%;
             height: 65px;
             width: 384px;
         }
-        
+
         #rightcolumn {
             width: 25%;
             height: 100%;
@@ -55,7 +55,7 @@
             padding: 5px;
             background-color: #dddddd; 
         }
-        
+
         #bigPlayButtonID{
             margin-right: 3px;
             float: left;
@@ -168,7 +168,7 @@
                     <button class="playbutton" type="submit" name = "button" value="vote">Stem!</button>
                 </form>            
                 <%}
-                if (user.isAdmin()) {%>
+                    if (user.isAdmin()) {%>
                 <form action="moveresemblegame" class = "gameform" name = "gameform" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
                     <button class="playbutton" type="submit" name = "button" value="makeextra">Gjør til ekstraoppgave!</button>
@@ -210,29 +210,47 @@
         </div>
     </c:when>
     <c:when test="${gametype == 2}">
-        <div id="wrapperGameInfo">
-            <div id="leftcolumn">
+        <div id="leftcolumn">
+            <div id="gameInfo">
                 <h2>${gamenr}</h2>
                 <br>
-                <h4>Difficulty</h4>
-                Vanskelighetsgrad: ${multiChoiceInfo.difficulty}
+                <h4>Vanskelighetsgrad</h4>
+                ${multiChoiceInfo.difficulty}/3
                 <br>
-                <h4>Info</h4>
+                <h4>Informasjon</h4>
                 ${multiChoiceInfo.info}
                 <br>
-                <h4>Learning Goals</h4>
+                <h4>Læringsmål</h4>
                 ${multiChoiceInfo.learningGoal}
                 <br><br>
-                <form action="multi" method="post" class="playbutton" style="float: right">
+            </div>
+            <div id="bigPlayButton"
+                 <form action="multi" method="post" class="playbutton">
                     <input type="hidden" name="gamename" id="gamename" value="${gamenr}" />
-                    <button class="playbutton" type="submit" value="play">
-                        <spring:message code="play"/>
-                    </button>
+                    <button id="bigPlayButton" type="submit" value="play"><spring:message code="play"/></button>
                 </form>
             </div>
-            <div id="rightcolumn">
+            <div id="buttonWrapper">
+                <%
+                    User user2 = (User) session.getAttribute("user");
+                    if (!user2.getEmail().equals("GUEST")) {%>
+                <form action="votemultigame" class = "gameform" name = "gameform" method="post">
+                    <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
+                    <button class="playbutton" type="submit" name = "button" value="vote">Stem!</button>
+                </form>            
+                <%}
+                    if (user2.isAdmin()) {%>
+                <form action="movemultigame" class = "gameform" name = "gameform" method="post">
+                    <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
+                    <button class="playbutton" type="submit" name = "button" value="makeextra">Gjør til ekstraoppgave!</button>
+                    <button class="playbutton" type="submit" name = "button" value="makeexercise">Legg til i øving!</button>
+                </form>                
+                <%}
+                %>
+            </div> <!-- End buttonWrapper div -->
+        </div>
+        <div id="rightcolumn">
                 <!-- Add stuff to be on the right side -->
-            </div>
         </div>
     </c:when>
     <c:otherwise>
