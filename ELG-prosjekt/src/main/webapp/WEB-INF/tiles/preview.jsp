@@ -111,7 +111,7 @@
             <%
                 User user = (User)session.getAttribute("user");
                 if(user.isAdmin()){%>
-                    <form action="moveresemblegame" id = "gameform" name = "gameform" method="post" style="float: right; margin-right: 8px">
+                    <form action="movegame" id = "gameform" name = "gameform" method="post" style="float: right; margin-right: 8px">
                             <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
                             <button id="playbutton" type="submit" name = "button" value="removeexercise">Fjern</button>
                     </form>                
