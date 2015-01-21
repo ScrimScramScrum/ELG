@@ -44,6 +44,11 @@
       $scope.user.message = "";
     };
 
+    $scope.emailfilter = function(value) {
+      var res = value.split("@");
+      return res[0];
+    }
+
     function update_message_view(receiver){
       if($scope.user.receiver == receiver) {
         $scope.user.messages2 = $scope.user.messages[receiver];

@@ -49,7 +49,7 @@
                         <div ng-repeat="(person, value) in user.subs | orderObjectBy:'isOnline':'unread':true | filter:q" class="animate-repeat" >
                             <div ng-click="user.change_chat(value.name)" id="sub" ng-class="{unread: value.unread, offline: !value.isOnline}">
                                 <div id="person_name">
-                                    {{value.name}}
+                                    {{emailfilter(value.name)}}
                                 </div>
                                 <div ng-if="value.isOnline == true " id="presence">
                                     Online -
