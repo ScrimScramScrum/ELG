@@ -109,7 +109,6 @@ canvas.width = 600;
 canvas.height = 650;
 canvas.marginLeft = "auto";
 canvas.marginRight = "auto";
-//document.body.appendChild(canvas);
 document.getElementById('kodelosttags').appendChild(canvas);
 
 // Background image
