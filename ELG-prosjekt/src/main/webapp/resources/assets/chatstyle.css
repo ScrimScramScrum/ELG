@@ -7,6 +7,8 @@
 	border: 2px solid #a1a1a1;
 	border-radius: 10px;
 	background-color: #dcdcd7;
+	z-index: 999;
+	text-align: left;
 }
 
 .message .self {
@@ -100,7 +102,7 @@
 }
 
 #searchbox {
-    display: block;
+    /*display: block;*/
     margin: 0 auto 1em auto;
     line-height: 2em;
     width: 60%;
@@ -108,10 +110,10 @@
     padding: 3px;
 }
 
-#changeuser {
+/*#changeuser {
 	position: absolute;
 	margin-left: 800px;
-}
+}*/
 
 #chat_inputs {
 	height: 60px;

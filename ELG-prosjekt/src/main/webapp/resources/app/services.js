@@ -24,13 +24,17 @@
     service.user_data.messages2 = [];
     service.user_data.unread = false;
     service.user_data.hidden = true;
+    service.user_data.not_logged_in = true;
+
+    service.user_data.ok = false;
 
     service.getUser = function() {
       $http.get('/ELG-prosjekt/getuser').
         success(function(data, status, headers, config) {
           var u = data.trim();
           service.user_data.sender = u;
-          console.log("logged in as user: ", u);
+          // set chat topic 
+          service.CHAT_TOPIC = "/topic/message." + u;
         }).
         error(function(data, status, headers, config) {
           // error message goes here
@@ -44,6 +48,8 @@
 
     function restoreState() {
       service.user_data = angular.fromJson(sessionStorage.ChatService);
+      service.initialize();
+      service.user_data.ok = true;
     }
 
     $rootScope.$on("savestate", service.saveState);
@@ -80,7 +86,7 @@
     
     var reconnect = function() {
       $timeout(function() {
-        initialize(service.user_data.sender);
+        service.initialize();
       }, this.RECONNECT_TIMEOUT);
     };
     
@@ -96,11 +102,10 @@
       return out;
     };
     
-    var initialize = function(user2) {
+    service.initialize = function() {
       socket.client = new SockJS(service.SOCKET_URL);
       socket.stomp = Stomp.over(socket.client);
-      socket.stomp.connect({}, function(user) {
-        service.CHAT_TOPIC = "/topic/message." + user2;
+      socket.stomp.connect({}, function() {
         socket.stomp.subscribe("/topic/OnlineUsers", function(data) {
           var temp = JSON.parse(data.body);
           var person = temp.person;
@@ -114,17 +119,20 @@
         });
         socket.stomp.subscribe(service.CHAT_TOPIC, function(data) {
           listener.notify(getMessage(data.body));
-        })
+        });
       });
       socket.stomp.onclose = reconnect;
     };
 
-    // sets the user
-    service.getUser();
+    // var initialize = function() {
+      // must be here?...
+    // }
 
     if (sessionStorage.ChatService) restoreState();
 
-    initialize(service.user_data.sender);
+    service.getUser();
+    // initialize();
+
     return service;
   }]);
 })(angular, SockJS, Stomp, _);

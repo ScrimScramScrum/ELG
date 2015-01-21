@@ -13,19 +13,16 @@
     };
 
     $scope.user.hide = function() {
-      // $("#hide").click(function(){
-      //   $("#chat_window").hide();
-      //   $("#show").show();
-      // });
-      // $("#show").click(function(){
-      //   $("#show").hide();
-      //   $("#chat_window").show();
-      // });
-      if($scope.user.hidden) {
-        $scope.user.hidden = false;
-        $scope.user.unread = false;
-      } else $scope.user.hidden = true;
-
+      if(ChatService.CHAT_TOPIC != "/topic/message.") {
+        if(!ChatService.user_data.ok) {
+          ChatService.initialize();
+          ChatService.user_data.ok = true;
+        }
+        if($scope.user.hidden) {
+          $scope.user.hidden = false;
+          $scope.user.unread = false;
+        } else $scope.user.hidden = true;
+      } else console.log("chat not loaded yet");
     }
     
     $scope.user.addMessage = function() {

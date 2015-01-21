@@ -65,7 +65,7 @@
                     </div>
                     <div id="chat_inputs">
                         <div id="searchbox_box">
-                                Search:
+                                Søk: 
                                 <input type="search" ng-model="q" placeholder="Filtrer..." id="searchbox" />
                         </div>
                     </div>
