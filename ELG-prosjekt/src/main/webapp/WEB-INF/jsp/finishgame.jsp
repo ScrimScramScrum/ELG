@@ -10,21 +10,45 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css2/styleGamemenu.css'/>">
+
+        <style type="text/css">
+            #gamebutton {
+                width: 150px;
+                height: 60px;
+            }
+            
+            #mainbar {
+                width: 60%;
+                float: left; 
+
+            }
+            #rightbar {
+                width: 20%;
+                float: right; 
+
+            }
+            #leftbar {
+                width: 20%;
+                float: left; 
+
+            }
+        </style>
     </head>
     <body>
-        <h1>Du greide følgende poengsummer: </h1>
-            
-        <c:forEach items="${resembleGame.taskNumbers}" var="taskNumber" varStatus="status">
-            <li>
-                Oppgave nr: <c:out value ="${status.index+1}"/> , Poengsum: <c:out value ="${resembleGame.taskScores[status.index]}"/>
-            </li>
-        </c:forEach>
-        
-        <ul>
-            <li>
-                Total poengsum: <c:out value="${resembleGame.totalScore}"/>
-            </li>
-        </ul>
+        <div id="leftbar"> &nbsp; </div>
+        <center> 
+            <div id="mainbar">
+                <h1>Du greide følgende poengsummer: </h1>
+                <br></br>
+                <c:forEach items="${resembleGame.taskNumbers}" var="taskNumber" varStatus="status">
+                    <li>
+                        Oppgave nr: <c:out value ="${status.index+1}"/> , Poengsum: <c:out value ="${resembleGame.taskScores[status.index]}"/>
+                    </li>
+                </c:forEach>
+                    Total poengsum: <c:out value="${resembleGame.totalScore}"/>
+            </div> 
+        </center>
+        <div id="rightbar"></div> 
     </body>
 </html>
