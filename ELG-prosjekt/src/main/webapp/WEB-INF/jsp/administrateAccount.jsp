@@ -48,9 +48,31 @@ function checkPasswordMatch() {
             }
             #rightbar {
                 width: 20%;
-                float: right; 
-                   
+                float: right;     
             }
+            
+            #button{
+            margin-right: 3px;
+            float: left;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            background: #2B8FC4;
+            border-radius: 4px;
+            text-decoration: none;
+            padding: 0px;
+            font-size: 1.0em;
+            font-weight:lighter;
+            color: #FFF !important;
+            -moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            -webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            -o-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            -ms-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            text-align: center;
+        }
         </style>
         <script type="text/javascript">
             //<![CDATA[
@@ -122,8 +144,8 @@ function checkPasswordMatch() {
                                      <form:errors path="confirmPw"/> 
                                 </td>
                             </tr>
-                            <tr><td colspan="2"><center>
-                                <input type="submit" value="Endre passord"</td></tr></center>
+                            <tr><td colspan="2" style="height: 70%;"><center>
+                                <button class ="button" type="submit" value="Endre passord">Endre passord</button></td></tr></center>
                         </table>
                     </form:form>
                         <div id="confirmBox"></div>
@@ -140,7 +162,7 @@ function checkPasswordMatch() {
                                 </td> 
                             </tr>
 
-                            <tr><td colspan="2"><center><input type="submit" value="Registrer"></td></tr></center>
+                            <tr><td colspan="2"><center><button class ="button" type="submit" value="Registrer">Registrer</button></td></tr></center>
                         </table>
                     </form:form>
                     <font color=red>${NewClassMessage}</font>
@@ -156,7 +178,7 @@ function checkPasswordMatch() {
                                 </td> 
                             </tr>
 
-                            <tr><td colspan="2"><center><input type="submit" value="Bli administrator"</td></tr></center>
+                            <tr><td colspan="2"><center><button class ="button" type="submit" value="Bli administrator">Bli administrator</button></td></tr></center>
                         </table>
                     </form:form>
                     <font color=red>${makeAdminMessage} </font>
@@ -171,7 +193,7 @@ function checkPasswordMatch() {
                                      <form:errors path="classId" />
                                 </td> 
                             </tr>
-                           <tr><td colspan="2"> <center><input type="submit" value="Registrer"</td></tr></center>
+                            <tr><td colspan="2"> <center><button class="button" type="submit" value="Registrer">Registrer</button></td></tr></center>
                         </table>
                     </form:form>
                     <font color=red> ${makeClassMessage}</font>
