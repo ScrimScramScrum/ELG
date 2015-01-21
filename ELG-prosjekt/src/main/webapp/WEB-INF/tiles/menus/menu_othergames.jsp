@@ -32,7 +32,7 @@
         <div id="header-wrapper">
 
             <div id="header" class="container">
-                <div id="logo"><h1><a href="#">ELG</a></h1></div>
+                <div id="logo"><h1><a href="<c:url value="/about" />">ELG</a></h1></div>
                 <nav id="nav">
                     <ul>
                         <li><a href="<c:url value="/choosegame" />" name = 'choosegame' id="chooseGame" onClick ="changeId(this)">Øving</a></li>
