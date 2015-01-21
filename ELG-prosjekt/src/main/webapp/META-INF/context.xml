@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+<Resource name="jdbc/elgdb"
+type="javax.sql.DataSource"
+auth="Container"
+description="Derby database for JPetStoreApp"
+maxActive="100" 
+maxIdle="30" 
+maxWait="10000"
+username="ELGUser" 
+password="ELGErAlltidBest" 
+driverClassName="org.apache.derby.jdbc.EmbeddedDriver"
+url="jdbc:derby://localhost:1527//home/dbhome/elgdb"/>
+</Context>
+

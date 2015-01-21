@@ -242,11 +242,14 @@
         </script>
         <div id="resemblegamewrapper">  
 
-            <div id = "resembleTop">
-                <div id ="tasktext">
-                    Oppgave
-                      <input type="button" value="Hent løsning" id="getSolution">
-                      <br>
+            <div id = "resembleTop"><div id ="tasktext">
+                    Oppgave:
+                    <c:choose>
+                        <c:when test="${user.isAdmin()}">
+                                  <input type="button" value="Hent løsning" id="getSolution">
+                        </c:when>
+                    </c:choose> 
+                    <br>
                     ${resembleTask.taskText}
                 </div>
 

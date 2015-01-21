@@ -22,6 +22,7 @@ public class InitializeDispatcherServlet implements WebApplicationInitializer {
     private void registerDispatcherServlet(final ServletContext servletContext) {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
         context.register(Configuration.class);
+        context.register(WebSocketConfig.class);
 
         DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
 
