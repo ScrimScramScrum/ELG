@@ -9,6 +9,7 @@
     <script src="<c:url value='/resources/html2canvas.js' />"></script>
 
     <style type="text/css">
+        
         #leftcolumn {
              width: 75%;
              float: left;
@@ -158,7 +159,7 @@
             <h4>Informasjon</h4>
             ${multiChoiceInfo.info}
             <br>
-            <h4>L�ringsm�l</h4>
+            <h4>Læringsmål</h4>
             ${multiChoiceInfo.learningGoal}
             <br><br>
             <form action="multi" method="post" id="playbutton" style="float: right">
