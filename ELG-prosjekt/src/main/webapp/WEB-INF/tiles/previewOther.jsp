@@ -69,7 +69,7 @@
             text-decoration: none;
             padding: 0px;
             font-size: 1.4em;
-            font-weight: 100;
+            font-weight:lighter;
             color: #FFF !important;
             -moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
             -webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
@@ -95,7 +95,7 @@
             text-decoration: none;
             padding: 0px;
             font-size: 1.2em;
-            font-weight: 100;
+            font-weight:lighter;
             color: #FFF !important;
             -moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
             -webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;

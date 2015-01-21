@@ -97,7 +97,7 @@
                 </tr>
                 <tr>
                     <td colspan = 2 style ="text-align: center">
-                        <input type ="submit" value="Lagre spill">
+                        <input type ="submit" value="Lagre spill" onclick="return confirm('Har du lagt til alle spørsmålene du ønsker?')">
                     </td>
                 </tr>
             </form:form>

@@ -23,7 +23,7 @@
         
         <ul>
             <li>
-                Total poengsum: ${resembleGame.totalScore}
+                Total poengsum: <c:out value="${resembleGame.totalScore}"/>
             </li>
         </ul>
     </body>

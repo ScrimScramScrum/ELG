@@ -71,7 +71,7 @@
                             <table id="hs_table">
                                 <tr>
                                     <td colspan="6" id="td_hs_h1">
-                                        <h1>Top 10 - ${gamenr}</h1>
+                                        <h1>Top 10 - <c:out value = "${gamenr}"/></h1>
                                     </td>
                                 </tr>
                                 <%

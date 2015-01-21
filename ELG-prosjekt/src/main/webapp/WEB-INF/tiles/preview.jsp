@@ -46,7 +46,7 @@
     		border-radius: 4px;
     		text-decoration: none;
     		font-size: 1.2em;
-    		font-weight: 100;
+    		font-weight: 120;
     		color: #FFF !important;
     		-moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
     		-webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
@@ -110,9 +110,9 @@
             <%
                 User user = (User)session.getAttribute("user");
                 if(user.isAdmin()){%>
-                    <form action="moveresemblegame" id = "gameform" name = "gameform" method="post" style="float: right">
+                    <form action="moveresemblegame" id = "gameform" name = "gameform" method="post" style="float: right; margin-right: 8px">
                             <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
-                            <button id="playbutton" type="submit" name = "button" value="removeexercise">Fjern fra �ving!</button>
+                            <button id="playbutton" type="submit" name = "button" value="removeexercise">Fjern</button>
                     </form>                
                 <%}
              %> 

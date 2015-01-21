@@ -17,7 +17,7 @@
                 <h3>Spørsmål ${teller.count}: Feil</h3><br>
             </c:if>
         </c:forEach><br><br>
-        <h1><spring:message code="resultMC"/>${result} %</h1><br>
+        <h1><spring:message code="resultMC"/><c:out value="${result}"/></h1><br>
         <h1>Det kreves minst 80 % for å få godkjent øving.</h1>
     </center></body>
 </html>

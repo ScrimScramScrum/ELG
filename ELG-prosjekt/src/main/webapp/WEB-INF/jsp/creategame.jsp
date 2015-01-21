@@ -47,6 +47,10 @@
             body{
                 text-align: center;
             }
+            
+            td{
+                width: 50%;
+            }
 
             h1.center{
                 margin-top: 5%;
