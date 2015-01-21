@@ -19,6 +19,10 @@
         <put-attribute name="gamedisplay" value="/WEB-INF/tiles/preview.jsp"/>
     </definition>
     
+    <definition name="nullLayout" template="/WEB-INF/tiles/nullLayout.jsp">
+        <put-attribute name="body"   value="/WEB-INF/jsp/index.jsp"/>
+    </definition>
+    
     <definition name="loginBaseLayout" template="/WEB-INF/tiles/baseLayoutLogin.jsp">
         <put-attribute name="body"   value="/WEB-INF/jsp/login.jsp"/>        
     </definition>
@@ -147,5 +151,10 @@
     <definition name="kOdesLostTags" extends="baseLayout">
         <put-attribute name="body"   value="/WEB-INF/jsp/kOdesLostTags.jsp"/> 
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_about.jsp"/>     
-    </definition>  
+    </definition>
+    
+    <definition name="getuser" extends="nullLayout">
+        <put-attribute name="body"   value="/WEB-INF/jsp/getuser.jsp"/>    
+    </definition>
+     
 </tiles-definitions>
