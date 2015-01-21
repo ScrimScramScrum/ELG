@@ -29,8 +29,8 @@
 
 <style type="text/css">
         #playbutton{
-            width: 100px;
-            height: 50px;
+            width: 150px;
+            height: 100%;
             margin-right: auto;
             margin-left: auto;
             cursor: pointer;
@@ -39,7 +39,7 @@
             border-radius: 4px;
             text-decoration: none;
             font-size: 1.2em;
-            font-weight: 100;
+            font-weight: lighter;
             color: #FFF !important;
             -moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
             -webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
@@ -64,12 +64,12 @@
                     Vanskelighetsgrad: <form:input path="resembleGame.difficulty" id ="difficulty" type="text"/><br>
                     <c:choose>
                         <c:when test="${createResembleGame.resembleTasks.size()==0}">
-                            Du har foreløpig ikke lagd noen deloppgaver.
-                             <button id="playbutton" type="submit" name = "button" value="Lag deloppgave">Lag deloppgave!</button>
+                            <br> Du har foreløpig ikke lagd noen deloppgaver.<br><br>
+                             <button id="playbutton" type="submit" name = "button" value="Lag deloppgave">Lag deloppgave</button>
                          </c:when>
                         <c:otherwise>
 <!--                             <button id="playbutton" type="submit" name = "button" value="Lag deloppgave">Lag deloppgave!</button>
- -->                            Dette er deloppgavene du har lagt foreløpig: <br>  
+-->                            Dette er deloppgavene du har lagt foreløpig: <br><br>  
                             <%
                                 int teller = 0;
                             %>
