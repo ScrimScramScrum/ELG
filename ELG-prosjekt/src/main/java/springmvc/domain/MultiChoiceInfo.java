@@ -15,6 +15,8 @@ public class MultiChoiceInfo {
     private String info;
     private int difficulty; 
     int approved = -1;
+    private int votes; 
+
 
     public MultiChoiceInfo(String name, String learningGoal, String info, int difficulty) {
         this.name = name;
@@ -66,7 +68,12 @@ public class MultiChoiceInfo {
     public void setApproved(int approved) {
         this.approved = approved;
     }
-    
-    
-    
+
+    public int getVotes() {
+        return votes;
+    }
+
+    public void setVotes(int votes) {
+        this.votes = votes;
+    }
 }

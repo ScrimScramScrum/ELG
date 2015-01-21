@@ -191,6 +191,16 @@ public class GameListServiceImpl implements GameListService{
         }
         return resembleGames;
     }
+    
+    @Override
+    public ArrayList<MultiChoiceInfo> getAllMultiGamesNotInOving(){
+        ArrayList<MultiChoiceInfo> multiGames = multipleChoiceRepoDB.getAllMultiGamesNotInOving();
+        for(MultiChoiceInfo mci : multiGames){
+            mci.setVotes(getVoteCountByGameId(mci.getName()));
+        }
+        return multiGames; 
+    }
+    
 
     @Override
     public int getVoteCountByGameId(int gameId) {
@@ -198,11 +208,27 @@ public class GameListServiceImpl implements GameListService{
     }
     
     @Override
+    public int getVoteCountByGameId(String gameId) {
+        return this.multipleChoiceRepoDB.getVoteCountByGameId(gameId);
+    }
+    
+    
+    @Override
     public boolean registerResembleGameVote(String usermail, int gameId){
         if(this.resembleGameRepoDB.hasUserVotedResembleGame(usermail, gameId)>0){
             return false; 
         }else{
             this.resembleGameRepoDB.registerResembleGameVote(usermail, gameId); 
+        }
+        return true; 
+    }
+    
+    @Override
+    public boolean registerMultiGameVote(String usermail, String gameId){
+        if(this.multipleChoiceRepoDB.hasUserVotedMultiGame(usermail, gameId)>0){
+            return false; 
+        }else{
+            this.multipleChoiceRepoDB.registerMultiGameVote(usermail, gameId); 
         }
         return true; 
     }
@@ -220,5 +246,20 @@ public class GameListServiceImpl implements GameListService{
     @Override
     public boolean removeResembleGameFromExercise(int gameId){
         return this.resembleGameRepoDB.removeResembleGameFromExercise(gameId); 
+    }
+
+    @Override
+    public boolean makeMultiGameExercise(String gameId) {
+        return this.multipleChoiceRepoDB.makeMultiGameExercise(gameId); 
+    }
+
+    @Override
+    public boolean makeMultiGameExerciseExtra(String gameId) {
+        return this.multipleChoiceRepoDB.makeMultiGameExerciseExtra(gameId); 
+    }
+
+    @Override
+    public boolean removeMultiGameFromExercise(String gameId) {
+        return this.multipleChoiceRepoDB.removeMultiGameFromExercise(gameId); 
     }
 }

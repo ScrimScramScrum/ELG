@@ -25,4 +25,12 @@ public interface MultiChoiceRepository {
     public MultiChoiceInfo getMultiChoiceInfo(String gameId);
     public MultiResult getMultiChoiceAndUsername(String gamename, String email);
     public boolean regMultiChoiceGame(MultiChoice game);
+    public boolean registerMultiGameVote(String usermail, String gameId);
+    public int hasUserVotedMultiGame(String usermail, String gameId);
+    public boolean updateUserMultiVote(String usermail, String gameId);
+    public int getVoteCountByGameId(String gameId);
+    public ArrayList<MultiChoiceInfo> getAllMultiGamesNotInOving();
+    public boolean makeMultiGameExercise(String gameId);
+    public boolean makeMultiGameExerciseExtra(String gameId);
+    public boolean removeMultiGameFromExercise(String gameId);
 }

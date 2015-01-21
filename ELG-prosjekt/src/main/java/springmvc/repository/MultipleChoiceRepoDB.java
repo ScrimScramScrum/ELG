@@ -35,9 +35,18 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
     private final String sqlGetAllMultiChoiceGames = "select * from multichoicegame";
     private final String sqlGetAllMultiChoiceGamesFromOving = "select * from multichoicegame where multichoicegame.idgame in (select idgamemulti from ovingmultigame where isextra = 0)"; 
     private final String sqlGetAllMultiChoiceGamesFromOvingExtra = "select * from multichoicegame where multichoicegame.idgame in (select idgamemulti from ovingmultigame where isextra = 1)"; 
+    private final String sqlSelectAllMultiGamesNotInOving = "Select * from multichoicegame where multichoicegame.idgame NOT IN (Select idgamemulti from ovingmultigame)";
+
     private final String sqlGetIdgameFromMultiChoiseWithGameNameAndEmail = "SELECT * FROM ELGUSER.MULTIRESULT WHERE idgame =(SELECT idgame FROM multichoicegame WHERE gamename = ?) AND email= ? ";
+    private final String sqlHasUserVotedMultiGame = "select COUNT(idPerson) FROM person_multi_vote WHERE idPerson = ? AND idmultigame IN(SELECT idgame FROM multichoicegame WHERE gamename = ?)"; 
+    private final String sqlGetVoteCountByGameId = "select COUNT(idmultigame) from person_multi_vote WHERE idmultigame IN(SELECT idgame FROM multichoicegame WHERE gamename = ?)";
+
+    private final String sqlRegisterMultiGameVote = "insert into person_multi_vote VALUES((SELECT idgame FROM multichoicegame WHERE gamename = ?), ?)";
     private final String sqlRegGame = "insert into multichoicegame values(default, ?, ?, ?, ?, ?)";
     private final String sqlRegTasks = "insert into multiexercise values(default,?, ?, ?, ?, ?, ?, ?)";
+    private final String sqlMakeMultiGameExercise = "insert into ovingmultigame values (?, (SELECT idgame FROM multichoicegame WHERE gamename = ?), ?)";
+    private final String sqlRemoveMultiGameFromExercise = "delete from ovingmultigame WHERE idgamemulti IN(SELECT idgame FROM multichoicegame WHERE gamename = ?)"; 
+    
 
     public MultipleChoiceRepoDB() {
     }
@@ -150,4 +159,48 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
         }
             return true;
 }
+
+    @Override
+    public boolean registerMultiGameVote(String usermail, String gameId) {
+        this.jdbcTemplateObject.update(sqlRegisterMultiGameVote, new Object[]{gameId, usermail}); 
+        return true; 
+    }
+
+    @Override
+    public int hasUserVotedMultiGame(String usermail, String gameId) {
+        return this.jdbcTemplateObject.queryForObject(sqlHasUserVotedMultiGame, new Object[]{usermail, gameId}, Integer.class);
+    }
+
+    @Override
+    public boolean updateUserMultiVote(String usermail, String gameId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getVoteCountByGameId(String gameId) {
+        return this.jdbcTemplateObject.queryForObject(sqlGetVoteCountByGameId, new Object[]{gameId}, Integer.class); 
+    }
+
+    @Override
+    public ArrayList<MultiChoiceInfo> getAllMultiGamesNotInOving() {
+        return (ArrayList<MultiChoiceInfo>)jdbcTemplateObject.query(sqlSelectAllMultiGamesNotInOving, new MultiChoiceInfoMapper());
+    }
+
+    @Override
+    public boolean makeMultiGameExercise(String gameId){
+        this.jdbcTemplateObject.update(sqlMakeMultiGameExercise, new Object[]{1, gameId, 0});
+        return true; 
+    }
+    
+    @Override
+    public boolean makeMultiGameExerciseExtra(String gameId){
+        this.jdbcTemplateObject.update(sqlMakeMultiGameExercise, new Object[]{1, gameId, 1});
+        return true; 
+    }
+    
+    @Override
+    public boolean removeMultiGameFromExercise(String gameId){
+        this.jdbcTemplateObject.update(sqlRemoveMultiGameFromExercise, new Object[]{gameId});
+        return true; 
+    }
 }

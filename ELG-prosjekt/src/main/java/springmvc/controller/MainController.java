@@ -30,6 +30,7 @@ import springmvc.service.GameListServiceImpl;
 import springmvc.service.GameListServiceMock;
 import springmvc.service.LoginService;
 import springmvc.service.PersonService;
+import springmvc.service.ResembleTaskService;
 import springmvc.service.ResultService;
 import springmvc.ui.SendNewPassword;
 
@@ -42,6 +43,10 @@ public class MainController {
 
     @Autowired
     private GameListService gameListService;
+    
+     @Autowired
+    private ResembleTaskService resembleTaskService; 
+    
 
     @Autowired
     private ResultService r;
@@ -145,14 +150,18 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "voteresemblegame", method = RequestMethod.POST)
+    @RequestMapping(value = "votegame", method = RequestMethod.POST)
     public ModelAndView voteResembleGame(ModelAndView mav, @RequestParam("gameid") String id, HttpSession session) {
-        int gameid = Integer.parseInt(id);
         User user = (User) session.getAttribute("user");
-        gameListService.registerResembleGameVote(user.getEmail(), gameid);
+        try{
+            int gameid = Integer.parseInt(id);
+            gameListService.registerResembleGameVote(user.getEmail(), gameid);
+        }catch(NumberFormatException e){
+            gameListService.registerMultiGameVote(user.getEmail(), id);
+        }
         return chooseOtherGames(mav, session);
     }
-
+    
     @RequestMapping(value = "chooseothergames") // Øving
     public ModelAndView chooseOtherGames(ModelAndView mav, HttpSession session) {
         System.out.println("chooseOtherGames");
@@ -162,7 +171,7 @@ public class MainController {
             return mav;
         }
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGamesNotInOving();
-        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();//not in oving
+        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiGamesNotInOving();//not in oving
 
         System.out.println("ChooseGame Rdy for multiChoiceGamesWithApproved");
         //add a function to update the multiChoiceGames and resembleGames lists to a version that 	says if its done or not. 
@@ -220,7 +229,7 @@ public class MainController {
         mav.addObject("gametype", resemble);
         // use session instead of getting all games every time a game get clicked?
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGamesNotInOving();
-        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();//not in oving
+        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiGamesNotInOving();//not in oving
 
         mav.addObject("gamenr", id);
         //mav.addObject("info", info);
@@ -490,5 +499,34 @@ public class MainController {
         }
         mav.setViewName("firstLogin");
         return mav;
+    }
+    
+    @RequestMapping(value = "movegame", method = RequestMethod.POST)
+    public ModelAndView moveResembleGame(ModelAndView mav, @RequestParam("gameid") String id, @RequestParam("button") String button, HttpSession session){
+        try{
+            int gameid = Integer.parseInt(id);
+            ResembleGame resembleGame = gameListService.getResembleGame(gameid);
+            User user = (User)session.getAttribute("user"); 
+
+            if(button.equals("makeextra")){
+                gameListService.makeResembleGameExerciseExtra(gameid); 
+            }else if(button.equals("makeexercise")){
+                gameListService.makeResembleGameExercise(gameid);
+            }else if(button.equals("removeexercise")){
+                gameListService.removeResembleGameFromExercise(gameid);
+            }
+            mav.addObject("resembleGame", resembleGame);
+            mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask())); 
+        }catch(NumberFormatException e){
+            if(button.equals("makeextra")){
+                gameListService.makeMultiGameExerciseExtra(id); 
+            }else if(button.equals("makeexercise")){
+                gameListService.makeMultiGameExercise(id);
+            }else if(button.equals("removeexercise")){
+                gameListService.removeMultiGameFromExercise(id);
+            }
+        }
+        mav.setViewName("about");
+        return mav;           
     }
 }

@@ -163,13 +163,13 @@
                 <%
                     User user = (User) session.getAttribute("user");
                     if (!user.getEmail().equals("GUEST")) {%>
-                <form action="voteresemblegame" class = "gameform" name = "gameform" method="post">
+                <form action="votegame" class = "gameform" name = "gameform" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
                     <button class="playbutton" type="submit" name = "button" value="vote">Stem!</button>
                 </form>            
                 <%}
                     if (user.isAdmin()) {%>
-                <form action="moveresemblegame" class = "gameform" name = "gameform" method="post">
+                <form action="movegame" class = "gameform" name = "gameform" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
                     <button class="playbutton" type="submit" name = "button" value="makeextra">Gjør til ekstraoppgave!</button>
                     <button class="playbutton" type="submit" name = "button" value="makeexercise">Legg til i øving!</button>
@@ -224,7 +224,7 @@
                 ${multiChoiceInfo.learningGoal}
                 <br><br>
             </div>
-            <div id="bigPlayButton"
+            <div id="bigPlayButton">
                  <form action="multi" method="post" class="playbutton">
                     <input type="hidden" name="gamename" id="gamename" value="${gamenr}" />
                     <button id="bigPlayButton" type="submit" value="play"><spring:message code="play"/></button>
@@ -234,13 +234,13 @@
                 <%
                     User user2 = (User) session.getAttribute("user");
                     if (!user2.getEmail().equals("GUEST")) {%>
-                <form action="votemultigame" class = "gameform" name = "gameform" method="post">
+                <form action="votegame" class = "gameform" name = "gameform" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
                     <button class="playbutton" type="submit" name = "button" value="vote">Stem!</button>
                 </form>            
                 <%}
                     if (user2.isAdmin()) {%>
-                <form action="movemultigame" class = "gameform" name = "gameform" method="post">
+                <form action="movegame" class = "gameform" name = "gameform" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
                     <button class="playbutton" type="submit" name = "button" value="makeextra">Gjør til ekstraoppgave!</button>
                     <button class="playbutton" type="submit" name = "button" value="makeexercise">Legg til i øving!</button>

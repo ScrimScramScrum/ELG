@@ -30,4 +30,10 @@ public interface GameListService {
     public boolean makeResembleGameExercise(int gameId);
     public boolean makeResembleGameExerciseExtra(int gameId);
     public boolean removeResembleGameFromExercise(int gameId);
+    public boolean registerMultiGameVote(String usermail, String gameId);
+    public int getVoteCountByGameId(String gameId);
+    public ArrayList<MultiChoiceInfo> getAllMultiGamesNotInOving();
+    public boolean makeMultiGameExercise(String gameId);
+    public boolean makeMultiGameExerciseExtra(String gameId);
+    public boolean removeMultiGameFromExercise(String gameId);
 }
