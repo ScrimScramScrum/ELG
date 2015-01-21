@@ -56,11 +56,15 @@ public class ResembleGameController {
     }*/
 
     @RequestMapping(value = "resemblegame", method = RequestMethod.POST)
-    public ModelAndView resembleGame(ModelAndView mav, @RequestParam("gameid") String id){
+    public ModelAndView resembleGame(ModelAndView mav, @RequestParam("gameid") String id, @RequestParam("othergame")String gameType){
         int gameid = Integer.parseInt(id);
         ResembleGame resembleGame = gameListService.getResembleGame(gameid);
         mav.addObject("resembleGame", resembleGame);
         mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask())); 
+        if(gameType.equals("othergame")){
+            mav.setViewName("otherResembleGame");
+            return mav;        
+        }
         mav.setViewName("resembleGame");
         return mav;       
     }

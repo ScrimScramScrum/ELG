@@ -156,6 +156,7 @@
             <div id="bigPlayButton">
                 <form action= "resemblegame" id="bigPlayButtonID" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
+                    <input type = "hidden" name="othergame" value = "othergame"/>
                     <button id = "bigPlayButtonID" type="submit" name = "button" value="play"><spring:message code="play"/></button>
                 </form>
             </div> <!-- End bigPlayButton div -->
@@ -227,6 +228,7 @@
             <div id="bigPlayButton">
                  <form action="multi" method="post" class="playbutton">
                     <input type="hidden" name="gamename" id="gamename" value="${gamenr}" />
+                    <input type = "hidden" name="othergame" value = "othergame"/>
                     <button id="bigPlayButton" type="submit" value="play"><spring:message code="play"/></button>
                 </form>
             </div>

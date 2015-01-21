@@ -38,13 +38,21 @@
         <put-attribute name="body"   value="/WEB-INF/jsp/resemblegame.jsp"/>   
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_games.jsp"/>      
     </definition>
-    
+    <definition name="otherResembleGame" extends="baseLayout">
+        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/resemblegame.jsp"/>   
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_othergames.jsp"/>      
+    </definition>
     <definition name="multichoice" extends="baseLayout">
         <put-attribute name="title"  value="Index"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/multichoice.jsp"/>      
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_games.jsp"/>   
     </definition>
-    
+    <definition name="othermultichoice" extends="baseLayout">
+        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/multichoice.jsp"/>      
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_othergames.jsp"/>   
+    </definition>
     <definition name="about" extends="baseLayout">
         <put-attribute name="title"  value="AboutELG"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/about.jsp"/>    

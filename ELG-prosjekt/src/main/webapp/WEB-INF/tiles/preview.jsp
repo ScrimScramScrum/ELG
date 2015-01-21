@@ -101,6 +101,7 @@
             <br><br>
             <form action="resemblegame" method="post" style="float: right">
                 <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
+                <input type = "hidden" name="othergame" value = ""/>
                 <button id="playbutton" type="submit" value="play">
                         <spring:message code="play"/>
             </button>
@@ -164,6 +165,7 @@
             <br><br>
             <form action="multi" method="post" id="playbutton" style="float: right">
                 <input type="hidden" name="gamename" id="gamename" value="${gamenr}" />
+                <input type = "hidden" name="othergame" value = ""/>
                 <button id="playbutton" type="submit" value="play">
                         <spring:message code="play"/>
             </button>

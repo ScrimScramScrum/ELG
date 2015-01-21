@@ -54,10 +54,11 @@ public class MultiChoiceController {
      return mav; 
      } */
     @RequestMapping(value = "multi", method = RequestMethod.POST)
-    public String showMultiChoice(Model model, @RequestParam("gamename") String name) {
+    public String showMultiChoice(Model model, @RequestParam("gamename") String name, @RequestParam("othergame")String otherGame) {
         MultiChoice mc = s.getMultiChoice(name);
         mc.initMC();
         model.addAttribute("spillet", mc);
+        if(otherGame.equals("othergame"))return "othermultichoice"; 
         return "multichoice";
     }
 
