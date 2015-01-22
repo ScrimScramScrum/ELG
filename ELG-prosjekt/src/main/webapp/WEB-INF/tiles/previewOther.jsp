@@ -228,10 +228,10 @@
                 <br><br>
             </div>
             <div id="bigPlayButton">
-                 <form action="multi" method="post" class="playbutton">
+                 <form action="multi" id="bigPlayButtonID" method="post">
                     <input type="hidden" name="gamename" id="gamename" value="${gamenr}" />
                     <input type = "hidden" name="othergame" value = "othergame"/>
-                    <button id="bigPlayButton" type="submit" value="play"><spring:message code="play"/></button>
+                    <button id="bigPlayButtonID" type="submit" value="play"><spring:message code="play"/></button>
                 </form>
             </div>
             <div id="buttonWrapper">
