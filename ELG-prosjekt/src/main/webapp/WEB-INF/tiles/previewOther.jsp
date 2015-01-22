@@ -107,6 +107,33 @@
         .playbutton:hover {
             background: #065B88;
         }
+        
+        .voteButton{
+            margin-left: 128px;
+            float: left;
+            width: 125px;
+            height: 65px;
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            background: #2B8FC4;
+            border-radius: 4px;
+            text-decoration: none;
+            padding: 0px;
+            font-size: 1.2em;
+            font-weight:lighter;
+            color: #FFF !important;
+            -moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            -webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            -o-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            -ms-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+            text-align: center;
+        }
+        .voteButton:hover {
+            background: #065B88;
+        }
+        
         #welcome{
             width: 75%;
             float: left;
@@ -163,13 +190,20 @@
             <div id="buttonWrapper">
                 <%
                     User user = (User) session.getAttribute("user");
-                    if (!user.getEmail().equals("GUEST")) {%>
+                    if (!user.getEmail().equals("GUEST") && !user.isAdmin()) {%>
+                <form action="votegame" class = "gameform" name = "gameform" method="post">
+                    <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
+                    <input type = "hidden" name="gametype" value = "resemble">
+                    <button class="voteButton" type="submit" name = "button" value="vote">Stem!</button>
+                </form>            
+                    <%}
+                    if (!user.getEmail().equals("GUEST") && user.isAdmin()){%>
                 <form action="votegame" class = "gameform" name = "gameform" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
                     <input type = "hidden" name="gametype" value = "resemble">
                     <button class="playbutton" type="submit" name = "button" value="vote">Stem!</button>
-                </form>            
-                <%}
+                </form> 
+                    <%}
                     if (user.isAdmin()) {%>
                 <form action="movegame" class = "gameform" name = "gameform" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
@@ -237,13 +271,20 @@
             <div id="buttonWrapper">
                 <%
                     User user2 = (User) session.getAttribute("user");
-                    if (!user2.getEmail().equals("GUEST")) {%>
+                    if (!user2.getEmail().equals("GUEST") && !user2.isAdmin()) {%>
+                <form action="votegame" class = "gameform" name = "gameform" method="post">
+                    <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
+                    <input type = "hidden" name="gametype" value = "multichoice">
+                    <button class="voteButton" type="submit" name = "button" value="vote">Stem!</button>
+                </form>            
+                    <%}
+                    if (!user2.getEmail().equals("GUEST") && user2.isAdmin()){%>
                 <form action="votegame" class = "gameform" name = "gameform" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
                     <input type = "hidden" name="gametype" value = "multichoice">
                     <button class="playbutton" type="submit" name = "button" value="vote">Stem!</button>
-                </form>            
-                <%}
+                </form> 
+                    <%}
                     if (user2.isAdmin()) {%>
                 <form action="movegame" class = "gameform" name = "gameform" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />

@@ -79,7 +79,7 @@ public class AdministrateController {
         if (error.hasErrors()) {
             System.out.println(" error with Add Class ID");
             modell.addAttribute("chooseSite", 2);
-            //modell.addAttribute("NewClassMessage", "Feil, for få tegn"); 
+            modell.addAttribute("NewClassMessage", "Feil, for få tegn"); 
             return "administrateAccount";
 
         }
@@ -93,7 +93,7 @@ public class AdministrateController {
             modell.addAttribute("NewClassMessage", "Du er nå registrert i klasse: " + addNewClassIdAttribute.getClassId());
         } else { // ENDER HER OM FELTET ER TOMT. 
             modell.addAttribute("chooseSite", 2);
-            modell.addAttribute("NewClassMessage", "Feil. Klassen eksisterer ikke. ");
+            modell.addAttribute("NewClassMessage", "Feil. Klassen eksisterer ikke eller du er registrert i den fra før ");
         }
         return "administrateAccount";
     }
@@ -127,19 +127,19 @@ public class AdministrateController {
     public String makeClass(@ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, BindingResult error, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute NewPassword newPassword, HttpSession session) {
         User user = (User) session.getAttribute("user");
         modell.addAttribute("user", user);
-
+        
         if (error.hasErrors()) {
-            System.out.println("ERROR with making user Admin/Teacher. ");
+            System.out.println("ERROR with making user Admin/Teacher.");
             modell.addAttribute("chooseSite", 4);
             return "administrateAccount";
         }
 
         if (classService.registrateNewClassId(makeNewClassAttribute.getClassId())) { // New class is being registered. 
             System.out.println("Ny klasse registrert");
-            modell.addAttribute("makeClassMessage", "Ny klasse ble registrert.  ");
+            modell.addAttribute("makeClassMessage", "Ny klasse ble registrert.");
         } else { // Feiler med å registrere ny klasse  
             modell.addAttribute("chooseSite", 4);
-            modell.addAttribute("makeClassMessage", "Feil, Klassen finnes fra før eller .  ");
+            modell.addAttribute("makeClassMessage", "Feil, Klassen finnes fra før.");
         }
 
         return "administrateAccount";
