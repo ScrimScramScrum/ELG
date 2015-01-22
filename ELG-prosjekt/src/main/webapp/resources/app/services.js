@@ -7,7 +7,7 @@
     }, messageIds = [];
     
     service.RECONNECT_TIMEOUT = 30000;
-    service.SOCKET_URL = "/ELG-prosjekt/chat";
+    service.SOCKET_URL = "/chat";
     service.CHAT_TOPIC = "/topic/message.";
     service.CHAT_BROKER = "/app/chat.hei";
 

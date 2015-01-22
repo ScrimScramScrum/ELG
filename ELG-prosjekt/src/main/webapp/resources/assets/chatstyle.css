@@ -8,6 +8,7 @@
 	background-color: #dcdcd7;
 	z-index: 999;
 	text-align: left;
+	/*display:none;*/
 }
 
 .message .self {
@@ -149,6 +150,8 @@
 	height: 50px;
 	line-height: 50px;
 	text-align: center;
+	border: 1px solid #a1a1a1;
+	border-radius: 6px;
 }
 
 #hide {
