@@ -24,12 +24,26 @@
         } else $scope.user.hidden = true;
       } else console.log("chat not loaded yet");
     }
+
+    $scope.classforuserlist = function(value){
+         if(value.unread)
+                return "unread";
+         else if(!value.isOnline)
+             return "offline";
+        else
+             return "nothing";
+    }
     
     $scope.user.addMessage = function() {
-      ChatService.send($scope.user.sender, $scope.user.receiver, $scope.user.message);
+      var temp_message = $scope.user.message;
+      $scope.user.message = "";
+
+      if(temp_message.length == 0) return;
+
+      ChatService.send($scope.user.sender, $scope.user.receiver, temp_message);
 
       var out = {};
-      out.message = $scope.user.message;
+      out.message = temp_message;
       out.time = new Date();
       out.sender = $scope.user.sender;
       out.self = true;
@@ -41,7 +55,6 @@
       $scope.user.messages[$scope.user.receiver].push(out);
       // update message view
       $scope.user.messages2 = $scope.user.messages[$scope.user.receiver];
-      $scope.user.message = "";
     };
 
     $scope.emailfilter = function(value) {

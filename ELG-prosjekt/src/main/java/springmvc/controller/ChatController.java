@@ -25,19 +25,6 @@ public class ChatController {
   
   @Autowired private SimpMessagingTemplate simpMessagingTemplate;
   
-  //@Autowired
-    //private HttpServletRequest context;
-  
-  /*
-  @MessageMapping("/topic/message.borgar")
-  public NewMessage filterMessage(@Payload NewMessage message) {
-      System.out.println("from: " + message.getFrom());
-      message.setFrom("abc123123");
-      System.out.println("from: " + message.getFrom());
-      return message;
-    }
-  */
-  
   @MessageMapping("/chat.{username}")
   public void sendMessage(@Payload NewMessage message, @DestinationVariable("username") String username, SimpMessageHeaderAccessor headers) {  
         Map<String, Object> sessionHeaders = headers.getSessionAttributes();
@@ -50,12 +37,9 @@ public class ChatController {
   public void getOnlineUsers(@Payload String person) {
         simpMessagingTemplate.convertAndSend("/topic/OnlineUsers", person);
     }
-  
-  
     
     @RequestMapping(value = "getuser" , method=RequestMethod.GET)
     public String getuser() {
-        System.out.println("get USER");
         return "getuser";
     }
     

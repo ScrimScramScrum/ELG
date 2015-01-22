@@ -1,10 +1,10 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
 <%@page import="springmvc.domain.User"%>
-
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -18,10 +18,8 @@
     <body bgcolor="gray" >
         <table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
             <tr>
-                
                 <td width="100%" height="100" valign="top">
                     <tiles:insertAttribute name="menu" />
-                    <!--<hr>-->
                 </td>
             </tr>
             <tr>
@@ -47,7 +45,7 @@
                     </div>
                     <div id="choose_chat_mid">
                         <div ng-repeat="(person, value) in user.subs | orderObjectBy:'isOnline':'unread':true | filter:q" class="animate-repeat" >
-                            <div ng-click="user.change_chat(value.name)" id="sub" ng-class="{unread: value.unread, offline: !value.isOnline}">
+                            <div ng-click="user.change_chat(value.name)" id="sub" ng-class="classforuserlist(value)">
                                 <div id="person_name">
                                     {{emailfilter(value.name)}}
                                 </div>
@@ -77,10 +75,8 @@
                         <div id="hide" ng-click="user.hide()">
                             -
                         </div>
-                        <!-- <button id="hide">Hide</button> -->
                     </div>
                     <div id="main_chat_mid" scroll-glue>
-                        <!-- <p ng-repeat="message in user.messages2 | orderBy:'time':true" class="message"> -->
                         <p ng-repeat="message in user.messages2" class="message">
                             <time>{{message.time | date:'HH:mm'}}</time>
                             <span id="sender" ng-class="{self: message.self}">
@@ -93,13 +89,12 @@
 
                         <div id="message_box">
                             <form ng-submit="user.addMessage()" name="messageForm">
-                                <input type="text" placeholder="Ny melding..." ng-model="user.message" id="message" ng-disabled="user.subs[user.receiver].muted || !user.subs[user.receiver].isOnline"/>
+                                <input type="text" placeholder="Ny melding..." ng-model="user.message" id="message" ng-disabled="user.subs[user.receiver].muted || !user.subs[user.receiver].isOnline" autocomplete="off"/>
                             </form>
                         </div>
                     </div>
                 </div>
                 <!-- Scripts -->
-                <!-- // <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.1/angular-animate.js"></script> -->
                 <script src="<c:url value='/resources/assets/sockjs.min.js'/>" type="text/javascript"></script>
                 <script src="<c:url value='/resources/assets/stomp.min.js'/>" type="text/javascript"></script>
                 <script src="<c:url value='/resources/assets/angular.min.js'/>" type="text/javascript"></script>
@@ -111,7 +106,6 @@
             </div>
             <div id="show" ng-show="user.hidden" ng-click="user.hide()" ng-class="{unread: user.unread}">
                 Vis Chat
-                <!-- <button id="show">Show</button> -->
             </div>
         </div>
         <%
