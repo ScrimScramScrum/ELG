@@ -128,7 +128,7 @@ function checkPasswordMatch() {
                         <table>        
                             <tr>  
                                 <td> Gammelt passord: </td>
-                                <td> <form:input path="oldPw"  />
+                                <td> <form:input path="oldPw" type="password" />
                                      <form:errors path="oldPw" />
                                 </td> 
                             </tr>

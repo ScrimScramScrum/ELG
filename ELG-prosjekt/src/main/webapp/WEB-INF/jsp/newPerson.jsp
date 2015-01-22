@@ -29,12 +29,9 @@
     <section class="login">
         <div class="titulo">Education Learning Game</div>
          <form:form action="newPersonFromLogin" method="post" modelAttribute="person" enctype="application/x-www-form-urlencoded" >
-            <form:input path="email" value="test@gmail.com" type="text"  placeholder="Username" data-icon="U" />
-            <form:errors path="email" />
-            <form:input path="fname" value="forname" type="text"  placeholder="Username" data-icon="U" />
-            <form:errors path="fname" />
-            <form:input path="lname" value="lastname" type="text"  placeholder="Username" data-icon="U" />
-            <form:errors path="lname" />
+            <form:input path="email" type="text"  placeholder="Epost" data-icon="U" />
+            <form:input path="fname" type="text"  placeholder="Fornavn" data-icon="U" />
+            <form:input path="lname" type="text"  placeholder="Etternavn" data-icon="U" />
             
             
             <br><br>
@@ -44,13 +41,21 @@
             <div class="olvido">
                     <div class="col"><a href="javascript:sendToLogin()" title="Back">back</a></div>
             
-                    <c:choose>
+                    <%--<c:choose>
                         <c:when test="${newPersonError != null}">
                                 <div id ="errorMessage" class="errorMessages" >
-                                    ${newPersonError}
+                                    
                                 </div>
                         </c:when>
-                    </c:choose>
+                    </c:choose> --%>
+                    
+                    <div id ="errorMessage" class="errorMessages" >
+                        <form:errors path="email" htmlEscape="false" />
+                        <form:errors path="fname" htmlEscape="false" /> 
+                        <form:errors path="lname" htmlEscape="false" /> 
+                        ${newPersonError}
+                    </div>
+            </div>
             
 
         </form:form>

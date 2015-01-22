@@ -51,7 +51,7 @@ public class ResultRepoDB implements ResultRepo {
     private final String sqlGetCompletedNames = "select fname, lname from person join personclass on person.EMAIL= personclass.EMAIL where personclass.email = ? and classname = ? and administrator = 0";
 
     private final String sqlGetGamesInOvingResemble = "select idgameresemble from oving join ovingresemblegame on oving.IDOVING = ovingresemblegame.IDOVING";
-    private final String sqlGetPassedExerciseResemble = "select email from resembleresult where idgame = ? and score > 79";
+    private final String sqlGetPassedExerciseResemble = "select email from resembleresult where idgame = ? and score > 89";
     private final String sqlGetCompletedNamesResemble = "select fname, lname from person join personclass on person.EMAIL= personclass.EMAIL where personclass.email = ? and classname = ? and administrator = 0";
 
     private final String sqlDeleteClass = "delete from personclass where classname = ? and email = ?";

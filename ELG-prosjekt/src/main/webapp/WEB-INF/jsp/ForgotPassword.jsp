@@ -30,8 +30,8 @@
     <section class="login">
         <div class="titulo">Educational Learning Game</div>
          <form:form action="sendNewPassword" method="post" modelAttribute="sendNewPassword" enctype="application/x-www-form-urlencoded" >
-            <form:input path="email" value="test@gmail.com" type="text"  placeholder="Email" data-icon="U" />
-            <form:errors path="email" />
+            <form:input path="email" type="text"  placeholder="Epost" data-icon="U" />
+            
             
             
             <div class="olvido"></div>
@@ -43,6 +43,7 @@
             </div>
 
             <div id ="errorMessage" class="errorMessages" >
+                <form:errors path="email" htmlEscape="false"/>
                 ${sendNewPasswordError}
             </div>
             

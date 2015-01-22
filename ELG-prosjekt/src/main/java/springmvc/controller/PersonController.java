@@ -33,7 +33,7 @@ public class PersonController {
     public String CreateNewPerson(@Valid @ModelAttribute("person") Person person, BindingResult error, Model modell,@ModelAttribute Login login, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
         if(error.hasErrors()){
             System.out.println(" Validering feilet **** ");
-            modell.addAttribute("newPersonError", "Feil. Mail-adresse, fornavn eller etternavn er ikke korrekt. ");
+            //modell.addAttribute("newPersonError", "Feil. Mail-adresse, fornavn eller etternavn er ikke korrekt. ");
             return "newPersonFromLogin";
         }
         if (personService.getPerson(person.getEmail()) != null){
