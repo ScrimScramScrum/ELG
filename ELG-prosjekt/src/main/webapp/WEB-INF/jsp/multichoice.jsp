@@ -73,6 +73,14 @@
                         <tr>
                         <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "0" end = "1">
                             <td id="td1">
+                                <c:choose>
+                                    <c:when test="${isOving == 0}">
+                                        <input type = "hidden" name="othergame" value = "othergame"/>
+                                    </c:when>
+                                    <c:otherwise> 
+                                        <input type = "hidden" name="othergame" value = ""/>
+                                    </c:otherwise>
+                                </c:choose>
                                 <button id="button1" type="submit" name="button" value="${teller}">
                                     <c:out value="${teller}" />
                                 </button
@@ -82,6 +90,14 @@
                     <tr>
                         <c:forEach items="${spillet.getCurrent().getAlternatives()}" var="teller" begin = "2" end = "3">
                             <td id="td1">
+                                <c:choose>
+                                    <c:when test="${isOving == 0}">
+                                        <input type = "hidden" name="othergame" value = "othergame"/>
+                                    </c:when>
+                                    <c:otherwise> 
+                                        <input type = "hidden" name="othergame" value = ""/>
+                                    </c:otherwise>
+                                </c:choose>
                                 <button id="button1" type="submit" name="button" value="${teller}">
                                     <c:out value="${teller}" />
                                 </button>

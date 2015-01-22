@@ -24,7 +24,10 @@ import springmvc.domain.CreateMultiExercise;
 import springmvc.domain.Exercise;
 import springmvc.domain.HighscoreDisplay;
 import springmvc.domain.MultiChoice;
+import springmvc.domain.MultiChoiceInfo;
+import springmvc.domain.ResembleGame;
 import springmvc.domain.User;
+import springmvc.service.GameListService;
 import springmvc.service.MultiChoiceService;
 import springmvc.service.PersonService;
 import springmvc.service.ResultService;
@@ -43,6 +46,9 @@ public class MultiChoiceController {
 
     @Autowired
     private ResultService r;
+    
+    @Autowired 
+    private GameListService gameListService;
 
     /*@ExceptionHandler(Exception.class)
      public ModelAndView handleError(HttpServletRequest req, Exception exception){
@@ -58,7 +64,13 @@ public class MultiChoiceController {
         MultiChoice mc = s.getMultiChoice(name);
         mc.initMC();
         model.addAttribute("spillet", mc);
-        if(otherGame.equals("othergame"))return "othermultichoice"; 
+        if(otherGame.equals("othergame")){
+            System.out.println("I MULTI: IKKE ØVING");
+            model.addAttribute("isOving", 0);
+            return "othermultichoice";
+        } 
+        model.addAttribute("isOving", 1);
+        System.out.println("I MULTI: DETTE ER EN ØVING");
         return "multichoice";
     }
 
@@ -132,7 +144,7 @@ public class MultiChoiceController {
     }
 
     @RequestMapping(value = "nextTask", method = RequestMethod.POST)
-    public String nextTask(HttpSession session, Model model, @ModelAttribute(value = "spillet") MultiChoice mc, String value, HttpServletRequest request) {
+    public String nextTask(HttpSession session, Model model, @ModelAttribute(value = "spillet") MultiChoice mc, String value, HttpServletRequest request, @RequestParam("othergame")String gameType) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
             return "firstLogin";
@@ -142,7 +154,8 @@ public class MultiChoiceController {
             mc.setResult(mc.current(), mc.getCurrent().checkAnswer(button));
         }
         mc.getNextExercise();
-        if (mc.lastExercise() == true) {
+        
+        if (mc.lastExercise() == true) { // Siste oppgave. 
             model.addAttribute("eachresult", mc.getEachResult());
             model.addAttribute("result", mc.getResult());
             //******DETTE HER HER FOR Å REGISTRERE RESULTAT I DATABASEN!!!*****
@@ -162,9 +175,59 @@ public class MultiChoiceController {
             }
             model.addAttribute("highscorelist", melding);
             mc.resetCurrent();
-            return "result";
+            
+            if (gameType.equals("othergame,othergame,othergame,othergame")){
+                int resemble = 0;
+                ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGamesNotInOving();
+                ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiGamesNotInOving();
+                model.addAttribute("gametype", resemble);
+                model.addAttribute("resembleGames", resembleGames);
+                model.addAttribute("multiChoiceGames", multiChoiceGames);
+                return "otherresult";  
+            } else {
+                ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGamesFromOving();
+                ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfoFromOving();
 
+                ArrayList<ResembleGame> resembleGamesExtra = gameListService.getAllResembleGamesFromOvingExtra();
+                ArrayList<MultiChoiceInfo> multiChoiceGamesExtra = gameListService.getAllMultiChoiceInfoFromOvingExtra();
+
+                System.out.println("ChooseGame Rdy for multiChoiceGamesWithApproved");
+                //add a function to update the multiChoiceGames and resembleGames lists to a version that 	says if its done or not. 
+                //updateApprovedGames(user, resembleGames, multiChoiceGames);
+                ArrayList<MultiChoiceInfo> multiChoiceGamesWithApproved = gameListService.updateApprovedMultiChoiceGames(multiChoiceGames, user);
+                ArrayList<ResembleGame> resembleGamesWithApproved = gameListService.updateApprovedResembleGames(resembleGames, user);
+                ArrayList<MultiChoiceInfo> multiChoiceGamesWithApprovedExtra = gameListService.updateApprovedMultiChoiceGames(multiChoiceGamesExtra, user);
+                ArrayList<ResembleGame> resembleGamesWithApprovedExtra = gameListService.updateApprovedResembleGames(resembleGamesExtra, user);
+
+                if (multiChoiceGamesWithApproved == null) {
+                    int resemble = 0;
+                    model.addAttribute("gametype", resemble);
+                    model.addAttribute("resembleGames", resembleGames);
+                    model.addAttribute("multiChoiceGames", multiChoiceGames);
+                    model.addAttribute("resembleGamesExtra", resembleGamesWithApprovedExtra);
+                    model.addAttribute("multiChoiceGamesExtra", multiChoiceGamesWithApprovedExtra);
+                    return "result"; 
+                }
+
+                int resemble = 0;
+                model.addAttribute("gametype", resemble);
+                model.addAttribute("resembleGames", resembleGames);
+                model.addAttribute("multiChoiceGames", multiChoiceGamesWithApproved);
+                model.addAttribute("resembleGamesExtra", resembleGamesExtra);
+                model.addAttribute("multiChoiceGamesExtra", multiChoiceGamesExtra);
+                return "result";
+            }
         }
-        return "multichoice";
+        
+        System.out.println("GAMETYPE: " + gameType);
+        if (gameType.equals("othergame,othergame,othergame,othergame")){
+            System.out.println("IKKE ØVING. ");
+            model.addAttribute("isOving", 0); 
+            return "othermultichoice";  
+        } else {
+            System.out.println("Kommer til isOving");
+            model.addAttribute("isOving", 1);
+            return "multichoice";
+        }
     }
 }

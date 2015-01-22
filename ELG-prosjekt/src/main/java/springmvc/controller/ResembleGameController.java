@@ -54,12 +54,10 @@ public class ResembleGameController {
     @RequestMapping(value = "resemblegame", method = RequestMethod.POST)
     public ModelAndView resembleGame(ModelAndView mav, @RequestParam("gameid") String id, @RequestParam("othergame")String gameType){
         int gameid = Integer.parseInt(id);
-        System.out.println("Hello. ");
         ResembleGame resembleGame = gameListService.getResembleGame(gameid);
         mav.addObject("resembleGame", resembleGame);
         mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask())); 
         if(gameType.equals("othergame")){
-            System.out.println("Kommer hit: resemblegame");
             mav.addObject("isOving", 0); 
             mav.setViewName("otherResembleGame");
             return mav;        
@@ -111,10 +109,7 @@ public class ResembleGameController {
         
         mav.addObject("highscorelist", melding);
         
-        System.out.println("OTHERGAMEVALUE = " + gameType);
-        
         if (gameType.equals("othergame")){
-            System.out.println("Kommer hit i finishgame");
             int resemble = 0;
             ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGamesNotInOving();
             ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiGamesNotInOving();

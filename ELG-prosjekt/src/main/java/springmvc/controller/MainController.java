@@ -26,8 +26,6 @@ import springmvc.domain.ResembleGame;
 import springmvc.domain.ResembleTask;
 import springmvc.domain.User;
 import springmvc.service.GameListService;
-import springmvc.service.GameListServiceImpl;
-import springmvc.service.GameListServiceMock;
 import springmvc.service.LoginService;
 import springmvc.service.PersonService;
 import springmvc.service.ResembleTaskService;
@@ -109,7 +107,6 @@ public class MainController {
      }*/
     @RequestMapping(value = "choosegame") // Øving
     public ModelAndView chooseGame(ModelAndView mav, HttpSession session, @ModelAttribute Login login) {
-        System.out.println("chooseGames");
         User user = (User) session.getAttribute("user");
         if (user == null) {
             mav.setViewName("firstLogin");
@@ -164,7 +161,6 @@ public class MainController {
     
     @RequestMapping(value = "chooseothergames") // Øving
     public ModelAndView chooseOtherGames(ModelAndView mav, HttpSession session) {
-        System.out.println("chooseOtherGames");
         User user = (User) session.getAttribute("user");
         if (user == null) {
             mav.setViewName("firstLogin");
@@ -198,7 +194,6 @@ public class MainController {
 
     @RequestMapping(value = "chooseothergames", method = RequestMethod.POST)
     public ModelAndView chooseOtherGames(ModelAndView mav, @RequestParam("gameid") String id, @RequestParam("gametype") String gametype, HttpSession session) {
-        System.out.println("Øving POST");
         User user = (User) session.getAttribute("user");
         if (user == null) {
             mav.setViewName("firstLogin");
@@ -241,7 +236,6 @@ public class MainController {
 
     @RequestMapping(value = "choosegame", method = RequestMethod.POST)
     public ModelAndView chooseGame(ModelAndView mav, @RequestParam("gameid") String id, @RequestParam("gametype") String gametype, HttpSession session) {
-        System.out.println("Øving POST");
         User user = (User) session.getAttribute("user");
         if (user == null) {
             mav.setViewName("firstLogin");
@@ -264,6 +258,7 @@ public class MainController {
             // add info here
         } else if(gametype.equals("multichoice")){
             resemble = 2;
+            System.out.println("ID " + id);
             multiTemp = gameListService.getMultiChoiceInfo(id);
             mav.addObject("multiChoiceInfo", multiTemp);
             // or info here

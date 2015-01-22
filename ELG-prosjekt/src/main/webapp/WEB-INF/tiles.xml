@@ -72,10 +72,18 @@
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_othergames.jsp"/>   
     </definition>
 
-    <definition name="result" extends="baseLayout">
+    <definition name="result" extends="baseGameMenuLayout">
         <put-attribute name="title"  value="Index"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/result.jsp"/>   
+        <put-attribute name="body"   value="/WEB-INF/tiles/gamemenu.jsp"/>
+        <put-attribute name="gamedisplay"   value="/WEB-INF/jsp/result.jsp"/>   
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_games.jsp"/>       
+    </definition>
+    
+    <definition name="otherresult" extends="baseGameMenuLayout">
+        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="body"   value="/WEB-INF/tiles/othergamemenu.jsp"/>
+        <put-attribute name="gamedisplay"   value="/WEB-INF/jsp/result.jsp"/>   
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_othergames.jsp"/>       
     </definition>
     
     <definition name="newPerson" extends="baseLayout">
