@@ -105,14 +105,13 @@
                 <button id="playbutton" type="submit" value="play">
                         <spring:message code="play"/>
             </button>
-
             </form>
-
             <%
                 User user = (User)session.getAttribute("user");
                 if(user.isAdmin()){%>
                     <form action="movegame" id = "gameform" name = "gameform" method="post" style="float: right; margin-right: 8px">
                             <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
+                            <input type = "hidden" name="gametype" value = "resemble">
                             <button id="playbutton" type="submit" name = "button" value="removeexercise">Fjern</button>
                     </form>                
                 <%}
@@ -175,6 +174,7 @@
                 if(user.isAdmin()){%>
                     <form action="movegame" id = "gameform" name = "gameform" method="post" style="float: right; margin-right: 8px">
                         <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
+                        <input type = "hidden" name="gametype" value = "multichoice">
                         <button id="playbutton" type="submit" name = "button" value="removeexercise">Fjern</button>
                     </form>                
                 <%}

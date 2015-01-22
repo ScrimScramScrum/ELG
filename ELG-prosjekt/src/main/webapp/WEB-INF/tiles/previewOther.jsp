@@ -166,12 +166,14 @@
                     if (!user.getEmail().equals("GUEST")) {%>
                 <form action="votegame" class = "gameform" name = "gameform" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
+                    <input type = "hidden" name="gametype" value = "resemble">
                     <button class="playbutton" type="submit" name = "button" value="vote">Stem!</button>
                 </form>            
                 <%}
                     if (user.isAdmin()) {%>
                 <form action="movegame" class = "gameform" name = "gameform" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
+                    <input type = "hidden" name="gametype" value = "resemble">
                     <button class="playbutton" type="submit" name = "button" value="makeextra">Gjør til ekstraoppgave!</button>
                     <button class="playbutton" type="submit" name = "button" value="makeexercise">Legg til i øving!</button>
                 </form>                
@@ -238,12 +240,14 @@
                     if (!user2.getEmail().equals("GUEST")) {%>
                 <form action="votegame" class = "gameform" name = "gameform" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
+                    <input type = "hidden" name="gametype" value = "multichoice">
                     <button class="playbutton" type="submit" name = "button" value="vote">Stem!</button>
                 </form>            
                 <%}
                     if (user2.isAdmin()) {%>
                 <form action="movegame" class = "gameform" name = "gameform" method="post">
                     <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
+                    <input type = "hidden" name="gametype" value = "multichoice">
                     <button class="playbutton" type="submit" name = "button" value="makeextra">Gjør til ekstraoppgave!</button>
                     <button class="playbutton" type="submit" name = "button" value="makeexercise">Legg til i øving!</button>
                 </form>                

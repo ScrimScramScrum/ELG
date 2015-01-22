@@ -50,8 +50,8 @@
             <h4>Likhetsspill</h4>
                 <c:forEach items="${resembleGames}" var="game">
                         <form action="choosegame" method="post">
+                            <input type = "hidden" name="gametype" value = "resemble">
                             <div class = "gamelink">                                            
-
                                 <input type="hidden" name="gameid" id="gameid" value="${game.gameId}" />
                                 <table>
                                     <tr>  
@@ -72,12 +72,13 @@
             <h4>Flervalgsspill</h4>
             <c:forEach items="${multiChoiceGames}" var="game">
                     <form action="choosegame" method="post">
+                        <input type = "hidden" name="gametype" value = "multichoice">
+
                         <div class = "gamelink"> 
                         <input type="hidden" name="gameid" id="gameid" value="${game.name}" />
                             <table>        
                                 <tr>  
-                                    <td><a href ="choosegame" id="gameLinkA" onclick =" get_form(this).submit(); return false"> <c:out value = "${game.name}"/></a>
-                                   
+                                    <td><a href ="choosegame" id="gameLinkA" onclick =" get_form(this).submit(); return false"> <c:out value = "${game.name}"/></a>                                 
                                     <c:choose> 
                                         <c:when test="${game.approved == 1}">                                    
                                         <td> <img src="<c:url value="/resources/images/check.png"/>" >
@@ -93,6 +94,7 @@
             <h4>Likhetsspill</h4>
             <c:forEach items="${resembleGamesExtra}" var="game">
                     <form action="choosegame" method="post">
+                        <input type = "hidden" name="gametype" value = "resemble">
                         <input type="hidden" name="gameid" id="gameid" value="${game.gameId}" />
                         <div class = "gamelink"><a href ="choosegame" id="gameLinkA" onclick =" get_form(this).submit(); return false"> <c:out value = "${game.gamename}"/></a></div>
                     </form>
@@ -100,12 +102,13 @@
             <h4>Flervalgsspill</h4>
             <c:forEach items="${multiChoiceGamesExtra}" var="game">
                     <form action="choosegame" method="post">
+                        <input type = "hidden" name="gametype" value = "multichoice">
+
                         <input type="hidden" name="gameid" id="gameid" value="${game.name}" />
                         <div class = "gamelink"> 
                             <table>        
                                 <tr>  
-                                    <td><a href ="choosegame" id="gameLinkA" onclick =" get_form(this).submit(); return false"> <c:out value = "${game.name}"/></a>
-                                   
+                                    <td><a href ="choosegame" id="gameLinkA" onclick =" get_form(this).submit(); return false"> <c:out value = "${game.name}"/></a>                               
                                     <c:choose> 
                                         <c:when test="${game.approved == 1}">                                    
                                         <td> <img src="<c:url value="/resources/images/check.png"/>" >

@@ -151,12 +151,12 @@ public class MainController {
     }
 
     @RequestMapping(value = "votegame", method = RequestMethod.POST)
-    public ModelAndView voteResembleGame(ModelAndView mav, @RequestParam("gameid") String id, HttpSession session) {
+    public ModelAndView voteResembleGame(ModelAndView mav, @RequestParam("gameid") String id, @RequestParam("gametype") String gametype, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        try{
+        if(gametype.equals("resemble")){
             int gameid = Integer.parseInt(id);
             gameListService.registerResembleGameVote(user.getEmail(), gameid);
-        }catch(NumberFormatException e){
+        }else if(gametype.equals("multichoice")){
             gameListService.registerMultiGameVote(user.getEmail(), id);
         }
         return chooseOtherGames(mav, session);
@@ -197,7 +197,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "chooseothergames", method = RequestMethod.POST)
-    public ModelAndView chooseOtherGames(ModelAndView mav, @RequestParam("gameid") String id, HttpSession session) {
+    public ModelAndView chooseOtherGames(ModelAndView mav, @RequestParam("gameid") String id, @RequestParam("gametype") String gametype, HttpSession session) {
         System.out.println("Øving POST");
         User user = (User) session.getAttribute("user");
         if (user == null) {
@@ -209,7 +209,7 @@ public class MainController {
         MultiChoiceInfo multiTemp = null;
         ResembleGame resembleTemp = null;
 
-        try {
+        if(gametype.equals("resemble")){
             int a = Integer.parseInt(id);
             resemble = 1;
             resembleTemp = gameListService.getResembleGame(a);
@@ -219,7 +219,7 @@ public class MainController {
             mav.addObject("tasks", temp_tasks);
             mav.addObject("resembleInfo", resembleTemp);
             // add info here
-        } catch (NumberFormatException e) {
+        }else if(gametype.equals("multichoice")){
             resemble = 2;
             multiTemp = gameListService.getMultiChoiceInfo(id);
             mav.addObject("multiChoiceInfo", multiTemp);
@@ -240,7 +240,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "choosegame", method = RequestMethod.POST)
-    public ModelAndView chooseGame(ModelAndView mav, @RequestParam("gameid") String id, HttpSession session) {
+    public ModelAndView chooseGame(ModelAndView mav, @RequestParam("gameid") String id, @RequestParam("gametype") String gametype, HttpSession session) {
         System.out.println("Øving POST");
         User user = (User) session.getAttribute("user");
         if (user == null) {
@@ -252,7 +252,7 @@ public class MainController {
         MultiChoiceInfo multiTemp = null;
         ResembleGame resembleTemp = null;
 
-        try {
+        if(gametype.equals("resemble")){
             int a = Integer.parseInt(id);
             resemble = 1;
             resembleTemp = gameListService.getResembleGame(a);
@@ -262,7 +262,7 @@ public class MainController {
             mav.addObject("tasks", temp_tasks);
             mav.addObject("resembleInfo", resembleTemp);
             // add info here
-        } catch (NumberFormatException e) {
+        } else if(gametype.equals("multichoice")){
             resemble = 2;
             multiTemp = gameListService.getMultiChoiceInfo(id);
             mav.addObject("multiChoiceInfo", multiTemp);
@@ -350,7 +350,6 @@ public class MainController {
 
     @RequestMapping(value = "highscore", method = RequestMethod.POST)
     public ModelAndView chooseGameHighscore(ModelAndView mav, HttpSession session) {
-
         User user = (User) session.getAttribute("user");
         if (user == null) {
             mav.setViewName("login");
@@ -397,18 +396,18 @@ public class MainController {
     }
 
     @RequestMapping(value = "choosegameHighscore", method = RequestMethod.POST)
-    public ModelAndView chooseGameHighscore(ModelAndView mav, @RequestParam("gameid") String id) {
+    public ModelAndView chooseGameHighscore(ModelAndView mav, @RequestParam("gameid") String id, @RequestParam("gametype") String gametype) {
         int resemble = 0;
         MultiChoice multiTemp = null;
         ResembleGame resembleTemp = null;
         ArrayList<HighscoreDisplay> hs = new ArrayList<HighscoreDisplay>();
-        try {
+        if(gametype.equals("resemble")){
             int a = Integer.parseInt(id);
             resemble = 1;
             resembleTemp = gameListService.getResembleGame(a);
             hs = r.highscoreRG(resembleTemp);
             mav.addObject("highscore", hs);
-        } catch (NumberFormatException e) {
+        } else if(gametype.equals("multichoice")){
             resemble = 2;
             multiTemp = gameListService.getMultiChoiceGame(id);
             hs = r.highscoreMC(multiTemp);
@@ -502,8 +501,8 @@ public class MainController {
     }
     
     @RequestMapping(value = "movegame", method = RequestMethod.POST)
-    public ModelAndView moveResembleGame(ModelAndView mav, @RequestParam("gameid") String id, @RequestParam("button") String button, HttpSession session){
-        try{
+    public ModelAndView moveResembleGame(ModelAndView mav, @RequestParam("gameid") String id, @RequestParam("button") String button, @RequestParam("gametype") String gametype, HttpSession session){
+        if(gametype.equals("resemble")){
             int gameid = Integer.parseInt(id);
             ResembleGame resembleGame = gameListService.getResembleGame(gameid);
             User user = (User)session.getAttribute("user"); 
@@ -517,7 +516,7 @@ public class MainController {
             }
             mav.addObject("resembleGame", resembleGame);
             mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask())); 
-        }catch(NumberFormatException e){
+        }else if (gametype.equals("multichoice")){
             if(button.equals("makeextra")){
                 gameListService.makeMultiGameExerciseExtra(id); 
             }else if(button.equals("makeexercise")){
