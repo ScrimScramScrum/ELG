@@ -210,10 +210,17 @@ function checkPasswordMatch() {
                             <tr> <td><c:out value = "Fornavn:"/></td><td><c:out value = " ${user.getFname()}"/></td> </tr>
                             <tr> <td><c:out value = "Etternavn:"/></td><td><c:out value = " ${user.getLname()}"/></td> </tr>
                             <tr> <td><c:out value = "Admin:"/></td><td><c:out value = " ${user.isAdmin()}"/></td> </tr>
-                            <tr> <td></tr> 
+                                    <tr> <td><c:out value = "Klasser:"/></td><td>
+                                <c:forEach items="${list}" var="names">
+                                        <c:out value = "${names},  "/>
+                                </c:forEach> 
+                               </td> </tr>
+                                </td></tr> 
                             <tr> <td></tr> 
                         </tr>
                     </table>
+                    
+                    
                     
                     
                     <br><font color=green>${makeAdminMessage} ${makeClassMessage} ${NewClassMessage} ${changedPassword}</font></br>

@@ -1,5 +1,6 @@
 package springmvc.controller;
 
+import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,8 @@ public class AdministrateController {
     public String adminAccount(@ModelAttribute NewPassword newPassword, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin, HttpSession session, @ModelAttribute Login login, Model modell) {
         User user = (User) session.getAttribute("user");
         modell.addAttribute("user", user);
+        ArrayList<String> list = r.getAllClasses(user.getEmail());
+        modell.addAttribute("list", list); 
 
         if (user == null) {
             return "firstLogin";
@@ -86,15 +89,17 @@ public class AdministrateController {
 
         User user = (User) session.getAttribute("user");
         Person inLoggedPerson = personService.getPerson(user.getEmail());
-        modell.addAttribute("user", user);
 
         if (personService.setClassId(inLoggedPerson, addNewClassIdAttribute.getClassId())) { // A user is registered in a class. 
             System.out.println("Legger til i ny klasse ");
+            ArrayList<String> list = r.getAllClasses(user.getEmail());
+            modell.addAttribute("list", list); 
             modell.addAttribute("NewClassMessage", "Du er nå registrert i klasse: " + addNewClassIdAttribute.getClassId());
         } else { // ENDER HER OM FELTET ER TOMT. 
             modell.addAttribute("chooseSite", 2);
             modell.addAttribute("NewClassMessage", "Feil. Klassen eksisterer ikke eller du er registrert i den fra før ");
         }
+        modell.addAttribute("user", user);
         return "administrateAccount";
     }
 

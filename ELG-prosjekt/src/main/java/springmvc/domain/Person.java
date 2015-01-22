@@ -2,6 +2,7 @@
 package springmvc.domain;
 
 
+import java.util.ArrayList;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -24,6 +25,8 @@ public class Person {
     private String hashedPassword; 
     
     private int teacher = 0;
+    
+    private ArrayList<String> klasse = new ArrayList<String>();
     
 
     public Person(String email, String fname, String lname) {
@@ -81,6 +84,18 @@ public class Person {
         } else{
             return false;
         }
+    }
+
+    public ArrayList<String> getKlasse() {
+        return klasse;
+    }
+
+    public void setKlasse(ArrayList<String> klasse) {
+        this.klasse = klasse;
+    }
+    
+    public void setNewKlasse(String nyKlasse) {
+        klasse.add(nyKlasse);
     }
     
     @Override

@@ -1,6 +1,7 @@
 package springmvc.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -23,7 +24,9 @@ public class User implements Serializable{
     
     private boolean inLogged = false; 
     
-    private boolean admin = false; 
+    private boolean admin = false;
+    
+    private ArrayList<String> klasse = new ArrayList<String>(); 
 
     public User(String email, String fname, String lname) {
         this.email = email;
@@ -82,6 +85,26 @@ public class User implements Serializable{
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    public ArrayList<String> getKlasse() {
+        return klasse;
+    }
+
+    public void setKlasse(ArrayList<String> klasse) {
+        this.klasse = klasse;
+    }
+    
+    public void addNewKlasse(String newKlasse) {
+        klasse.add(newKlasse);
+    }
+    
+    public String getKlasseString(){
+        String message = ""; 
+        for (String klasse1 : klasse) {
+            message += (klasse1 + ", "); 
+        }
+        return message; 
     }
 
     @Override
