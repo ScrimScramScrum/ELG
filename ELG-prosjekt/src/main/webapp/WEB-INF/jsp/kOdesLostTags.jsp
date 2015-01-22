@@ -62,29 +62,29 @@ function Game() {
 
 //TAG1 = <HEAD>
 //TAG2 = <STYLE>
-//TAG3 = <DIV>
+//TAG3 = <SCRIPT>
 //TAG4 = <BODY>
 
-var oppgave1 = new Questions("Et paragraf på en webside", "tag1");
-var oppgave2 = new Questions("background-color: red;", "tag2");
-var oppgave3 = new Questions("OVERSKRIFT", "tag3");
-var oppgave4 = new Questions("Ting som skal vises på siden", "tag4");
-var oppgave5 = new Questions(";PppppPPppppPppp", "tag1");
-var oppgave6 = new Questions("h1 {color:red;}", "tag2");
-var oppgave7 = new Questions("STORSKRIFT", "tag3");
-var oppgave8 = new Questions("Kropp?", "tag4");
-var oppgave9 = new Questions("avsnitt?", "tag1");
+var oppgave1 = new Questions("<title>", "tag1");
+var oppgave2 = new Questions("color: red;", "tag2");
+var oppgave3 = new Questions("<h1>", "tag4");
+var oppgave4 = new Questions("var x = 1;", "tag3");
+var oppgave5 = new Questions("<meta>", "tag1");
+var oppgave6 = new Questions("font-weight: bold;", "tag2");
+var oppgave7 = new Questions("// Kommentar", "tag3");
+var oppgave8 = new Questions("<div>", "tag4");
+var oppgave9 = new Questions("<link>", "tag1");
 var oppgave10 = new Questions("text-align: center;", "tag2");
-var oppgave11 = new Questions("Et paragraf på en webside", "tag1");
-var oppgave12 = new Questions("background-color: red;", "tag2");
-var oppgave13 = new Questions("OVERSKRIFT", "tag3");
-var oppgave14 = new Questions("Ting som skal vises på siden", "tag4");
-var oppgave15 = new Questions(";PppppPPppppPppp", "tag1");
-var oppgave16 = new Questions("h1 {color:red;}", "tag2");
-var oppgave17 = new Questions("STORSKRIFT", "tag3");
-var oppgave18 = new Questions("Kropp?", "tag4");
-var oppgave19 = new Questions("avsnitt?", "tag1");
-var oppgave20 = new Questions("text-align: center;", "tag2");
+var oppgave11 = new Questions("window.onload", "tag3");
+var oppgave12 = new Questions("<form>", "tag4");
+var oppgave13 = new Questions("<base>", "tag1");
+var oppgave14 = new Questions("media", "tag2");
+var oppgave15 = new Questions("function()", "tag3");
+var oppgave16 = new Questions("<br>", "tag4");
+var oppgave17 = new Questions("<meta>", "tag1");
+var oppgave18 = new Questions("float: right;", "tag2");
+var oppgave19 = new Questions("<p>", "tag3");
+var oppgave20 = new Questions("text-align: center;", "tag4");
 
 console.log("----------");
 var audio80 = new Audio("<c:url value="/resources/kOdesLostTags/Sound/kode80bpm.wav.m4a"/>");
@@ -420,7 +420,7 @@ var render = function () {
 	ctx.fillText("Poeng: " + theGame.score, 32, 32);
 	ctx.fillText("Runde: " + theGame.round, 400, 32);
 	ctx.font = "30px Baskerville";
-	ctx.fillText("Oppgave: "+ theGame.theQuestions[theGame.questionOnNow].question ,32,80);
+        ctx.fillText(theGame.theQuestions[theGame.questionOnNow].question, 32, 60);
 	
 };
 
@@ -498,11 +498,10 @@ var renderStartGame = function () {
 	ctx.fillText("Å nei! Professor Kristian Ode har mistet sine tags.", 10, 32);
         ctx.fillText("Du får opp et en kodesnutt, så skal du velge hvilken ", 10, 64);
 	ctx.fillText("kategori denne kodesnutten hører til. Lykke til!   ", 10, 96);
-        ctx.fillText("Du starter spillet ved å trykke på Enter! ", 10, 160);
-
-	ctx.fillText("Du styrer professor K. Ode med piltastene", 10, 600);
-
+        ctx.fillText("Du styrer professor K. Ode med piltastene", 10, 160);
         
+        ctx.fillText("Trykk enter for å spille", 10, 600);
+
 }
 
 
@@ -520,6 +519,7 @@ var startGameFunc = function () {
 	then = now;
 
 	// Request to do this again ASAP
+        
         if ((theGame.round >= 20)){
 		finishedGame(true);
 	} 
@@ -529,7 +529,8 @@ var startGameFunc = function () {
             
         }
 	
-        else if (startGameNow) {
+        else 
+        if (startGameNow) {
 		requestAnimationFrame(startGameFunc);
 	}
 

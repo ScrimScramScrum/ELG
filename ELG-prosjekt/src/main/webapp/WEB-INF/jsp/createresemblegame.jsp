@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 <!DOCTYPE html>
@@ -105,7 +105,7 @@
                     </c:choose>
 
                     <div id ="errorMessage" class="errorMessages" >
-                        <form:errors path = "resembleGame.gamename"/><br>
+                        <form:errors path="resembleGame.gamename"/><br>
                         <form:errors path="resembleGame.learningGoal"/><br>
                         <form:errors path="resembleGame.info" /> <br>
                         <form:errors path="resembleGame.difficulty"/>
