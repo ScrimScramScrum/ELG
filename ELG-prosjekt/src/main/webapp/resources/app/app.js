@@ -6,10 +6,7 @@
 
    app.run(function($rootScope) {
 
-   	console.log("test app.run 123123123");
-
     window.onbeforeunload = function(event) {
-    	console.log("test onbefore UNLOAD 111");
       	$rootScope.$broadcast('savestate');
     };
 

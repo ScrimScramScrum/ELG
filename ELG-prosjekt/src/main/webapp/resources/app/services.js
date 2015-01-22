@@ -23,7 +23,7 @@
     service.user_data.not_logged_in = true;
 
     service.getUser = function(callback) {
-      $http.get('/ELG-prosjekt/getuser').
+      $http.get('getuser').
         success(function(data, status, headers, config) {
           var u = data.trim();
           service.user_data.sender = u;

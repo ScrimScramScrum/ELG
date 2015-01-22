@@ -37,6 +37,16 @@
             if(user.isInLogged() && !user.getEmail().equals("GUEST")) {
         %>
 
+        <!-- Scripts -->
+                <script src="<c:url value='/resources/assets/sockjs.min.js'/>" type="text/javascript"></script>
+                <script src="<c:url value='/resources/assets/stomp.min.js'/>" type="text/javascript"></script>
+                <script src="<c:url value='/resources/assets/angular.min.js'/>" type="text/javascript"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+                <script src="https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/v2.0.2/src/scrollglue.js"></script>
+                <script src="<c:url value='/resources/app/app.js'/>" type="text/javascript"></script>
+                <script src="<c:url value='/resources/app/controllers.js'/>" type="text/javascript"></script>
+                <script src="<c:url value='/resources/app/services.js'/>" type="text/javascript"></script>
+
         <!-- CHAT APP -->
         <div ng-app="chatApp" id="chat_app" ng-controller="ChatCtrl">
             <div id="chat_window" ng-show="!user.hidden">
@@ -96,15 +106,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Scripts -->
-                <script src="<c:url value='/resources/assets/sockjs.min.js'/>" type="text/javascript"></script>
-                <script src="<c:url value='/resources/assets/stomp.min.js'/>" type="text/javascript"></script>
-                <script src="<c:url value='/resources/assets/angular.min.js'/>" type="text/javascript"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
-                <script src="https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/v2.0.2/src/scrollglue.js"></script>
-                <script src="<c:url value='/resources/app/app.js'/>" type="text/javascript"></script>
-                <script src="<c:url value='/resources/app/controllers.js'/>" type="text/javascript"></script>
-                <script src="<c:url value='/resources/app/services.js'/>" type="text/javascript"></script>
+                    <!-- scripts here ?? -->
             </div>
             <div id="show" ng-show="user.hidden" ng-click="user.hide()" ng-class="{unread: user.unread}">
                 Vis Chat
