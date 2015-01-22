@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -48,18 +49,48 @@
             <h2>Andre spill</h2>
             <h4>Likhetsspill</h4>
                 <c:forEach items="${resembleGames}" var="game">
-                        <form action="chooseothergames" method="post">
-                            <input type = "hidden" name="gametype" value = "resemble">
-                            <input type="hidden" name="gameid" id="gameid" value="${game.gameId}" />
-                            <div class = "gamelink"><a href ="chooseothergames" id="gameLinkA" onclick =" get_form(this).submit(); return false"><c:out value = "${game.getGamename()} + ${game.votes}"/></a></div>
-                        </form>
+                    <form action="chooseothergames" method="post">
+                        <input type = "hidden" name="gametype" value = "resemble">
+                        <input type="hidden" name="gameid" id="gameid" value="${game.gameId}" />
+                        <div class = "gamelink" onclick =" get_form(this).submit(); return false">
+                            <table>        
+                                <tr>
+                                    <td>
+                                        <c:out value = "${game.getGamename()} + ${game.votes}"/>
+                                    </td>
+                                    <c:choose> 
+                                        <c:when test="${game.approved == 1}">                                    
+                                            <td>
+                                                <img src="<c:url value="/resources/images/check.png"/>" >
+                                            </td>
+                                        </c:when>                         
+                                    </c:choose>
+                                </tr>
+                            </table> 
+                        </div>
+                    </form>
                 </c:forEach>
             <h4>Flervalgsspill</h4>
             <c:forEach items="${multiChoiceGames}" var="game">
                     <form action="chooseothergames" method="post">
                         <input type = "hidden" name="gametype" value = "multichoice">
                         <input type="hidden" name="gameid" id="gameid" value="${game.name}" />
-                        <div class = "gamelink"><a href ="chooseothergames" id="gameLinkA" onclick =" get_form(this).submit(); return false"> <c:out value = "${game.name} + ${game.votes}"/></a></div>
+                        <div class = "gamelink" onclick =" get_form(this).submit(); return false"> 
+                            <table>        
+                                <tr>  
+                                    <td>
+                                        <c:out value = "${game.name} + ${game.votes}"/>
+                                    </td>                        
+                                    <c:choose> 
+                                        <c:when test="${game.approved == 1}">                                    
+                                            <td>
+                                                <img src="<c:url value="/resources/images/check.png"/>" >
+                                            </td>
+                                        </c:when>                         
+                                    </c:choose>
+                                </tr>
+                            </table> 
+                        </div>                        
                     </form>
             </c:forEach>
             </center>

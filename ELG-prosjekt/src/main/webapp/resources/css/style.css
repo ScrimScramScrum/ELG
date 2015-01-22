@@ -235,9 +235,18 @@ body, #skel-panels-pageWrapper
 	width:100%;
 }
 
+.gameLink{
+  	cursor:default;
+	color: white;
+	color: #686868;
+	text-decoration: none;
+}
+
 .gamelink:hover {
 	background-color:#2B8FC4;
 	width:80%;
+	cursor:default;
+	color: white;
 }
 
 #gameLinkA {
