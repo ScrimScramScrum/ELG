@@ -1,7 +1,9 @@
 (function(angular) {
   angular.module("chatApp.controllers", []).controller("ChatCtrl", ['$scope', 'ChatService', '$interval', function($scope, ChatService, $interval) {
 
-    $scope.user = ChatService.user_data;
+    ChatService.setup(function() {
+      $scope.user = ChatService.user_data;
+    // });
 
     $scope.user.change_chat = function(newRes) {
       $scope.user.receiver = newRes;
@@ -14,10 +16,6 @@
 
     $scope.user.hide = function() {
       if(ChatService.CHAT_TOPIC != "/topic/message.") {
-        if(!ChatService.user_data.ok) {
-          ChatService.initialize();
-          ChatService.user_data.ok = true;
-        }
         if($scope.user.hidden) {
           $scope.user.hidden = false;
           $scope.user.unread = false;
@@ -94,15 +92,14 @@
         if($scope.user.receiver != message.sender) {
           $scope.user.subs[message.sender].unread = true;
         }
-        console.log("unread: ", $scope.user.unread);
         if($scope.user.hidden) {
           $scope.user.unread = true;
         }
-        console.log("hidden: ", $scope.user.hidden);
-        console.log("unread: ", $scope.user.unread);
         update_message_view(message.sender);
-        // $scope.$apply();
       }
     });
+
+  }); // end callback from setup
+
   }]);
 })(angular);

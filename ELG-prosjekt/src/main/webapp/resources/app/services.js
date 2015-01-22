@@ -1,8 +1,6 @@
 (function(angular, SockJS, Stomp, _, undefined) {
   angular.module("chatApp.services", []).service("ChatService", ['$rootScope', '$q', '$timeout', '$http', function($rootScope, $q, $timeout, $http) {
 
-    // var user = "test";
-    
     var service = {}, listener = $q.defer(), socket = {
       client: null,
       stomp: null
@@ -10,11 +8,8 @@
     
     service.RECONNECT_TIMEOUT = 30000;
     service.SOCKET_URL = "/ELG-prosjekt/chat";
-    // service.SOCKET_URL = "/spring-ng-chat-master/chat";
     service.CHAT_TOPIC = "/topic/message.";
     service.CHAT_BROKER = "/app/chat.hei";
-
-    // session stuff
 
     service.user_data = {};
     service.user_data.messages = {};
@@ -27,15 +22,14 @@
     service.user_data.hidden = true;
     service.user_data.not_logged_in = true;
 
-    service.user_data.ok = false;
-
-    service.getUser = function() {
+    service.getUser = function(callback) {
       $http.get('/ELG-prosjekt/getuser').
         success(function(data, status, headers, config) {
           var u = data.trim();
           service.user_data.sender = u;
           // set chat topic 
           service.CHAT_TOPIC = "/topic/message." + u;
+          callback();
         }).
         error(function(data, status, headers, config) {
           // error message goes here
@@ -47,16 +41,28 @@
       sessionStorage.ChatService = angular.toJson(service.user_data);
     }
 
-    function restoreState() {
+    function restoreState(callback) {
+      var temp_sender = service.user_data.sender;
       service.user_data = angular.fromJson(sessionStorage.ChatService);
-      service.initialize();
-      service.user_data.ok = true;
+      // clear chat history if new user logged in and set correct sender
+      if(service.user_data.sender != temp_sender && temp_sender.length > 0) {
+        service.user_data = {};
+        service.user_data.messages = {};
+        service.user_data.message = "";
+        service.user_data.receiver = "Ingen";
+        service.user_data.sender = temp_sender;
+        service.user_data.subs = {};
+        service.user_data.messages2 = [];
+        service.user_data.unread = false;
+        service.user_data.hidden = true;
+        service.user_data.not_logged_in = true;
+      }
+      callback();
     }
+
 
     $rootScope.$on("savestate", service.saveState);
 
-    // session stuff end
-    
     service.receive = function() {
       return listener.promise;
     };
@@ -125,14 +131,23 @@
       socket.stomp.onclose = reconnect;
     };
 
-    // var initialize = function() {
-      // must be here?...
-    // }
+    // get user first.. then run callbacks for restore state and initialize
+    // do all the initializing with a callback to the controller
+    // call it from controller to make sure its loaded in the view.
 
-    if (sessionStorage.ChatService) restoreState();
-
-    service.getUser();
-    // initialize();
+    service.setup = function(callback) {
+      service.getUser(function() {
+        if (sessionStorage.ChatService) {
+          restoreState(function() {
+            service.initialize();
+            callback();
+          });
+        } else {
+          service.initialize();
+          callback();
+        };
+      });
+    }
 
     return service;
   }]);
