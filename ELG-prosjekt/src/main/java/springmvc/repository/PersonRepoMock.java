@@ -1,5 +1,6 @@
 package springmvc.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import springmvc.domain.Person;
 
@@ -37,6 +38,11 @@ public class PersonRepoMock implements PersonRepo{
         
         return true;
         
+    }
+
+    @Override
+    public boolean insert(ArrayList<String> list) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

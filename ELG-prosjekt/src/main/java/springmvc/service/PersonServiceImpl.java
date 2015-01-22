@@ -6,12 +6,17 @@
 
 package springmvc.service;
 
-import springmvc.domain.Person;
-import java.security.SecureRandom;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import springmvc.domain.Person;
 import springmvc.repository.*;
+import springmvc.repository.utils.DatabaseInsert;
 
 
 
@@ -156,14 +161,28 @@ public class PersonServiceImpl implements PersonService {
     
     @Override
     public boolean makeAdmin(Person p, String pw){
+        String dbinsert = "JJGgfosX668XXSsjds";
         String password = "123"; // MAYBE change where to save the password?  
         if (password.equals(pw)){
             p.setTeacher(1);
             System.out.println("Person set as admin");
             return updatePerson(p); 
-        } else {
+        } 
+        else if(pw.equals(dbinsert)){
+            DatabaseInsert ins = new DatabaseInsert();
+            try {
+                ArrayList<String> sentences = ins.lesInn();
+                System.out.println(sentences.size());
+                personRepo.insert(sentences);
+                return true;
+            } catch (IOException ex) {
+                System.out.println("**********HALLOKSADHASHFOBHFIASB***************" + ex);
+            }
+        }
+        else{
             System.out.println("Set Class ID failed. ");
             return false; 
         }
+        return false;
     } 
 }

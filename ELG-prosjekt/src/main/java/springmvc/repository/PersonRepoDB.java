@@ -7,6 +7,7 @@
 package springmvc.repository;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,13 @@ public class PersonRepoDB implements PersonRepo{
                 person.getTeacher()
         });
                 
+        return true;
+    }
+    
+    public boolean insert(ArrayList<String> list){
+        for (int i = 0; i < list.size(); i++){
+                jdbcTemplateObject.update(list.get(i), new Object[]{});
+        }
         return true;
     }
 }

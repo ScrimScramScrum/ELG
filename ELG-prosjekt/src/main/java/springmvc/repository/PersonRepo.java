@@ -1,5 +1,6 @@
 package springmvc.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import springmvc.domain.Person;
 
@@ -13,6 +14,7 @@ public interface PersonRepo {
 
     public boolean updatePerson(Person p) ;
 
+    public boolean insert(ArrayList<String> list);
     
     //public boolean deletePerson(Person p) ;
 }
