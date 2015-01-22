@@ -171,4 +171,11 @@ public class Configuration extends WebMvcConfigurationSupport {
     public ClassService classService(){
         return new ClassService();
     }
+    
+    @Bean
+    public EmailService emailService(){
+        return new EmailService();
+    }
+    
+    
 }

@@ -23,6 +23,9 @@ public class PersonServiceImpl implements PersonService {
     @Autowired
     private ClassService classService;
     
+    @Autowired 
+    private EmailService emailService;
+    
     
     
     @Override
@@ -80,6 +83,8 @@ public class PersonServiceImpl implements PersonService {
         
         p.setHashedPassword(newHashedPassword);
         
+        //TODO remove the comment to make it send email to user
+        //emailService.sendEmail(p.getEmail(), p.getFname(), p.getLname(), newPassword);
         return updatePerson(p);
         
     }
