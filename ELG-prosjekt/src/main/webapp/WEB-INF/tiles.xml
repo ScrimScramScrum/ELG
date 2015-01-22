@@ -88,10 +88,18 @@
         <put-attribute name="body"   value="/WEB-INF/jsp/login.jsp"/> 
     </definition>
     
-    <definition name="finishgame" extends="baseLayout">
+    <definition name="finishgame" extends="baseGameMenuLayout">
         <put-attribute name="title"  value="FinishPage"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/finishgame.jsp"/>  
+        <put-attribute name="body"   value="/WEB-INF/tiles/gamemenu.jsp"/>
+        <put-attribute name="gamedisplay"   value="/WEB-INF/jsp/finishgame.jsp"/>  
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_games.jsp"/>       
+    </definition>
+    
+    <definition name="finishothergame" extends="baseGameMenuLayout">
+        <put-attribute name="title"  value="FinishPage"/>
+        <put-attribute name="body"   value="/WEB-INF/tiles/othergamemenu.jsp"/>
+        <put-attribute name="gamedisplay"   value="/WEB-INF/jsp/finishgame.jsp"/>  
+        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_othergames.jsp"/>       
     </definition>
     
     <definition name="error" extends="baseLayout">

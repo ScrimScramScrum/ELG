@@ -294,13 +294,28 @@
                         <c:when test="${resembleGame.isCurrentTaskLast()}">
                             <form action = "finishgame" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post" >
                                 <input type = "hidden" value = "" id = "score" name = "score"/>
-
+                                <c:choose>
+                                    <c:when test="${isOving == 0}">
+                                        <input type = "hidden" name="othergame" value = "othergame"/>
+                                    </c:when>
+                                    <c:otherwise> 
+                                        <input type = "hidden" name="othergame" value = ""/>
+                                    </c:otherwise>
+                                </c:choose>  
                                 <input type = "submit" id ="resembleSubmit" value = "Fullfør" />
                             </form>
                         </c:when>
                         <c:otherwise>
                             <form action = "nextresembletask" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post">
                                 <input type = "hidden" value = "" id = "score" name = "score"/>
+                                <c:choose>
+                                    <c:when test="${isOving == 0}">
+                                        <input type = "hidden" name="othergame" value = "othergame"/>
+                                    </c:when>
+                                    <c:otherwise> 
+                                        <input type = "hidden" name="othergame" value = ""/>
+                                    </c:otherwise>
+                                </c:choose>     
                                 <input type = "submit" value = "Neste" id ="resembleSubmit" />
                             </form>
                         </c:otherwise>

@@ -11,11 +11,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,7 +26,6 @@ import springmvc.domain.ResembleGame;
 import springmvc.domain.ResembleTask;
 import springmvc.domain.User;
 import springmvc.service.GameListService;
-import springmvc.service.GameListServiceImpl;
 import springmvc.service.ResembleTaskService;
 import springmvc.service.ResultService;
 
@@ -58,30 +54,41 @@ public class ResembleGameController {
     @RequestMapping(value = "resemblegame", method = RequestMethod.POST)
     public ModelAndView resembleGame(ModelAndView mav, @RequestParam("gameid") String id, @RequestParam("othergame")String gameType){
         int gameid = Integer.parseInt(id);
+        System.out.println("Hello. ");
         ResembleGame resembleGame = gameListService.getResembleGame(gameid);
         mav.addObject("resembleGame", resembleGame);
         mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask())); 
         if(gameType.equals("othergame")){
+            System.out.println("Kommer hit: resemblegame");
+            mav.addObject("isOving", 0); 
             mav.setViewName("otherResembleGame");
             return mav;        
         }
+        mav.addObject("isOving", 1); 
         mav.setViewName("resembleGame");
         return mav;       
     }
     
     @RequestMapping(value ="nextresembletask", method = RequestMethod.POST)
-    public ModelAndView resembleGameNext(ModelAndView mav, @ModelAttribute(value = "resembleGame") ResembleGame resembleGame, HttpServletRequest req) {
+    public ModelAndView resembleGameNext(ModelAndView mav, @ModelAttribute(value = "resembleGame") ResembleGame resembleGame, HttpServletRequest req, @RequestParam("othergame")String gameType) {
         resembleGame.setTaskNumberScore(resembleGame.getCurrentTask(), Double.parseDouble(req.getParameter("score")));
         System.out.println("NESTE SCORE: " + Double.parseDouble(req.getParameter("score")));
         resembleGame.setCurrentTask(resembleGame.getNextTask());
-        mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask())); 
+        mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask()));
+        if (gameType.equals("othergame")){
+            System.out.println("Nextresembletask: othergame");
+            mav.addObject("isOving", 0);
+            mav.setViewName("otherResembleGame");
+            return mav; 
+        }
+        mav.addObject("isOving", 1);
         mav.setViewName("resembleGame");
         return mav;
         // TODO: ADD IF ELSE (lastelement in list -> setviewname index???? 
     }
     
     @RequestMapping(value ="finishgame")
-    public ModelAndView resembleGameFinish(ModelAndView mav, HttpSession session, @ModelAttribute(value = "resembleGame") ResembleGame resembleGame, HttpServletRequest req) {
+    public ModelAndView resembleGameFinish(ModelAndView mav, HttpSession session, @ModelAttribute(value = "resembleGame") ResembleGame resembleGame, HttpServletRequest req, @RequestParam("othergame")String gameType) {
         resembleGame.setTaskNumberScore(resembleGame.getCurrentTask(), Double.parseDouble(req.getParameter("score")));
         System.out.println("TOTAL SCORE: " + resembleGame.getTotalScore());
         Double score = (resembleGame.getTotalScore()/resembleGame.numberOfTasks());            
@@ -104,40 +111,53 @@ public class ResembleGameController {
         
         mav.addObject("highscorelist", melding);
         
+        System.out.println("OTHERGAMEVALUE = " + gameType);
         
-        ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGamesFromOving();
-        ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfoFromOving();
-
-        ArrayList<ResembleGame> resembleGamesExtra = gameListService.getAllResembleGamesFromOvingExtra();
-        ArrayList<MultiChoiceInfo> multiChoiceGamesExtra = gameListService.getAllMultiChoiceInfoFromOvingExtra();
-
-        System.out.println("ChooseGame Rdy for multiChoiceGamesWithApproved");
-        //add a function to update the multiChoiceGames and resembleGames lists to a version that 	says if its done or not. 
-        //updateApprovedGames(user, resembleGames, multiChoiceGames);
-        ArrayList<MultiChoiceInfo> multiChoiceGamesWithApproved = gameListService.updateApprovedMultiChoiceGames(multiChoiceGames, user);
-        ArrayList<ResembleGame> resembleGamesWithApproved = gameListService.updateApprovedResembleGames(resembleGames, user);
-        ArrayList<MultiChoiceInfo> multiChoiceGamesWithApprovedExtra = gameListService.updateApprovedMultiChoiceGames(multiChoiceGamesExtra, user);
-        ArrayList<ResembleGame> resembleGamesWithApprovedExtra = gameListService.updateApprovedResembleGames(resembleGamesExtra, user);
-
-        if (multiChoiceGamesWithApproved == null) {
+        if (gameType.equals("othergame")){
+            System.out.println("Kommer hit i finishgame");
             int resemble = 0;
+            ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGamesNotInOving();
+            ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiGamesNotInOving();
             mav.addObject("gametype", resemble);
             mav.addObject("resembleGames", resembleGames);
             mav.addObject("multiChoiceGames", multiChoiceGames);
-            mav.addObject("resembleGamesExtra", resembleGamesWithApprovedExtra);
-            mav.addObject("multiChoiceGamesExtra", multiChoiceGamesWithApprovedExtra);
+            mav.setViewName("finishothergame");
+            return mav;
+        } else {
+            ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGamesFromOving();
+            ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfoFromOving();
+
+            ArrayList<ResembleGame> resembleGamesExtra = gameListService.getAllResembleGamesFromOvingExtra();
+            ArrayList<MultiChoiceInfo> multiChoiceGamesExtra = gameListService.getAllMultiChoiceInfoFromOvingExtra();
+
+            System.out.println("ChooseGame Rdy for multiChoiceGamesWithApproved");
+            //add a function to update the multiChoiceGames and resembleGames lists to a version that 	says if its done or not. 
+            //updateApprovedGames(user, resembleGames, multiChoiceGames);
+            ArrayList<MultiChoiceInfo> multiChoiceGamesWithApproved = gameListService.updateApprovedMultiChoiceGames(multiChoiceGames, user);
+            ArrayList<ResembleGame> resembleGamesWithApproved = gameListService.updateApprovedResembleGames(resembleGames, user);
+            ArrayList<MultiChoiceInfo> multiChoiceGamesWithApprovedExtra = gameListService.updateApprovedMultiChoiceGames(multiChoiceGamesExtra, user);
+            ArrayList<ResembleGame> resembleGamesWithApprovedExtra = gameListService.updateApprovedResembleGames(resembleGamesExtra, user);
+
+            if (multiChoiceGamesWithApproved == null) {
+                int resemble = 0;
+                mav.addObject("gametype", resemble);
+                mav.addObject("resembleGames", resembleGames);
+                mav.addObject("multiChoiceGames", multiChoiceGames);
+                mav.addObject("resembleGamesExtra", resembleGamesWithApprovedExtra);
+                mav.addObject("multiChoiceGamesExtra", multiChoiceGamesWithApprovedExtra);
+                mav.setViewName("finishgame");
+                return mav;
+            }
+
+            int resemble = 0;
+            mav.addObject("gametype", resemble);
+            mav.addObject("resembleGames", resembleGames);
+            mav.addObject("multiChoiceGames", multiChoiceGamesWithApproved);
+            mav.addObject("resembleGamesExtra", resembleGamesExtra);
+            mav.addObject("multiChoiceGamesExtra", multiChoiceGamesExtra);
             mav.setViewName("finishgame");
             return mav;
-        }
-
-        int resemble = 0;
-        mav.addObject("gametype", resemble);
-        mav.addObject("resembleGames", resembleGames);
-        mav.addObject("multiChoiceGames", multiChoiceGamesWithApproved);
-        mav.addObject("resembleGamesExtra", resembleGamesExtra);
-        mav.addObject("multiChoiceGamesExtra", multiChoiceGamesExtra);
-        mav.setViewName("finishgame");
-        return mav;
+        } 
     }
     
     @RequestMapping(value = "createresemblegame")

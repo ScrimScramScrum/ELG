@@ -36,7 +36,6 @@
         </style>
     </head>
     <body>
-        <div id="leftbar"> &nbsp; </div>
         <center> 
             <div id="mainbar">
                 <h1>Du greide følgende poengsummer: </h1>
