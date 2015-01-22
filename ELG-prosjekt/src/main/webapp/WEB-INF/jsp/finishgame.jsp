@@ -19,18 +19,13 @@
             }
             
             #mainbar {
-                width: 60%;
+                width: 75%;
                 float: left; 
 
             }
             #rightbar {
-                width: 20%;
+                width: 25%;
                 float: right; 
-
-            }
-            #leftbar {
-                width: 20%;
-                float: left; 
 
             }
         </style>
@@ -46,7 +41,9 @@
                     </li>
                 </c:forEach>
                     Total poengsum: <c:out value="${resembleGame.totalScore}"/>
-            </div> 
+                    <br><br>
+                    Du må ha minst 90% for å få godkjent
+            </div>
         </center>
         <div id="rightbar"></div> 
     </body>
