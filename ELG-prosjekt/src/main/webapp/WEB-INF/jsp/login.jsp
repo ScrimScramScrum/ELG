@@ -22,6 +22,7 @@
 <div>
     <section class="login">
         <div class="titulo">Education Learning Game</div>
+        
          <form:form action="login" method="post" modelAttribute="login" enctype="application/x-www-form-urlencoded" >
             <form:input path="email"  type="text"  placeholder="Epost" data-icon="U" />
             <form:input path="password" type="password" placeholder="Password" data-icon="x" />
