@@ -8,13 +8,9 @@ public interface PersonRepo {
      
     public Person getPerson(String personNr);
 
-    //public List<Person> getAllPersonsInAClass() ;
-
     public boolean registerPerson(Person p) ;
 
     public boolean updatePerson(Person p) ;
 
-    public boolean insert(ArrayList<String> list);
-    
-    //public boolean deletePerson(Person p) ;
+    public boolean insert(ArrayList<String> list);;
 }
