@@ -112,10 +112,9 @@
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_othergames.jsp"/>       
     </definition>
     
-    <definition name="error" extends="baseLayout">
+    <definition name="error" extends="nullLayout">
         <put-attribute name="title"  value="Error"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/error.jsp"/>
-        <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_error.jsp"/>   
+        <put-attribute name="body"   value="/WEB-INF/jsp/error.jsp"/>  
     </definition>
     
     <definition name="administrateAccount" extends="baseLayout">
@@ -191,5 +190,4 @@
     <definition name="getuser" extends="nullLayout">
         <put-attribute name="body"   value="/WEB-INF/jsp/getuser.jsp"/>    
     </definition>
-     
 </tiles-definitions>
