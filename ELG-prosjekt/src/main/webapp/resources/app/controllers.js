@@ -17,9 +17,13 @@
     $scope.user.hide = function() {
       if(ChatService.CHAT_TOPIC != "/topic/message.") {
         if($scope.user.hidden) {
+          document.getElementById("chat_window").style.display = "block";
           $scope.user.hidden = false;
           $scope.user.unread = false;
-        } else $scope.user.hidden = true;
+        } else {
+          document.getElementById("chat_window").style.display = "none";
+          $scope.user.hidden = true;
+        }
       } else console.log("chat not loaded yet");
     }
 

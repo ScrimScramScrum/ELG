@@ -8,7 +8,7 @@
 	background-color: #dcdcd7;
 	z-index: 999;
 	text-align: left;
-	/*display:none;*/
+	display:none;
 }
 
 .message .self {

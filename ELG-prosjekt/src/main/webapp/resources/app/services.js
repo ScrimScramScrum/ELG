@@ -57,6 +57,9 @@
         service.user_data.hidden = true;
         service.user_data.not_logged_in = true;
       }
+      if(!service.user_data.hidden) {
+        document.getElementById("chat_window").style.display = "block";
+      }
       callback();
     }
 
