@@ -70,6 +70,20 @@ function checkPasswordMatch() {
             transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
             text-align: center;
         }
+        
+            .errorMessages {
+            width: auto;
+            height: auto;
+            font-size: 14px;
+            text-align: center;
+            color: #ff6437;
+            background: #121212;
+            border-top-right-radius: 6px;
+            border-top-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            border-bottom-left-radius: 6px;
+    
+}
         </style>
         <script type="text/javascript">
             //<![CDATA[
@@ -126,19 +140,16 @@ function checkPasswordMatch() {
                             <tr>  
                                 <td> Gammelt passord: </td>
                                 <td> <form:input path="oldPw" type="password" />
-                                     <form:errors path="oldPw" />
                                 </td> 
                             </tr>
                             <tr>
                                 <td> Nytt Passord: </td>
                                 <td> <form:input path="newPw" type="password" id="txtNewPassword"/>
-                                     <form:errors path="newPw" />
                                 </td>
                             </tr>
                             <tr>
                                 <td> Bekreft Passord: </td>
                                 <td> <form:input path="confirmPw" type="password" id="txtConfirmPassword" onkeyup="checkPasswordMatch()" />
-                                     <form:errors path="confirmPw"/> 
                                 </td>
                             </tr>
                             <tr><td colspan="2" style="height: 70%;"><center>
@@ -146,7 +157,8 @@ function checkPasswordMatch() {
                         </table>
                     </form:form>
                         <div id="confirmBox"></div>
-                       <font color=red> ${changedPassword}</font>
+                            <font color=red> ${changedPassword}</font>
+                       
                 </c:when>
                 <c:when test="${chooseSite == 2}"> 
                     <form:form action="addClassId" method="post" modelAttribute="addNewClassIdAttribute">

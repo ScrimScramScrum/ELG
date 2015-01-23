@@ -68,9 +68,9 @@ public class AdministrateController {
     }
 
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
-    public String changePass(@ModelAttribute NewPassword newPassword, BindingResult error, Model modell, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin, HttpSession session) {
+    public String changePass(@Valid @ModelAttribute NewPassword newPassword, BindingResult error, Model modell, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin, HttpSession session) {
         if (error.hasErrors()) {
-            modell.addAttribute("changedPassword", "Feil. Husk at passordet må være lengre enn 8 tegn.");
+            modell.addAttribute("changedPassword", "Feil. Husk at passordene må være lengre enn 8 tegn.");
             modell.addAttribute("chooseSite", 1);
             return "administrateAccount";
         }
@@ -87,7 +87,7 @@ public class AdministrateController {
             modell.addAttribute("changedPassword", "Passordet er endret.");
         } else {
             modell.addAttribute("chooseSite", 1);
-            modell.addAttribute("changedPassword", "Feil. Husk at passordet må være lengre enn 8 tegn.");
+            modell.addAttribute("changedPassword", "Gammelt passord er feil.");
         }
         return "administrateAccount";
     }
