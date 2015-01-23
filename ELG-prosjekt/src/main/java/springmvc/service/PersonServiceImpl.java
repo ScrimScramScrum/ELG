@@ -59,11 +59,10 @@ public class PersonServiceImpl implements PersonService {
             return false; 
         }
         
-        String pw = generate();         
-        //THIS PASSWORD TO BE SENT ON EMAIL IN A LATER SPRINT.         
-        String hashedPw = hash(pw);      
-        p.setHashedPassword(hashedPw); 
         allToUpperCase(p);
+
+        generateNewPassword(p);
+         
         if(personRepo.registerPerson(p)){
             System.out.println("Registered person in DB");
             classService.setStudentToAClass(p.getEmail(), "");
@@ -71,8 +70,7 @@ public class PersonServiceImpl implements PersonService {
         } else {
             System.out.println("Error in register person in DB");
             return false;
-        }
-           
+        }           
     }
     
     public String generate(){
@@ -99,7 +97,7 @@ public class PersonServiceImpl implements PersonService {
         p.setHashedPassword(newHashedPassword);
         
         //TODO remove the comment to make it send email to user       
-        //emailService.sendEmail(p.getEmail(), p.getFname(), p.getLname(), newPassword);
+        emailService.sendEmail(p.getEmail(), p.getFname(), p.getLname(), newPassword);
          if (updatePerson(p)){
              return 1;
          } else {

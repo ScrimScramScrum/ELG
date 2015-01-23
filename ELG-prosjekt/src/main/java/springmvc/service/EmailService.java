@@ -14,7 +14,7 @@ public class EmailService {
     public void sendEmail(String to, String fname, String lname, String password){
     Session mailSession = createSmtpSession();
     mailSession.setDebug (true);
-    String textMessage = "Hei "+fname+"! Her er ditt nye passord: "+password;
+    String textMessage = "Hei "+fname.substring(0, 1).toUpperCase() + fname.substring(1).toLowerCase() +"! Her er ditt nye passord: "+password;
     try {
         Transport transport = mailSession.getTransport ();
 
