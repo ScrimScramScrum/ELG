@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,15 +42,16 @@ public class ResembleGameController {
     
     @Autowired
     private ResultService r;
-  /*  
-    @RequestMapping(value = "resemblegame")
-    public ModelAndView resembleGame(ModelAndView mav){
-        ResembleGame resembleGame = resembleGameService.getResembleGame(1);
-        mav.addObject("resembleGame", resembleGame);
-        mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask())); 
-        mav.setViewName("resembleGame");
-        return mav; 
-    }*/
+  
+    @ExceptionHandler(Throwable.class)
+    public String handleTException(Throwable t) {
+        return "error";
+    } 
+
+    @ExceptionHandler(Exception.class)
+    public String handleException(Throwable t) {
+        return "error";
+    }
 
     @RequestMapping(value = "resemblegame", method = RequestMethod.POST)
     public ModelAndView resembleGame(ModelAndView mav, @RequestParam("gameid") String id, @RequestParam("othergame")String gameType){
@@ -224,7 +226,7 @@ public class ResembleGameController {
             resembleTaskService.insertResembleTasks(resembleTasks, gameId);
             mav.setViewName("about"); 
             return mav; 
-        }
+        } 
     }
 }
 

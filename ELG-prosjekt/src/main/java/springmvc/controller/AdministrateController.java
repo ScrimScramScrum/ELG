@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +33,24 @@ public class AdministrateController {
     
     @Autowired
     private ResultService r;
+    
+    @ExceptionHandler(Throwable.class)
+    public String handleTException(Throwable t, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (!(user.isInLogged())){
+            return "login";
+        }
+        return "error";
+    } 
+
+    @ExceptionHandler(Exception.class)
+    public String handleException(Throwable t, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (!(user.isInLogged())){
+            return "login";
+        }
+        return "error";
+    }
 
     @RequestMapping(value = "administrateAccount", method = RequestMethod.GET)
     public String adminAccount(@ModelAttribute NewPassword newPassword, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin, HttpSession session, @ModelAttribute Login login, Model modell) {

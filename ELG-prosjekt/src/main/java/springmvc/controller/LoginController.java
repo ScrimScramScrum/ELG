@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +29,16 @@ public class LoginController {
     
     @Autowired
     private PersonService personService;
+    
+    @ExceptionHandler(Throwable.class)
+    public String handleTException(Throwable t) {
+        return "error";
+    } 
+
+    @ExceptionHandler(Exception.class)
+    public String handleException(Throwable t) {
+        return "error";
+    }
     
     @RequestMapping(value = "login" , method=RequestMethod.GET)
     public String person(@ModelAttribute Login login, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {

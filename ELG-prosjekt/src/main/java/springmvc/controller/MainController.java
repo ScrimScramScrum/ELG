@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +28,8 @@ import springmvc.service.ResembleTaskService;
 import springmvc.service.ResultService;
 import springmvc.ui.SendNewPassword;
 
+
+
 @Controller
 public class MainController {
 
@@ -45,13 +48,23 @@ public class MainController {
     @Autowired
     private PersonService personService;
     
+    @ExceptionHandler(Throwable.class)
+    public String handleTException(Throwable t) {
+        return "error";
+    } 
+
+    @ExceptionHandler(Exception.class)
+    public String handleException(Throwable t) {
+        return "error";
+    }
+    
     @RequestMapping(value = "*")
     public String person(@ModelAttribute Login login, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
             return "firstLogin";
         }
-        return "about";
+        return "about"; 
     }
 
     @RequestMapping(value = "about")

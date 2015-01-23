@@ -49,16 +49,17 @@ public class MultiChoiceController {
     
     @Autowired 
     private GameListService gameListService;
+    
+    @ExceptionHandler(Throwable.class)
+    public String handleTException(Throwable t) {
+        return "error";
+    } 
 
-    /*@ExceptionHandler(Exception.class)
-     public ModelAndView handleError(HttpServletRequest req, Exception exception){
-     System.out.println("Kommer hit");
-     ModelAndView mav = new ModelAndView(); 
-     mav.addObject("Melding", "feilmelding.generell"); 
-     mav.addObject("unntak", exception); 
-     mav.setViewName("about");
-     return mav; 
-     } */
+    @ExceptionHandler(Exception.class)
+    public String handleException(Throwable t) {
+        return "error";
+    }
+    
     @RequestMapping(value = "multi", method = RequestMethod.POST)
     public String showMultiChoice(Model model, @RequestParam("gamename") String name, @RequestParam("othergame")String otherGame) {
         MultiChoice mc = s.getMultiChoice(name);
