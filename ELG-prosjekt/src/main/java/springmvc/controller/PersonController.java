@@ -13,11 +13,6 @@ import springmvc.domain.Person;
 import springmvc.service.*;
 import springmvc.ui.SendNewPassword;
 
-
-/**
- *
- * @author Hoxmark
- */
 @Controller
 public class PersonController {
     
@@ -32,24 +27,16 @@ public class PersonController {
     @RequestMapping(value = "newPersonFromLogin" , method=RequestMethod.POST)
     public String CreateNewPerson(@Valid @ModelAttribute("person") Person person, BindingResult error, Model modell,@ModelAttribute Login login, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
         if(error.hasErrors()){
-            System.out.println(" Validering feilet **** ");
-            //modell.addAttribute("newPersonError", "Feil. Mail-adresse, fornavn eller etternavn er ikke korrekt. ");
             return "newPersonFromLogin";
         }
         if (personService.getPerson(person.getEmail()) != null){
-            System.out.println("Feil ved registrering av ny person");
             modell.addAttribute("newPersonError", "Feil. E-mail-adressen er allerede registrert. ");
             return "newPersonFromLogin";
         }
-        
         if (personService.registrerPerson(person)) {
             modell.addAttribute("registeredOK", "&nbsp<br>"+person.getEmail() + " er registrert. Sjekk E-mailen din for passord. <br>&nbsp  ");
-            System.out.println("Person service er OK og registrert");
-            
-            return "firstLogin";  // her er feilen
-            
+            return "firstLogin"; 
         } else {
-            System.out.println("kan ikke registrere person");
             modell.addAttribute("melding","Denne eposten er allerede tatt");
             return "newPersonFromLogin";
         }        

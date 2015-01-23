@@ -51,7 +51,6 @@ public class AdministrateController {
 
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
     public String changePass(@ModelAttribute NewPassword newPassword, BindingResult error, Model modell, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin, HttpSession session) {
-
         if (error.hasErrors()) {
             modell.addAttribute("changedPassword", "Feil. Husk at passordet må være lengre enn 8 tegn.");
             modell.addAttribute("chooseSite", 1);
@@ -84,7 +83,6 @@ public class AdministrateController {
             modell.addAttribute("chooseSite", 2);
             modell.addAttribute("NewClassMessage", "Feil, for få tegn"); 
             return "administrateAccount";
-
         }
 
         User user = (User) session.getAttribute("user");
@@ -95,7 +93,7 @@ public class AdministrateController {
             ArrayList<String> list = r.getAllClasses(user.getEmail());
             modell.addAttribute("list", list); 
             modell.addAttribute("NewClassMessage", "Du er nå registrert i klasse: " + addNewClassIdAttribute.getClassId());
-        } else { // ENDER HER OM FELTET ER TOMT. 
+        } else { 
             modell.addAttribute("chooseSite", 2);
             modell.addAttribute("NewClassMessage", "Feil. Klassen eksisterer ikke eller du er registrert i den fra før ");
         }
@@ -119,12 +117,10 @@ public class AdministrateController {
             user.setAdmin(true);
             System.out.println("Person set as admin");
             modell.addAttribute("makeAdminMessage", "Du har nå admin-rettigheter. ");
-
         } else {
             modell.addAttribute("chooseSite", 3);
             modell.addAttribute("makeAdminMessage", "Feil. Administrator-passordet var ikke riktig. ");
         }
-
         return "administrateAccount";
     }
 
@@ -146,7 +142,6 @@ public class AdministrateController {
             modell.addAttribute("chooseSite", 4);
             modell.addAttribute("makeClassMessage", "Feil, Klassen finnes fra før.");
         }
-
         return "administrateAccount";
     }
 
@@ -173,8 +168,7 @@ public class AdministrateController {
         User user = (User) session.getAttribute("user");
         String email = user.getEmail();
         r.deleteClass(id, email);
-            mav.setViewName("about");
-            return mav;
+        mav.setViewName("about");
+        return mav;
     }
-
 }

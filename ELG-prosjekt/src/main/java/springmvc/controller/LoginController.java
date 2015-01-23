@@ -1,4 +1,3 @@
-
 package springmvc.controller;
 
 import javax.servlet.http.HttpSession;
@@ -58,8 +57,7 @@ public class LoginController {
         }
         
         Person person = personService.getPerson(sendNewPassword.getEmail());
-        //Person has to be pulled from session?
-        if (person == null){ // Denne kjører, Hvorfor vil ikke feilmeldingen vises? 
+        if (person == null){ 
             System.out.println("Feil ved endring av passord");
             modell.addAttribute("sendNewPasswordError", "Feil ved endring av passord");
             return "forgotPasswordFromLogin";
@@ -70,42 +68,7 @@ public class LoginController {
             System.out.println("Feil ved endring av passord");
             modell.addAttribute("sendNewPasswordError", "Feil ved endring av passord"); 
             return "forgotPasswordFromLogin";
-
         }
         return "firstLogin";
     } 
 }
-
- /*
-    @RequestMapping(value = "resemblegame", method = RequestMethod.POST)
-    public ModelAndView resembleGame(ModelAndView mav, @RequestParam("gameid") String id){
-        int gameid = Integer.parseInt(id);
-        ResembleGame resembleGame = gameListService.getResembleGame(gameid);
-        mav.addObject("resembleGame", resembleGame);
-        mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask())); 
-        mav.setViewName("resembleGame");
-        return mav; 
-    }
-    
-   Dette ligger i AdministrateController. */
-    
-    
-    /*
-    Vil slette dette, men venter litt! 
-    
-    @RequestMapping(value = "newPassword")
-    public String newPassword(@ModelAttribute NewPassword newPassword, Model modell, @ModelAttribute Login login, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
-        System.out.println("NewPassword blir nå kjort. ");
-        Person inLoggedPerson = new Person("TEST@GMAIL.COM","TESTFORNAME","TESTETTERNAVN");
-        //Person has to be pulled from session?
-        if(personService.generateNewPassword(inLoggedPerson)){
-            modell.addAttribute("regeneratedPassword", "Passordet er nå sent på mailen din:"); 
-
-        } else {
-            System.out.println("Error, something went wrong with the resend of the Password");
-            modell.addAttribute("Error, something went wrong with the resend of the Password"); 
-        }
-        return "login";
-    }
-    
-    */

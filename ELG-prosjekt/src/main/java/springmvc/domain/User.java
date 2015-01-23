@@ -8,7 +8,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-
 public class User implements Serializable{
     @NotEmpty  
     @Email

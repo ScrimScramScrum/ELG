@@ -1,15 +1,11 @@
-
 package springmvc.domain;
-
 
 import java.util.ArrayList;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-
-public class Person {
-    
+public class Person {  
     @NotEmpty  
     @Email
     private String email;
@@ -28,7 +24,6 @@ public class Person {
     
     private ArrayList<String> klasse = new ArrayList<String>();
     
-
     public Person(String email, String fname, String lname) {
         this.email = email.trim().toUpperCase();
         this.fname = fname.trim().toUpperCase();
