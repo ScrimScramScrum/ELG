@@ -5,7 +5,6 @@
 
 <html>
     <head>
-        <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css/style.css'/>"
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css">
         <script src="http://codemirror.net/lib/codemirror.js"></script>
@@ -27,7 +26,7 @@
                 beautify_in_progress: false,
                 editor: null // codemirror editor
             };
-            
+
             function looks_like_html(source) {
                 var trimmed = source.replace(/^[ \t\n\r]+/, '');
                 var comment_mark = '<' + '!-' + '-';
@@ -38,99 +37,124 @@
             .renderedFrame, .codeBox {
                 <c:out value="width: ${resembleTask.width}px; height: ${resembleTask.height}px" />
             }
+
+            #createTaskButton{
+                margin-top: 20px;
+                width: 125px;
+                height: 65px;
+                position: relative;
+                cursor: pointer;
+                display: inline-block;
+                background: #2B8FC4;
+                border-radius: 4px;
+                text-decoration: none;
+                padding: 0px;
+                font-size: 1.2em;
+                color: #FFF !important;
+                -moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+                -webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+                -o-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+                -ms-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+                transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+                text-align: center;
+            }
+            #createTaskButton:hover {
+                background: #065B88;
+            }
+
         </style>
         <script>
-            var score = 0; 
-            var resembleIsPressed = false; 
+            var score = 0;
+            var resembleIsPressed = false;
 
-            $(function() {
-                $("#createTaskButton").click( function(){
+            $(function () {
+                $("#createTaskButton").click(function () {
                     var editor1 = $('.CodeMirror')[0].CodeMirror;
                     var editor2 = $('.CodeMirror')[1].CodeMirror;
                     var editor3 = $('.CodeMirror')[2].CodeMirror;
                     var editor4 = $('.CodeMirror')[3].CodeMirror;
 
-                    var solutionCSS = editor1.getValue(); 
-                    var solutionHTML = editor2.getValue(); 
-                    var startingCSS = editor3.getValue(); 
-                    var startingHTML = editor4.getValue(); 
+                    var solutionCSS = editor1.getValue();
+                    var solutionHTML = editor2.getValue();
+                    var startingCSS = editor3.getValue();
+                    var startingHTML = editor4.getValue();
 
-                    document.getElementById('solutionCSS').value = solutionCSS; 
-                    document.getElementById('solutionHTML').value = solutionHTML; 
-                    document.getElementById('startingCSS').value = startingCSS; 
-                    document.getElementById('startingHTML').value = startingHTML; 
+                    document.getElementById('solutionCSS').value = solutionCSS;
+                    document.getElementById('solutionHTML').value = solutionHTML;
+                    document.getElementById('startingCSS').value = startingCSS;
+                    document.getElementById('startingHTML').value = startingHTML;
                     document.getElementById('taskText').value = document.getElementById('taskTextCreate').value;
                     document.getElementById('width').value = document.getElementById('sliderOutput1').innerHTML;
                     document.getElementById('height').value = document.getElementById('sliderOutput2').innerHTML;
                 });
             });
 
-            $(document).ready(function() {
+            $(document).ready(function () {
 
                 var solutionHtml = "${resembleTask.solutionHTML}";
                 var solutionCss = "${resembleTask.solutionCSS}";
-                
+
                 var startingHtml = "${resembleTask.startingHTML}";
                 var startingCss = "${resembleTask.startingCSS}";
-                
+
                 setRenderedResult($("#solutionFrame"), solutionHtml, solutionCss);
 
-                $("#htmlView").val(startingHtml); 
-                $("#cssView").val(startingCss); 
+                $("#htmlView").val(startingHtml);
+                $("#cssView").val(startingCss);
 
-                $("#getSolution").click(function() {
-                    $("#htmlView").val(solutionHtml); 
+                $("#getSolution").click(function () {
+                    $("#htmlView").val(solutionHtml);
                     $("#cssView").val(solutionCss);
                     var editor = $('.CodeMirror')[0].CodeMirror;
-                    editor.setValue(solutionCss); 
+                    editor.setValue(solutionCss);
                     var editor2 = $('.CodeMirror')[1].CodeMirror;
                     editor2.setValue(solutionHtml);
-                    beautify(0); 
+                    beautify(0);
                     beautify(1);
                 });
             });
             function setRenderedResult(frame, html, css) {
                 frame.contents().find("html").html(html);
-                var $head = frame.contents().find("head");                
-                $head.append("<style>" + css + "</style>") 
+                var $head = frame.contents().find("head");
+                $head.append("<style>" + css + "</style>")
             }
         </script>
     </head>
     <body>
         <script>
-            window.onload = function(){
-                    var editableCodeMirror = CodeMirror.fromTextArea(document.getElementById('cssViewSolution'), {
+            window.onload = function () {
+                var editableCodeMirror = CodeMirror.fromTextArea(document.getElementById('cssViewSolution'), {
                     lineWrapping: true,
                     mode: "css",
                     theme: "default",
                     lineNumbers: true,
-                    indentUnit: 4, 
+                    indentUnit: 4,
                     extraKeys: {
-                        "Ctrl-Enter": function(cm) {
-                            testFunc(); 
-                            testFunc(); 
+                        "Ctrl-Enter": function (cm) {
+                            testFunc();
+                            testFunc();
                         },
-                        "Cmd-Enter": function(cm) {
-                            testFunc(); 
-                            testFunc(); 
+                        "Cmd-Enter": function (cm) {
+                            testFunc();
+                            testFunc();
                         }
                     }
                 });
-                
+
                 var editableCodeMirror2 = CodeMirror.fromTextArea(document.getElementById('htmlViewSolution'), {
-                    lineWrapping: true,        
+                    lineWrapping: true,
                     mode: "xml",
                     theme: "default",
                     lineNumbers: true,
                     indentUnit: 4,
                     extraKeys: {
-                        "Ctrl-Enter": function(cm) {
+                        "Ctrl-Enter": function (cm) {
                             testFunc();
-                            testFunc(); 
+                            testFunc();
                         },
-                        "Cmd-Enter": function(cm) {
+                        "Cmd-Enter": function (cm) {
                             testFunc();
-                            testFunc(); 
+                            testFunc();
                         }
                     }
                 });
@@ -140,73 +164,73 @@
                     mode: "css",
                     theme: "default",
                     lineNumbers: true,
-                    indentUnit: 4, 
+                    indentUnit: 4,
                     extraKeys: {
-                        "Ctrl-Enter": function(cm) {
-                            testFunc2(); 
-                            testFunc2(); 
+                        "Ctrl-Enter": function (cm) {
+                            testFunc2();
+                            testFunc2();
                         },
-                        "Cmd-Enter": function(cm) {
-                            testFunc2(); 
-                            testFunc2(); 
+                        "Cmd-Enter": function (cm) {
+                            testFunc2();
+                            testFunc2();
                         }
                     }
                 });
-                
+
                 var editableCodeMirror4 = CodeMirror.fromTextArea(document.getElementById('htmlViewStarting'), {
-                    lineWrapping: true,        
+                    lineWrapping: true,
                     mode: "xml",
                     theme: "default",
                     lineNumbers: true,
                     indentUnit: 4,
                     extraKeys: {
-                        "Ctrl-Enter": function(cm) {
+                        "Ctrl-Enter": function (cm) {
                             testFunc2();
-                            testFunc2(); 
+                            testFunc2();
                         },
-                        "Cmd-Enter": function(cm) {
+                        "Cmd-Enter": function (cm) {
                             testFunc2();
-                            testFunc2(); 
+                            testFunc2();
                         }
                     }
                 });
-                var width = "100%"; 
-                var height = 300; 
-                editableCodeMirror.setSize(width, height); 
-                editableCodeMirror2.setSize(width, height); 
-                editableCodeMirror3.setSize(width, height); 
-                editableCodeMirror4.setSize(width, height); 
-             };
+                var width = "100%";
+                var height = 300;
+                editableCodeMirror.setSize(width, height);
+                editableCodeMirror2.setSize(width, height);
+                editableCodeMirror3.setSize(width, height);
+                editableCodeMirror4.setSize(width, height);
+            };
 
 
-            function testFunc(){
+            function testFunc() {
                 var editor = $('.CodeMirror')[0].CodeMirror;
-                var cssText = editor.getValue(); 
+                var cssText = editor.getValue();
                 var editor = $('.CodeMirror')[1].CodeMirror;
-                var htmlText = editor.getValue(); 
+                var htmlText = editor.getValue();
                 setRenderedResult($("#solutionFrame"), htmlText, cssText);
-             }
+            }
 
 
-             function testFunc2(){
+            function testFunc2() {
                 var editor = $('.CodeMirror')[2].CodeMirror;
-                var cssText = editor.getValue(); 
+                var cssText = editor.getValue();
                 var editor = $('.CodeMirror')[3].CodeMirror;
-                var htmlText = editor.getValue(); 
+                var htmlText = editor.getValue();
                 setRenderedResult($("#resultFrame"), htmlText, cssText);
-             }
+            }
 
-            function setIframeHeight(width, height){
+            function setIframeHeight(width, height) {
                 var solutionFrame = document.getElementById('solutionFrame');
                 var resultFrame = document.getElementById('resultFrame');
-                solutionFrame.style.height = ""; 
-                solutionFrame.style.height = height + "px"; 
-                solutionFrame.style.width = ""; 
-                solutionFrame.style.width = width + "px"; 
-                resultFrame.style.height = ""; 
-                resultFrame.style.height = height + "px"; 
-                resultFrame.style.width = ""; 
-                resultFrame.style.width = width + "px"; 
+                solutionFrame.style.height = "";
+                solutionFrame.style.height = height + "px";
+                solutionFrame.style.width = "";
+                solutionFrame.style.width = width + "px";
+                resultFrame.style.height = "";
+                resultFrame.style.height = height + "px";
+                resultFrame.style.width = "";
+                resultFrame.style.width = width + "px";
             }
 
         </script>
@@ -216,21 +240,21 @@
                 <div id ="tasktextCreate">
                     Oppgavetekst: <br>
                     <textarea class="cssView" id="taskTextCreate" style="height:100px; resize:none;"></textarea>
-                        <span id="sliderOutput1"></span>
-                        <span id="sliderOutput2"></span>
+                    <span id="sliderOutput1"></span>
+                    <span id="sliderOutput2"></span>
                     <div id = "sizeSliders">
                         <div class="range-slider round" data-slider data-options="start: 1; end: 200; display_selector: #sliderOutput1;">
                             <span class="range-slider-handle" role="slider" tabindex="0"></span>
                             <span class="range-slider-active-segment"></span>
                         </div>   
-                        
+
                         <div class="range-slider round" data-slider data-options="start: 1; end: 200; display_selector: #sliderOutput2;">
                             <span class="range-slider-handle" role="slider" tabindex="0"></span>
                             <span class="range-slider-active-segment"></span>
                         </div>     
                     </div>
                 </div>
-                
+
                 <div id="solutionDivCreate">
                     <center>
                         Fasit<br>
@@ -273,19 +297,21 @@
                 <form:input path="startingCSS" id ="startingCSS" type="hidden"/>
                 <form:input path = "width" id ="width" name = "width" type="hidden"/>
                 <form:input path = "height" id ="height" name = "height" type="hidden"/>
-                <input type ="submit" name = "button" value ="Registrer deloppgave" id = "createTaskButton"></input>
+                <center>
+                    <input type ="submit" name = "button" value ="Registrer" id = "createTaskButton"></input>
+                </center>
             </form:form>
         </div>
     </body>
     <script>
-    $(document).foundation({
-      slider: {
-        on_change: function(){
-            var width = document.getElementById('sliderOutput1').innerHTML;
-            var height = document.getElementById('sliderOutput2').innerHTML;
-            setIframeHeight(width, height); 
-        }
-      }
-    });
+        $(document).foundation({
+            slider: {
+                on_change: function () {
+                    var width = document.getElementById('sliderOutput1').innerHTML;
+                    var height = document.getElementById('sliderOutput2').innerHTML;
+                    setIframeHeight(width, height);
+                }
+            }
+        });
     </script>
 </html>
