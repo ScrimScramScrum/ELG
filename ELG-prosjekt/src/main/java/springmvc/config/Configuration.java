@@ -86,6 +86,8 @@ public class Configuration extends WebMvcConfigurationSupport {
   
     @Bean
     public DataSource dataSource() throws Exception{
+        
+        
         String url = "jdbc:derby://localhost:1527/ELGDB";
         String username = "ELGUSER";
         String password = "ELGERBEST";
@@ -95,9 +97,9 @@ public class Configuration extends WebMvcConfigurationSupport {
         bds.setPassword(password);
         bds.setInitialSize(100);
         
-        
+        /*
         //DATABASE:
-       /* Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+        Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
         String url = "jdbc:derby://localhost:1527//home/dbhome/elgdb;create=true;user=ELGUser;password=ELGErAlltidBest";        
         BasicDataSource bds = new BasicDataSource(); 
         bds.setUrl(url);       
@@ -176,6 +178,12 @@ public class Configuration extends WebMvcConfigurationSupport {
     public EmailService emailService(){
         return new EmailService();
     }
+    
+     @Bean
+    public FileService fileService(){
+        return new FileService();
+    }
+    
     
     
 }

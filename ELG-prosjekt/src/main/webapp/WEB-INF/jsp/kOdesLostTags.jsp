@@ -28,10 +28,12 @@ function Game() {
 	this.isItCorrect = function(tagWeAreOn) {
 		if (tagWeAreOn==this.theQuestions[this.questionOnNow].answer){
 			console.log("OK");
-			this.score++;     
+			this.score++;                           
+                        //audioCorrect.play();                        
                         return true;
 		} else {
 			console.log("ikke OK");
+                        //audioWrong.play();
                         return false;
 
 		}	
@@ -78,13 +80,13 @@ var oppgave10 = new Questions("text-align: center;", "tag2");
 var oppgave11 = new Questions("window.onload", "tag3");
 var oppgave12 = new Questions("<form>", "tag4");
 var oppgave13 = new Questions("<base>", "tag1");
-var oppgave14 = new Questions("media", "tag2");
+var oppgave14 = new Questions("<title> K.Odes Lost Tags </title>", "tag1");
 var oppgave15 = new Questions("function()", "tag3");
 var oppgave16 = new Questions("<br>", "tag4");
 var oppgave17 = new Questions("<meta>", "tag1");
 var oppgave18 = new Questions("float: right;", "tag2");
-var oppgave19 = new Questions("<p>", "tag3");
-var oppgave20 = new Questions("text-align: center;", "tag4");
+var oppgave19 = new Questions("<p>", "tag4");
+var oppgave20 = new Questions("text-align: center;", "tag2");
 
 console.log("----------");
 var audio80 = new Audio("<c:url value="/resources/kOdesLostTags/Sound/kode80bpm.wav.m4a"/>");
@@ -93,6 +95,9 @@ var audio120 = new Audio("<c:url value="/resources/kOdesLostTags/Sound/kode120bp
 var audiolevelup = new Audio("<c:url value="/resources/kOdesLostTags/Sound/levelup.wav.m4a"/>");
 var audioEnd = new Audio("<c:url value="/resources/kOdesLostTags/Sound/finishedgame.wav.m4a"/>");
 var audioStart = new Audio("<c:url value="/resources/kOdesLostTags/Sound/kodesnakker.wav.m4a"/>");
+var audioWrong = new Audio("<c:url value="/resources/kOdesLostTags/Sound/wrong.mp3"/>");
+var audioCorrect = new Audio("<c:url value="/resources/kOdesLostTags/Sound/right.mp3"/>");
+
 
 
 var theGame = new Game();
@@ -119,7 +124,6 @@ bgImage.onload = function () {
 };
 bgImage.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/background.png"/>";
 
-//Users/Hoxmark/Documents/github/ELG/ELG-prosjekt/src/main/webapp/resources/kOdesLostTags/kOdesLostTagsImages/background.png
 
 
 // KODE START1 image
@@ -176,7 +180,7 @@ var tag3Image = new Image();
 tag3Image.onload = function () {
 	tag3Ready = true;
 };
-tag3Image.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/kOdesLostTagsImages/div.png"/>";
+tag3Image.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/kOdesLostTagsImages/script.png"/>";
 
 //Tag4
 var tag4Ready = false;
@@ -185,6 +189,8 @@ tag4Image.onload = function () {
 	tag4Ready = true;
 }
 tag4Image.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/kOdesLostTagsImages/body.png"/>";
+
+
 
 // Monster image
 var monsterReady = false;
@@ -320,6 +326,7 @@ var update = function (modifier) {
 		++monstersCaught;
                 if(!theGame.isItCorrect("tag1")){
                     failsInGame++;
+                    
                 };
 		reset();
 	}
