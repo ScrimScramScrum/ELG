@@ -93,7 +93,7 @@ public class MainController {
     public ModelAndView chooseGame(ModelAndView mav, HttpSession session, @ModelAttribute Login login) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
-            mav.setViewName("firstLogin");
+            mav.setViewName("error");
             return mav;
         }
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGamesFromOving();
@@ -146,7 +146,7 @@ public class MainController {
     public ModelAndView chooseOtherGames(ModelAndView mav, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
-            mav.setViewName("firstLogin");
+            mav.setViewName("error");
             return mav;
         }
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGamesNotInOving();
@@ -178,7 +178,7 @@ public class MainController {
     public ModelAndView chooseOtherGames(ModelAndView mav, @RequestParam("gameid") String id, @RequestParam("gametype") String gametype, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
-            mav.setViewName("firstLogin");
+            mav.setViewName("error");
             return mav;
         }
         int resemble = 0;
@@ -218,7 +218,7 @@ public class MainController {
     public ModelAndView chooseGame(ModelAndView mav, @RequestParam("gameid") String id, @RequestParam("gametype") String gametype, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
-            mav.setViewName("firstLogin");
+            mav.setViewName("error");
             return mav;
         }
         int resemble = 0;
@@ -287,7 +287,7 @@ public class MainController {
     public ModelAndView chooseGameHighscore(ModelAndView mav, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
-            mav.setViewName("login");
+            mav.setViewName("firstLogin");
             return mav;
         }
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames();

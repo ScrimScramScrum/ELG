@@ -65,7 +65,7 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
         ArrayList<Exercise> exercises = getExercises(game.getGameid());
         game.setExercises(exercises);
         } catch (Exception e){
-            System.out.println("***Spillet finnes ikke*** getMultiChoice" + e);
+            System.out.println("***Spillet finnes ikke*** getMultiChoice: " + e);
             game = null;
         }
         return game;

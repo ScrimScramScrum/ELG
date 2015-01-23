@@ -27,17 +27,22 @@ public class MultiChoiceService {
         if (repo == null){
             System.out.println("***** hei ********");
         }
-        MultiChoice m = repo.getMultiChoice(name);
-        ArrayList<Exercise> exercises = m.getExercises();
-        for(Exercise e : exercises) {
-            String[] a = e.getAlternatives();
-            String[] temp = new String[a.length];
-            for(int i = 0; i < a.length; i++) {
-                temp[i] = a[i].replace("\"", "\'");
+        MultiChoice m = repo.getMultiChoice(name); // returnerer et game = null.
+        
+        if (m == null){
+            return m;
+        } else {
+            ArrayList<Exercise> exercises = m.getExercises();
+            for(Exercise e : exercises) {
+                String[] a = e.getAlternatives();
+                String[] temp = new String[a.length];
+                for(int i = 0; i < a.length; i++) {
+                    temp[i] = a[i].replace("\"", "\'");
+                }
+                e.setAlternatives(temp);
             }
-            e.setAlternatives(temp);
+            return m;
         }
-        return m;
     }
     
     public boolean regMultiChoiceGame(MultiChoice game){

@@ -58,7 +58,6 @@ public class AdministrateController {
         modell.addAttribute("user", user);
         ArrayList<String> list = r.getAllClasses(user.getEmail());
         modell.addAttribute("list", list); 
-
         if (user == null) {
             return "firstLogin";
         }

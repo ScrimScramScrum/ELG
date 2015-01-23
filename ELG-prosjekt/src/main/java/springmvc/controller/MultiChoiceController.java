@@ -115,8 +115,10 @@ public class MultiChoiceController {
 
     @RequestMapping(value = "submitgame", method = RequestMethod.POST)
     public ModelAndView makeMultiChoiceGame(ModelAndView mav, HttpSession session, HttpServletRequest request, @ModelAttribute(value = "Exercises") ArrayList<Exercise> exercises, @Valid @ModelAttribute(value = "MultiGame") MultiChoice game1, BindingResult error) {
+        System.out.println("Heri");
         if (error.hasErrors()) {
             System.out.println("Feil! Ikke fylt ut alt");
+            System.out.println("lalala");
             mav.setViewName("createmulti");
             return mav;
         }
@@ -127,7 +129,7 @@ public class MultiChoiceController {
             mav.setViewName("createmulti");
             return mav;
         }
-        MultiChoice check = s.getMultiChoice(game1.getName());
+        MultiChoice check = s.getMultiChoice(game1.getName()); // FINNER IKKE NOE SPILL HER! 
         if(check != null){
             String er = "Et spill med dette navnet finnes fra før. Vennligst velg et annet.";
             mav.addObject("ErrorMessage", er);
