@@ -103,6 +103,12 @@
         <script src="<c:url value='/resources/app/app.js'/>" type="text/javascript"></script>
         <script src="<c:url value='/resources/app/controllers.js'/>" type="text/javascript"></script>
         <script src="<c:url value='/resources/app/services.js'/>" type="text/javascript"></script>
+
+        <script type="text/javascript">
+            $("#main_chat_mid").click(function() {
+                $("#message").focus();
+            });
+        </script>
         <%
             }
         %>

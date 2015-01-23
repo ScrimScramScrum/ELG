@@ -44,7 +44,7 @@ public class EmailService {
         props.setProperty ("mail.transport.protocol", "smtp");
         // props.setProperty("mail.debug", "true");
 
-        return Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+        return Session.getInstance(props, new javax.mail.Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
                   return new PasswordAuthentication("ELGsystem.hist@gmail.com", "ELGerbest");
                 }
