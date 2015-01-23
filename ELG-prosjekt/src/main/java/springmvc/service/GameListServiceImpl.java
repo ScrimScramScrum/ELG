@@ -19,6 +19,7 @@ import springmvc.repository.ResembleGameRepoDB;
 import springmvc.repository.ResembleTaskRepo;
 import springmvc.repository.ResembleTaskRepoDB;
 import springmvc.repository.mappers.ResembleGameMapper;
+import java.util.Collections;
 
 public class GameListServiceImpl implements GameListService{
     @Autowired
@@ -139,7 +140,7 @@ public class GameListServiceImpl implements GameListService{
             
             int score = resembleGameRepoDB.sqlGetScoreFromFromResebleGameWithNameAndEmail(resembleGames.get(i).getGamename(), user.getEmail());
             
-            if (score>=80){
+            if (score>89){
                 resembleGames.get(i).setApproved(1);
                 System.out.println("set approved");
             }            
@@ -189,6 +190,8 @@ public class GameListServiceImpl implements GameListService{
             rg.setTaskNumbers(taskNumbers);
             rg.setVotes(getVoteCountByGameId(rg.getGameId()));
         }
+        
+        Collections.sort(resembleGames);
         return resembleGames;
     }
     
@@ -198,7 +201,9 @@ public class GameListServiceImpl implements GameListService{
         for(MultiChoiceInfo mci : multiGames){
             mci.setVotes(getVoteCountByGameId(mci.getName()));
         }
-        return multiGames; 
+        
+        Collections.sort(multiGames);
+        return multiGames;
     }
     
 

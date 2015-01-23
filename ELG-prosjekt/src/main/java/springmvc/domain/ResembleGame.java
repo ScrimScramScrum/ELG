@@ -7,7 +7,8 @@ import javax.validation.constraints.Min;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class ResembleGame implements Serializable{
+
+public class ResembleGame implements Serializable, Comparable<ResembleGame>{
     private int gameId; 
     private ArrayList<Integer> taskNumbers; 
     private int currentTask; 
@@ -153,5 +154,21 @@ public class ResembleGame implements Serializable{
 
     public void setVotes(int votes) {
         this.votes = votes;
-    } 
+    }
+    
+    @Override
+    public int compareTo(ResembleGame spill){
+        int verdi = 0;
+        if (this.getVotes() < spill.getVotes()){
+            verdi = 1;
+        }
+        else if (this.getVotes() == spill.getVotes()){
+            verdi = 0;
+        }
+        else{
+            verdi = -1;
+        }
+        return verdi;
+    }
+
 }

@@ -9,7 +9,7 @@ package springmvc.domain;
  *
  * @author borgarlie
  */
-public class MultiChoiceInfo {
+public class MultiChoiceInfo implements Comparable<MultiChoiceInfo> {
     private String name;
     private String learningGoal; 
     private String info;
@@ -75,5 +75,20 @@ public class MultiChoiceInfo {
 
     public void setVotes(int votes) {
         this.votes = votes;
+    }
+    
+    @Override
+    public int compareTo(MultiChoiceInfo spill){
+        int verdi = 0;
+        if (this.getVotes() < spill.getVotes()){
+            verdi = 1;
+        }
+        else if (this.getVotes() == spill.getVotes()){
+            verdi = 0;
+        }
+        else{
+            verdi = -1;
+        }
+        return verdi;
     }
 }
