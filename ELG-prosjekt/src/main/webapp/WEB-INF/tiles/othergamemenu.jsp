@@ -28,15 +28,25 @@
                 width: 24px;
                 float: right;
             }
-            
-            #star {
+
+            .littleImg {
                 width: 18px;
                 float: right;
                 vertical-align: middle;
             }
-            
-            #spannet {
+
+            .check {
+                margin-right: 10px;
+            }
+
+            #spanNoCheck {
                 margin-left: 42px;
+                
+            }
+
+            #spanWithCheck {
+                margin-left: 60px;
+                
             }
 
             .gameclass{
@@ -75,18 +85,22 @@
                         <div class = "gamelink" onclick =" get_form(this).submit();
 
                                 return false">
-                            <span id = "spannet">
-                                <c:out value = "${game.getGamename()}"/>
-                            </span>
+
                             <c:choose> 
-                                <c:when test="${game.approved == 1}">                                    
-                                    <img src="<c:url value="/resources/images/check.png"/>" >
+                                <c:when test="${game.approved == 1}">
                                     <span id="votespan"><c:out value = "${game.votes}"/></span>
-                                    <img src="<c:url value="/resources/images/star.png"/>" id="star">
+                                    <img src="<c:url value="/resources/images/star.png"/>" class="littleImg">
+                                    <img src="<c:url value="/resources/images/check.png"/>" class="littleImg" id="check">
+                                    <span id = "spanWithCheck">
+                                        <c:out value = "${game.getGamename()}"/>
+                                    </span>
                                 </c:when>
                                 <c:otherwise>
                                     <span id="votespan"><c:out value = "${game.votes}"/></span>
-                                    <img src="<c:url value="/resources/images/star.png"/>" id="star">
+                                    <img src="<c:url value="/resources/images/star.png"/>" class="littleImg">
+                                    <span id = "spanNoCheck">
+                                        <c:out value = "${game.getGamename()}"/>
+                                    </span>
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -99,18 +113,22 @@
                         <input type="hidden" name="gameid" id="gameid" value="${game.name}" />
                         <div class = "gamelink" onclick =" get_form(this).submit();
                                 return false">
-                            <span id="spannet">
-                                <c:out value = "${game.name}"/>
-                            </span>
+
                             <c:choose> 
-                                <c:when test="${game.approved == 1}">                                    
-                                    <img src="<c:url value="/resources/images/check.png"/>" >
+                                <c:when test="${game.approved == 1}">
                                     <span id="votespan"><c:out value = "${game.votes}"/></span>
-                                    <img src="<c:url value="/resources/images/star.png"/>" id="star">
+                                    <img src="<c:url value="/resources/images/star.png"/>" class="littleImg">
+                                    <img src="<c:url value="/resources/images/check.png"/>" class="littleImg" id="check">
+                                    <span id="spanWithCheck">
+                                        <c:out value = "${game.name}"/>
+                                    </span>
                                 </c:when>
                                 <c:otherwise>
                                     <span id="votespan"><c:out value = "${game.votes}"/></span>
-                                    <img src="<c:url value="/resources/images/star.png"/>" id="star">
+                                    <img src="<c:url value="/resources/images/star.png"/>" class="littleImg">
+                                    <span id="spanNoCheck">
+                                        <c:out value = "${game.name}"/>
+                                    </span>
                                 </c:otherwise>
                             </c:choose>
                         </div>                        
