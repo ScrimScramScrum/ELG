@@ -233,9 +233,11 @@
                     </section>
                     <br>
                     <script>
-                        var solutionHtml = "${task.solutionHTML}";
-                        var solutionCss = "${task.solutionCSS}";
-                        setRenderedResult($('#solutionFrame<%=teller%>'), solutionHtml, solutionCss);
+                        $(document).ready(function() {
+                            var solutionHtml = "${task.solutionHTML}";
+                            var solutionCss = "${task.solutionCSS}";
+                            setRenderedResult($('#solutionFrame<%=teller%>'), solutionHtml, solutionCss);
+                        });
                     </script>
                     <%
                         teller++;

@@ -85,7 +85,6 @@
 
 <c:choose>
 <c:when test="${gametype == 1}">
-
     <div id="wrapperGameInfoaaa">
         <div id="leftcolumn">
             <h2> ${resembleInfo.gamename}</h2>
@@ -135,9 +134,11 @@
                     </section>
                     <br>
                     <script>
-                        var solutionHtml = "${task.solutionHTML}";
-                        var solutionCss = "${task.solutionCSS}";
-                        setRenderedResult($('#solutionFrame<%=teller%>'), solutionHtml, solutionCss);
+                        $(document).ready(function() {
+                            var solutionHtml = "${task.solutionHTML}";
+                            var solutionCss = "${task.solutionCSS}";
+                            setRenderedResult($('#solutionFrame<%=teller%>'), solutionHtml, solutionCss);
+                        });
                     </script>
                     <%
                         teller++;
