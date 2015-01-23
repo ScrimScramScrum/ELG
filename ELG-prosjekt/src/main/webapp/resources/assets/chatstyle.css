@@ -154,6 +154,7 @@
 	border: 1px solid #a1a1a1;
 	border-radius: 6px;
 	cursor: pointer;
+	z-index: 999;
 }
 
 #left_of_hide {

@@ -16,6 +16,8 @@
         <script src="<c:url value='/resources/html2canvas.js' />"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
          <script type="text/javascript">
         function setRenderedResult(frame, html, css) {
             frame.contents().find("html").html(html);
@@ -81,12 +83,14 @@
                                     %>
                                     </div>
                                     <script>
-                                        var solutionHtml = "${task.solutionHTML}";
-                                        var solutionCss = "${task.solutionCSS}";
-                                        setRenderedResult($('#solutionFrame<%=teller%>'), solutionHtml, solutionCss);
-                                        var startingHTML = "${task.startingHTML}";
-                                        var startingCSS = "${task.startingCSS}";
-                                        setRenderedResult($('#resultFrame<%=teller%>'), startingHTML, startingCSS);
+                                        $(document).ready(function() {
+                                            var solutionHtml = "${task.solutionHTML}";
+                                            var solutionCss = "${task.solutionCSS}";
+                                            setRenderedResult($('#solutionFrame<%=teller%>'), solutionHtml, solutionCss);
+                                            var startingHTML = "${task.startingHTML}";
+                                            var startingCSS = "${task.startingCSS}";
+                                            setRenderedResult($('#resultFrame<%=teller%>'), startingHTML, startingCSS);
+                                        });
                                     </script>
                                     <%teller++;%>
                                 </div>
