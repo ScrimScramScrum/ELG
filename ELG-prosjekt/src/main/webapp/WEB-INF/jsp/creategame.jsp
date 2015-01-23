@@ -71,8 +71,8 @@
         <h2 class ="center"><spring:message code="choosegametype"/></h2>
         <table class = "center">
             <tr>
-                <td><button id="button1" type="submit" name="button" onclick="location.href = '/ELG-prosjekt/createmulti'"><spring:message code ="createmulti"/></button></td>
-                <td><button id="button1" type="submit" name="button" onclick="location.href = '/ELG-prosjekt/createresemblegame'"/><spring:message code ="createresemble"/></button></td>
+                <td><button id="button1" type="submit" name="button" onclick="location.href = '/createmulti'"><spring:message code ="createmulti"/></button></td>
+                <td><button id="button1" type="submit" name="button" onclick="location.href = '/createresemblegame'"/><spring:message code ="createresemble"/></button></td>
             </tr>
         </table>
     </body>
