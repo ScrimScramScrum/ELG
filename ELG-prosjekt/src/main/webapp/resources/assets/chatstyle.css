@@ -131,7 +131,8 @@
 
 .unread {
 	transition: 1.2s;
-	background-color: lightblue;
+	background-color: #3b49cd;
+	color: white;
 }
 
 .offline {
@@ -152,6 +153,7 @@
 	text-align: center;
 	border: 1px solid #a1a1a1;
 	border-radius: 6px;
+	cursor: pointer;
 }
 
 #hide {
@@ -161,4 +163,8 @@
 
 .nothing {
 
+}
+
+.current_chat {
+	background-color: lightblue;
 }

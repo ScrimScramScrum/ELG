@@ -28,12 +28,10 @@
     }
 
     $scope.classforuserlist = function(value){
-         if(value.unread)
-                return "unread";
-         else if(!value.isOnline)
-             return "offline";
-        else
-             return "nothing";
+      if(value.unread) return "unread";
+      else if(value.name == $scope.user.receiver) return "current_chat"; 
+      else if(!value.isOnline) return "offline";
+      else return "nothing";
     }
     
     $scope.user.addMessage = function() {
