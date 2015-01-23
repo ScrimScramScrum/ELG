@@ -15,21 +15,15 @@
             }
         </style>
         <script type="text/javascript">
-            //<![CDATA[
-            function get_form( element )
-            {
-                while( element )
-                {
+            function get_form( element ) {
+                while( element ) {
                     element = element.parentNode
-                    if( element.tagName.toLowerCase() == "form" )
-                    {
-                        //alert( element ) //debug/test
+                    if( element.tagName.toLowerCase() == "form" ){
                         return element
                     }
                 }
                 return 0; //error: no form found in ancestors
             }
-            //]]>
         </script>
     </head>
     <body>
@@ -37,7 +31,6 @@
             <center>
             <h2>Velg spill</h2>
             <h4>Likhetsspill</h4>
-
                 <c:forEach items="${resembleGames}" var="game">
                         <form action="choosegameHighscore" method="post">
                             <input type = "hidden" name="gametype" value = "resemble">

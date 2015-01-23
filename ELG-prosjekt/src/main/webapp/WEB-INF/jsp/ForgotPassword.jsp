@@ -23,16 +23,11 @@
     
 </script>
 
-
-
 <div>
-
     <section class="login">
         <div class="titulo">Educational Learning Game</div>
          <form:form action="sendNewPassword" method="post" modelAttribute="sendNewPassword" enctype="application/x-www-form-urlencoded" >
             <form:input path="email" type="text"  placeholder="Epost" data-icon="U" />
-            
-            
             
             <div class="olvido"></div>
             
@@ -46,17 +41,9 @@
                 <form:errors path="email" htmlEscape="false"/>
                 ${sendNewPasswordError}
             </div>
-            
-            
-            
-
-        </form:form>
-                            
-    </section>
-        
+        </form:form>           
+    </section>  
 </div>
-
-
 
 <style>
 

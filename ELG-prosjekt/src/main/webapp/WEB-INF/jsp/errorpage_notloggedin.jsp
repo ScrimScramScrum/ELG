@@ -1,9 +1,3 @@
-<%-- 
-    Document   : errorpage_notloggedin
-    Created on : 14.jan.2015, 17:02:39
-    Author     : eiriksandberg
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>

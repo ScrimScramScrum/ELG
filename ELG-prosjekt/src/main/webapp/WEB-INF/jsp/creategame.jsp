@@ -1,9 +1,3 @@
-<%-- 
-    Document   : creategame
-    Created on : 20.jan.2015, 09:35:23
-    Author     : eiriksandberg
---%>
-
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -31,8 +25,6 @@
                 -ms-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
                 transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
                 text-align: center;
-
-
             }
 
             #button1:hover {
@@ -44,6 +36,7 @@
                 margin-right: auto;
                 margin-top: 5%
             }
+            
             body{
                 text-align: center;
             }
@@ -64,7 +57,6 @@
             
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
     </head>
     <body>
         <h1 class ="center"><spring:message code="createinfo"/></h1>

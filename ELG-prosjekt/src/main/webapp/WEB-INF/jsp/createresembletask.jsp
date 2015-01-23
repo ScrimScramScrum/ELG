@@ -1,9 +1,3 @@
-<%-- 
-    Document   : resemblegame
-    Created on : Jan 7, 2015, 10:53:32 AM
-    Author     : borgarlie
---%>
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,32 +5,21 @@
 
 <html>
     <head>
-        <title>Startside</title>
-        <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css/style.css'/>">
-
+        <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css/style.css'/>"
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      
-        
         <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css">
         <script src="http://codemirror.net/lib/codemirror.js"></script>
-        <script src="http://codemirror.net/addon/edit/matchbrackets.js"></script>
-        
+        <script src="http://codemirror.net/addon/edit/matchbrackets.js"></script>  
         <script src="http://codemirror.net/mode/css/css.js"></script>
-        <script src="http://codemirror.net/mode/xml/xml.js"></script>
-        
+        <script src="http://codemirror.net/mode/xml/xml.js"></script>     
         <script src="<c:url value='/resources/resemble.js' />"></script>
         <script src="<c:url value='/resources/html2canvas.js' />"></script>
-
-        <!-- beautifier -->
         <script src="<c:url value='/resources/jsbeautifier/lib/beautify.js' />"></script>
         <script src="<c:url value='/resources/jsbeautifier/lib/beautify-css.js' />"></script>
         <script src="<c:url value='/resources/jsbeautifier/lib/beautify-html.js' />"></script>
-
         <script src="<c:url value='/resources/js/jquery.js' />"></script>
         <script src="<c:url value='/resources/js/foundation.js' />"></script>
         <script src="<c:url value='/resources/js/foundation.slider.js' />"></script>
-
-
 
         <script>
             var the = {
@@ -51,8 +34,6 @@
                 return (trimmed && (trimmed.substring(0, 1) === '<' && trimmed.substring(0, 4) !== comment_mark));
             }
         </script>
-        <!-- end beautifier -->
-        
         <style>
             .renderedFrame, .codeBox {
                 <c:out value="width: ${resembleTask.width}px; height: ${resembleTask.height}px" />
@@ -85,13 +66,6 @@
             });
 
             $(document).ready(function() {
-
-             /*  $("#createTaskButton").click(function() {
-                    $.post($("#form2").attr("createresembletask"), $("#form2").serialize()+$("#form1").serialize(),
-                          function() {
-                            alert('Both forms submitted');
-                          });
-                  });*/
 
                 var solutionHtml = "${resembleTask.solutionHTML}";
                 var solutionCss = "${resembleTask.solutionCSS}";
@@ -244,20 +218,19 @@
                     <textarea class="cssView" id="taskTextCreate" style="height:100px; resize:none;"></textarea>
                         <span id="sliderOutput1"></span>
                         <span id="sliderOutput2"></span>
-
-
-
                     <div id = "sizeSliders">
                         <div class="range-slider round" data-slider data-options="start: 1; end: 200; display_selector: #sliderOutput1;">
                             <span class="range-slider-handle" role="slider" tabindex="0"></span>
                             <span class="range-slider-active-segment"></span>
-                        </div>             
+                        </div>   
+                        
                         <div class="range-slider round" data-slider data-options="start: 1; end: 200; display_selector: #sliderOutput2;">
                             <span class="range-slider-handle" role="slider" tabindex="0"></span>
                             <span class="range-slider-active-segment"></span>
                         </div>     
                     </div>
                 </div>
+                
                 <div id="solutionDivCreate">
                     <center>
                         Fasit<br>
@@ -291,7 +264,6 @@
                     <center>HTML starting</center>
                     <textarea class="cssView" id="htmlViewStarting"></textarea>
                 </div>
-               
             </div>
             <form:form id = "form1" action = "createresembletask" class = "myForms" method="post" modelAttribute="createResembleTask" >
                 <form:input path="taskText" id ="taskText" value="" type="hidden"/>
@@ -303,10 +275,6 @@
                 <form:input path = "height" id ="height" name = "height" type="hidden"/>
                 <input type ="submit" name = "button" value ="Registrer deloppgave" id = "createTaskButton"></input>
             </form:form>
-            <!-- <form class = "myForms" method = "post" id = "form2">
-                 <input id ="width" name = "width" type="text">
-                <input id ="height" name = "height" type="text">
-            </form> -->
         </div>
     </body>
     <script>

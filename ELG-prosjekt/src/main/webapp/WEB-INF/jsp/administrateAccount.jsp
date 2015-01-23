@@ -21,13 +21,9 @@ function checkPasswordMatch() {
     else 
         document.getElementById("confirmBox").innerHTML = "Nytt- og bekreft passord samsvarer ikke";  
 }
-
-
 </script>
-
 <html>
     <head>
-        
         <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css2/styleGamemenu.css'/>">
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -36,16 +32,17 @@ function checkPasswordMatch() {
                 width: 150px;
                 height: 60px;
             }
+            
             #sidebar {
                 width: 20%;
-                float: left; 
-                   
+                float: left;      
             }
+            
             #mainbar {
                 width: 60%;
-                float: left; 
-                   
+                float: left;   
             }
+            
             #rightbar {
                 width: 20%;
                 float: right;     
@@ -219,18 +216,11 @@ function checkPasswordMatch() {
                             <tr> <td></tr> 
                         </tr>
                     </table>
-                    
-                    
-                    
-                    
                     <br><font color=green>${makeAdminMessage} ${makeClassMessage} ${NewClassMessage} ${changedPassword}</font></br>
                 </c:otherwise> 
             </c:choose>
         </center>
-            
         </div>
-            <div id ="rightbar">
-            </div>
-    </div>
+            <div id ="rightbar"></div>
     </body>
 </html>

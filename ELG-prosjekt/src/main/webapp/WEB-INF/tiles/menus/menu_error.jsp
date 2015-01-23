@@ -8,9 +8,7 @@
         <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css/style-1000px.css'/>">
         <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css/style-desktop.css'/>">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet" type="text/css" />
-
 
         <script>
             function changeId(var link) {
@@ -19,12 +17,10 @@
                 document.getElementsByName(link)[0].id = 'selected';
             }
         </script>
-
     </head>
     <body class="homepage">
         <!-- Header -->
         <div id="header-wrapper">
-
             <div id="header" class="container">
                 <div id="logo"><h1><a href="<c:url value="/about" />">ELG</a></h1></div>
                 <nav id="nav">

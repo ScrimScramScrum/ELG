@@ -2,6 +2,6 @@
 
 
 <h4>
-    <spring:message code="${message}" /> <!-- set in the controller  -->
+    <spring:message code="${message}" /> 
 </h4>
 

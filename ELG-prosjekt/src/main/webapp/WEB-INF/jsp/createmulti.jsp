@@ -1,8 +1,3 @@
-<%-- 
-    Document   : createmulti
-    Created on : 18.jan.2015, 18:02:43
-    Author     : eiriksandberg
---%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -63,8 +58,8 @@
             </form:form>
         </table></center>
     <br>
-
-    <center><table>
+    <center>
+        <table>
             <form:form action ="submitgame" modelAttribute="MultiGame" method = "POST">
                 <tr>
                     <td colspan = 2 style ="text-align: center">

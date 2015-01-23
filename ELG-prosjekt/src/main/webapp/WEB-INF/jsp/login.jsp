@@ -19,19 +19,14 @@
         window.location.href='<c:url value="/loginAsGuest"/>';
     }
 </script>
-
-
-
 <div>
-
     <section class="login">
-
         <div class="titulo">Education Learning Game</div>
          <form:form action="login" method="post" modelAttribute="login" enctype="application/x-www-form-urlencoded" >
             <form:input path="email"  type="text"  placeholder="Epost" data-icon="U" />
             <form:input path="password" type="password" placeholder="Password" data-icon="x" />
             
-            <div class="space" />            
+            <div class="space"></div>            
             
             <input type="submit" style="position: absolute; left: -9999px"/>
             <a href="javascript:submitFormWithValue()" name="submitCommand"class="enviar">Logg inn</a> 
@@ -55,18 +50,10 @@
                 ${registeredOK}
                 
             </div>
-
             <br><br>
         </form:form>
     </section>
-
-        
 </div>
-
-  
-
-
-
 
 <style>
 
@@ -74,12 +61,9 @@ body {
 //    background-size: 1000px 1000px, 410px 410px, 610px 610px, 530px 530px, 730px 730px, 1000px 1000px;
     background-size: cover;
     background-color: #dcdcd7;
-    
-
-
-    
+    background-image: url(resources/images/loginBlurry.jpg);
+    background-repeat: no-repeat;
 }
-
 
 .space {
     width: 100%;
@@ -87,7 +71,6 @@ body {
     padding-top: 10px;
     padding-bottom: 10px;
 }
-
 
  .errorMessages {
     width: auto;
@@ -116,7 +99,6 @@ body {
     border-bottom-left-radius: 6px;
     
 }
-
 
 .login {
     width: 300px;
@@ -225,11 +207,6 @@ body {
     font: 12px Arial;
 }
 
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
     margin: 0;
     padding: 0;
@@ -238,8 +215,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     font: inherit;
     vertical-align: baseline;
 }
-
-/* HTML5 display-role reset for older browsers */
 
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block }
 
@@ -258,6 +233,4 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-    
-    
 </style>

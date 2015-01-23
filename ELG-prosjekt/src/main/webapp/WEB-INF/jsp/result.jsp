@@ -37,7 +37,4 @@
         </center>
         <div id="rightbar"></div>
     </body>
-    
-        
-    
 </html>

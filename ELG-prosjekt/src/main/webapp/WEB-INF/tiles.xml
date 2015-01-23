@@ -7,13 +7,13 @@
 <tiles-definitions>
 
     <definition name="baseLayout" template="/WEB-INF/tiles/baseLayout.jsp">
-        <put-attribute name="title"  value="BaseLayout"/>
+        <put-attribute name="title"  value="Index"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/index.jsp"/>
         <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
     </definition>
     
     <definition name="baseGameMenuLayout" template="/WEB-INF/tiles/baseGameMenuLayout.jsp">
-        <put-attribute name="title"  value="BaseLayout"/>
+        <put-attribute name="title"  value="Spill"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/gamemenu.jsp"/>
         <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
         <put-attribute name="gamedisplay" value="/WEB-INF/tiles/preview.jsp"/>
@@ -24,6 +24,7 @@
     </definition>
     
     <definition name="loginBaseLayout" template="/WEB-INF/tiles/baseLayoutLogin.jsp">
+        <put-attribute name="title"  value="Innlogging"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/login.jsp"/>        
     </definition>
     
@@ -34,27 +35,27 @@
     </definition>
     
     <definition name="resembleGame" extends="baseLayout">
-        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="title"  value="Sammenligningsspill"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/resemblegame.jsp"/>   
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_games.jsp"/>      
     </definition>
     <definition name="otherResembleGame" extends="baseLayout">
-        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="title"  value="Sammenligningsspill"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/resemblegame.jsp"/>   
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_othergames.jsp"/>      
     </definition>
     <definition name="multichoice" extends="baseLayout">
-        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="title"  value="MultiChoice"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/multichoice.jsp"/>      
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_games.jsp"/>   
     </definition>
     <definition name="othermultichoice" extends="baseLayout">
-        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="title"  value="MultiChoice"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/multichoice.jsp"/>      
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_othergames.jsp"/>   
     </definition>
     <definition name="about" extends="baseLayout">
-        <put-attribute name="title"  value="AboutELG"/>
+        <put-attribute name="title"  value="Om"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/about.jsp"/>    
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_about.jsp"/>     
     </definition>
@@ -66,71 +67,75 @@
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_games.jsp"/>   
     </definition>
     <definition name="chooseothergame" extends="baseGameMenuLayout">
-        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="title"  value="Spill"/>
         <put-attribute name="body"   value="/WEB-INF/tiles/othergamemenu.jsp"/>
         <put-attribute name="gamedisplay" value="/WEB-INF/tiles/previewOther.jsp"/> 
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_othergames.jsp"/>   
     </definition>
 
     <definition name="result" extends="baseGameMenuLayout">
-        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="title"  value="Resultat"/>
         <put-attribute name="body"   value="/WEB-INF/tiles/gamemenu.jsp"/>
         <put-attribute name="gamedisplay"   value="/WEB-INF/jsp/result.jsp"/>   
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_games.jsp"/>       
     </definition>
     
     <definition name="otherresult" extends="baseGameMenuLayout">
-        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="title"  value="Resultat"/>
         <put-attribute name="body"   value="/WEB-INF/tiles/othergamemenu.jsp"/>
         <put-attribute name="gamedisplay"   value="/WEB-INF/jsp/result.jsp"/>   
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_othergames.jsp"/>       
     </definition>
     
     <definition name="newPerson" extends="baseLayout">
+        <put-attribute name="title"  value="Registrer Ny Person"/>
         <put-attribute name="title"  value="newPersonValue"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/newPerson.jsp"/> 
     </definition>
     
     <definition name="login" extends="baseLayout">
-        <put-attribute name="title"  value="loginNoeANnet"/>
+        <put-attribute name="title"  value="Logg Inn"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/login.jsp"/> 
     </definition>
     
     <definition name="finishgame" extends="baseGameMenuLayout">
-        <put-attribute name="title"  value="FinishPage"/>
+        <put-attribute name="title"  value="Resultat"/>
         <put-attribute name="body"   value="/WEB-INF/tiles/gamemenu.jsp"/>
         <put-attribute name="gamedisplay"   value="/WEB-INF/jsp/finishgame.jsp"/>  
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_games.jsp"/>       
     </definition>
     
     <definition name="finishothergame" extends="baseGameMenuLayout">
-        <put-attribute name="title"  value="FinishPage"/>
+        <put-attribute name="title"  value="Resultat"/>
         <put-attribute name="body"   value="/WEB-INF/tiles/othergamemenu.jsp"/>
         <put-attribute name="gamedisplay"   value="/WEB-INF/jsp/finishgame.jsp"/>  
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_othergames.jsp"/>       
     </definition>
     
     <definition name="error" extends="baseLayout">
-        <put-attribute name="title"  value="FinishPage"/>
+        <put-attribute name="title"  value="Error"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/error.jsp"/>
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_error.jsp"/>   
     </definition>
     
     <definition name="administrateAccount" extends="baseLayout">
-        <put-attribute name="title"  value="administrateAccountSomethingElse"/>
+        <put-attribute name="title"  value="Innstillinger"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/administrateAccount.jsp"/> 
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_index.jsp"/>   
     </definition>
     
     <definition name="firstLogin" extends="loginBaseLayout">
+        <put-attribute name="title"  value="Innlogging"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/login.jsp"/> 
     </definition>  
     
     <definition name="newPersonFromLogin" extends="loginBaseLayout">
+        <put-attribute name="title"  value="Registrer Ny Person"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/newPerson.jsp"/> 
     </definition>
     
     <definition name="forgotPasswordFromLogin" extends="loginBaseLayout">
+        <put-attribute name="title"  value="Glemt Passord"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/ForgotPassword.jsp"/> 
     </definition>
     
@@ -142,37 +147,43 @@
     </definition>
     
     <definition name="completionlist" extends="baseGameMenuLayout">
-        <put-attribute name="title"  value="Completionlist"/>
+        <put-attribute name="title"  value="Godkjenningsliste"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/completionlist_gamelist.jsp"/>
         <put-attribute name="gamedisplay" value="/WEB-INF/jsp/completionlist.jsp"/> 
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_completionlist.jsp"/>   
     </definition>
     
     <definition name="notloggedin" extends="loginBaseLayout">
+        <put-attribute name="title"  value="Innlogging Feilet"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/errorpage_notloggedin.jsp"/> 
     </definition>  
     
     <definition name="createresemblegame" extends="baseLayout">
+        <put-attribute name="title"  value="Lag Spill"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/createresemblegame.jsp"/> 
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_createresemblegame.jsp"/>   
     </definition>  
     
     <definition name="createresembletask" extends="baseLayout">
+        <put-attribute name="title"  value="Lag Oppgave"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/createresembletask.jsp"/> 
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_createresemblegame.jsp"/>   
     </definition>
     
     <definition name="createmulti" extends="baseLayout">
+        <put-attribute name="title"  value="Lag MultiChoice"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/createmulti.jsp"/>
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_createresemblegame.jsp"/>   
     </definition>  
     
     <definition name="creategame" extends="baseLayout">
+        <put-attribute name="title"  value="Lag Spill"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/creategame.jsp"/>
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_createresemblegame.jsp"/>   
     </definition>  
     
     <definition name="kOdesLostTags" extends="baseLayout">
+        <put-attribute name="title"  value="K. Odes Lost Tags"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/kOdesLostTags.jsp"/> 
         <put-attribute name="menu"   value="/WEB-INF/tiles/menus/menu_about.jsp"/>     
     </definition>

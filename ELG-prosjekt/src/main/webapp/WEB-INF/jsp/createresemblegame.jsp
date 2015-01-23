@@ -15,7 +15,6 @@
         <script src="<c:url value='/resources/resemble.js' />"></script>
         <script src="<c:url value='/resources/html2canvas.js' />"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
 
          <script type="text/javascript">
         function setRenderedResult(frame, html, css) {
@@ -23,9 +22,7 @@
             var $head = frame.contents().find("head");                
             $head.append("<style>" + css + "</style>") 
         }
-    </script>
-
-
+        </script>
 
 <style type="text/css">
         #playbutton{
@@ -68,8 +65,7 @@
                              <button id="playbutton" type="submit" name = "button" value="Lag deloppgave">Lag deloppgave</button>
                          </c:when>
                         <c:otherwise>
-<!--                             <button id="playbutton" type="submit" name = "button" value="Lag deloppgave">Lag deloppgave!</button>
--->                            Dette er deloppgavene du har lagt foreløpig: <br><br>  
+                            Dette er deloppgavene du har lagt foreløpig: <br><br>  
                             <%
                                 int teller = 0;
                             %>

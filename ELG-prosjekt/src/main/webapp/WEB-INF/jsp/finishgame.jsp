@@ -1,10 +1,4 @@
-<%-- 
-    Document   : finishpage.jsp
-    Created on : Jan 8, 2015, 10:55:29 AM
-    Author     : Jorgen
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

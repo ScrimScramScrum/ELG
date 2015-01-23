@@ -21,11 +21,7 @@
     }
     
 </script>
-
-
-
 <div>
-
     <section class="login">
         <div class="titulo">Education Learning Game</div>
          <form:form action="newPersonFromLogin" method="post" modelAttribute="person" enctype="application/x-www-form-urlencoded" >
@@ -33,47 +29,29 @@
             <form:input path="fname" type="text"  placeholder="Fornavn" data-icon="U" />
             <form:input path="lname" type="text"  placeholder="Etternavn" data-icon="U" />
             
-            
             <br><br>
-            
             <a href="javascript:submitFormWithValue()" name="submitCommand"class="enviar">Registrer</a> 
-            
             <div class="olvido">
-                    <div class="col"><a href="javascript:sendToLogin()" title="Back">back</a></div>
-            
-                    <%--<c:choose>
-                        <c:when test="${newPersonError != null}">
-                                <div id ="errorMessage" class="errorMessages" >
-                                    
-                                </div>
-                        </c:when>
-                    </c:choose> --%>
-                    
-                    <div id ="errorMessage" class="errorMessages" >
-                        <form:errors path="email" htmlEscape="false" />
-                        <form:errors path="fname" htmlEscape="false" /> 
-                        <form:errors path="lname" htmlEscape="false" /> 
-                        ${newPersonError}
-                    </div>
+                <div class="col"><a href="javascript:sendToLogin()" title="Back">back</a></div>
+                <div id ="errorMessage" class="errorMessages" >
+                    <form:errors path="email" htmlEscape="false" />
+                    <form:errors path="fname" htmlEscape="false" /> 
+                    <form:errors path="lname" htmlEscape="false" /> 
+                    ${newPersonError}
+                </div>
             </div>
-            
-
-        </form:form>
-                            
+        </form:form>               
     </section>
-        
 </div>
-
-
 
 <style>
 
 body {
     background-size: cover;
     background-color: #dcdcd7;
-
-
-    
+    background-size: 1000px 1000px, 410px 410px, 610px 610px, 530px 530px, 730px 730px, 1000px 1000px;
+    background-color: #58B86F;
+    background: #58B86F;
 }
 
 .errorMessages {
@@ -89,7 +67,6 @@ body {
     border-bottom-left-radius: 6px;
     padding-top: 16px;
     padding-bottom: 16px;
-    
 }
 
 .login {
@@ -210,11 +187,6 @@ body {
     font: 12px Arial;
 }
 
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
     margin: 0;
     padding: 0;
@@ -243,8 +215,6 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-    
-    
 </style>
 
 

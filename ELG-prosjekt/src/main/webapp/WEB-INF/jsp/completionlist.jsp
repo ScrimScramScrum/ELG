@@ -1,8 +1,3 @@
-<%-- 
-    Document   : completionlist
-    Created on : 13.jan.2015, 15:38:47
-    Author     : eiriksandberg
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -73,8 +68,7 @@
                             </tr>
                         </c:forEach>
                     </table>
-                    <br>
-                    <br>
+                    <br> <br>
                     <div id="canvas-holder">
                         <canvas id="chart-area" width="260" height="260"/>
                     </div>
@@ -106,19 +100,13 @@
                     <h2>Change Graph</h2>
                     <br>
                     <div class = "gamelink">
-                        <a id="gameLinkA" onclick ='setChart("nr1")'>
-                            Pie-chart
-                        </a>
+                        <a id="gameLinkA" onclick ='setChart("nr1")'> Pie-chart </a>
                     </div>
                     <div class = "gamelink">
-                        <a id="gameLinkA" onclick ='setChart("nr2")'>
-                            Polar-area-chart
-                        </a>
+                        <a id="gameLinkA" onclick ='setChart("nr2")'> Polar-area-chart </a>
                     </div>
                     <div class = "gamelink">
-                        <a id="gameLinkA" onclick ='setChart("nr3")'>
-                            Doughnut-chart
-                        </a>
+                        <a id="gameLinkA" onclick ='setChart("nr3")'> Doughnut-chart </a>
                     </div>
                     <br><br>
                         <table>
@@ -129,7 +117,6 @@
                                             <input type="hidden" name="classid" id="classid" value='<c:out value = "${classid}"/>'/>
                                             <button type="submit" onclick="return confirm('Er du sikker?')">Fjern klasse</button>
                                         </c:if>
-                                        
                                     </form>
                                 </td>
                             </tr>

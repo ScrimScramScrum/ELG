@@ -1,12 +1,9 @@
-
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@page import="springmvc.domain.User"%>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -36,7 +33,7 @@
             User user = (User)session.getAttribute("user");
             if(user.isInLogged() && !user.getEmail().equals("GUEST")) {
         %>
-
+        
         <!-- CHAT APP -->
         <div ng-app="chatApp" id="chat_app" ng-controller="ChatCtrl">
             <div id="chat_window" ng-show="!user.hidden">

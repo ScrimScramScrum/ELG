@@ -5,10 +5,8 @@
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
     <head>
-
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><tiles:insertAttribute name="title" ignore="true" /></title>
         <link href="<c:url value='/resources/assets/chatstyle.css'/>" rel="stylesheet" type="text/css" />
@@ -33,7 +31,6 @@
             User user = (User)session.getAttribute("user");
             if(user.isInLogged() && !user.getEmail().equals("GUEST")) {
         %>
-
         <!-- CHAT APP -->
         <div ng-app="chatApp" id="chat_app" ng-controller="ChatCtrl">
             <div id="chat_window" ng-show="!user.hidden">
@@ -56,7 +53,6 @@
                                     Offline -
                                     Mute<input type="checkbox" ng-model="value.muted" ng-click="$event.stopPropagation();">
                                 </div>
-
                             </div>
                         </div>
                     </div>

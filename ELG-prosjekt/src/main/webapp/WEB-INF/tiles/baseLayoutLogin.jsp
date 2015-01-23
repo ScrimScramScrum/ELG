@@ -4,5 +4,4 @@
 
 <html>
 <tiles:insertAttribute name="body" />
-
 </html>

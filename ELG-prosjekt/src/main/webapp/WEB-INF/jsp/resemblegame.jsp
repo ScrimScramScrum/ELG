@@ -1,13 +1,6 @@
-<%-- 
-    Document   : resemblegame
-    Created on : Jan 7, 2015, 10:53:32 AM
-    Author     : borgarlie
---%>
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
 <html>
     <head>
         <title>Startside</title>
@@ -90,7 +83,7 @@
             .renderedFrame, .codeBox {
                 <c:out value="width: ${resembleTask.width}px; height: ${resembleTask.height}px" />
             }
-
+            
             #scorePost input {
                 width: 100%;
             }
@@ -194,17 +187,6 @@
                 beautify(1);
 
                 editableCodeMirror2.setSize("100%", 300); 
-/*
-                editableCodeMirror.on("changes", function(cm, change){
-                    testFunc();
-                    testFunc();
-                });
-
-                editableCodeMirror2.on("changes", function(cm, change){
-                    testFunc();
-                    testFunc();
-
-                });*/
              };
 
              function testFunc(){
@@ -241,7 +223,6 @@
 
         </script>
         <div id="resemblegamewrapper">  
-
             <div id = "resembleTop"><div id ="tasktext">
                     Oppgave:
                     <c:choose>
@@ -257,22 +238,15 @@
                 <div id="solutionDiv">
                     <center>
                     Fasit<br>
-                    <!-- <div id = "iframediv"> -->
-                    
                         <iframe class="renderedFrame" id = "solutionFrame" src="about:blank"></iframe>
-                    <!-- </div> -->
                 </center>
                 </div>
-
                 
                 <div id="resultDiv">
                     <center>
                     Ditt resultat<br>
-                    <!-- <div id = "iframediv"> -->
-                        
                         <iframe class="renderedFrame" id ="resultFrame" src="about:blank"></iframe>
                     </center>
-                    <!-- </div> -->
                 </div>
             </div>
 

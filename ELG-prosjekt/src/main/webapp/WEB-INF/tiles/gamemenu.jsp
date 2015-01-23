@@ -1,22 +1,12 @@
-<%-- 
-    Document   : gamemenu
-    Created on : Jan 7, 2015, 4:22:43 PM
-    Author     : borgarlie
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-
-
 <html>
     <head>
-        <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css2/styleGamemenu.css'/>">
-        
+        <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css2/styleGamemenu.css'/>">   
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style type="text/css">
             #gamebutton {
@@ -26,22 +16,16 @@
         </style>
         
         <script type="text/javascript">
-            //<![CDATA[
-            function get_form( element )
-            {
-                while( element )
-                {
+            function get_form( element ){
+                while( element ){
                     element = element.parentNode
-                    if( element.tagName.toLowerCase() == "form" )
-                    {
+                    if( element.tagName.toLowerCase() == "form" ) {
                         //alert( element ) //debug/test
                         return element
                     }
                 }
                 return 0; //error: no form found in ancestors
             }
-            //]]>
-            
         </script>
     </head>
     <body>

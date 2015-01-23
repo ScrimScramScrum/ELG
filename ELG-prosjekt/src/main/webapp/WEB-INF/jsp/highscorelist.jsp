@@ -1,8 +1,3 @@
-<%-- 
-    Document   : highscorelist
-    Created on : 12.jan.2015, 10:58:20
-    Author     : eiriksandberg
---%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -62,9 +57,7 @@
                 <center>
                     <c:choose>
                         <c:when test="${gametype == 0}">
-                            <h1>
-                                Highscore - Top 10
-                            </h1>
+                            <h1>Highscore - Top 10</h1>
                             <spring:message code="highscorelistInfo" />
                         </c:when>
                         <c:otherwise>
@@ -74,13 +67,10 @@
                                         <h1>Top 10 - <c:out value = "${gamenr}"/></h1>
                                     </td>
                                 </tr>
-                                <%
-                                    int i = 0;
-                                %>
+                                
+                                <% int i = 0; %>
                                 <c:forEach items="${highscore}" var="teller">
-                                    <%
-                                        i++;
-                                    %>
+                                    <% i++; %>
                                     <tr>
                                         <td id="td_hs_left"></td>
                                         <td id="td_hs_nr">
@@ -101,12 +91,10 @@
                             </table>
                         </c:otherwise>
                     </c:choose>
-                    <br>
-                    <br>
+                    <br> <br>
                     <div id="canvas-holder">
                         <canvas id="chart-area" width="260" height="260"/>
                     </div>
-
                 </center>
             </div>
             <div id="right_hs">

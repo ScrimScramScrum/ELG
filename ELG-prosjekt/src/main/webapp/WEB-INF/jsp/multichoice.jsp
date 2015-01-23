@@ -47,8 +47,6 @@
                 -ms-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
                 transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
                 text-align: center;
-
-
             }
             
             #button1:hover {
