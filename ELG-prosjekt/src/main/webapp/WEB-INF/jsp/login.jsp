@@ -73,8 +73,7 @@
 body {
 //    background-size: 1000px 1000px, 410px 410px, 610px 610px, 530px 530px, 730px 730px, 1000px 1000px;
     background-size: cover;
-    background-image: url(resources/images/loginBlurry.jpg);
-    background-repeat: no-repeat;
+    background-color: #dcdcd7;
     
 
 

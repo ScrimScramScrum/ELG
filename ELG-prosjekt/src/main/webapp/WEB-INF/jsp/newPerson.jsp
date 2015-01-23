@@ -69,9 +69,8 @@
 <style>
 
 body {
-    background-size: 1000px 1000px, 410px 410px, 610px 610px, 530px 530px, 730px 730px, 1000px 1000px;
-    background-color: #58B86F;
-    background: #58B86F;
+    background-size: cover;
+    background-color: #dcdcd7;
 
 
     

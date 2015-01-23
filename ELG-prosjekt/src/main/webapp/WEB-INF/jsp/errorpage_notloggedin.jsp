@@ -18,6 +18,7 @@
         <h1>
             <script>
                 <spring:message code = "notLoggedIn" />
+                    <a href="/login">Trykk her for å komme tilbake</a>
             </script>
         </h1>
     </body>
