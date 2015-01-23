@@ -59,7 +59,9 @@
 
     $scope.emailfilter = function(value) {
       var res = value.split("@");
-      return res[0];
+      var temp_name = res[0];
+      var new_res = temp_name.slice(0, 14);
+      return new_res;
     }
 
     function update_message_view(receiver){
