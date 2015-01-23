@@ -70,7 +70,14 @@
                 <!-- CHAT_WINDOW -->
                 <div id="main_chat">
                     <div id="main_chat_top">
-                        {{user.receiver}}
+                        <div id="left_of_hide">
+                            <!-- empty -->
+                            &nbsp
+                            <!-- empty -->
+                        </div>
+                        <div id="middle_of_hide">
+                            {{emailfilter(user.receiver)}}
+                        </div>
                         <div id="hide" ng-click="user.hide()">
                             -
                         </div>

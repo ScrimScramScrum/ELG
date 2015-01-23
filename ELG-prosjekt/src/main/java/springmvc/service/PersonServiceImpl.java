@@ -31,6 +31,9 @@ public class PersonServiceImpl implements PersonService {
     @Autowired 
     private EmailService emailService;
     
+    @Autowired
+    private FileService fileService;
+    
     
     
     @Override
@@ -80,7 +83,14 @@ public class PersonServiceImpl implements PersonService {
     }
     
     @Override
-    public boolean generateNewPassword(Person p){
+    public int  generateNewPassword(Person p){
+        int numberOfEmailsToday = fileService.readFromFile();
+        if (numberOfEmailsToday>=450){
+            System.out.println("FOR MANGE EPOSTER IDAG");
+            return -1;
+        } 
+        fileService.WriteToFile(numberOfEmailsToday);
+        
         
         String newPassword = generate();
         System.out.println("Nytt pass: " + newPassword);
@@ -88,9 +98,13 @@ public class PersonServiceImpl implements PersonService {
         
         p.setHashedPassword(newHashedPassword);
         
-        //TODO remove the comment to make it send email to user
-        emailService.sendEmail(p.getEmail(), p.getFname(), p.getLname(), newPassword);
-        return updatePerson(p);
+        //TODO remove the comment to make it send email to user       
+        //emailService.sendEmail(p.getEmail(), p.getFname(), p.getLname(), newPassword);
+         if (updatePerson(p)){
+             return 1;
+         } else {
+             return 0;
+         }
         
     }
     

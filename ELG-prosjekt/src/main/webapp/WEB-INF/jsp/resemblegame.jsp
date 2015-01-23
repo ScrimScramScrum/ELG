@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Startside</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         
@@ -87,6 +86,11 @@
             #scorePost input {
                 width: 100%;
             }
+            
+            #teksten {
+                float: right; 
+            }
+            
         </style>
         
         <script>
@@ -133,10 +137,11 @@
                     return points; 
                 }
             }
-            function validateForm() {
+            
+            function validateMessage() {
                 var x = document.forms["scorePost"]["score"].value;
                 if (x == 0 || x == ""||x==null) {
-                    alert("Du må gjøre en endring i koden før du kan gå videre");
+                    document.getElementById('errMsg').innerHTML="TRYKK CTRL + ENTER";
                     return false;
                 }
             }
@@ -220,7 +225,7 @@
                     }
                 });
              }
-
+             
         </script>
         <div id="resemblegamewrapper">  
             <div id = "resembleTop"><div id ="tasktext">
@@ -261,12 +266,13 @@
                 </div>
             </div>
             <div id = "resembleBeloWbottom">
-                <div id = "scoreText"></div>
-
+                <div id = "scoreText"></div> 
+                
+                <br><br><div id="errMsg">   </div>
                 <div id = "resemblebutton">
                     <c:choose>
                         <c:when test="${resembleGame.isCurrentTaskLast()}">
-                            <form action = "finishgame" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post" >
+                            <form action = "finishgame" name = "scorePost" id="scorePost" onsubmit="return validateMessage()" method="post" >
                                 <input type = "hidden" value = "" id = "score" name = "score"/>
                                 <c:choose>
                                     <c:when test="${isOving == 0}">
@@ -275,12 +281,12 @@
                                     <c:otherwise> 
                                         <input type = "hidden" name="othergame" value = ""/>
                                     </c:otherwise>
-                                </c:choose>  
+                                </c:choose> 
                                 <input type = "submit" id ="resembleSubmit" value = "Fullfør" />
                             </form>
                         </c:when>
                         <c:otherwise>
-                            <form action = "nextresembletask" name = "scorePost" id="scorePost" onsubmit="return validateForm()" method="post">
+                            <form action = "nextresembletask" name = "scorePost" id="scorePost" onsubmit="return validateMessage()" method="post">
                                 <input type = "hidden" value = "" id = "score" name = "score"/>
                                 <c:choose>
                                     <c:when test="${isOving == 0}">
@@ -289,12 +295,13 @@
                                     <c:otherwise> 
                                         <input type = "hidden" name="othergame" value = ""/>
                                     </c:otherwise>
-                                </c:choose>     
+                                </c:choose>
                                 <input type = "submit" value = "Neste" id ="resembleSubmit" />
                             </form>
                         </c:otherwise>
                     </c:choose>
                 </div>
+                <div id="teksten"> <% out.print("Trykk i CSS- eller HTML-feltet etterfulgt av CTRL+ENTER for å se resultat &nbsp;");%> </div>
             </div>
         </div>
     </body>

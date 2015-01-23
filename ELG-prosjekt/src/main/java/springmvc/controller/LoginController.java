@@ -61,9 +61,12 @@ public class LoginController {
             System.out.println("Feil ved endring av passord");
             modell.addAttribute("sendNewPasswordError", "Feil ved endring av passord");
             return "forgotPasswordFromLogin";
-        }else if (personService.generateNewPassword(person)){
+        }else if (personService.generateNewPassword(person)==1){
             System.out.println("Nytt passord er sendt");
             modell.addAttribute("regeneratedPassword", "<br>Passordet er nå sent på mailen din: "+person.getEmail()+"<br> &nbsp"); 
+        }else if (personService.generateNewPassword(person)==-1){
+            System.out.println("to many emails today. ");
+            modell.addAttribute("regeneratedPassword", "<br>Feil. Prøv igjen i morgen!" +"<br> &nbsp"); 
         } else {
             System.out.println("Feil ved endring av passord");
             modell.addAttribute("sendNewPasswordError", "Feil ved endring av passord"); 

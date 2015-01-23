@@ -156,6 +156,16 @@
 	cursor: pointer;
 }
 
+#left_of_hide {
+	float: left;
+	width: 40px;
+}
+
+#middle_of_hide {
+	float: left;
+	width: 220px;
+}
+
 #hide {
 	float: right;
 	width: 40px;
