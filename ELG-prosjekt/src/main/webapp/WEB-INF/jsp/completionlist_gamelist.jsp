@@ -36,10 +36,10 @@
             <h2>Velg en klasse</h2>
             <h4>Klasser:</h4>
 
-                <c:forEach items="${allClasses}" var="class">
+                <c:forEach items="${allClasses}" var="classChosen">
                         <form action="choosegameCompletionlist" method="post">
-                            <input type="hidden" name="classid" id="classid" value="${class}" />
-                            <div class = "gamelink"><a href ="completionlist" id="gameLinkA" onclick =" get_form(this).submit(); return false"><c:out value = "${class}"/></a></div>
+                            <input type="hidden" name="classid" id="classid" value="${classChosen}" />
+                            <div class = "gamelink"><a href ="completionlist" id="gameLinkA" onclick =" get_form(this).submit(); return false"><c:out value = "${classChosen}"/></a></div>
                         </form>
                 </c:forEach>
             </center>
