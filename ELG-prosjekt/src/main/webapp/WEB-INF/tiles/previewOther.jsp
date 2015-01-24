@@ -314,23 +314,27 @@
             <div id="welcome">
                 <h1><spring:message code="gamePage1"/></h1>
                 <!-- Links -->
+                <br>
                 <ul id="link_ul">
-                    <li id="link_li">Linker</li>
+                    <li id="link_li">Her er pensum for Øvingen i PDF format</li>
+                    <li id="link_li"><a href="<c:out value='/files/intro-html.pdf' />">Intro HTML PDF</a></li>
+                    <li id="link_li"><a href="<c:out value='/files/leksjon3_ppi_css.pdf' />">Intro CSS PDF</a></li>
+                </ul>
+                <br>
+                <ul id="link_ul">
+                    <li id="link_li">Her er noen gode linker for å lære seg HTML og CSS</li>
                     <li id="link_li"><a href="https://docs.webplatform.org/wiki/Main_Page">WebPlatform</a></li>
                     <li id="link_li"><a href="https://developer.mozilla.org/en-US/docs/Web">MDN</a></li>
                     <li id="link_li"><a href="http://www.w3schools.com">W3Schools</a></li>
                     <li id="link_li"><a href="https://github.com/dypsilon/frontend-dev-bookmarks">Frontend-dev-bookmarks</a></li>
                     <li id="link_li"><a href="http://learnlayout.com">LearnLayout</a></li>
                 </ul>
-                <ul id="link_ul">
-                    <li id="link_li">PDF</li>
-                    <li id="link_li"><a href="<c:out value='/files/intro-html.pdf' />">Intro HTML PDF</a></li>
-                    <li id="link_li"><a href="<c:out value='/files/leksjon3_ppi_css.pdf' />">Intro CSS PDF</a></li>
-                </ul>
             </div>
             <div id="welcome_space">
                 <center>
                     <a href="<c:url value="/kOdesLostTags"/>"><img src="<c:url value='/resources/kOdesLostTags/kOdesLostTagsJS/ProfessorK-OdeHode.png'/>" width="50%" height="auto"></a>
+                    <br>
+                    Psst.. Hjelp!
                 </center>
             </div>
         </div>
