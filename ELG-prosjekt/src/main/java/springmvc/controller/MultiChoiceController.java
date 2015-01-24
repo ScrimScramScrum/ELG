@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package springmvc.controller;
 
 import java.util.ArrayList;
@@ -33,10 +28,6 @@ import springmvc.service.PersonService;
 import springmvc.service.ResultService;
 import springmvc.test.MultiChoiceTest;
 
-/**
- *
- * @author eiriksandberg
- */
 @Controller
 @SessionAttributes({"spillet", "createExercise", "Exercises", "MultiGame"})
 public class MultiChoiceController {
@@ -156,8 +147,7 @@ public class MultiChoiceController {
             String button = request.getParameter("button");
             mc.setResult(mc.current(), mc.getCurrent().checkAnswer(button));
         }
-        mc.getNextExercise();
-        
+        mc.getNextExercise();       
         if (mc.lastExercise() == true) { // Siste oppgave. 
             model.addAttribute("eachresult", mc.getEachResult());
             model.addAttribute("result", mc.getResult());
@@ -177,12 +167,13 @@ public class MultiChoiceController {
                 melding += hs.get(i).getFname() + " " + hs.get(i).getLname() + " " + hs.get(i).getScore() + "\n";
             }
             model.addAttribute("highscorelist", melding);
-            mc.resetCurrent();
-            
+            mc.resetCurrent();          
             if (gameType.equals("othergame,othergame,othergame,othergame")){
                 int resemble = 0;
                 ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGamesNotInOving();
                 ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiGamesNotInOving();
+                ArrayList<MultiChoiceInfo> multiChoiceGamesWithApproved = gameListService.updateApprovedMultiChoiceGames(multiChoiceGames, user);
+                ArrayList<ResembleGame> resembleGamesWithApproved = gameListService.updateApprovedResembleGames(resembleGames, user);
                 model.addAttribute("gametype", resemble);
                 model.addAttribute("resembleGames", resembleGames);
                 model.addAttribute("multiChoiceGames", multiChoiceGames);
@@ -190,45 +181,25 @@ public class MultiChoiceController {
             } else {
                 ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGamesFromOving();
                 ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfoFromOving();
-
                 ArrayList<ResembleGame> resembleGamesExtra = gameListService.getAllResembleGamesFromOvingExtra();
                 ArrayList<MultiChoiceInfo> multiChoiceGamesExtra = gameListService.getAllMultiChoiceInfoFromOvingExtra();
-
-                System.out.println("ChooseGame Rdy for multiChoiceGamesWithApproved");
-                //add a function to update the multiChoiceGames and resembleGames lists to a version that 	says if its done or not. 
-                //updateApprovedGames(user, resembleGames, multiChoiceGames);
                 ArrayList<MultiChoiceInfo> multiChoiceGamesWithApproved = gameListService.updateApprovedMultiChoiceGames(multiChoiceGames, user);
                 ArrayList<ResembleGame> resembleGamesWithApproved = gameListService.updateApprovedResembleGames(resembleGames, user);
                 ArrayList<MultiChoiceInfo> multiChoiceGamesWithApprovedExtra = gameListService.updateApprovedMultiChoiceGames(multiChoiceGamesExtra, user);
                 ArrayList<ResembleGame> resembleGamesWithApprovedExtra = gameListService.updateApprovedResembleGames(resembleGamesExtra, user);
-
-                if (multiChoiceGamesWithApproved == null) {
-                    int resemble = 0;
-                    model.addAttribute("gametype", resemble);
-                    model.addAttribute("resembleGames", resembleGames);
-                    model.addAttribute("multiChoiceGames", multiChoiceGames);
-                    model.addAttribute("resembleGamesExtra", resembleGamesWithApprovedExtra);
-                    model.addAttribute("multiChoiceGamesExtra", multiChoiceGamesWithApprovedExtra);
-                    return "result"; 
-                }
-
                 int resemble = 0;
                 model.addAttribute("gametype", resemble);
                 model.addAttribute("resembleGames", resembleGames);
-                model.addAttribute("multiChoiceGames", multiChoiceGamesWithApproved);
+                model.addAttribute("multiChoiceGames", multiChoiceGames);
                 model.addAttribute("resembleGamesExtra", resembleGamesExtra);
                 model.addAttribute("multiChoiceGamesExtra", multiChoiceGamesExtra);
                 return "result";
             }
-        }
-        
-        System.out.println("GAMETYPE: " + gameType);
+        }      
         if (gameType.equals("othergame,othergame,othergame,othergame")){
-            System.out.println("IKKE ØVING. ");
             model.addAttribute("isOving", 0); 
             return "othermultichoice";  
         } else {
-            System.out.println("Kommer til isOving");
             model.addAttribute("isOving", 1);
             return "multichoice";
         }
