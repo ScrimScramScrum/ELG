@@ -48,11 +48,11 @@ public class ResultRepoDB implements ResultRepo {
     //Sql completion
     private final String sqlGetGamesInOving = "select idgamemulti from oving join ovingmultigame on oving.IDOVING = ovingmultigame.IDOVING";
     private final String sqlGetPassedExercise = "select email from multiresult where idgame = ? and score > 79";
-    private final String sqlGetCompletedNames = "select fname, lname from person join personclass on person.EMAIL= personclass.EMAIL where personclass.email = ? and classname = ? and administrator = 0";
+    private final String sqlGetCompletedNames = "select fname, lname, classname from person join personclass on person.EMAIL= personclass.EMAIL where personclass.email = ? and administrator = 0";
 
     private final String sqlGetGamesInOvingResemble = "select idgameresemble from oving join ovingresemblegame on oving.IDOVING = ovingresemblegame.IDOVING";
     private final String sqlGetPassedExerciseResemble = "select email from resembleresult where idgame = ? and score > 89";
-    private final String sqlGetCompletedNamesResemble = "select fname, lname from person join personclass on person.EMAIL= personclass.EMAIL where personclass.email = ? and classname = ? and administrator = 0";
+    private final String sqlGetCompletedNamesResemble = "select fname, lname, classname from person join personclass on person.EMAIL= personclass.EMAIL where personclass.email = ? and administrator = 0";
 
     private final String sqlDeleteClass = "delete from personclass where classname = ? and email = ?";
     
@@ -230,8 +230,10 @@ public class ResultRepoDB implements ResultRepo {
             }
             System.out.println("Lengde på completionlist= " + completionlist.size());
             for (int i = 0; i < completionlist.size(); i++) {
-                HighscoreDisplay person = (HighscoreDisplay) jdbcTemplateObject.queryForObject(sqlGetCompletedNames, new Object[]{completionlist.get(i), classname}, new CompletionMapper());
-                nameList.add(person);
+                HighscoreDisplay person = (HighscoreDisplay) jdbcTemplateObject.queryForObject(sqlGetCompletedNames, new Object[]{completionlist.get(i)}, new CompletionMapper());
+                if(person.getClassname().equals(classname)){
+                    nameList.add(person);
+                }
             }
         } catch (Exception e) {
             System.out.println("Feilxxxxxxxxxxx: " + e);
@@ -269,8 +271,10 @@ public class ResultRepoDB implements ResultRepo {
             }
             System.out.println("Lengde på completionlist= " + completionlist.size());
             for (int i = 0; i < completionlist.size(); i++) {
-                HighscoreDisplay person = (HighscoreDisplay) jdbcTemplateObject.queryForObject(sqlGetCompletedNamesResemble, new Object[]{completionlist.get(i), classname}, new CompletionMapper());
-                nameList.add(person);
+                HighscoreDisplay person = (HighscoreDisplay) jdbcTemplateObject.queryForObject(sqlGetCompletedNamesResemble, new Object[]{completionlist.get(i)}, new CompletionMapper());
+                if(person.getClassname().equals(classname)){
+                    nameList.add(person);
+                }
             }
         } catch (Exception e) {
             System.out.println("Feilxxxxxxxxxxx: " + e);

@@ -13,6 +13,7 @@ package springmvc.domain;
 public class HighscoreDisplay {
     private String fname;
     private String lname;
+    private String classname;
     private int score;
 
     public HighscoreDisplay(String fname, String lname) {
@@ -55,6 +56,16 @@ public class HighscoreDisplay {
     public String toString(){
         return fname + " " + lname + " Score: " + score;
     }
+    
+    public void setClassname(String classname){
+        this.classname=classname;
+    }
+
+    public String getClassname() {
+        return classname;
+    }
+    
+    
     
     
 }

@@ -21,6 +21,7 @@ import springmvc.domain.HighscoreDisplay;
         HighscoreDisplay e = new HighscoreDisplay();
         e.setFname(rs.getString("fname"));
         e.setLname(rs.getString("lname"));
+        e.setClassname(rs.getString("classname"));
         return e;
     }
 }
