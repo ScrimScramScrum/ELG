@@ -19,6 +19,7 @@ import springmvc.repository.mappers.ClassMapper;
 import springmvc.repository.mappers.CompletionMapper;
 import springmvc.repository.mappers.EmailMapper;
 import springmvc.repository.mappers.GameIDMapper;
+import springmvc.repository.mappers.GameIDMapperResemble;
 import springmvc.repository.mappers.HighscoreMapper;
 import springmvc.repository.mappers.MultiChoiceMapper;
 import springmvc.repository.mappers.OvingMapper;
