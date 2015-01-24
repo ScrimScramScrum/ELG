@@ -42,6 +42,6 @@ public class PdfController {
     @RequestMapping(value = "/files/{file_name}", method = RequestMethod.GET)
     @ResponseBody
     public FileSystemResource getFile(@PathVariable("file_name") String fileName) {
-        return new FileSystemResource("/Users/borgarlie/Documents/Development/ELG/ELG-prosjekt/src/main/webapp/resources/pdf/" + fileName + ".pdf"); 
+        return new FileSystemResource("/home/scripts/pdf/" + fileName + ".pdf"); 
     }
 }
