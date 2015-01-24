@@ -26,7 +26,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
   @Override
   public void registerStompEndpoints(StompEndpointRegistry registry) {
-    registry.addEndpoint("/chat").withSockJS().setInterceptors(new HttpSessionIdHandshakeInterceptor());
+    registry.addEndpoint("/ws").withSockJS().setInterceptors(new HttpSessionIdHandshakeInterceptor());
   }
   
   private static final String SESSION_ATTR = "httpSession.user";
