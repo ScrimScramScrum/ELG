@@ -15,7 +15,6 @@ public class ResembleTaskService {
     
     @Autowired
     public void setResembleTaskRepo(ResembleTaskRepo repo){
-        System.out.println("Autowired resembletaskrepo: ");
         this.repo = repo; 
     }
     

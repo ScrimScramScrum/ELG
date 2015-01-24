@@ -57,12 +57,10 @@ public class MultiChoiceController {
         mc.initMC();
         model.addAttribute("spillet", mc);
         if(otherGame.equals("othergame")){
-            System.out.println("I MULTI: IKKE ØVING");
             model.addAttribute("isOving", 0);
             return "othermultichoice";
         } 
         model.addAttribute("isOving", 1);
-        System.out.println("I MULTI: DETTE ER EN ØVING");
         return "multichoice";
     }
 
@@ -82,7 +80,6 @@ public class MultiChoiceController {
 
     @RequestMapping(value = "createmulti", method = RequestMethod.POST)
     public ModelAndView showCreateMultiChoice(ModelAndView mav, @ModelAttribute(value = "Exercises") ArrayList<Exercise> exercises, @ModelAttribute(value = "createExercise") CreateMultiExercise ce) {
-        System.out.println("kommer ifaosjifdsa");
         mav.setViewName("createmulti");
         return mav;
     }
@@ -90,14 +87,12 @@ public class MultiChoiceController {
     @RequestMapping(value = "createExercise", method = RequestMethod.POST)
     public ModelAndView createExercise(ModelAndView mav, @ModelAttribute(value = "Exercises") ArrayList<Exercise> exercises, @Valid @ModelAttribute(value = "createExercise") CreateMultiExercise ce, BindingResult error) {
         if (error.hasErrors()) {
-            System.out.println("Feil! Ikke fylt ut alt");
             mav.setViewName("createmulti");
             return mav;
         }
         String[] t = {ce.getAlt1(), ce.getAlt2(), ce.getAlt3(), ce.getAlt4()};
         Exercise e = new Exercise(t, ce.getAnswer(), ce.getTaskText());
         exercises.add(e);
-        System.out.println(exercises.size());
         ce = new CreateMultiExercise();
         mav.addObject("createExercise", ce);
         mav.setViewName("createmulti");
@@ -106,17 +101,13 @@ public class MultiChoiceController {
 
     @RequestMapping(value = "submitgame", method = RequestMethod.POST)
     public ModelAndView makeMultiChoiceGame(ModelAndView mav, HttpSession session, HttpServletRequest request, @ModelAttribute(value = "Exercises") ArrayList<Exercise> exercises, @Valid @ModelAttribute(value = "MultiGame") MultiChoice game1, BindingResult error) {
-        System.out.println("Heri");
-        if (error.hasErrors()) {
-            System.out.println("Feil! Ikke fylt ut alt");
-            System.out.println("lalala");
+        if (error.hasErrors()) {;
             mav.setViewName("createmulti");
             return mav;
         }
         if (exercises.isEmpty()) {
             String er = "Du må minst legge til ett spørsmål";
             mav.addObject("ErrorMessage", er);
-            System.out.println("Feil! Ikke fylt ut alt");
             mav.setViewName("createmulti");
             return mav;
         }
@@ -124,7 +115,6 @@ public class MultiChoiceController {
         if(check != null){
             String er = "Et spill med dette navnet finnes fra før. Vennligst velg et annet.";
             mav.addObject("ErrorMessage", er);
-            System.out.println("Feil! Navn finnes fra før");
             mav.setViewName("createmulti");
             return mav;
         }
@@ -132,7 +122,6 @@ public class MultiChoiceController {
         game1.setExercises(exercises);
         game1.setCreator(user.getEmail());
         s.regMultiChoiceGame(game1);
-        System.out.println(game1.getCreator() + "dette er name");
         mav.setViewName("about");
         return mav;
     }
@@ -161,7 +150,6 @@ public class MultiChoiceController {
                 r.updateMultiResult(k, score, mc);
             }
             ArrayList<HighscoreDisplay> hs = r.highscoreMC(mc);
-            System.out.println(hs.size());
             String melding = "";
             for (int i = 0; i < hs.size(); i++) {
                 melding += hs.get(i).getFname() + " " + hs.get(i).getLname() + " " + hs.get(i).getScore() + "\n";

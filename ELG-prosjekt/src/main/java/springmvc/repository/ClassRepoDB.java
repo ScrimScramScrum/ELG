@@ -23,13 +23,11 @@ public class ClassRepoDB {
     
     @Autowired
     public void setDataSource(DataSource dataSource){
-        System.out.println(" Database.setDataSource " + dataSource);
         this.dataSource = dataSource;
         this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }
     
-    public AddNewClassId getClassId(String classId){   
-        System.out.println("i class ID i DB");
+    public AddNewClassId getClassId(String classId){  
         AddNewClassId foundAddNewClassId= new AddNewClassId();        
         try{
             foundAddNewClassId = (AddNewClassId)jdbcTemplateObject.queryForObject(sqlSelectClassId, new Object[]{classId}, new ClassMapper());
@@ -40,21 +38,17 @@ public class ClassRepoDB {
     }
     
     public boolean registerNewClassId(String addNewClassId){  
-        System.out.println("I classRepoDB for å registrere ny Klasse. ");
         try{
             jdbcTemplateObject.update(sqlInsertClassId, new Object[]{addNewClassId});
             return true; 
         } catch (Exception e){
-            System.out.println("Kunne ikke registrere ny klasse i ClassRepoDB");
             return false; 
         }
     }
     
     
     
-    public boolean registerStudentIntoAClass(String emailStudent, String classId){  
-        System.out.println("email: "+emailStudent+" , classId: "+classId);
-        
+    public boolean registerStudentIntoAClass(String emailStudent, String classId){          
         try{jdbcTemplateObject.update(sqlInsertStudentIntoClass, 
             new Object[]{
                 emailStudent,
@@ -64,8 +58,6 @@ public class ClassRepoDB {
         return true;
             
         } catch (Exception e) {
-            System.out.println("@@Exception "+ e);
-            System.out.println("Denne klassen finnes kanskje ikke?");
             return false;
         }
     }
@@ -81,13 +73,7 @@ public class ClassRepoDB {
         return true;
             
         } catch (Exception e) {
-            System.out.println("@@Exception "+ e);
             return false;
         }
-    }
-    
-    
-    
-    
-    
+    } 
 }

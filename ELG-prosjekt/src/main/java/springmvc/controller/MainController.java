@@ -131,10 +131,8 @@ public class MainController {
             mav.addObject("resembleInfo", resembleTemp);
         } else if(gametype.equals("multichoice")){
             resemble = 2;
-            System.out.println("ID " + id);
             multiTemp = gameListService.getMultiChoiceInfo(id);
             mav.addObject("multiChoiceInfo", multiTemp);
-            System.out.println("MultiChoice");
         }
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGamesFromOving();
         ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfoFromOving();

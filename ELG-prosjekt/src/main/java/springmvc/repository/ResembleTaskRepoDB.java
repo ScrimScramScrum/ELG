@@ -28,13 +28,11 @@ public class ResembleTaskRepoDB implements ResembleTaskRepo{
     
     @Autowired
     public void setDataSource(DataSource dataSource){
-        System.out.println(" Database.setDataSource " + dataSource);
         this.dataSource = dataSource;
         this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }
     
     public ResembleTask getResembleTask(int idTask){
-        System.out.println("SEARCHING FOR IDTASK: " + idTask);
         return (ResembleTask)jdbcTemplateObject.queryForObject(sqlSelectTask, new Object[]{idTask}, (RowMapper<ResembleTask>)new ResembleTaskMapper());
     }
     

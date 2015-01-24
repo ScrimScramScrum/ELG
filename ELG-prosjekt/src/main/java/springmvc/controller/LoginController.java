@@ -42,13 +42,11 @@ public class LoginController {
     
     @RequestMapping(value = "login" , method=RequestMethod.GET)
     public String person(@ModelAttribute Login login, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
-        System.out.println("111111111");
         return "firstLogin";
     }
     
     @RequestMapping(value = "firstLogin" , method=RequestMethod.GET)
     public String newLogin(@ModelAttribute Login login, @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword) {
-        System.out.println("222222222");
         return "firstLogin";
     }
     
@@ -60,26 +58,20 @@ public class LoginController {
     
     @RequestMapping(value = "sendNewPassword")
     public String sendNewPassword(@Valid @ModelAttribute("sendNewPassword") SendNewPassword sendNewPassword, BindingResult error, Model modell, @ModelAttribute Login login, @ModelAttribute NewPassword newPassword) {
-        System.out.println("NEWPASSWORD ON THE WAY TO: "+sendNewPassword.getEmail());
-        
+
         if(error.hasErrors()){
-            System.out.println("errors in forgotten password. ");
             return "forgotPasswordFromLogin";
         }
         
         Person person = personService.getPerson(sendNewPassword.getEmail());
         if (person == null){ 
-            System.out.println("Feil ved endring av passord");
             modell.addAttribute("sendNewPasswordError", "Feil ved endring av passord");
             return "forgotPasswordFromLogin";
         }else if (personService.generateNewPassword(person)==1){
-            System.out.println("Nytt passord er sendt");
             modell.addAttribute("regeneratedPassword", "<br>Passordet er nå sent på mailen din: "+person.getEmail()+"<br> &nbsp"); 
         }else if (personService.generateNewPassword(person)==-1){
-            System.out.println("to many emails today. ");
             modell.addAttribute("regeneratedPassword", "<br>Feil. Prøv igjen i morgen!" +"<br> &nbsp"); 
         } else {
-            System.out.println("Feil ved endring av passord");
             modell.addAttribute("sendNewPasswordError", "Feil ved endring av passord"); 
             return "forgotPasswordFromLogin";
         }

@@ -72,11 +72,9 @@ public class ResembleGameController {
     @RequestMapping(value ="nextresembletask", method = RequestMethod.POST)
     public ModelAndView resembleGameNext(ModelAndView mav, @ModelAttribute(value = "resembleGame") ResembleGame resembleGame, HttpServletRequest req, @RequestParam("othergame")String gameType) {
         resembleGame.setTaskNumberScore(resembleGame.getCurrentTask(), Double.parseDouble(req.getParameter("score")));
-        System.out.println("NESTE SCORE: " + Double.parseDouble(req.getParameter("score")));
         resembleGame.setCurrentTask(resembleGame.getNextTask());
         mav.addObject("resembleTask", resembleTaskService.getResembleTask(resembleGame.getCurrentTask()));
         if (gameType.equals("othergame")){
-            System.out.println("Nextresembletask: othergame");
             mav.addObject("isOving", 0);
             mav.setViewName("otherResembleGame");
             return mav; 
@@ -89,7 +87,6 @@ public class ResembleGameController {
     @RequestMapping(value ="finishgame")
     public ModelAndView resembleGameFinish(ModelAndView mav, HttpSession session, @ModelAttribute(value = "resembleGame") ResembleGame resembleGame, HttpServletRequest req, @RequestParam("othergame")String gameType) {
         resembleGame.setTaskNumberScore(resembleGame.getCurrentTask(), Double.parseDouble(req.getParameter("score")));
-        System.out.println("TOTAL SCORE: " + resembleGame.getTotalScore());
         Double score = (resembleGame.getTotalScore()/resembleGame.numberOfTasks());            
         User user = (User)session.getAttribute("user");
         String k = user.getEmail();
@@ -100,7 +97,6 @@ public class ResembleGameController {
             r.updateResembleResult(k, score, resembleGame);
         }       
         ArrayList<HighscoreDisplay> hs = r.highscoreRG(resembleGame);
-        System.out.println(hs.size());
         String melding = "";
         for (int i = 0; i<hs.size(); i++){
             melding += hs.get(i).getFname() + " " + hs.get(i).getLname() + " " + hs.get(i).getScore() +"\n";
@@ -173,7 +169,6 @@ public class ResembleGameController {
     @RequestMapping(value = "submitresemblegame", method = RequestMethod.POST)
     public ModelAndView submitResembleGame(ModelAndView mav, @Valid @ModelAttribute(value = "createResembleGame") CreateResembleGame createResembleGame, BindingResult error, HttpSession session, @RequestParam("button") String button){
         User user = (User) session.getAttribute("user");
-        System.out.println("ERROR: :D:D:D:D:D:D " + error.getFieldErrors());
         if (user == null) {
             mav.setViewName("firstLogin");
             return mav;         
@@ -185,7 +180,6 @@ public class ResembleGameController {
             return mav;
         }     
         if(error.hasErrors()){
-            System.out.println("ERROR HAR ERRORS::: ASDAD***************");
             mav.setViewName("createresemblegame");
             return mav; 
         }

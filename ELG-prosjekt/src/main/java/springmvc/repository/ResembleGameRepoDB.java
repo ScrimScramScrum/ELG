@@ -35,7 +35,6 @@ public class ResembleGameRepoDB implements ResembleGameRepo{
         
     @Autowired
     public void setDataSource(DataSource dataSource){
-        System.out.println(" Database.setDataSource " + dataSource);
         this.dataSource = dataSource;
         this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }
@@ -62,14 +61,12 @@ public class ResembleGameRepoDB implements ResembleGameRepo{
     @Override
     public ArrayList<ResembleGame> getAllResembleGamesFromOving(){
         ArrayList<ResembleGame> resembleGames =  (ArrayList<ResembleGame>) jdbcTemplateObject.query(sqlSelectAllResembleGamesFromOving, new ResembleGameMapper());
-        System.out.println("** ResembleGameRepoDB:   getAllResembleGamesFromOving");
         return resembleGames; 
     }
     
     @Override
     public ArrayList<ResembleGame> getAllResembleGamesFromOvingExtra(){
         ArrayList<ResembleGame> resembleGames =  (ArrayList<ResembleGame>) jdbcTemplateObject.query(sqlSelectAllResembleGamesFromOvingExtra, new ResembleGameMapper());
-        System.out.println("** ResembleGameRepoDB:   getAllResembleGamesFromOving");
         return resembleGames; 
     }
     
@@ -84,7 +81,6 @@ public class ResembleGameRepoDB implements ResembleGameRepo{
          try{
                score = Integer.parseInt((String)jdbcTemplateObject.queryForObject(sqlGetScoreFromFromResebleGameWithNameAndEmail, new Object[] { gamename, email }, String.class));
         } catch (Exception e){
-            System.out.println("feil"+e);
         }
         return score;   
     }
