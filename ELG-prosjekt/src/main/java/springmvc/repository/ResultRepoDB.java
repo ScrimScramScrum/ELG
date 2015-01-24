@@ -230,9 +230,11 @@ public class ResultRepoDB implements ResultRepo {
             }
             System.out.println("Lengde på completionlist= " + completionlist.size());
             for (int i = 0; i < completionlist.size(); i++) {
-                HighscoreDisplay person = (HighscoreDisplay) jdbcTemplateObject.queryForObject(sqlGetCompletedNames, new Object[]{completionlist.get(i)}, new CompletionMapper());
-                if(person.getClassname().equals(classname)){
-                    nameList.add(person);
+                ArrayList<HighscoreDisplay> person = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetCompletedNames, new Object[]{completionlist.get(i)}, new CompletionMapper());
+                for(int u = 0; u<person.size();u++){
+                    if(person.get(u).getClassname().equals(classname)){
+                        nameList.add(person.get(u));
+                    }
                 }
             }
         } catch (Exception e) {
@@ -271,9 +273,11 @@ public class ResultRepoDB implements ResultRepo {
             }
             System.out.println("Lengde på completionlist= " + completionlist.size());
             for (int i = 0; i < completionlist.size(); i++) {
-                HighscoreDisplay person = (HighscoreDisplay) jdbcTemplateObject.queryForObject(sqlGetCompletedNamesResemble, new Object[]{completionlist.get(i)}, new CompletionMapper());
-                if(person.getClassname().equals(classname)){
-                    nameList.add(person);
+                ArrayList<HighscoreDisplay> person = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetCompletedNamesResemble, new Object[]{completionlist.get(i)}, new CompletionMapper());
+                for(int u = 0; u<person.size();u++){
+                    if(person.get(u).getClassname().equals(classname)){
+                        nameList.add(person.get(u));
+                    }
                 }
             }
         } catch (Exception e) {
