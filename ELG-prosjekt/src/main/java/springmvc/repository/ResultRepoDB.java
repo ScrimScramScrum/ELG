@@ -114,7 +114,6 @@ public class ResultRepoDB implements ResultRepo {
         ArrayList<HighscoreDisplay> l = new ArrayList<HighscoreDisplay>();
         try {
             l = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetHighscore, new Object[]{game.getGameid()}, new HighscoreMapper());
-            //System.out.println("har laget highscoreliste" + l.get(0).getFname());
         } catch (Exception e) {
             System.out.println("Feilxxxxxxxxxxx: " + e);
         }
@@ -160,7 +159,6 @@ public class ResultRepoDB implements ResultRepo {
         ArrayList<HighscoreDisplay> l = new ArrayList<HighscoreDisplay>();
         try {
             l = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetHighscoreResemble, new Object[]{game.getGameId()}, new HighscoreMapper());
-            //System.out.println("har laget highscoreliste" + l.get(0).getFname());
         } catch (Exception e) {
             System.out.println("Feilxxxxxxxxxxx: " + e);
         }
@@ -208,7 +206,6 @@ public class ResultRepoDB implements ResultRepo {
         ArrayList<HighscoreDisplay> nameList = new ArrayList<>();
         try {
             gamesInOving = (ArrayList<Integer>) jdbcTemplateObject.query(sqlGetGamesInOving, new Object[]{}, new GameIDMapper());
-            System.out.println("gamesInOving.size() = " + gamesInOving.size()); // ******TEST******
             for (int i = 0; i < gamesInOving.size(); i++) {
                 if (i == 0) {
                     completionlist = (ArrayList<String>) jdbcTemplateObject.query(sqlGetPassedExercise, new Object[]{gamesInOving.get(i)}, new EmailMapper());
@@ -229,7 +226,6 @@ public class ResultRepoDB implements ResultRepo {
                     }
                 }
             }
-            System.out.println("Lengde på completionlist= " + completionlist.size());
             for (int i = 0; i < completionlist.size(); i++) {
                 ArrayList<HighscoreDisplay> person = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetCompletedNames, new Object[]{completionlist.get(i)}, new CompletionMapper());
                 for(int u = 0; u<person.size();u++){
@@ -251,7 +247,6 @@ public class ResultRepoDB implements ResultRepo {
         ArrayList<HighscoreDisplay> nameList = new ArrayList<>();
         try {
             gamesInOving = (ArrayList<Integer>) jdbcTemplateObject.query(sqlGetGamesInOvingResemble, new Object[]{}, new GameIDMapperResemble());
-            System.out.println("gamesInOving.size() ((RESEMBLE)) = " + gamesInOving.size()); // ******TEST******
             for (int i = 0; i < gamesInOving.size(); i++) {
                 if (i == 0) {
                     completionlist = (ArrayList<String>) jdbcTemplateObject.query(sqlGetPassedExerciseResemble, new Object[]{gamesInOving.get(i)}, new EmailMapper());
@@ -272,7 +267,6 @@ public class ResultRepoDB implements ResultRepo {
                     }
                 }
             }
-            System.out.println("Lengde på completionlist= " + completionlist.size());
             for (int i = 0; i < completionlist.size(); i++) {
                 ArrayList<HighscoreDisplay> person = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetCompletedNamesResemble, new Object[]{completionlist.get(i)}, new CompletionMapper());
                 for(int u = 0; u<person.size();u++){
