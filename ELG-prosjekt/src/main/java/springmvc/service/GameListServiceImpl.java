@@ -104,7 +104,6 @@ public class GameListServiceImpl implements GameListService{
             rt.setSolutionCSS(rt.getSolutionCSS().replace("\"", "\'"));
             rt.setStartingHTML(rt.getStartingHTML().replace("\"", "\'"));
             rt.setStartingCSS(rt.getStartingCSS().replace("\"", "\'"));
-            System.out.println(rt.getSolutionHTML());
         }
         return list; 
     }

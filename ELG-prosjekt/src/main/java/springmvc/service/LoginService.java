@@ -15,8 +15,6 @@ public class LoginService {
         Person person = personService.getPerson(login.getEmail());
         String hashPw = personService.hash(login.getPassword()); 
         
-        System.out.println(hashPw);
-        
         if (person == null){
             return false;  
         } else if (person.getHashedPassword().equals(hashPw)){ 

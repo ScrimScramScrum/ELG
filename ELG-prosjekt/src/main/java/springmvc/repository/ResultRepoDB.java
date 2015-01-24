@@ -19,7 +19,6 @@ import springmvc.repository.mappers.ClassMapper;
 import springmvc.repository.mappers.CompletionMapper;
 import springmvc.repository.mappers.EmailMapper;
 import springmvc.repository.mappers.GameIDMapper;
-import springmvc.repository.mappers.GameIDMapperResemble;
 import springmvc.repository.mappers.HighscoreMapper;
 import springmvc.repository.mappers.MultiChoiceMapper;
 import springmvc.repository.mappers.OvingMapper;
@@ -62,7 +61,6 @@ public class ResultRepoDB implements ResultRepo {
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
-        System.out.println(" Database.setDataSource " + dataSource);
         this.dataSource = dataSource;
         this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }
@@ -87,7 +85,6 @@ public class ResultRepoDB implements ResultRepo {
             i = (int) jdbcTemplateObject.queryForInt(sqlGetResult, new Object[]{email, game.getGameid()});
 
         } catch (Exception e) {
-            System.out.println("Ingen score registrert");
             i = 0;
         }
         return i;
@@ -115,7 +112,6 @@ public class ResultRepoDB implements ResultRepo {
         try {
             l = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetHighscore, new Object[]{game.getGameid()}, new HighscoreMapper());
         } catch (Exception e) {
-            System.out.println("Feilxxxxxxxxxxx: " + e);
         }
         return l;
     }
@@ -140,7 +136,6 @@ public class ResultRepoDB implements ResultRepo {
             i = (int) jdbcTemplateObject.queryForInt(sqlGetResultResemble, new Object[]{email, game.getGameId()});
 
         } catch (Exception e) {
-            System.out.println("Ingen score registrert");
             i = 0;
         }
         return i;
@@ -160,7 +155,6 @@ public class ResultRepoDB implements ResultRepo {
         try {
             l = (ArrayList<HighscoreDisplay>) jdbcTemplateObject.query(sqlGetHighscoreResemble, new Object[]{game.getGameId()}, new HighscoreMapper());
         } catch (Exception e) {
-            System.out.println("Feilxxxxxxxxxxx: " + e);
         }
         return l;
     }
@@ -171,7 +165,6 @@ public class ResultRepoDB implements ResultRepo {
             l = (ArrayList<String>) jdbcTemplateObject.query(sqlGetAllOvinger, new Object[]{}, new OvingMapper());
 
         } catch (Exception e) {
-            System.out.println("Kan ikke hente øvinger");
         }
         return l;
     }
@@ -182,7 +175,6 @@ public class ResultRepoDB implements ResultRepo {
             l = (ArrayList<String>) jdbcTemplateObject.query(sqlGetAllClasses, new Object[]{email}, new ClassMapper());
 
         } catch (Exception e) {
-            System.out.println("Kan ikke hente klasser");
         }
         return l;
     }
@@ -193,7 +185,6 @@ public class ResultRepoDB implements ResultRepo {
             i = (int) jdbcTemplateObject.queryForInt(sqlGetNumberInClass, new Object[]{classname});
 
         } catch (Exception e) {
-            System.out.println("Ingen går i denne klassen");
             i = 0;
         }
         return i;
@@ -235,7 +226,6 @@ public class ResultRepoDB implements ResultRepo {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Feilxxxxxxxxxxx: " + e);
         }
         return nameList;
     }
@@ -276,7 +266,6 @@ public class ResultRepoDB implements ResultRepo {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Feilxxxxxxxxxxx: " + e);
         }
         return nameList;
     }

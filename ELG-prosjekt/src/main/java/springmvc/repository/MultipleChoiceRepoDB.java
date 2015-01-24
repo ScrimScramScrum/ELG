@@ -53,7 +53,6 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
-        System.out.println(" Database.setDataSource " + dataSource);
         this.dataSource = dataSource;
         this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }
@@ -65,7 +64,6 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
         ArrayList<Exercise> exercises = getExercises(game.getGameid());
         game.setExercises(exercises);
         } catch (Exception e){
-            System.out.println("***Spillet finnes ikke*** getMultiChoice: " + e);
             game = null;
         }
         return game;
@@ -94,30 +92,21 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
 
     
     public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOving(){
-        System.out.println("** MultipleChoiceRepoDB: getAllMultiChoiceInfoFromOving  ** ");
         return (ArrayList<MultiChoiceInfo>)jdbcTemplateObject.query(sqlGetAllMultiChoiceGamesFromOving, new MultiChoiceInfoMapper()); 
     }
     
     public ArrayList<MultiChoiceInfo> getAllMultiChoiceInfoFromOvingExtra(){
-        System.out.println("** MultipleChoiceRepoDB: getAllMultiChoiceInfoFromOving  ** ");
         return (ArrayList<MultiChoiceInfo>)jdbcTemplateObject.query(sqlGetAllMultiChoiceGamesFromOvingExtra, new MultiChoiceInfoMapper()); 
     }
     
     public MultiResult getMultiChoiceAndUsername(String gamename, String email){ 
-        System.out.println("runnign now getMultiChoiceAndUsername");
         MultiResult multiResult = null;
         try {
             multiResult = (MultiResult) jdbcTemplateObject.queryForObject(
-                    sqlGetIdgameFromMultiChoiseWithGameNameAndEmail,
-                    new Object[]{gamename, email}, new MultiResultMapper());
-
-            System.out.println(multiResult.getScore());
-
+                sqlGetIdgameFromMultiChoiseWithGameNameAndEmail,
+                new Object[]{gamename, email}, new MultiResultMapper());
         } catch (Exception e) {
-            System.out.println("Erreoren er : " + e);
-
-        }
-
+        } 
         return multiResult;
     }
 
@@ -132,7 +121,6 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
         });
         regMultiTask(game);
         } catch(Exception e){
-            System.out.println("FEIL! I regMultiChoiceGame" + e);
             return false;
         }
         return true;
@@ -154,7 +142,6 @@ public class MultipleChoiceRepoDB implements MultiChoiceRepository {
             });
         }
         } catch (Exception e){
-            System.out.println("FEIL! i regMultiTask() " + e);
             return false;
         }
             return true;

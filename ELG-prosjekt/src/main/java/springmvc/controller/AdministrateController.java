@@ -94,10 +94,8 @@ public class AdministrateController {
 
     @RequestMapping(value = "addClassId", method = RequestMethod.POST)
     public String addNewClassId(@ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, BindingResult error, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, Model modell, @ModelAttribute NewPassword newPassword, @ModelAttribute("makeAdmin") MakeAdmin makeAdmin, HttpSession session) {
-        System.out.println("Legg til ny klasse SasaSassk jører");
 
         if (error.hasErrors()) {
-            System.out.println(" error with Add Class ID");
             modell.addAttribute("chooseSite", 2);
             modell.addAttribute("NewClassMessage", "Feil, for få tegn"); 
             return "administrateAccount";
@@ -107,7 +105,6 @@ public class AdministrateController {
         Person inLoggedPerson = personService.getPerson(user.getEmail());
 
         if (personService.setClassId(inLoggedPerson, addNewClassIdAttribute.getClassId())) { // A user is registered in a class. 
-            System.out.println("Legger til i ny klasse ");
             ArrayList<String> list = r.getAllClasses(user.getEmail());
             modell.addAttribute("list", list); 
             modell.addAttribute("NewClassMessage", "Du er nå registrert i klasse: " + addNewClassIdAttribute.getClassId());
@@ -122,7 +119,6 @@ public class AdministrateController {
     @RequestMapping(value = "makeNewAdmin", method = RequestMethod.POST)
     public String makeNewAdmin(@ModelAttribute("makeAdmin") MakeAdmin makeAdmin, BindingResult error, @ModelAttribute("makeNewClassAttribute") makeNewClass makeNewClassAttribute, Model modell, @ModelAttribute("addNewClassIdAttribute") AddNewClassId addNewClassIdAttribute, @ModelAttribute NewPassword newPassword, HttpSession session) {
         if (error.hasErrors()) {
-            System.out.println("ERROR with making user Admin/Teacher. ");
             modell.addAttribute("chooseSite", 3);
             return "administrateAccount";
         }
@@ -133,7 +129,6 @@ public class AdministrateController {
 
         if (personService.makeAdmin(inLoggedPerson, makeAdmin.getMakeAdminPw())) { // User is registered as admin 
             user.setAdmin(true);
-            System.out.println("Person set as admin");
             modell.addAttribute("makeAdminMessage", "Du har nå admin-rettigheter. ");
         } else {
             modell.addAttribute("chooseSite", 3);
@@ -148,13 +143,11 @@ public class AdministrateController {
         modell.addAttribute("user", user);
         
         if (error.hasErrors()) {
-            System.out.println("ERROR with making user Admin/Teacher.");
             modell.addAttribute("chooseSite", 4);
             return "administrateAccount";
         }
 
         if (classService.registrateNewClassId(makeNewClassAttribute.getClassId())) { // New class is being registered. 
-            System.out.println("Ny klasse registrert");
             modell.addAttribute("makeClassMessage", "Ny klasse ble registrert.");
         } else { // Feiler med å registrere ny klasse  
             modell.addAttribute("chooseSite", 4);
@@ -182,7 +175,6 @@ public class AdministrateController {
 
     @RequestMapping(value = "removeClass", method = RequestMethod.POST)
     public ModelAndView removeClass(ModelAndView mav, @RequestParam("classid") String id, HttpSession session){
-        System.out.println("Kommer hit !!" + id);
         User user = (User) session.getAttribute("user");
         String email = user.getEmail();
         r.deleteClass(id, email);

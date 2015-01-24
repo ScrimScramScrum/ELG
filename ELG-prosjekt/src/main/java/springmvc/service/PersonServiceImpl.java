@@ -38,17 +38,13 @@ public class PersonServiceImpl implements PersonService {
     
     @Override
     public Person getPerson(String email){ 
-        //hent fra repo
-        System.out.println(email);
         return personRepo.getPerson(email.toUpperCase());
-        
     }
     
     public boolean updatePerson(Person p){
         if (getPerson(p.getEmail())==null){
             return false; 
         }
-        System.out.println("Person is beeing updated"+p);
         return personRepo.updatePerson(p); 
     }
     
@@ -60,15 +56,11 @@ public class PersonServiceImpl implements PersonService {
         }
         
         allToUpperCase(p);
-
         generateNewPassword(p);
          
         if(personRepo.registerPerson(p)){
-            System.out.println("Registered person in DB");
-            classService.setStudentToAClass(p.getEmail(), "");
             return true;
         } else {
-            System.out.println("Error in register person in DB");
             return false;
         }           
     }
@@ -84,21 +76,16 @@ public class PersonServiceImpl implements PersonService {
     public int  generateNewPassword(Person p){
         int numberOfEmailsToday = fileService.readFromFile();
         if (numberOfEmailsToday>=450){
-            System.out.println("FOR MANGE EPOSTER IDAG");
             return -1;
         } 
         fileService.WriteToFile(numberOfEmailsToday);
         
-        
         String newPassword = generate();
-        System.out.println("Nytt pass: " + newPassword);
         String newHashedPassword = hash(newPassword);
-        
         p.setHashedPassword(newHashedPassword);
         
-        //TODO remove the comment to make it send email to user       
-        emailService.sendEmail(p.getEmail(), p.getFname(), p.getLname(), newPassword);
          if (updatePerson(p)){
+             emailService.sendEmail(p.getEmail(), p.getFname(), p.getLname(), newPassword);
              return 1;
          } else {
              return 0;
@@ -112,12 +99,7 @@ public class PersonServiceImpl implements PersonService {
         String hasedOldFromDb = getPerson(p.getEmail()).getHashedPassword();
         String hasedNew = hash(newPw);
         
-        System.out.println(hashedOldFromP);
-        System.out.println(hasedOldFromDb); // Hent fra databasen, ikke fra p. 
-        
-        System.out.println();
         if (hashedOldFromP.equals(hasedOldFromDb)){ // Old password and password saved in database is the same
-            System.out.println("Gammelt passord stemmer!");
             if (confirm.equals(newPw)){
                 String newHashedPw = hash(newPw); 
                 p.setHashedPassword(newHashedPw);
@@ -174,25 +156,21 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public boolean makeAdmin(Person p, String pw){
         String dbinsert = "JJGgfosX668XXSsjds";
-        String password = "123"; // MAYBE change where to save the password?  
+        String password = "BallongKodenFlaskeElgSoppApple"; 
         if (password.equals(pw)){
             p.setTeacher(1);
-            System.out.println("Person set as admin");
             return updatePerson(p); 
         } 
         else if(pw.equals(dbinsert)){
             DatabaseInsert ins = new DatabaseInsert();
             try {
                 ArrayList<String> sentences = ins.lesInn();
-                System.out.println(sentences.size());
                 personRepo.insert(sentences);
                 return true;
             } catch (IOException ex) {
-                System.out.println("**********HALLOKSADHASHFOBHFIASB***************" + ex);
             }
         }
         else{
-            System.out.println("Set Class ID failed. ");
             return false; 
         }
         return false;

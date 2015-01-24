@@ -17,32 +17,18 @@ import springmvc.domain.ResembleGame;
  * @author eiriksandberg
  */
 public interface ResultRepo{
-    
         public boolean regMultiChoiceRes(String email, Double score, MultiChoice game);
-        
         public int getMultiChoiceRes(String email, MultiChoice game);
-        
         public boolean updateMultiResult(String email, double score, MultiChoice game);
-        
         public ArrayList<HighscoreDisplay> highscoreMC(MultiChoice game);
-        
         public boolean regResembleGameRes(String email, Double score, ResembleGame game);
-        
         public int getResembleGameRes(String email, ResembleGame game);
-        
         public boolean updateResembleResult(String email, double score, ResembleGame game);
-        
         public ArrayList<HighscoreDisplay> highscoreRG(ResembleGame game);
-        
         public ArrayList <String> getAllOvinger();
-        
         public ArrayList <String> getAllClasses(String email);
-        
         public int getNumberInClass(String classname);
-        
         public ArrayList<HighscoreDisplay> getNewCompletionlistMulti(String classname);
-        
         public ArrayList<HighscoreDisplay> getNewCompletionlistResemble(String classname);
-        
         public boolean deleteClass(String classname, String email);
 }

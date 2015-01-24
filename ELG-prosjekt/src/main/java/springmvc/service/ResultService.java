@@ -23,7 +23,6 @@ public class ResultService {
 
     @Autowired
     public void setRepository(ResultRepo repo) {
-        System.out.println("resultRepo.mock" + repo);
         this.repo = repo;
     }
 
@@ -81,8 +80,6 @@ public class ResultService {
     public ArrayList<HighscoreDisplay> getCompleteCompletion(String classname) {
         ArrayList<HighscoreDisplay> multi = getNewCompletionlistMulti(classname);
         ArrayList<HighscoreDisplay> resemble = getNewCompletionlistResemble(classname);
-        System.out.println(multi.size());
-        System.out.println(resemble.size());
         ArrayList<HighscoreDisplay> comp = new ArrayList<>();
         if (multi.size() != 0 && resemble.size() == 0) {
             return multi;
