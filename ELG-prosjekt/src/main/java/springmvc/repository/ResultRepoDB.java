@@ -19,6 +19,7 @@ import springmvc.repository.mappers.ClassMapper;
 import springmvc.repository.mappers.CompletionMapper;
 import springmvc.repository.mappers.EmailMapper;
 import springmvc.repository.mappers.GameIDMapper;
+import springmvc.repository.mappers.GameIDMapperResemble;
 import springmvc.repository.mappers.HighscoreMapper;
 import springmvc.repository.mappers.MultiChoiceMapper;
 import springmvc.repository.mappers.OvingMapper;
@@ -249,8 +250,8 @@ public class ResultRepoDB implements ResultRepo {
         ArrayList<String> completionlist = new ArrayList<String>();
         ArrayList<HighscoreDisplay> nameList = new ArrayList<>();
         try {
-            gamesInOving = (ArrayList<Integer>) jdbcTemplateObject.query(sqlGetGamesInOvingResemble, new Object[]{}, new GameIDMapper());
-            System.out.println("gamesInOving.size() = " + gamesInOving.size()); // ******TEST******
+            gamesInOving = (ArrayList<Integer>) jdbcTemplateObject.query(sqlGetGamesInOvingResemble, new Object[]{}, new GameIDMapperResemble());
+            System.out.println("gamesInOving.size() ((RESEMBLE)) = " + gamesInOving.size()); // ******TEST******
             for (int i = 0; i < gamesInOving.size(); i++) {
                 if (i == 0) {
                     completionlist = (ArrayList<String>) jdbcTemplateObject.query(sqlGetPassedExerciseResemble, new Object[]{gamesInOving.get(i)}, new EmailMapper());

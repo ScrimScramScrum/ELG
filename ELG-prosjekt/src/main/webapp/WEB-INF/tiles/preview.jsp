@@ -87,16 +87,16 @@
 <c:when test="${gametype == 1}">
     <div id="wrapperGameInfoaaa">
         <div id="leftcolumn">
-            <h2> ${resembleInfo.gamename}</h2>
+            <h2> <c:out value="${resembleInfo.gamename}" /></h2>
             <br>
             <h4>Vanskelighetsgrad</h4>
-            ${resembleInfo.difficulty}/3
+            <c:out value="${resembleInfo.difficulty}" /> / 3
             <br>
             <h4>Informasjon</h4>
-            ${resembleInfo.info}
+            <c:out value="${resembleInfo.info}" />
             <br>
             <h4>Læringsmål</h4>
-            ${resembleInfo.learningGoal}
+            <c:out value="${resembleInfo.learningGoal}" />
             <br><br>
             <form action="resemblegame" method="post" style="float: right">
                 <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
@@ -152,16 +152,16 @@
 <c:when test="${gametype == 2}">
     <div id="wrapperGameInfo">
         <div id="leftcolumn">
-            <h2>${gamenr}</h2>
+            <h2><c:out value="${gamenr}" /></h2>
             <br>
             <h4>Vanskelighetsgrad</h4>
-            ${multiChoiceInfo.difficulty}/3
+            <c:out value="${multiChoiceInfo.difficulty}" /> / 3
             <br>
             <h4>Informasjon</h4>
-            ${multiChoiceInfo.info}
+            <c:out value="${multiChoiceInfo.info}" />
             <br>
             <h4>Læringsmål</h4>
-            ${multiChoiceInfo.learningGoal}
+            <c:out value="${multiChoiceInfo.learningGoal}" />
             <br><br>
             <form action="multi" method="post" id="playbutton" style="float: right">
                 <input type="hidden" name="gamename" id="gamename" value="${gamenr}" />
@@ -190,6 +190,15 @@
         <div id="welcome_wrapper">
             <div id="welcome">
                 <h1><spring:message code="gamePage1"/></h1>
+                <!-- Links -->
+                <ul>
+                    <li><a href="https://docs.webplatform.org/wiki/Main_Page">WebPlatform</a></li>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web">MDN</a></li>
+                    <li><a href="http://www.w3schools.com">W3Schools</a></li>
+                    <li><a href="https://github.com/dypsilon/frontend-dev-bookmarks">Frontend-dev-bookmarks</a></li>
+                    <li><a href="http://learnlayout.com">LearnLayout</a></li>
+                </ul>
+                <a href="<c:out value='/resources/pdf/intro-html.pdf' />" download>Intro HTML PDF</a>
             </div>
             <div id="welcome_space">
             </div>
