@@ -16,9 +16,9 @@
         <script src="<c:url value='/resources/html2canvas.js' />"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="<c:url value='/resources/js/jquery.min.js' />"></script>
 
-         <script type="text/javascript">
+        <script type="text/javascript">
         function setRenderedResult(frame, html, css) {
             frame.contents().find("html").html(html);
             var $head = frame.contents().find("head");                

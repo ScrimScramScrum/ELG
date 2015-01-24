@@ -7,7 +7,7 @@
         <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css/style.css'/>">
         <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css/style-1000px.css'/>">
         <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/css/style-desktop.css'/>">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="<c:url value='/resources/js/jquery.min.js' />"></script>
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet" type="text/css" />
         
         <script>

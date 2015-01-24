@@ -10,7 +10,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><tiles:insertAttribute name="title" ignore="true" /></title>
         <link href="<c:url value='/resources/assets/chatstyle.css'/>" rel="stylesheet" type="text/css" />
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="<c:url value='/resources/js/jquery.min.js' />"></script>
     </head>
     <body bgcolor="gray" >
         <table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
@@ -105,8 +105,10 @@
         <script src="<c:url value='/resources/assets/sockjs.min.js'/>" type="text/javascript"></script>
         <script src="<c:url value='/resources/assets/stomp.min.js'/>" type="text/javascript"></script>
         <script src="<c:url value='/resources/assets/angular.min.js'/>" type="text/javascript"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
-        <script src="https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/v2.0.2/src/scrollglue.js"></script>
+
+        <script src="<c:url value='/resources/assets/lodash.min.js'/>" type="text/javascript"></script>
+        <script src="<c:url value='/resources/assets/scrollglue.js'/>" type="text/javascript"></script>
+
         <script src="<c:url value='/resources/app/app.js'/>" type="text/javascript"></script>
         <script src="<c:url value='/resources/app/controllers.js'/>" type="text/javascript"></script>
         <script src="<c:url value='/resources/app/services.js'/>" type="text/javascript"></script>

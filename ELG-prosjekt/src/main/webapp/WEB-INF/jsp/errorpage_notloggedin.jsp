@@ -10,10 +10,8 @@
     </head>
     <body>
         <h1>
-            <script>
-                <spring:message code = "notLoggedIn" />
-                    <a href="/login">Trykk her for å komme tilbake</a>
-            </script>
+            <spring:message code = "notLoggedIn" />
+            <a href="/login">Trykk her for å komme tilbake</a>
         </h1>
     </body>
 </html>

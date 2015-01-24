@@ -6,11 +6,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css">
-        <script src="http://codemirror.net/lib/codemirror.js"></script>
-        <script src="http://codemirror.net/addon/edit/matchbrackets.js"></script>  
-        <script src="http://codemirror.net/mode/css/css.js"></script>
-        <script src="http://codemirror.net/mode/xml/xml.js"></script>     
+
+        <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/codemirror/lib/codemirror.css'/>">  
+        <script src="<c:url value='/resources/codemirror/lib/codemirror.js' />"></script>
+        <script src="<c:url value='/resources/codemirror/mode/css/css.js' />"></script>
+        <script src="<c:url value='/resources/codemirror/mode/xml/xml.js' />"></script>
+
         <script src="<c:url value='/resources/resemble.js' />"></script>
         <script src="<c:url value='/resources/html2canvas.js' />"></script>
         <script src="<c:url value='/resources/jsbeautifier/lib/beautify.js' />"></script>
@@ -248,7 +249,7 @@
                             <span class="range-slider-active-segment"></span>
                         </div>   
 
-                        <div class="range-slider round" data-slider data-options="start: 1; end: 200; display_selector: #sliderOutput2;">
+                        <div class="range-slider round" data-slider data-options="start: 1; end: 150; display_selector: #sliderOutput2;">
                             <span class="range-slider-handle" role="slider" tabindex="0"></span>
                             <span class="range-slider-active-segment"></span>
                         </div>     

@@ -4,15 +4,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        
-        <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css">
-        <script src="http://codemirror.net/lib/codemirror.js"></script>
-        <script src="http://codemirror.net/addon/edit/matchbrackets.js"></script>
-        <script src="http://codemirror.net/addon/edit/continuecomment.js"></script>
-        
-        <script src="http://codemirror.net/mode/css/css.js"></script>
-        <script src="http://codemirror.net/mode/xml/xml.js"></script>
+        <script src="<c:url value='/resources/js/jquery.min.js' />"></script>
+
+        <link rel = "stylesheet" type = "text/css" href = "<c:url value='/resources/codemirror/lib/codemirror.css'/>">  
+        <script src="<c:url value='/resources/codemirror/lib/codemirror.js' />"></script>
+        <script src="<c:url value='/resources/codemirror/mode/css/css.js' />"></script>
+        <script src="<c:url value='/resources/codemirror/mode/xml/xml.js' />"></script>
         
         <script src="<c:url value='/resources/resemble.js' />"></script>
         <script src="<c:url value='/resources/html2canvas.js' />"></script>

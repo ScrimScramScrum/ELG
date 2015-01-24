@@ -80,7 +80,8 @@ public class ResembleTask {
     }
 
     public void setWidth(int width) {
-        this.width = width;
+        if(width > 200) this.width = 200; 
+        else this.width = width;
     }
 
     public int getHeight() {
@@ -88,7 +89,8 @@ public class ResembleTask {
     }
     
     public void setHeight(int height) {
-        this.height = height;
+        if(height > 150) this.height = 150;
+        else this.height = height;
     }
     
     public String getTaskText() {
