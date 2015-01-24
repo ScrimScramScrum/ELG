@@ -84,13 +84,13 @@ public class ResultService {
         System.out.println(multi.size());
         System.out.println(resemble.size());
         ArrayList<HighscoreDisplay> comp = new ArrayList<>();
-        if (multi.size() != 0 & resemble.size() == 0) {
+        if (multi.size() != 0 && resemble.size() == 0) {
             return multi;
         }
-        if (multi.size() == 0 & resemble.size() != 0) {
+        if (multi.size() == 0 && resemble.size() != 0) {
             return resemble;
         }
-        if (multi.size() != 0 || resemble.size() != 0) {
+        if (multi.size() != 0 && resemble.size() != 0) {
             for (int i = 0; i < multi.size(); i++) {
                 for (int u = 0; u < resemble.size(); u++) {
                     if (multi.get(i).getFname().equals(resemble.get(u).getFname()) && multi.get(i).getLname().equals(resemble.get(u).getLname())) {
