@@ -272,21 +272,21 @@
 
             <div id = "resembleBottom">
                 <div id ="bottomLeftCreate">      
-                    <center>CSS solution</center>
+                    <center>CSS løsning</center>
                     <textarea class="cssView" id="cssViewSolution" name ="cssViewSolution"></textarea>
                 </div>
                 <div id="bottomRightCreate">
-                    <center>HTML solution</center>
+                    <center>HTML løsning</center>
                     <textarea class="cssView" id="htmlViewSolution"></textarea>
                 </div>
             </div>
             <div id = "resembleBelowBottomCreate">
                 <div id ="bottomLeftCreate">      
-                    <center>CSS starting</center>
+                    <center>CSS start</center>
                     <textarea class="cssView" id="cssViewStarting" name ="cssView"></textarea>
                 </div>
                 <div id="bottomRightCreate">
-                    <center>HTML starting</center>
+                    <center>HTML start</center>
                     <textarea class="cssView" id="htmlViewStarting"></textarea>
                 </div>
             </div>
