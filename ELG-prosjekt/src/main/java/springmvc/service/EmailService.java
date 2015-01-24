@@ -27,10 +27,8 @@ public class EmailService {
 
         transport.connect ();
         transport.sendMessage (message, message.getRecipients (Message.RecipientType.TO));  
-        System.out.println("EPOST SKAL VÆRE SENT NÅ: til "+ to+"med melding: " +textMessage );
     }
     catch (MessagingException e) {
-        System.err.println("Cannot Send email");
         e.printStackTrace();
     }
     }

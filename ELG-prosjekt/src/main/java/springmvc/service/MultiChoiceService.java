@@ -19,14 +19,10 @@ public class MultiChoiceService {
     
     @Autowired
     public void setRepository(MultiChoiceRepository repo){
-        System.out.println("MultiChoiceService.mock" + repo);
         this.repo=repo;
     }
     
     public MultiChoice getMultiChoice(String name){
-        if (repo == null){
-            System.out.println("***** hei ********");
-        }
         MultiChoice m = repo.getMultiChoice(name); // returnerer et game = null.
         
         if (m == null){

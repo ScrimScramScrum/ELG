@@ -38,8 +38,6 @@ public class PersonServiceImpl implements PersonService {
     
     @Override
     public Person getPerson(String email){ 
-        //hent fra repo
-        System.out.println(email);
         return personRepo.getPerson(email.toUpperCase());
     }
     

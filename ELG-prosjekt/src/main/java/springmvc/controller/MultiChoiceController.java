@@ -24,9 +24,7 @@ import springmvc.domain.ResembleGame;
 import springmvc.domain.User;
 import springmvc.service.GameListService;
 import springmvc.service.MultiChoiceService;
-import springmvc.service.PersonService;
 import springmvc.service.ResultService;
-import springmvc.test.MultiChoiceTest;
 
 @Controller
 @SessionAttributes({"spillet", "createExercise", "Exercises", "MultiGame"})

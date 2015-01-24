@@ -100,11 +100,6 @@ public class GameListServiceMock implements GameListService{
     
     @Override
     public ArrayList<MultiChoiceInfo> updateApprovedMultiChoiceGames(ArrayList<MultiChoiceInfo> multiChoiceGames, User user){
-        System.out.println("in updateApprovedMultiChoiceGames");
-        for (int i = 0; i<multiChoiceGames.size();i++){
-            System.out.println(multiChoiceGames.get(i));
-        }
-        
         return multiChoiceGames;
     }
 

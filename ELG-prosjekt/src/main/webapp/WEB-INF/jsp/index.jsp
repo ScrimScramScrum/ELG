@@ -10,7 +10,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <p> <script> <spring:message code="melding" /> </script> </p>
+        <p><spring:message code="melding" /></p>
         
         <form action="<c:url value="/administrateAccount"/>" >
             <input type="submit" value="administrere">

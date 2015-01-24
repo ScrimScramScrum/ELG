@@ -8,12 +8,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style type="text/css">
             #mainbar {
-                width: 60%;
+                width: 75%;
                 float: left; 
 
             }
             #rightbar {
-                width: 20%;
+                width: 25%;
                 float: right; 
 
             }

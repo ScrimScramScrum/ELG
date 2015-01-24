@@ -167,16 +167,16 @@
     <c:when test="${gametype == 1}">
         <div id="leftcolumn">
             <div id="gameInfo">
-                <h2> ${resembleInfo.gamename}</h2>
+                <h2> <c:out value="${resembleInfo.gamename}" /></h2>
                 <br>
                 <h4>Vanskelighetsgrad</h4>
-                ${resembleInfo.difficulty} av 3
+                <c:out value="${resembleInfo.difficulty}" /> / 3
                 <br>
                 <h4>Informasjon</h4>
-                ${resembleInfo.info}
+                <c:out value="${resembleInfo.info}" />
                 <br>
                 <h4>Læringsmål</h4>
-                ${resembleInfo.learningGoal}
+                <c:out value="${resembleInfo.learningGoal}" />
                 <br><br>
             </div> <!-- End gameInfo div> -->
             <div id="bigPlayButton">
@@ -250,16 +250,16 @@
     <c:when test="${gametype == 2}">
         <div id="leftcolumn">
             <div id="gameInfo">
-                <h2>${gamenr}</h2>
+                <h2><c:out value="${gamenr}" /></h2>
                 <br>
                 <h4>Vanskelighetsgrad</h4>
-                ${multiChoiceInfo.difficulty}/3
+                <c:out value="${multiChoiceInfo.difficulty}" /> / 3
                 <br>
                 <h4>Informasjon</h4>
-                ${multiChoiceInfo.info}
+                <c:out value="${multiChoiceInfo.info}" />
                 <br>
                 <h4>Læringsmål</h4>
-                ${multiChoiceInfo.learningGoal}
+                <c:out value="${multiChoiceInfo.learningGoal}" />
                 <br><br>
             </div>
             <div id="bigPlayButton">
