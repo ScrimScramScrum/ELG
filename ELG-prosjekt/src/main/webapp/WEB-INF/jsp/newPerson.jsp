@@ -33,12 +33,13 @@
             <a href="javascript:submitFormWithValue()" name="submitCommand"class="enviar">Registrer</a> 
             <div class="olvido">
                 <div class="col"><a href="javascript:sendToLogin()" title="Back">back</a></div>
-                <div id ="errorMessage" class="errorMessages" >
-                    <form:errors path="email" htmlEscape="false" />
-                    <form:errors path="fname" htmlEscape="false" /> 
-                    <form:errors path="lname" htmlEscape="false" /> 
-                    ${newPersonError}
-                </div>
+            </div>
+            
+            <div id ="errorMessage" class="errorMessages" >
+                <form:errors path="email" htmlEscape="false" />
+                <form:errors path="fname" htmlEscape="false" /> 
+                <form:errors path="lname" htmlEscape="false" /> 
+                ${newPersonError}
             </div>
         </form:form>               
     </section>
@@ -47,6 +48,8 @@
 <style>
 
 body {
+    width: auto; 
+    height: auto; 
     background-size: cover;
     background-color: #dcdcd7;
     background-size: 1000px 1000px, 410px 410px, 610px 610px, 530px 530px, 730px 730px, 1000px 1000px;
@@ -65,8 +68,6 @@ body {
     border-top-left-radius: 6px;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
-    padding-top: 16px;
-    padding-bottom: 16px;
 }
 
 .login {
