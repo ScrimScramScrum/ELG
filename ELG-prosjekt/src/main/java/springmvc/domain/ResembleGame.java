@@ -20,6 +20,7 @@ public class ResembleGame implements Serializable, Comparable<ResembleGame>{
     @Min(1)
     @Max(3)
     private int difficulty;
+    @NotEmpty
     private String gamename;
     private String creatorId; 
     private int approved = -1;

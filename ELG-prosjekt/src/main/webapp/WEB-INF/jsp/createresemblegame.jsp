@@ -30,10 +30,8 @@
         #playbutton{
             width: 150px;
             height: 100%;
-            margin-right: auto;
-            margin-left: auto;
             cursor: pointer;
-            display: inline-block;
+            /*display: inline-block;*/
             background: #2B8FC4;
             border-radius: 4px;
             text-decoration: none;
@@ -50,6 +48,39 @@
         #playbutton:hover {
             background: #065B88;
         }
+        #buttonContainerLeft {
+            height: 100%;
+            width: 50%;
+            float: left;
+        }
+
+        #buttonContainerRight {
+            height: 100%;
+            width: 50%;
+            float: right;
+        }
+
+        #rowCreateResembleButtons {
+            height: 100px;
+        }
+
+        #create_main {
+            width: 100%;
+        }
+        #errorMessage {
+
+        }
+        #createResembleContainer {
+            width: 80%;
+        }
+        .playbuttonleft {
+            margin-right: 5px;
+            float: right;
+        }
+        .playbuttonright {
+            margin-left: 5px;
+            float: left;
+        }
     </style>
     </head>
     <body>
@@ -61,6 +92,7 @@
                     Læringsmål: <form:input path="resembleGame.learningGoal" id ="learningGoal" type="text"/>
                     Informasjon: <form:input path="resembleGame.info" id ="info" type="text"/>
                     Vanskelighetsgrad: <form:input path="resembleGame.difficulty" id ="difficulty" type="text"/><br>
+                    <div id="create_main">
                     <c:choose>
                         <c:when test="${createResembleGame.resembleTasks.size()==0}">
                             <br> Du har foreløpig ikke laget noen deloppgaver.<br><br>
@@ -95,15 +127,17 @@
                                     <%teller++;%>
                                 </div>
                             </c:forEach>
-                            <div id = "rowCreateResemble" style = "height:65px; width:25%;">
-                                <div id = "buttonContainerLeft" style = "width: 100px; height: 50px; display:inline;">
-                                    <button id="playbutton" type="submit" name = "button" value="Lagre spill">Lagre spill!</button>
-                                    <button id="playbutton" type="submit" name = "button" value="Lag deloppgave">Lag deloppgave!</button>
+                            <div id = "rowCreateResembleButtons">
+                                <div id = "buttonContainerLeft">
+                                    <button id="playbutton" class="playbuttonleft" type="submit" name = "button" value="Lagre spill">Lagre spill!</button>
+                                </div>
+                                <div id="buttonContainerRight">
+                                    <button id="playbutton" class="playbuttonright" type="submit" name = "button" value="Lag deloppgave">Lag deloppgave!</button>
                                </div>
                            </div>
                         </c:otherwise>
                     </c:choose>
-
+                    </div>
                     <div id ="errorMessage" class="errorMessages" >
                         <form:errors path="resembleGame.gamename"/><br>
                         <form:errors path="resembleGame.learningGoal"/><br>
@@ -119,5 +153,6 @@
                     </div>
                 </form:form>
             </center>
+        </div>
     </body>
 </html>
