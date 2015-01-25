@@ -1,23 +1,13 @@
+
 package Controllers;
 
-
-
-
-import java.io.IOException;
-import javax.servlet.ServletContext;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.orm.hibernate3.HibernateTransactionManager;
-import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Controller;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -49,10 +39,14 @@ import springmvc.service.MultiChoiceService;
 import springmvc.service.ResembleTaskService;
 
 
-@Configuration
-public class ConfigTest{  
+
+@Controller
+public class ConfigTest{
+
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() throws Exception{
+        
+        
         String url = "jdbc:derby://localhost:1527/ELGDB";
         String username = "ELGUSER";
         String password = "ELGERBEST";
@@ -61,12 +55,21 @@ public class ConfigTest{
         bds.setUsername(username);
         bds.setPassword(password);
         bds.setInitialSize(100);
+        
+        /*
+        //DATABASE:
+        Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+        String url = "jdbc:derby://localhost:1527//home/dbhome/elgdb;create=true;user=ELGUser;password=ELGErAlltidBest";        
+        BasicDataSource bds = new BasicDataSource(); 
+        bds.setUrl(url);       
+        */
+        
         return bds; 
     }
     
     @Bean 
     public ResembleTaskRepo resembleTaskRepo(){
-        return new ResembleTaskRepoMock(); 
+        return new ResembleTaskRepoDB(); 
     }
     
     @Bean
@@ -76,7 +79,7 @@ public class ConfigTest{
     
     @Bean
     public MultiChoiceRepository multiChoiceRepository(){
-        return new MultiChoiceRepoMock();
+        return new MultipleChoiceRepoDB();
     }
     
     @Bean
@@ -86,7 +89,7 @@ public class ConfigTest{
     
     @Bean
     public GameListService gameListService(){
-        return new GameListServiceMock(); 
+        return new GameListServiceImpl(); 
     }
     
     //KOPIERES
@@ -107,7 +110,7 @@ public class ConfigTest{
     }
     @Bean 
      public ResembleGameRepo resembleGameRepo(){
-         return new ResembleGameRepoMock(); 
+         return new ResembleGameRepoDB(); 
      }
      
     @Bean
@@ -117,7 +120,7 @@ public class ConfigTest{
     
     @Bean
     public ResultRepo resultRepo(){
-        return new ResultRepoMock();
+        return new ResultRepoDB();
     }
     
     @Bean
@@ -128,5 +131,15 @@ public class ConfigTest{
     @Bean
     public ClassService classService(){
         return new ClassService();
+    }
+    
+    @Bean
+    public EmailService emailService(){
+        return new EmailService();
+    }
+    
+     @Bean
+    public FileService fileService(){
+        return new FileService();
     }
 }

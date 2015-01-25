@@ -28,6 +28,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.mock.web.MockServletContext;
@@ -46,6 +47,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import springmvc.controller.AdministrateController;
 import springmvc.controller.MainController;
 import springmvc.controller.ResembleGameController;
+import springmvc.domain.CreateResembleGame;
 import springmvc.domain.HighscoreDisplay;
 import springmvc.domain.Login;
 import springmvc.domain.MultiChoice;
@@ -117,10 +119,29 @@ public class ResembleControllerTest {
         when(gameListService.getResembleGame(2)).thenReturn(rs); 
         when(resembleTaskService.getResembleTask(rs.getCurrentTask())).thenReturn(rt);
         this.mockMvc.perform(post("/resemblegame")
-                .param("gameid", "2"))
+                .param("gameid", "2")
+                .param("othergame", ""))
                 .andExpect(model().attribute("resembleGame", rs))
                 .andExpect(model().attribute("resembleTask", rt))
+                .andExpect(model().attribute("isOving", 1))
                 .andExpect(view().name("resembleGame"));
+    }
+    
+     @Test
+    public void testResembleGamePostOtherGame() throws Exception{
+        ResembleGame rs = new ResembleGame(); 
+        ResembleTask rt = new ResembleTask(); 
+        rs.setGameId(2);
+        rs.setCurrentTask(2);
+        when(gameListService.getResembleGame(2)).thenReturn(rs); 
+        when(resembleTaskService.getResembleTask(rs.getCurrentTask())).thenReturn(rt);
+        this.mockMvc.perform(post("/resemblegame")
+                .param("gameid", "2")
+                .param("othergame", "othergame"))
+                .andExpect(model().attribute("resembleGame", rs))
+                .andExpect(model().attribute("resembleTask", rt))
+                .andExpect(model().attribute("isOving", 0))
+                .andExpect(view().name("otherResembleGame"));
     }
     
     @Test
@@ -139,22 +160,45 @@ public class ResembleControllerTest {
         when(resembleTaskService.getResembleTask(any(Integer.class))).thenReturn(rt); 
         this.mockMvc.perform(post("/nextresembletask")
                 .param("score", "50")
+                .param("othergame", "")
                 .session(mockHttpSession))
-                .andExpect(model().attribute("resembleTask", rt))
+                .andExpect(model().attribute("isOving", 1))
                 .andExpect(view().name("resembleGame"));
     } 
     
     @Test
-    public void testFinishResembleGameZeroScore() throws Exception{
+    public void testNextResembleTaskOtherGame() throws Exception{
         MockHttpSession mockHttpSession = new MockHttpSession(); 
-        User user = new User(); 
-        user.setEmail("hei@gmail.com");
+        ResembleTask rt = new ResembleTask(); 
         ArrayList<Integer> taskNumbers = new ArrayList<>(); 
         taskNumbers.add(0);
         taskNumbers.add(1);
-        taskNumbers.add(2);      
+        taskNumbers.add(2);
+        
+        ResembleGame rg = new ResembleGame(taskNumbers, 2, "", "", 1); 
+        
+        rg.setCurrentTask(2);
+        mockHttpSession.setAttribute("resembleGame", rg);
+        when(resembleTaskService.getResembleTask(any(Integer.class))).thenReturn(rt); 
+        this.mockMvc.perform(post("/nextresembletask")
+                .param("score", "50")
+                .param("othergame", "othergame")
+                .session(mockHttpSession))
+                .andExpect(model().attribute("isOving", 0))
+                .andExpect(view().name("otherResembleGame"));
+    } 
+    
+    @Test
+    public void testFinishResembleGameZeroScoreOtherGame() throws Exception{
+        User user = new User(); 
+        user.setEmail("hei@gmail.com");
+        
+        ArrayList<Integer> taskNumbers = new ArrayList<>(); 
+        taskNumbers.add(0);   
         ResembleGame rg = new ResembleGame(taskNumbers, 2, "", "", 1);        
         rg.setCurrentTask(2);
+        
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
         mockHttpSession.setAttribute("resembleGame", rg);
         mockHttpSession.setAttribute("user", user);       
         when(r.getResembleGameRes(any(String.class), any(ResembleGame.class))).thenReturn(0); 
@@ -165,8 +209,178 @@ public class ResembleControllerTest {
         when(r.highscoreRG(any(ResembleGame.class))).thenReturn(hsd);       
         this.mockMvc.perform(post("/finishgame")
                 .param("score", "50")
+                .param("othergame", "othergame")
                 .session(mockHttpSession))
-               //doesnt work for some reason .andExpect(model().attribute("highscorelist", "hei asd 10\nhei asd 10"))
+                .andExpect(model().attributeExists("resembleGames"))
+                .andExpect(view().name("finishothergame"));
+    }
+    
+    @Test
+    public void testFinishResembleGame() throws Exception{
+        User user = new User(); 
+        user.setEmail("hei@gmail.com");
+        
+        ArrayList<Integer> taskNumbers = new ArrayList<>(); 
+        taskNumbers.add(0);   
+        ResembleGame rg = new ResembleGame(taskNumbers, 2, "", "", 1);        
+        rg.setCurrentTask(2);
+        
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        mockHttpSession.setAttribute("resembleGame", rg);
+        mockHttpSession.setAttribute("user", user);       
+        when(r.getResembleGameRes(any(String.class), any(ResembleGame.class))).thenReturn(10); 
+        when(r.regResembleGameRes(any(String.class), any(Double.class), any(ResembleGame.class))).thenReturn(true);
+        ArrayList<HighscoreDisplay> hsd = new ArrayList<>(); 
+        hsd.add(new HighscoreDisplay("hei", "asd", 10)); 
+        hsd.add(new HighscoreDisplay("hei", "asd", 10));      
+        when(r.highscoreRG(any(ResembleGame.class))).thenReturn(hsd);       
+        this.mockMvc.perform(post("/finishgame")
+                .param("score", "50")
+                .param("othergame", "")
+                .session(mockHttpSession))
+                .andExpect(model().attributeExists("resembleGamesExtra"))
                 .andExpect(view().name("finishgame"));
+    }
+    
+    @Test
+    public void testShowCreateResembleGameNullUser() throws Exception{
+        this.mockMvc.perform(get("/createresemblegame")).andExpect(view().name("firstLogin"));
+    }
+    
+    @Test
+    public void testShowCreateResembleGame()throws Exception{
+        User user = new User(); 
+        user.setInLogged(true);
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        mockHttpSession.setAttribute("user", user);
+        this.mockMvc.perform(get("/createresemblegame")
+                .session(mockHttpSession))
+                .andExpect(model().attributeExists("createResembleGame"))
+                .andExpect(view().name("createresemblegame"));
+    }
+    
+    @Test
+    public void testCreateResembleTaskViewNullUser() throws Exception{
+        this.mockMvc.perform(get("/createresembletask")).andExpect(view().name("firstLogin"));
+    }
+    
+    @Test
+    public void testCreateResembleTask()throws Exception{
+        User user = new User(); 
+        user.setInLogged(true);
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        mockHttpSession.setAttribute("user", user);
+        this.mockMvc.perform(get("/createresembletask")
+                .session(mockHttpSession))
+                //.andExpect(model().attributeExists("createResembleTask"))
+                .andExpect(view().name("createresembletask"));
+    }
+    
+    @Test
+    public void testCreateResembleTaskPost() throws Exception{
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        mockHttpSession.setAttribute("createResembleGame", new CreateResembleGame());
+        mockHttpSession.setAttribute("createResembleTask", new ResembleTask());
+        this.mockMvc.perform(post("/createresembletask").session(mockHttpSession)).andExpect(view().name("createresemblegame"));
+    }
+    
+    @Test
+    public void testSubmitResembleGameNullUser() throws Exception{
+        this.mockMvc.perform(post("/submitresemblegame")).andExpect(view().name("error"));
+    }
+    
+    @Test
+    public void testSubmitResembleGameCreateTask() throws Exception{
+        User user = new User(); 
+        user.setInLogged(true);
+        CreateResembleGame createResembleGame = new CreateResembleGame(); 
+        ResembleGame rg = new ResembleGame(); 
+        rg.setCreatorId("asd");
+        rg.setInfo("hasdasd");
+        rg.setLearningGoal("iasdasd");
+        rg.setDifficulty(2);
+        createResembleGame.setResembleGame(rg);
+        
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        mockHttpSession.setAttribute("user", user);
+        mockHttpSession.setAttribute("createResembleGame", createResembleGame); 
+        this.mockMvc.perform(post("/submitresemblegame")
+                .param("button", "Lag deloppgave")
+                .session(mockHttpSession))
+                .andExpect(model().attributeExists("createResembleTask"))
+                .andExpect(view().name("createresembletask"));
+    }
+    
+    @Test
+    public void testSubmitResembleGameError() throws Exception{
+         User user = new User(); 
+        user.setInLogged(true);
+        CreateResembleGame createResembleGame = new CreateResembleGame(); 
+        ResembleGame rg = new ResembleGame(); 
+        rg.setCreatorId("asd");
+        rg.setInfo("hasdasd");
+        rg.setLearningGoal("iasdasd");
+        rg.setDifficulty(2);
+        createResembleGame.setResembleGame(rg);
+        
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        mockHttpSession.setAttribute("user", user);
+        mockHttpSession.setAttribute("createResembleGame", createResembleGame);     
+        
+        this.mockMvc.perform(post("/submitresemblegame")
+                .param("learningGoal", "")
+                .param("button", "")
+                .session(mockHttpSession))
+                .andExpect(view().name("createresemblegame"));
+    }
+    
+    @Test
+    public void testSubmitResembleGameDuplicateName() throws Exception{
+        User user = new User(); 
+        user.setInLogged(true);
+        CreateResembleGame createResembleGame = new CreateResembleGame(); 
+        ResembleGame rg = new ResembleGame(); 
+        rg.setCreatorId("asd");
+        rg.setInfo("hasdasd");
+        rg.setLearningGoal("iasdasd");
+        rg.setDifficulty(2);
+        createResembleGame.setResembleGame(rg);
+        
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        mockHttpSession.setAttribute("user", user);
+        mockHttpSession.setAttribute("createResembleGame", createResembleGame);        
+        when(gameListService.getResemleGameByName(any(String.class))).thenReturn(new ResembleGame()); 
+        
+        this.mockMvc.perform(post("/submitresemblegame")
+                .param("button", "")
+                .session(mockHttpSession))
+                .andExpect(model().attributeExists("message"))
+                .andExpect(view().name("createresemblegame"));
+    }
+    
+      @Test
+    public void testSubmitResembleGame() throws Exception{
+        User user = new User(); 
+        user.setInLogged(true);
+        CreateResembleGame createResembleGame = new CreateResembleGame(); 
+        ResembleGame rg = new ResembleGame(); 
+        rg.setCreatorId("asd");
+        rg.setInfo("hasdasd");
+        rg.setLearningGoal("iasdasd");
+        rg.setDifficulty(2);
+        rg.setGameId(10);
+        createResembleGame.setResembleGame(rg);
+        
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        mockHttpSession.setAttribute("user", user);
+        mockHttpSession.setAttribute("createResembleGame", createResembleGame);
+        
+        when(gameListService.getResemleGameByName(any(String.class))).thenThrow(EmptyResultDataAccessException.class).thenReturn(rg); 
+        when(gameListService.insertResembleGame(any(String.class), any(String.class), any(String.class), any(String.class), any(String.class))).thenReturn(true); 
+        when(resembleTaskService.insertResembleTasks(any(ArrayList.class), any(Integer.class))).thenReturn(true); 
+        this.mockMvc.perform(post("/submitresemblegame")
+                .param("button", "")
+                .session(mockHttpSession))
+                .andExpect(view().name("about"));
     }
 }

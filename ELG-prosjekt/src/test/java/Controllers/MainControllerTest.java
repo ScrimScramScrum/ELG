@@ -56,6 +56,7 @@ import springmvc.service.GameListService;
 import springmvc.service.GameListServiceMock;
 import springmvc.service.LoginService;
 import springmvc.service.PersonService;
+import springmvc.service.ResembleTaskService;
 import springmvc.service.ResultService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -65,6 +66,9 @@ public class MainControllerTest {
     private MockMvc mockMvc;
     @Mock
     private GameListServiceMock gameListService; 
+    
+    @Mock
+    private ResembleTaskService resembleTaskService; 
     
     @Mock
     private ResultService r;
@@ -105,6 +109,28 @@ public class MainControllerTest {
     public void tearDown() {
     }
     
+    //@Test
+    public void testPersonNotNull() throws Exception{
+        MockHttpSession session = new MockHttpSession(); 
+        User user = new User(); 
+        session.setAttribute("user", user);
+        this.mockMvc.perform(get("blabla")
+                .param("email", "mal@mail.com")
+                .param("password", "password")
+                .param("email", "mal@mail.com").session(session))
+                .andExpect(view().name("about"));
+    }
+    
+    @Test
+    public void testShowAboutInloggedUser() throws Exception{
+        User user = new User(); 
+        MockHttpSession session = new MockHttpSession(); 
+        session.setAttribute("user", user);
+        this.mockMvc.perform(get("/about")
+                .param("email", "email@mail.com")
+                .param("password", "password").session(session)).andExpect(view().name("notloggedin"));
+    }
+    
     @Test
     public void randomURL() throws Exception{
         this.mockMvc.perform(get("/åijsdophjsdg")).andExpect(view().name("firstLogin"));
@@ -118,6 +144,11 @@ public class MainControllerTest {
     @Test
     public void testAboutURLNullUser() throws Exception{
         this.mockMvc.perform(get("/about")).andExpect(view().name("firstLogin"));
+    }
+    
+   // @Test
+    public void testLoginAsGuest()throws Exception{
+        this.mockMvc.perform(get("/loginAsguest").session(new MockHttpSession())).andExpect(view().name("chooseGameHighscore"));
     }
     
     @Test
@@ -139,7 +170,7 @@ public class MainControllerTest {
     
     @Test
     public void testChooseGameNullUser() throws Exception{
-        this.mockMvc.perform(get("/choosegame")).andExpect(view().name("firstLogin"));
+        this.mockMvc.perform(get("/choosegame")).andExpect(view().name("error"));
     }
     
     @Test
@@ -147,7 +178,7 @@ public class MainControllerTest {
         User user = new User(); 
         MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest(); 
         mockHttpServletRequest.getSession().setAttribute("user", user);
-        this.mockMvc.perform(get("/choosegame")).andExpect(view().name("firstLogin"));
+        this.mockMvc.perform(get("/choosegame")).andExpect(view().name("error"));
     }
     
      @Test
@@ -293,7 +324,7 @@ public class MainControllerTest {
         when(r.highscoreRG(any(ResembleGame.class))).thenReturn(new ArrayList<HighscoreDisplay>()); 
         this.mockMvc.perform(post("/choosegameHighscore")
                 .param("gameid", "1")
-                .param("gametype", "multichoice"))
+                .param("gametype", "resemble"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("highscore"))
                 .andExpect(view().name("chooseGameHighscore"));
@@ -312,6 +343,16 @@ public class MainControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("highscore"))
                 .andExpect(view().name("chooseGameHighscore"));
+    }
+    
+    @Test
+    public void testChooseGameCompletionListNullUser() throws Exception{
+        this.mockMvc.perform(get("/completionlist")).andExpect(view().name("firstLogin"));
+    }
+    
+    @Test
+    public void testChooseGameCompletionPostListNullUser() throws Exception{
+        this.mockMvc.perform(post("/choosegameCompletionlist")).andExpect(view().name("error"));
     }
     
     @Test
@@ -440,5 +481,178 @@ public class MainControllerTest {
         this.mockMvc.perform(get("/creategame")
                 .session(mockHttpSession))
                 .andExpect(view().name("creategame"));
+    }
+    
+    @Test
+    public void testVoteGameResemble() throws Exception{
+        User user = new User(); 
+        user.setInLogged(true);
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        mockHttpSession.setAttribute("user", user);
+        this.mockMvc.perform(post("/votegame")
+                .param("gametype", "resemble")
+                .param("gameid", "gameid")
+                .session(mockHttpSession))
+                .andExpect(status().isOk());
+    }
+    
+    @Test
+    public void testVoteGameMulti() throws Exception{
+        User user = new User(); 
+        user.setInLogged(true);
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        mockHttpSession.setAttribute("user", user);
+        this.mockMvc.perform(post("/votegame")
+                .param("gametype", "multichoice")
+                .param("gameid", "gameid")
+                .session(mockHttpSession))
+                .andExpect(view().name("chooseothergame"));
+    }
+    
+    @Test
+    public void testChooseOtherGameNullUser() throws Exception{
+        this.mockMvc.perform(get("/chooseothergames")).andExpect(view().name("error"));
+    }
+    
+    @Test
+    public void testChooseOtherGamePostNullUser() throws Exception{
+        this.mockMvc.perform(post("/chooseothergames")).andExpect(view().name("error"));
+    }
+    
+    //@Test
+    public void testChooseOtherGameNotInlogged() throws Exception{
+        User user = new User(); 
+        MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest(); 
+        mockHttpServletRequest.getSession().setAttribute("user", user);
+        this.mockMvc.perform(get("/chooseothergames")).andExpect(view().name("error"));
+    }
+    
+     @Test
+    public void testChooseOtherGameInlogged() throws Exception{
+        User user = new User(); 
+        user.setInLogged(true);
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        mockHttpSession.setAttribute("user", user);
+        this.mockMvc.perform(get("/chooseothergames").session(mockHttpSession)).andExpect(view().name("chooseothergame"));
+    }
+    
+    @Test
+    public void testChooseOtherGameMultiChoice() throws Exception{
+        User user = new User(); 
+        user.setInLogged(true);
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        mockHttpSession.setAttribute("user", user);
+        GameListServiceMock gls = new GameListServiceMock(); 
+        when(gameListService.getMultiChoiceInfo("Spill 1")).thenReturn(new MultiChoiceInfo());
+        when(gameListService.getAllResembleGames()).thenReturn(gls.getAllResembleGames()); 
+        when(gameListService.getAllMultiChoiceInfo()).thenReturn(gls.getAllMultiChoiceInfo()); 
+        this.mockMvc.perform(post("/chooseothergames")
+                .param("gameid", "Spill 1")
+                .param("gametype", "multichoice")
+                .session(mockHttpSession))
+                .andExpect(model().attributeExists("multiChoiceInfo"))
+                .andExpect(view().name("chooseothergame"));    
+    }
+    
+    @Test
+    public void testChooseOtherGameResembleGame() throws Exception{
+        User user = new User(); 
+        user.setInLogged(true);
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        mockHttpSession.setAttribute("user", user);
+        GameListServiceMock gls = new GameListServiceMock(); 
+        ResembleGame rs = new ResembleGame(); 
+        ArrayList<Integer> taskNumbers = new ArrayList<>(); 
+        taskNumbers.add(1); 
+        taskNumbers.add(2); 
+        rs.setTaskNumbers(taskNumbers);
+        
+        when(gameListService.getResembleGame(1)).thenReturn(rs);
+        when(gameListService.getAllResembleGames()).thenReturn(gls.getAllResembleGames()); 
+        when(gameListService.getAllMultiChoiceInfo()).thenReturn(gls.getAllMultiChoiceInfo()); 
+        when(gameListService.getResembleTasks(taskNumbers)).thenReturn(new ArrayList<ResembleTask>());
+        this.mockMvc.perform(post("/chooseothergames")
+                .param("gameid", "1")
+                .param("gametype", "resemble")
+                .session(mockHttpSession))
+                .andExpect(model().attributeExists("tasks"))
+                .andExpect(model().attributeExists("resembleInfo"))
+                .andExpect(view().name("chooseothergame"));    
+    }
+    
+    @Test
+    public void testKodeLostTagsNullUser() throws Exception{
+        this.mockMvc.perform(get("/kOdesLostTags")).andExpect(view().name("firstLogin"));
+    }
+    
+    @Test
+    public void testKodeLostTag() throws Exception{
+        User user = new User(); 
+        user.setInLogged(true);
+        MockHttpSession mockHttpSession = new MockHttpSession(); 
+        mockHttpSession.setAttribute("user", user);
+        this.mockMvc.perform(get("/kOdesLostTags")
+                .session(mockHttpSession))
+                .andExpect(view().name("kOdesLostTags"));
+    }
+    
+   // @Test
+    public void testLogout() throws Exception{
+        this.mockMvc.perform(get("logout")
+                .param("email", "hei@gmail.com")
+                .param("password", "heiasd"))
+                .andExpect(view().name("firstLogin"));
+    }
+    
+    @Test
+    public void testMoveGameResemble() throws Exception{
+        when(resembleTaskService.getResembleTask(any(Integer.class))).thenReturn(new ResembleTask());
+        when(gameListService.getResembleGame(any(Integer.class))).thenReturn(new ResembleGame()); 
+        when(gameListService.makeResembleGameExerciseExtra(any(Integer.class))).thenReturn(true);
+        when(gameListService.makeResembleGameExercise(any(Integer.class))).thenReturn(true);
+        when(gameListService.removeResembleGameFromExercise(any(Integer.class))).thenReturn(true);
+        
+        this.mockMvc.perform(post("/movegame")
+                .param("gameid", "1")
+                .param("gametype", "resemble")
+                .param("button", "makeextra"))
+                .andExpect(view().name("about"));
+        
+        this.mockMvc.perform(post("/movegame")
+                .param("gameid", "1")
+                .param("gametype", "resemble")
+                .param("button", "makeexercise"))
+                .andExpect(view().name("about"));
+        
+        this.mockMvc.perform(post("/movegame")
+                .param("gameid", "1")
+                .param("gametype", "resemble")
+                .param("button", "removeexercise"))
+                .andExpect(view().name("about"));
+    }
+    
+    @Test
+    public void testMoveGameMultiChoice() throws Exception{
+        when(gameListService.makeMultiGameExerciseExtra(any(String.class))).thenReturn(true); 
+        when(gameListService.makeMultiGameExercise(any(String.class))).thenReturn(true); 
+        when(gameListService.removeMultiGameFromExercise(any(String.class))).thenReturn(true); 
+        
+        this.mockMvc.perform(post("/movegame")
+                .param("gameid", "asd")
+                .param("gametype", "multichoice")
+                .param("button", "makeextra"))
+                .andExpect(view().name("about"));
+        
+        this.mockMvc.perform(post("/movegame")
+                .param("gameid", "asd")
+                .param("gametype", "multichoice")
+                .param("button", "makeexercise"))
+                .andExpect(view().name("about"));
+        
+        this.mockMvc.perform(post("/movegame")
+                .param("gameid", "asd")
+                .param("gametype", "multichoice")
+                .param("button", "removeexercise"))
+                .andExpect(view().name("about"));
     }
 }
