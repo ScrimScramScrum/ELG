@@ -18,6 +18,7 @@ function Game() {
 	this.questionDone = [];
 	this.questionToBeAsked = [0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19];
 	this.round = 0;
+        this.correctAnswerCounter = 0; 
 
 
 	this.chooseRandomNumber = function() {	
@@ -29,7 +30,8 @@ function Game() {
 		if (tagWeAreOn==this.theQuestions[this.questionOnNow].answer){
 			console.log("OK");
 			this.score++;                           
-                        //audioCorrect.play();                        
+                        //audioCorrect.play(); 
+                        this.correctAnswerCounter = 100;
                         return true;
 		} else {
 			console.log("ikke OK");
@@ -199,6 +201,14 @@ monsterImage.onload = function () {
 	monsterReady = true;
 };
 monsterImage.src = "monster.png";
+
+// Monster image
+
+var correctImage = new Image();
+correctImage.onload = function () {
+	
+};
+correctImage.src = "<c:url value="/resources/images/check.png"/>";
 
 // Game objects
 var hero = {
@@ -418,6 +428,10 @@ var render = function () {
 	}
 
 
+        if (theGame.correctAnswerCounter>=0){
+            ctx.drawImage(correctImage, 125,32);
+            theGame.correctAnswerCounter --;
+        }
 
 	// Score
 	ctx.fillStyle = "rgb(250, 250, 250)";

@@ -97,6 +97,7 @@ public class Configuration extends WebMvcConfigurationSupport {
         bds.setPassword(password);
         bds.setInitialSize(100);
         
+        
         /*
         //DATABASE:
         Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
