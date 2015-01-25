@@ -105,6 +105,9 @@
             <br>
             <h4>Læringsmål</h4>
             <c:out value="${resembleInfo.learningGoal}" />
+            <br>
+            <h4>Laget av</h4>
+            <c:out value="${resembleInfo.creatorId}" />
             <br><br>
             <form action="resemblegame" method="post" style="float: right">
                 <input type="hidden" name="gameid" id="gameid" value="${gamenr}" />
@@ -170,6 +173,9 @@
             <br>
             <h4>Læringsmål</h4>
             <c:out value="${multiChoiceInfo.learningGoal}" />
+            <br>
+            <h4>Laget av</h4>
+            <c:out value="${multiChoiceInfo.creatorId}" />
             <br><br>
             <form action="multi" method="post" id="playbutton" style="float: right">
                 <input type="hidden" name="gamename" id="gamename" value="${gamenr}" />

@@ -142,7 +142,7 @@ public class MultiChoiceController {
             Double score = mc.getResult();
             String k = user.getEmail();
             int d = r.getMultiChoiceRes(k, mc);
-            if (d == 0) {
+            if (d == -1) {
                 r.regMultiChoiceRes(k, score, mc);
             } else if (score > d) {
                 r.updateMultiResult(k, score, mc);

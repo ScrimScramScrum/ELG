@@ -84,9 +84,8 @@ public class ResultRepoDB implements ResultRepo {
         int i;
         try {
             i = (int) jdbcTemplateObject.queryForInt(sqlGetResult, new Object[]{email, game.getGameid()});
-
         } catch (Exception e) {
-            i = 0;
+            i = -1;
         }
         return i;
     }

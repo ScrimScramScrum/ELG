@@ -291,7 +291,16 @@ public class MainController {
         mav.addObject("gametype", resemble);
         ArrayList<ResembleGame> resembleGames = gameListService.getAllResembleGames();
         ArrayList<MultiChoiceInfo> multiChoiceGames = gameListService.getAllMultiChoiceInfo();
-        mav.addObject("gamenr", id);
+        if(resemble == 1) {
+            String name = "" + id;
+            for(ResembleGame g : resembleGames) {
+                int k = Integer.parseInt(id);
+                if(g.getGameId() == k) {
+                    mav.addObject("gamenr", g.getGamename());
+                }
+            }
+        } else mav.addObject("gamenr", id);
+        //mav.addObject("gamenr", id);
         mav.addObject("sortedScores", r.sortHighScores(hs));
         mav.addObject("resembleGames", resembleGames);
         mav.addObject("multiChoiceGames", multiChoiceGames);

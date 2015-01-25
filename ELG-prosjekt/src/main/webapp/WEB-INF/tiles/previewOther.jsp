@@ -185,6 +185,9 @@
                 <br>
                 <h4>Læringsmål</h4>
                 <c:out value="${resembleInfo.learningGoal}" />
+                <br>
+                <h4>Laget av</h4>
+                <c:out value="${resembleInfo.creatorId}" />
                 <br><br>
             </div> <!-- End gameInfo div> -->
             <div id="bigPlayButton">
@@ -268,6 +271,9 @@
                 <br>
                 <h4>Læringsmål</h4>
                 <c:out value="${multiChoiceInfo.learningGoal}" />
+                <br>
+                <h4>Laget av</h4>
+                <c:out value="${multiChoiceInfo.creatorId}" />
                 <br><br>
             </div>
             <div id="bigPlayButton">

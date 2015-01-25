@@ -14,6 +14,7 @@ public class MultiChoiceInfoMapper implements RowMapper<MultiChoiceInfo>{
         mci.setLearningGoal(rs.getString("learning_goals"));
         mci.setInfo(rs.getString("info"));
         mci.setDifficulty(rs.getInt("difficulty"));
+        mci.setCreatorId(rs.getString("creator_id"));
         return mci; 
     }
 }

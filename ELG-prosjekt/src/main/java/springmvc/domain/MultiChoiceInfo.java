@@ -15,8 +15,16 @@ public class MultiChoiceInfo implements Comparable<MultiChoiceInfo> {
     private String info;
     private int difficulty; 
     int approved = -1;
-    private int votes; 
-
+    private int votes;
+    private String creatorId;
+    
+    public MultiChoiceInfo(String name, String learningGoal, String info, int difficulty, String creatorId) {
+        this.name = name;
+        this.learningGoal = learningGoal; 
+        this.info = info;
+        this.difficulty = difficulty; 
+        this.creatorId = creatorId;
+    }
 
     public MultiChoiceInfo(String name, String learningGoal, String info, int difficulty) {
         this.name = name;
@@ -75,6 +83,14 @@ public class MultiChoiceInfo implements Comparable<MultiChoiceInfo> {
 
     public void setVotes(int votes) {
         this.votes = votes;
+    }
+
+    public String getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
     }
     
     @Override
