@@ -49,16 +49,17 @@ public class PersonServiceImpl implements PersonService {
     }
     
     @Override
-    public boolean registrerPerson(Person p){ // HUSK: Når database kommer, skal ny registrering sammenlignes med allerede registrerte brukere.
+    public boolean registrerPerson(Person p){ 
                
         if (getPerson(p.getEmail().toUpperCase())!=null){
             return false; 
         }
         
         allToUpperCase(p);
-        generateNewPassword(p);
+        
          
         if(personRepo.registerPerson(p)){
+            generateNewPassword(p);
             return true;
         } else {
             return false;
