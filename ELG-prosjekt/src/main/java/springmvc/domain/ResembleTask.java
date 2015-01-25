@@ -48,7 +48,7 @@ public class ResembleTask {
     }
 
     public void setSolutionHTML(String solutionHTML) {
-        this.solutionHTML = solutionHTML;
+        this.solutionHTML = solutionHTML.replaceAll("[^\\S ]", "");
     }
 
     public String getSolutionCSS() {
@@ -56,7 +56,7 @@ public class ResembleTask {
     }
 
     public void setSolutionCSS(String solutionCSS) {
-        this.solutionCSS = solutionCSS;
+        this.solutionCSS = solutionCSS.replaceAll("[^\\S ]", "");
     }
 
     public String getStartingHTML() {
@@ -64,7 +64,7 @@ public class ResembleTask {
     }
 
     public void setStartingHTML(String startingHTML) {
-        this.startingHTML = startingHTML;
+        this.startingHTML = startingHTML.replaceAll("[^\\S ]", "");
     }
 
     public String getStartingCSS() {
@@ -72,7 +72,7 @@ public class ResembleTask {
     }
 
     public void setStartingCSS(String startingCSS) {
-        this.startingCSS = startingCSS;
+        this.startingCSS = startingCSS.replaceAll("[^\\S ]", "");
     }
 
     public int getWidth() {
