@@ -63,11 +63,11 @@
                     Vanskelighetsgrad: <form:input path="resembleGame.difficulty" id ="difficulty" type="text"/><br>
                     <c:choose>
                         <c:when test="${createResembleGame.resembleTasks.size()==0}">
-                            <br> Du har foreløpig ikke lagd noen deloppgaver.<br><br>
+                            <br> Du har foreløpig ikke laget noen deloppgaver.<br><br>
                              <button id="playbutton" type="submit" name = "button" value="Lag deloppgave">Lag deloppgave</button>
                          </c:when>
                         <c:otherwise>
-                            Dette er deloppgavene du har lagt foreløpig: <br><br>  
+                            Dette er deloppgavene du har laget foreløpig: <br><br>  
                             <%
                                 int teller = 0;
                             %>
