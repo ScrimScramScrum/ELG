@@ -20,6 +20,7 @@
 	height: 100%;
 	width: 50%;
 	position: relative;
+	cursor: default;
 }
 
 #main_chat {

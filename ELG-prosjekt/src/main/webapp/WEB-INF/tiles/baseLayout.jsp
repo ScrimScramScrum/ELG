@@ -117,6 +117,9 @@
             $("#main_chat_mid").click(function() {
                 $("#message").focus();
             });
+            $("#choose_chat_mid").click(function() {
+                $("#message").focus();
+            });
         </script>
         <%
             }
