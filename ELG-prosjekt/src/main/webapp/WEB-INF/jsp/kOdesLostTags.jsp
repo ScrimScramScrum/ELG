@@ -14,11 +14,13 @@ function Game() {
 	this.score = 0;
 	this.speed = 25;
 	this.questionOnNow = 0;
-	this.theQuestions = [oppgave1, oppgave2, oppgave3, oppgave4, oppgave5, oppgave6, oppgave7, oppgave8, oppgave9, oppgave10,oppgave11, oppgave12, oppgave13, oppgave14, oppgave15, oppgave16, oppgave17, oppgave18, oppgave19, oppgave20];
+	this.theQuestions = [oppgave1, oppgave2, oppgave3, oppgave4, oppgave5, oppgave6, oppgave7, oppgave8, oppgave9, oppgave10,oppgave11, oppgave12, oppgave13, oppgave14, oppgave15, oppgave16, oppgave17, oppgave18, oppgave19, oppgave20, oppgave14, oppgave15, oppgave12, oppgave17, oppgave11];
 	this.questionDone = [];
-	this.questionToBeAsked = [0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19];
+	this.questionToBeAsked = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20, 10,14,3,5,2,];
 	this.round = 0;
         this.correctAnswerCounter = 0; 
+        this.wrongAnswerCounter = 0;
+        
 
 
 	this.chooseRandomNumber = function() {	
@@ -36,6 +38,8 @@ function Game() {
 		} else {
 			console.log("ikke OK");
                         //audioWrong.play();
+                        this.wrongAnswerCounter = 100;
+
                         return false;
 
 		}	
@@ -150,6 +154,16 @@ bgFinishImage.onload = function () {
 };
 bgFinishImage.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/backgroundFinish.jpg"/>";
 
+// FINISH Background image
+var bgGreenFinishReady = false;
+var bgGreenFinishImage = new Image();
+bgGreenFinishImage.onload = function () {
+	bgGreenFinishReady = true;
+};
+bgGreenFinishImage.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/bkGreen.png"/>";
+
+
+
 // Hero image
 var heroReady = false;
 var heroImage = new Image();
@@ -209,6 +223,14 @@ correctImage.onload = function () {
 	
 };
 correctImage.src = "<c:url value="/resources/images/check.png"/>";
+
+
+var wrongImage = new Image();
+wrongImage.onload = function () {
+	
+};
+wrongImage.src = "<c:url value="/resources/kOdesLostTags/kOdesLostTagsJS/kOdesLostTagsImages/xx.png"/>";
+
 
 // Game objects
 var hero = {
@@ -282,8 +304,9 @@ var reset = function () {
         audio120.play();
         //audio100.fadeIn(0.0, 1.0);
 
+    } if (theGame.round==15){
+        theGame.speed += 25;        
     }
-    
 	theGame.chooseRandomNumber()
 	theGame.speed += 15;
 	theGame.round ++;
@@ -397,110 +420,120 @@ var updateStartKode = function (modifier) {
 	if (13 in keysDown) { // Player pressing enter  
             startGameNow = true;            
 	}
-
 };
 
 // Draw everything
 var render = function () {
-	if (bgReady) {
-		ctx.drawImage(bgImage, 0, 0);
-	}
+    if (bgReady) {
+            ctx.drawImage(bgImage, 0, 0);
+    }
 
-	if (heroReady) {
-		ctx.drawImage(heroImage, hero.x, hero.y);
-	}
-
-
-	if (tag1Ready){
-		ctx.drawImage(tag1Image, tag1.x, tag1.y)
-	}
-
-	if (tag2Ready){
-		ctx.drawImage(tag2Image, tag2.x, tag2.y)
-	}
-	
-	if (tag3Ready){
-		ctx.drawImage(tag3Image, tag3.x, tag3.y)
-	}
-
-	if (tag4Ready){
-		ctx.drawImage(tag4Image, tag4.x, tag4.y)
-	}
+    if (heroReady) {
+            ctx.drawImage(heroImage, hero.x, hero.y);
+    }
 
 
-        if (theGame.correctAnswerCounter>=0){
-            ctx.drawImage(correctImage, 125,32);
-            theGame.correctAnswerCounter --;
-        }
+    if (tag1Ready){
+            ctx.drawImage(tag1Image, tag1.x, tag1.y)
+    }
 
-	// Score
-	ctx.fillStyle = "rgb(250, 250, 250)";
-	ctx.font = "20px Helvetica";
-	ctx.textAlign = "left";
-	ctx.textBaseline = "top";
-	ctx.fillText("Poeng: " + theGame.score, 32, 32);
-	ctx.fillText("Runde: " + theGame.round, 400, 32);
-	ctx.font = "30px Baskerville";
-        ctx.fillText(theGame.theQuestions[theGame.questionOnNow].question, 32, 60);
-	
+    if (tag2Ready){
+            ctx.drawImage(tag2Image, tag2.x, tag2.y)
+    }
+
+    if (tag3Ready){
+            ctx.drawImage(tag3Image, tag3.x, tag3.y)
+    }
+
+    if (tag4Ready){
+            ctx.drawImage(tag4Image, tag4.x, tag4.y)
+    }
+
+
+    if (theGame.correctAnswerCounter>0){
+        ctx.drawImage(correctImage, 125,32);
+        theGame.correctAnswerCounter --;
+    } 
+    if (theGame.wrongAnswerCounter >0){
+        ctx.drawImage(wrongImage, 125,32);
+        theGame.wrongAnswerCounter --;
+    }
+
+    // Score
+    ctx.fillStyle = "rgb(250, 250, 250)";
+    ctx.font = "20px Helvetica";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
+    ctx.fillText("Poeng: " + theGame.score, 32, 32);
+    ctx.fillText("Runde: " + theGame.round, 400, 32);
+    ctx.font = "30px Baskerville";
+    ctx.fillText(theGame.theQuestions[theGame.questionOnNow].question, 32, 60);
+
 };
 
 
 var renderFinishScoore = function(won) {
     
-	if (bgReady) {
-		ctx.drawImage(bgFinishImage, 0, 0);
-	}
-        
-        ctx.drawImage(kodeFinish, 250, 250);
-        
-        ctx.drawImage(tusenTakk, 130, 250);
+    if (bgReady) {		                
+            if (theGame.score>15){
+                ctx.drawImage(bgGreenFinishImage, 0, 0);
+            } else {
+                ctx.drawImage(bgFinishImage, 0, 0);
+            }
 
-	ctx.fillStyle = "rgb(250, 250, 250)";
-	ctx.font = "24px Helvetica";
-	ctx.textAlign = "left";
-	ctx.textBaseline = "top";
-        
-        if (theGame.score==19){
-            ctx.fillText("GRATULERER du har fullført K.Odes Lost Tags!", 32, 32);
-            ctx.fillText("Du fikk " + theGame.score + " poeng", 100, 100);
-            ctx.fillText("Nå har professor K.Ode endelig fått tilbake sine tags!", 50, 600);
+    } 
 
-        } else if (theGame.score==0) {
-            ctx.fillText("Uff... Nå har kanskje K. Ode mistet sine tags", 32, 32);
-            ctx.fillText("for alltid.... Du fikk bare " + theGame.score + " poeng", 100, 100);
-            ctx.fillText("Du burde absolutt jobbe videre!", 50, 600);
 
-        } else if (theGame.score<=5){
-            ctx.fillText("Dette var ikke så bra! ", 32, 32);
-            ctx.fillText("Du fikk bare " + theGame.score + " poeng, men er vel tanken som teller.", 32, 100);
-            ctx.fillText("Du burde nok jobbe litt til med dette!", 50, 600);
 
-            
-        } else if (theGame.score<=10){
-            ctx.fillText("Ikke perfekt men...", 32, 32);
-            ctx.fillText("Du fikk " + theGame.score + " poeng", 100, 100);
-            ctx.fillText("Professor K.Ode hadde fått flere enn dette...", 32, 130);
-            ctx.fillText("jobbe videre", 50, 600);
+    ctx.drawImage(kodeFinish, 250, 250);
 
-            
-        } else if (theGame.score<=15){
-            ctx.fillText("Du er flink!", 32, 32);
-            ctx.fillText("Du fikk  " + theGame.score + " poeng", 100, 100);
-            ctx.fillText("Ikke lenge til du finner alle!!", 50, 600);
+    ctx.drawImage(tusenTakk, 130, 250);
 
-            
-        } else if (theGame.score<=20){
-            ctx.fillText("GRATULERER Dette var kjempe bra!", 32, 32);
-            ctx.fillText(" Du fikk  " + theGame.score + " poeng", 100, 100);
-            ctx.fillText("Du er meget dyktig!", 50, 600);
+    ctx.fillStyle = "rgb(250, 250, 250)";
+    ctx.font = "24px Helvetica";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
 
-        }
-        
-        
-       setTimeout(function(){ location.reload(); }, 10000);
+    if (theGame.score>=25){
+        ctx.fillText("GRATULERER du har fullført K.Odes Lost Tags!", 32, 32);
+        ctx.fillText("Du fikk " + theGame.score + " poeng", 100, 100);
+        ctx.fillText("Nå har professor K.Ode endelig fått tilbake sine tags!", 50, 600);
 
-        
+    } else if (theGame.score==0) {
+        ctx.fillText("Uff... Nå har kanskje K. Ode mistet sine tags", 32, 32);
+        ctx.fillText("for alltid.... Du fikk bare " + theGame.score + " poeng", 100, 100);
+        ctx.fillText("Du burde absolutt jobbe videre!", 50, 600);
+
+    } else if (theGame.score<=5){
+        ctx.fillText("Dette var ikke så bra! ", 32, 32);
+        ctx.fillText("Du fikk bare " + theGame.score + " poeng, men er vel tanken som teller.", 32, 100);
+        ctx.fillText("Du burde nok jobbe litt til med dette!", 50, 600);
+
+
+    } else if (theGame.score<=10){
+        ctx.fillText("Ikke perfekt men...", 32, 32);
+        ctx.fillText("Du fikk " + theGame.score + " poeng", 100, 100);
+        ctx.fillText("Professor K.Ode hadde fått flere enn dette...", 32, 130);
+        ctx.fillText("jobbe videre", 50, 600);
+
+
+    } else if (theGame.score<=15){
+        ctx.fillText("Du er flink!", 32, 32);
+        ctx.fillText("Du fikk  " + theGame.score + " poeng", 100, 100);
+        ctx.fillText("Ikke lenge til du finner alle!!", 50, 600);
+
+
+    } else if (theGame.score<=24){
+        ctx.fillText("GRATULERER Dette var kjempe bra!", 32, 32);
+        ctx.fillText(" Du fikk  " + theGame.score + " poeng", 100, 100);
+        ctx.fillText("Du er meget dyktig!", 50, 600);
+
+    }
+
+
+   setTimeout(function(){ location.reload(); }, 10000);
+
+
 
 }
 
@@ -541,7 +574,7 @@ var startGameFunc = function () {
 
 	// Request to do this again ASAP
         
-        if ((theGame.round >= 20)){
+        if ((theGame.round >= 26)){
 		finishedGame(true);
 	} 
         
