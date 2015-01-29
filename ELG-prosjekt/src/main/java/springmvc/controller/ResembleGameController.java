@@ -168,7 +168,7 @@ public class ResembleGameController {
             mav.setViewName("firstLogin");
             return mav;         
         }
-        if(button.equals("Lag deloppgave")){
+        if(button.equals("Lag deloppgave") || createResembleGame.getResembleTasks().size() == 0 ){
             ResembleTask resembleTask = new ResembleTask(); 
             mav.addObject("createResembleTask", resembleTask);
             mav.setViewName("createresembletask");
