@@ -47,11 +47,15 @@ public class MainController {
     
     @ExceptionHandler(Throwable.class)
     public String handleTException(Throwable t) {
+        t.printStackTrace();
+        System.out.println("exception (main controller): " + t);
         return "error";
     } 
 
     @ExceptionHandler(Exception.class)
     public String handleException(Throwable t) {
+        t.printStackTrace();
+        System.out.println("exception (main controller): " + t);
         return "error";
     }
     
