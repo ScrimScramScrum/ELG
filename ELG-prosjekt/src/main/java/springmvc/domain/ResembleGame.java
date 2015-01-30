@@ -79,6 +79,7 @@ public class ResembleGame implements Serializable, Comparable<ResembleGame>{
     
     public boolean setTaskNumberScore(int taskNumber, double score){
         if(this.taskNumbers.contains(taskNumber)){
+            if(score>100) score = 0;
             this.taskScores[this.taskNumbers.indexOf(taskNumber)] = score; 
             return true; 
         }
