@@ -21,6 +21,9 @@ public class ResembleTaskService {
     public ResembleTask getResembleTask(int taskNumber){
         ResembleTask task =  repo.getResembleTask(taskNumber);
         task.setSolutionHTML(task.getSolutionHTML().replace("\"", "\'"));
+        task.setStartingHTML(task.getStartingHTML().replace("\"", "\'"));
+        task.setSolutionCSS(task.getSolutionCSS().replace("\"", "\'"));
+        task.setStartingCSS(task.getStartingCSS().replace("\"", "\'"));
         return task; 
     }
     
