@@ -86,7 +86,6 @@ public class Configuration extends WebMvcConfigurationSupport {
   
     @Bean
     public DataSource dataSource() throws Exception{
-        
         /*
         String url = "jdbc:derby://localhost:1527/ELGDB";
         String username = "ELGUSER";
@@ -97,16 +96,12 @@ public class Configuration extends WebMvcConfigurationSupport {
         bds.setPassword(password);
         bds.setInitialSize(100);
         */
-        
-        
+   
         //DATABASE:
         Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-        String url = "jdbc:derby://localhost:1527//home/dbhome/elgdb;create=true;user=ELGUser;password=ELGErAlltidBest";        
+        String url = "jdbc:derby://localhost:1527//home/pi/dbhome/elgdb;create=true;user=ELGUser;password=ELGErAlltidBest";        
         BasicDataSource bds = new BasicDataSource(); 
         bds.setUrl(url);       
-        
-        
-        
         return bds; 
     }
     
